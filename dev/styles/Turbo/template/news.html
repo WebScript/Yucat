@@ -1,0 +1,99 @@
+<div id="content" class="clearfix">
+    <div id="side-content-right">
+        <h3>{T_NEWS_SEARCH}</h3>
+        <div class="body-con">
+            <form action="javascript: void(0)" method="post" id="search-form" name="search-form" class="pos-rel">
+                <input type="text" id="search-keyword" name="search-keyword" value="Search..." onfocus="this.value = '';" class="search" />
+                <input type="submit" value="Go" id="search-btn" name="search-btn" class="grey search" />
+            </form>
+        </div>
+        <ul id="s-tabs" class="content-tabs clearfix">
+            <li class="active"><a href="#s-updates">{T_NEWS_UPDATES}</a></li>
+            <li><a href="#s-notifications">{T_NEWS_NOTIFICATIONS}</a></li>
+        </ul>
+        <div class="body-con">
+            <div id="s-updates">
+                <?php $msg = $db->uQuery(db::VIEWS, db::MESSAGES, Array(db::MESSAGES_TYPE => 2), 'ORDER BY `id` DESC LIMIT 10');
+                    while($lnk = $db->q(db::FETCH_ARRAY, $msg)) {
+                        echo '<div class="msg-'.$lnk[db::MESSAGES_VALUE].' enable-close"><h6>'.$lnk[db::MESSAGES_DATE].' '.$lnk[db::MESSAGES_TYPE].'</h6>'.$lnk[db::MESSAGES_MESSAGE].'</div>';
+                    } ?>
+            </div>
+            <div id="s-notifications">                                    
+                <?php $msg = $db->uQuery(db::VIEWS, db::MESSAGES, Array(db::MESSAGES_TYPE => 1), 'ORDER BY `id` DESC LIMIT 10');
+                    while($lnk = $db->q(db::FETCH_ARRAY, $msg)) {
+                        echo '<div class="msg-'.$lnk[db::MESSAGES_VALUE].' enable-close"><h6>'.$lnk[db::MESSAGES_DATE].' '.$lnk[db::MESSAGES_TYPE].'</h6>'.$lnk[db::MESSAGES_MESSAGE].'</div>';
+                    } ?>                                  
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">{T_STATS_H}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="backcolor tleft">{T_STATS_USERS}</td>
+                    <td class="tright tbold"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::USERS)); ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">{T_STATS_CREDIT}</td>
+                    <td class="tright">
+                        <?php $users = $db->uQuery(db::VIEWS, db::USERS);
+                            while($lnk = $db->q(db::FETCH_ARRAY, $users)) $credit += $lnk[db::USERS_CREDIT];
+                            echo Round($credit, 3);
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">{T_STATS_VIEWS_BANNERS}</td>
+                    <td class="tright"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, 'banners')); ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tcenter tbold" colspan="2">{T_STATS_SERVERS}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">SA:MP</td>
+                    <td class="tright"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::SAMP))); ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">CS 1.6</td>
+                    <td class="tright"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::CS16))); ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">CS Source</td>
+                    <td class="tright"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::CSS))); ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Ventrilo</td>
+                    <td class="tright"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::VNT))); ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">MTA</td>
+                    <td class="tright"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::MTA))); ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Shoutcast</td>
+                    <td class="tright"><?php echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::SC))); ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="main-content-left">
+        <h2>{T_WELCOME_H}</h2>                            
+        <div class="body-con tcenter">{T_WELCOME_DESC}</div>
+        <h2>{T_NEWS_H}</h2>
+        <div class="body-con">
+            <form action="" method="post">    
+                <?php $news = $db->uQuery(db::VIEWS, db::MESSAGES, Array(db::MESSAGES_TYPE => 0), 'ORDER BY `id` DESC LIMIT 10');
+                    while($lnk = $db->q(db::FETCH_ARRAY, $news)) {
+                        $user = $db->uQuery(db::VIEW, db::USERS, $lnk[db::MESSAGES_WHO]);
+                        echo '<fieldset><legend>'.$lnk[db::MESSAGES_TITLE].'</legend>';
+                        echo '<p>'.$lnk[db::MESSAGES_MESSAGE].'</p>';
+                        echo '<h6>{T_NEWS_AUTHOR} '.$user[db::MESSAGES_LOGIN].' | {T_NEWS_DAY} '.Date::getDate($lnk[db::NEWS_DATE]).' | {T_NEWS_TIME} '.Date::getTime($lnk[db::MESSAGES_TIME]).'</h6></fieldset>';
+                    } ?>
+            </form>
+        </div>                      
+    </div>
+</div>

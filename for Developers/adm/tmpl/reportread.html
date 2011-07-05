@@ -1,0 +1,62 @@
+<h2>Report Read</h2>
+<br />
+<br />
+
+<form method="post" class="sexyform">
+    <table width="400">
+        <tr>
+            <th>ID</th>
+            <th>Kdo</th>
+            <th>Kategoria</th>
+            <th>Report</th>
+            <th>chck</th>
+        </tr>
+        <?php
+        $q = MySQL::viewReports(Array("lock" => "0", "SpecialChars" => "ORDER BY `id` DESC"));
+        while($lnk = mysql_fetch_object($q))
+        {
+            $login = MySQL::viewUser($lnk->kdo)->login;
+        ?>
+        <tr>
+            <td><?php echo $lnk->id; ?></td>
+            <td><?php echo $login; ?></td>
+            <td><?php echo $lnk->kategoria; ?></td>
+            <td><?php echo $lnk->sprava; ?></td>
+            <td><input type="checkbox" name="list[]" value="<?php echo $lnk->id; ?>" /></td>
+        </tr>
+        <?php } ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="right"><input type="submit" value="Ok" /></td>
+        </tr>
+    </table>
+    <br />
+    <table width="400">
+        <tr>
+            <th>Cislo</th>
+            <th>Kategorie</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Bezpecnostna chyba administracie</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Chyba/Warning pri nejakej akcii</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Nahlasenie uzivatela porusujuceho pravidla</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Navrh na zmenu/y</td>
+        </tr>
+    </table>
+</form>
+<br />
+<br />
+<br />

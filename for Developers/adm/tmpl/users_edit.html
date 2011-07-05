@@ -1,0 +1,177 @@
+<?php
+    $who = $_GET["who"];
+    $q = MySQL::viewUser($who);
+    if(!$q) Die(Sec::Error("Takyto uzivatel neexistuje!", "Error", 0));
+
+    if($q->VIP == 5) $vip = '<font color="red"><b>Administrátor</b></font>';
+    else if($q->VIP == 4) $vip = '<font color="green"><b>Moderátor</b></font>';
+    else if($q->VIP == 3) $vip = '<font color="blue"><b>V.I.P.</b></font>';
+    else if($q->VIP == 2) $vip = '<b>Premium užívatel</b>';
+    else if($q->VIP == 1) $vip = '<b>Business užívatel</b>';
+    else if($q->VIP == 0) $vip = '<b>Bežný užívatel</b>';
+?>
+
+<h2>Profil uzivatela <?php echo $q->login; ?></h2>
+<br />
+<br />
+
+<table width="300">
+    <tr>
+        <th>Co</th>
+        <th>Hodnota</th>
+    </tr>
+    <tr>
+        <td>ID:</td>
+        <td><?php echo $q->id; ?></td>
+    </tr>
+    <tr>
+        <td>Login:</td>
+        <td><?php echo $q->login; ?></td>
+    </tr>
+    <tr>
+        <td>Hodnost:</td>
+        <td><?php echo $vip; ?></td>
+    </tr>
+    <tr>
+        <td>Meno:</td>
+        <td><?php echo $q->meno; ?></td>
+    </tr>
+    <tr>
+        <td>Priezvisko:</td>
+        <td><?php echo $q->priezvisko; ?></td>
+    </tr>
+    <tr>
+        <td>Jazyk:</td>
+        <td><?php echo $q->jazyk; ?></td>
+    </tr>
+    <tr>
+        <td>Kredit:</td>
+        <td><?php echo $q->kredit; ?></td>
+    </tr>
+    <tr>
+        <td>Splnuje podmienky:</td>
+        <td><?php echo $q->podmienky; ?></td>
+    </tr>
+    <tr>
+        <td>Avatar:</td>
+        <td><?php echo $q->avatar; ?></td>
+    </tr>
+    <tr>
+        <td>E-mail:</td><td><?php echo $q->mail; ?></td>
+    </tr>
+    <tr>
+        <td>Web:</td>
+        <td><?php echo $q->www; ?></td>
+    </tr>
+    <tr>
+        <td>IP Adresa:</td>
+        <td><?php echo $q->ip; ?></td>
+    </tr>
+    <tr>
+        <td>Pisanie do pokecu:</td>
+        <td><?php echo $q->pokec; ?></td>
+    </tr>
+</table>
+<br />
+<br />
+
+<table width="600">
+    <tr>
+        <th>ID</th>
+        <th>Hra</th>
+        <th>Server</th>
+        <th>Port</th>
+        <th>Sloty</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Lehota</th>
+        <th>Lock</th>
+        <th>Autorun</th>
+    </tr>
+    <?php
+    $q = MySQL::viewServers(Array("kdo" => $who));
+    while($lnk = mysql_fetch_object($q))
+    { ?>
+    <tr>
+        <td><?php echo $lnk->id; ?></td>
+        <td><?php echo $lnk->hra; ?></td>
+        <td><?php echo $lnk->server; ?></td>
+        <td><?php echo $lnk->port; ?></td>
+        <td><?php echo $lnk->sloty; ?></td>
+        <td><?php echo $lnk->start; ?></td>
+        <td><?php echo $lnk->end; ?></td>
+        <td><?php echo $lnk->lehota; ?></td>
+        <td><?php echo $lnk->lock; ?></td>
+        <td><?php echo $lnk->autorun; ?></td>
+    </tr>
+    <?php } ?>
+</table>
+<br />
+
+<table width="500">
+    <tr>
+        <th>Akcia</th>
+        <th>IP Adresa</th>
+        <th>Dátum</th>
+    </tr>
+    <?php
+    $q = MySQL::getAccess(Array("kdo" => $who));
+    while($lnk = mysql_fetch_object($q))
+    { ?>
+    <tr>
+        <td><?php echo $lnk->co; ?></td>
+        <td><?php echo $lnk->ip; ?></td>
+        <td><?php echo $lnk->datum; ?></td>
+    </tr>
+    <?php } ?>
+</table>
+<br />
+
+<table width="300">
+    <tr>
+        <th>Rovnaka IP</th>
+        <th>Z kým</th>
+    </tr>
+    <?php
+    $ar = Array();
+    $ae = Array();
+
+    $q = MySQL::getAccess(Array("kdo" => $who));
+    while($lnk = mysql_fetch_object($q))
+    {
+        $br = 0;
+        foreach($ar AS $value)
+        {
+            if($value == $lnk->ip)
+            {
+                $br = 1;
+                break;
+            }
+        }
+        if($br) continue;
+        Array_Push($ar, $lnk->ip);
+
+        $q2 = MySQL::getAccess(Array("ip" => $lnk->ip, "SpecialChars" => " AND `kdo` != ".$who));
+        while($omg = mysql_fetch_object($q2))
+        {
+            $be = 0;
+            $kdo = MySQL::viewUser($omg->kdo);
+            foreach($ae AS $value)
+            {
+                if($value == $omg->kdo)
+                {
+                    $be = 1;
+                    break;
+                }
+            }
+            if($be) continue;
+            Array_Push($ae, $omg->kdo);
+            ?>
+    <tr>
+        <td><?php echo $omg->ip; ?></td>
+        <td><?php echo $kdo->login; ?></td>
+    </tr>
+    <?php }} ?>
+</table>
+<br />
+<br />

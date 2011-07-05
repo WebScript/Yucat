@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="robots" content="noindex, noarchive" />
+	<meta name="generator" content="UWAP" />
+
+	<title><?php echo $errorName; ?></title>
+
+	<style type="text/css" class="yucat">
+            body {
+                margin: 0 0 2em;
+                padding: 0;
+            }
+            
+            #yucatBluescreen {
+                font: 9pt/1.5 Verdana,sans-serif;
+                background: white;
+                color: #333;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                z-index: 23178;
+                text-align: left;
+            }
+            
+            #yucatBluescreen *{
+                font: inherit;
+                color: inherit;
+                background: transparent;
+                border: none;
+                margin: 0;
+                padding: 0;
+                text-align: inherit;
+                text-indent: 0;
+            }
+            
+            #yucatBluescreen b {
+                font-weight: bold;
+            }
+            
+            #yucatBluescreen i {
+                font-style: italic;
+            }
+            
+            #yucatBluescreenIcon {
+                position: absolute;
+                right: .5em;
+                top: .5em;
+                z-index: 23179;
+                text-decoration: none;
+                background: #CD1818;
+                padding: 3px;
+            }
+            
+            #yucatBluescreenError{
+                background: #CD1818;
+                color: white;
+                font: 13pt/1.5 Verdana,sans-serif!important;
+                display: block;
+            }
+            
+            #yucatBluescreen h1 {
+                font-size: 18pt;
+                font-weight: normal;
+                text-shadow: 1px 1px 0 rgba(0,0,0,.4);
+                margin: .7em 0;
+            }
+            
+            #yucatBluescreen h2 {
+                font: 14pt/1.5 sans-serif!important;
+                color: #888;
+                margin: .6em 0
+            }
+            
+            #yucatBluescreen a {
+                text-decoration: none;
+                color: #328ADC;
+                padding: 2px 4px;
+                margin: -2px -4px;
+            }
+            
+            #yucatBluescreen a abbr {
+                font-family: sans-serif;
+                color: #BBB;
+            }
+            
+            #yucatBluescreen h3 { 
+                font: bold 10pt/1.5 Verdana,sans-serif!important;
+                margin: 1em 0;
+                padding: 0;
+            }
+            
+            #yucatBluescreen p, #yucatBluescreen pre {
+                margin: .8em 0;
+            }
+            
+            #yucatBluescreen pre, #yucatBluescreen code, #yucatBluescreen table {
+                font: 9pt/1.5 Consolas,monospace!important;
+            }
+            
+            #yucatBluescreen pre, #yucatBluescreen table{
+                background: #FDF5CE;
+                padding: .4em .7em;
+                border: 1px dotted silver;
+                overflow: auto
+            }
+            
+            #yucatBluescreen table pre {
+                padding: 0;
+                margin: 0;
+                border: none
+            }
+            
+            #yucatBluescreen pre.yucat-dump span {
+                color: #C22;
+            } 
+            
+            #yucatBluescreen pre.yucat-dump a {
+                color: #333;
+            }
+            
+            #yucatBluescreen div.panel {
+                padding: 1px 25px;
+            }
+            
+            #yucatBluescreen div.inner {
+                background: #F4F3F1;
+                padding: .1em 1em 1em;
+                border-radius: 8px;
+                -moz-border-radius: 8px;
+                -webkit-border-radius: 8px;
+            }
+            
+            #yucatBluescreen table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            
+            #yucatBluescreen .outer {
+                overflow: auto;
+            }
+            
+            #yucatBluescreen td, #yucatBluescreen th {
+                vertical-align: top;
+                text-align: left;
+                padding: 2px 6px;
+                border: 1px solid #e6dfbf;
+            }
+            
+            #yucatBluescreen th {
+                width: 10%;
+                font-weight: bold;
+            }
+            
+            #yucatBluescreen tr:nth-child(2n), #yucatBluescreen tr:nth-child(2n) pre {
+                background-color: #F7F0CB;
+            }
+            
+            #yucatBluescreen ol {
+                margin: 1em 0;
+                padding-left: 2.5em;
+            }
+            
+            #yucatBluescreen ul {
+                font: 7pt/1.5 Verdana,sans-serif!important;
+                padding: 2em 4em;
+                margin: 1em 0 0;
+                color: #777;
+                background: #F6F5F3 99% 10px no-repeat;
+                border-top: 1px solid #DDD;
+            }
+            
+            #yucatBluescreen .highlight {
+                background: #CD1818;
+                color: white;
+                font-weight: bold;
+                font-style: normal;
+                display: block;
+                padding: 0 .4em;
+                margin: 0 -.4em;
+            }
+            
+            #yucatBluescreen .line {
+                color: #9F9C7F;
+                font-weight: normal;
+                font-style: normal;
+            }
+            
+            #yucatBluescreen a[href^=editor\:] {
+                color: inherit;
+                border-bottom: 1px dotted #328ADC;
+            }
+            
+            .collapsed { 
+                display: none;
+            } 
+        </style>
+	<script type="text/javascript">
+            /*<![CDATA[*/
+            function yucatToggle(c,e) {
+                for(var b=c.getElementsByTagName("abbr")[0],a=e?document.getElementById(e):c.nextSibling;a.nodeType!==1;)a=a.nextSibling;
+                var d=a.currentStyle?a.currentStyle.display=="none": getComputedStyle(a,null).display=="none";
+                try{b.innerHTML=String.fromCharCode(d?9660:9658)}
+                catch(f){}
+                a.style.display=d?a.tagName.toLowerCase()==="code"?"inline":"block":"none";
+                if(c.id==="yucatBluescreenIcon") {
+                    b=0;
+                    for(a=document.styleSheets;b<a.length;b++) if((a[b].owningElement||a[b].ownerNode).className!== "yucat") a[b].disabled=d?true:a[b].oldDisabled
+                }
+                return true};
+            /*]]>*/
+        </script>
+    </head>
+
+    <body>
+        <script type="text/javascript">
+            /*<![CDATA[*/
+            document.body.appendChild(document.getElementById("yucatBluescreen"));
+            document.onkeyup=function(a) {
+                a=a||window.event;
+                if(a.keyCode==27) return document.getElementById("yucatBluescreenIcon").onclick()
+            };
+            for(var i=0,styles=document.styleSheets;i<styles.length;i++) if((styles[i].owningElement||styles[i].ownerNode).className!=="yucat") {
+                styles[i].oldDisabled=styles[i].disabled;
+                styles[i].disabled=true
+            };
+            /*]]>*/
+        </script>
+
+        <div id="yucatBluescreen">
+            <a id="yucatBluescreenIcon" href="#" onclick="return !yucatToggle(this)"><abbr>▼</abbr></a>
+            <div>
+                <div id="yucatBluescreenError" class="panel">
+                    <h1><?php echo $errorName; ?></h1>
+                    <p><?php echo $errorMessage; ?></p>
+                </div>
+
+                
+                <div class="panel">
+                    <h2><a href="#" onclick="return !yucatToggle(this, 'omglol')">Call stack <abbr>▼</abbr></a></h2>
+                    <div id="omglol" class="inner">
+                        <ol>                         
+                            <li>
+                                <p>
+                                    <!-- <a href="editor://open/?file=W%3A%5CCD-collection%5Capp%5Cpresenters%5CDashboardPresenter.php&amp;line=14" title=""> -->
+                                        <?php echo $errorParsedFile[0]; ?><b><?php echo $errorParsedFile[1]; ?></b></a> (<?php echo $errorLine; ?>)
+                                    <a href="#" onclick="return !yucatToggle(this, 'error')">source <abbr>►</abbr></a>
+                                </p>
+                                <pre id="error"><code><?php echo self::highlightSource($errorFile, $errorLine); ?></code></pre>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+
+                <div class="panel">
+                    <h2><a href="#" onclick="return !yucatToggle(this, 'env')">Environment <abbr>►</abbr></a></h2>
+
+                    <div id="env" class="collapsed inner">
+                        <div class="outer">
+
+
+                            <h3>$_SERVER</h3>
+                            <div class="outer">
+                                <table>
+                                    <tbody>
+                                        <?php
+                                            foreach($_SERVER as $param => $value) {
+                                                echo '<tr><th>'.$param.'</th><td><pre class="yucat-dump">"'.$value.'" ('.strlen($value).')</pre></td></tr>';
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="panel">
+                        <h2><a href="#" onclick="return !yucatToggle(this, 'yucatBsPnl5')">HTTP request <abbr>►</abbr></a></h2>
+
+                        <div id="yucatBsPnl5" class="collapsed inner">
+                            <h3>Headers</h3>
+                            <div class="outer">
+                                <table>
+                                    <tbody>
+                                        <?php
+                                            foreach(apache_request_headers() as $param => $value) {
+                                                echo '<tr><th>'.$param.'</th><td>'.$value.'</td></tr>';
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <h3>$_GET</h3>
+                            <?php
+                                if($_GET) {
+                                    echo '<div class="outer"><table><tbody>';
+                                    
+                                    foreach($_GET as $param => $value) {
+                                        echo '<tr><th>'.$param.'</th><td><pre class="yucat-dump">"'.$value.'" ('.strlen($value).')</pre></td></tr>';
+                                    }
+                                    echo '</tbody></table></div>';
+                                } else {
+                                    echo '<p><i>empty</i></p>';
+                                }
+                            ?>
+
+                            <h3>$_POST</h3>
+                            <?php
+                                if($_POST) {
+                                    echo '<div class="outer"><table><tbody>';
+                                    
+                                    foreach($_POST as $param => $value) {
+                                        echo '<tr><th>'.$param.'</th><td><pre class="yucat-dump">"'.$value.'" ('.strlen($value).')</pre></td></tr>';
+                                    }
+                                    echo '</tbody></table></div>';
+                                } else {
+                                    echo '<p><i>empty</i></p>';
+                                }
+                            ?>
+
+                            <h3>$_COOKIE</h3>
+                            <?php
+                                if($_COOKIE) {
+                                    echo '<div class="outer"><table><tbody>';
+                                    
+                                    foreach($_COOKIE as $param => $value) {
+                                        echo '<tr><th>'.$param.'</th><td><pre class="yucat-dump">"'.$value.'" ('.strlen($value).')</pre></td></tr>';
+                                    }
+                                    echo '</tbody></table></div>';
+                                } else {
+                                    echo '<p><i>empty</i></p>';
+                                }
+                            ?>
+                            
+                            <h3>$_SESSION</h3>
+                            <?php
+                                if($_SESSION) {
+                                    echo '<div class="outer"><table><tbody>';
+                                    
+                                    foreach($_SESSION as $param => $value) {
+                                        echo '<tr><th>'.$param.'</th><td><pre class="yucat-dump">"'.$value.'" ('.strlen($value).')</pre></td></tr>';
+                                    }
+                                    echo '</tbody></table></div>';
+                                } else {
+                                    echo '<p><i>empty</i></p>';
+                                }
+                            ?>
+                        </div>
+                    </div>
+
+
+                    <div class="panel">
+                        <h2><a href="#" onclick="return !yucatToggle(this, 'omg')">HTTP response <abbr>►</abbr></a></h2>
+
+                        <div id="omg" class="collapsed inner">
+                            <h3>Headers</h3>
+                            <pre><?php 
+                                    foreach(get_headers($_SERVER['SCRIPT_URI']) as $value) {
+                                        echo $value.'<br />';
+                                    }
+                                ?>
+                            </pre>
+                        </div>
+                    </div>
+
+
+                    
+                    
+                    
+                    <ul>
+                        <li>Report generated at <?php echo $date ?></li>
+                        <li><a href="<?php echo CFG_PROTOCOL.CFG_WEBSITE; ?>"><?php echo CFG_PROTOCOL.CFG_WEBSITE; ?></a></li>
+                        <li>PHP <?php echo phpversion(); ?></li>
+                        <li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
+                        <li>Yucat administration for manage servers</i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div></div>
+    </body>
+</html>

@@ -1,0 +1,54 @@
++Dorobit posielanie kreditu + poslednych 10 transakcii
+-dorobit kontrolu chmodu na samp03svr a na announce
+
++pridat do registracii povinny vek
++Pridat overovanie mailov
+
+
++Spravit taky ako keby verejny profil, take mini okno kde s budu moct uzivatelia pozerat druhym profil
++Pre admina pridat tam ban/lock tlacitko
++a pre uzivatelov send credit
+
+
+
+Spravit do profile motto
++Moznost session alebo cookies
++Pridat zoradenie do tabuliek ako je napr access log
+
+
+
+Do v2 spravit:
+	Pridanie priatelov a nepriatelov
+
+	PM/online spravy
+	Vlastne avatary
+break;
+
+
+
+HL menu dat ako
+Hlavne
+Statistiky
+Server
+Tickets
+Mini-forum
+
+
+Hlavne: 
+Profil, zmena hesla
+
+
+Statistiky:
+Skusknete bannery
+posledne transakcie kreditu
+NAvstevnost serverov
+Access log
+
+
+Tickets:
+Podanie ticketu
+Podane tickety - tabulka = lockunte, riesia sa, neotvorene, zrusene
+
+
+Mini-forum:
+je to vlastne pokec kde si mozete zakladat vlastne temy a odpovedat na kazdu

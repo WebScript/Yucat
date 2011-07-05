@@ -1,0 +1,153 @@
+<div id="content" class="clearfix">
+            <div id="side-content-right">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Udaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="backcolor tleft" width="100">ID:</td>
+                    <td>{UID}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Login:</td>
+                    <td>{LOGIN}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Rank:</td>
+                    <td><?php echo $vip; ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Kredit:</td>
+                    <td>{CREDIT}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Denna spotreba:</td>
+                    <td><?php echo $credit_peer_day ?></td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">IP:</td>
+                    <td>{DB_UIP}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Last login:</td>
+                    <td>{LAST_LOGIN}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Informacie</h3>
+        <div class="body-con">
+            <p><strong>Vas ucet</strong> nejake picoviny o ucte</p>
+            <p>The <strong>Twitter widget</strong> is ready for work. Enter your Twitter's app credentials and update your status right away.</p>
+        </div>
+    </div>
+    
+    <div id="main-content-left">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="6">Pristupovy log, Kdo vsetko bol prihlaseny na vasom ucte a co robil</th>
+                </tr>
+                <tr>
+                    <th>p.c.</th>
+                    <th>Typ</th>
+                    <th>Akcia</th>
+                    <th>Datum</th>
+                    <th>Cas</th>
+                    <th>IP</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <?php
+                    $etc = Page::getAddress(2);
+                    if(!$etc) $etc = 1;
+                    
+                    $peerPage = 10;
+                    $num = ($etc - 1) * $peerPage;
+                    $banners = $db->uQuery(db::VIEWS, db::ACCESS, array(db::ACCESS_WHO => UID), 'LIMIT '.(($etc - 1) * $peerPage).', '.$peerPage);
+                    while($lnk = $db->q(db::FETCH_ARRAY, $banners)) {
+                        $out[] = '<tr>';
+                        $out[] = '<td class="tbold backcolor">'.$num.'</td>';
+                        $out[] = '<td>'.$lnk[db::ACCESS_TYPE].'</td>';
+                        $out[] = '<td>'.Lang::translate($lnk[db::ACCESS_ACTION]).'</td>';
+                        $out[] = '<td>'.Date::getDate($lnk[db::ACCESS_DATE]).'</td>';
+                        $out[] = '<td>'.Date::getTime($lnk[db::ACCESS_DATE]).'</td>';
+                        $out[] = '<td>'.$lnk[db::ACCESS_IP].'</td>';
+                        $out[] = '</tr>';
+                        $num++;
+                    }
+                    echo implode('', $out);
+                ?>
+            </tbody>
+        </table>
+        <ul class="pagination tcenter">
+            <?php
+                $count = $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::ACCESS, array(db::ACCESS_WHO => UID)));
+                echo Page::pager($etc, $count, $peerPage);
+            ?>
+        </ul>
+
+        <h2>Graf</h2>
+        <div class="body-con">
+            <div id="stats" class="flot-con"></div>
+
+        </div>                  
+    </div>
+</div>
+
+
+<script>
+    <?php
+        $out = array(
+        '01' => 0,
+        '02' => 0,
+        '03' => 0,
+        '04' => 0,
+        '05' => 0,
+        '06' => 0,
+        '07' => 0,
+        '08' => 0,
+        '09' => 0,
+        '10' => 0,
+        '11' => 0,
+        '12' => 0);
+        
+        $String = array();
+        $banners = $db->uQuery(db::VIEWS, db::BANNERS, array(db::BANNERS_WHO => UID));
+        while($lnk = $db->q(db::FETCH_ARRAY, $banners)) {
+            $out[Date('m', $lnk[db::BANNERS_DATE])]++;
+        }
+
+        $string[] = 'var d1 = [ ';
+        foreach($out AS $param => $value) {
+            $string[] = '['.$param.', '.$value.'],';
+        }
+        $string[] = '];';
+        echo implode('', $string);
+    ?>
+</script>
+
+<script>
+    $(function() {
+        $.plot($("#stats"), [{
+                data: d1,
+                lines: {show: true, fillColor: '#FFFFFF', fill: 1},
+                points: {show: true}
+            }], {
+            xaxis: {
+            ticks: [[01, "Jan"], [02, "Feb"], [03, "Mar"], [04, "Apr"], [05, "May"], [06, "Jun"], [07, "Jul"],
+                   [08, "Aug"], [09, "Sep"], [10, "Oct"], [11, "Nov"], [12, "Dec"]]
+            },
+            yaxis: {
+            ticks: 10,
+            min: 0
+            },
+            grid: {
+            backgroundColor: {colors: ["#FFFFFF", "#EEEEEE"]}
+            }
+        });
+    })
+</script>

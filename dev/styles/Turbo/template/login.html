@@ -1,0 +1,59 @@
+        <div id="login-container-outer" class="radius">
+            <div id="login-container" class="radius">
+                <div id="login-header" class="radius-top">
+                    <a href="login">
+                        <img src="{THEME_DIR}img/login_logo.png" alt="login logo" />
+                    </a>                    
+                </div>
+                <div id="login-content">
+                    <form action="" method="post" id="wl-form" name="wl-form">
+                        <label for="wl-username">{T_LOGIN_USERNAME}</label>
+                        <input type="text" id="wl-username" name="username" />
+                        <label for="wl-password">{T_LOGIN_PASSWORD}</label>
+                        <input type="password" id="wl-password" name="password" />
+                        <label for="wl-remember">{T_LOGIN_REMEMBER}</label>
+                        <input type="checkbox" id="wl-remember" name="remember" />
+                        <input type="submit" value="{T_LOGIN_ENTER}" id="wl-btn" name="wl-btn" class="fright" />
+                    </form>
+                    <form action="" method="post" id="wr-form" name="wr-form" class="dis-none">
+                        <label for="wr-email">{T_LOGIN_ENTER_MAIL}</label>
+                        <input type="text" id="wr-email" name="email" />
+                        <p class="tright">
+                            <input type="submit" value="{T_LOGIN_SEND_PASSWORD}" id="wr-btn" name="wr-btn" />
+                        </p>
+                    </form>
+                </div>
+                <div id="login-extra" class="radius-bottom">
+                    <a id="a-reminder" href="javascript: void(0)" class="afooter-link">{T_LOGIN_FORGOT_PASSWORD}</a>
+                    <a id="a-login" href="javascript: void(0)" class="afooter-link dis-none">{T_SUDDENDLY_REMEMBERED}</a>
+                </div>
+            </div>
+        </div>
+		<script>
+            $(function(){
+            $("select").uniform();
+            $("input:checkbox").uniform();
+            $("input:radio").uniform();
+            $("input:file").uniform();
+            $('#a-reminder').click(function(){
+            $('#wl-form').slideUp( 300, function(){
+            $('#wr-form').slideDown( 300, function(){
+            $('#a-reminder').hide( 1, function(){
+            $('#a-login').show();
+            $('#wr-email').focus();
+            });
+            });
+            });
+            });
+            $('#a-login').click(function(){
+            $('#wr-form').slideUp( 300, function(){
+            $('#wl-form').slideDown( 300, function(){
+            $('#a-login').hide( 1, function(){
+            $('#a-reminder').show();
+            });
+            });
+            });
+            });
+
+            });
+        </script>
