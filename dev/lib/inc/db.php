@@ -20,7 +20,132 @@
 
     class db {
         /** @var ressource of connection to DB */
-        private static $connection;
+        private $connection;
+        private $query;
+        
+        private $tables;
+        
+        private $where = array();
+        private $insert = array();
+        private $delete = array();
+        private $update = array();
+       
+        private $select;
+        
+        private $limit;
+        private $offset;
+        
+        
+        public function table($table) {
+            $this->clear();
+            $this->tables = $table;
+            return $this;
+        }
+        
+        
+        public function where($what, $by) {
+            $this->where = array_merge($this->where, array($what => $by));
+            return $this;
+        }
+        
+        
+        public function insert(array $input) {
+            $this->insert = array_merge($this->insert, $input);
+            return $this;
+        }
+        
+        
+        public function delete($what, $by) {
+            $this->delete = array_merge($this->delete, array($what => $by));
+            return $this;
+        }
+
+        
+        public function select($input) {
+            $this->select = $input;
+            return $this;
+        }
+
+
+
+        public function limit($limit, $offset = NULL) {
+            $this->limit = $limit;
+            $this->offset = $offset;
+            return $this;
+        }
+        
+        
+        public function query($query) {
+            return mysql_query($query);
+        }
+        
+        
+        public function make() {
+            // SELECT * FROM users WHERE id = 7 LIMIT 1, 30
+            $query = array();
+            
+            if($this->where) {
+                $query[] = 'SELECT ';
+                $query[] = $this->select ? $this->select : '*';
+                $query[] = ' FROM ';
+                $query[] = $this->tables;
+                $query[] = ' WHERE ';
+                $query[] = $this->parse($this->where, ' AND ', TRUE);
+                
+                if($this->limit) {
+                    $query[] = ' LIMIT ';
+                    $query[] = $this->limit;
+                    
+                    if($this->offset) {
+                        $query[] = ', ';
+                        $query[] = $this->offset;
+                        
+                    }
+                }
+            } elseif($this->insert) {
+                
+            } elseif($this->delete) {
+                
+            } elseif($this->update) {
+                
+            }
+            
+            $query = implode('', $query);
+            $this->query = $query;
+            return $query;
+        }
+
+
+
+
+
+
+       /* public function fetch() {
+            $
+        }
+        */
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        private function clear() {
+            $this->tables = NULL;
+            $this->where = array();
+            $this->insert = array();
+            $this->limit = NULL;
+            $this->offset = NULL;
+        }
+        
+        
+        
         
         
         
@@ -39,13 +164,7 @@
         }
         
         
-        private $tables = array();
-        private $limit;
-        private $offset;
-        private $where = array();
-        
-        
-        
+
         
        
         /**
@@ -54,8 +173,8 @@
          * @param array $input input for db query
          * @return string is returned sql input
          */
-        private static function array2SQL($parase = FALSE, array $input) {
-            $return = $delimiter = FALSE;
+        private function parse(array $input, $delimiter, $setter = FALSE) {
+            $return = FALSE;
             $out = array();
             
             foreach($input AS $param => $value) {
@@ -63,26 +182,19 @@
                 $input[$param] = "'".$value."'";
             }
 
-            switch($parase) {
-                case 'INSERT' :
-                    $out[] = '(';
-                    $out[] = Arr::implodeArrayKeys($input, ',');
-                    $out[] = ') VALUES (';
-                    $out[] = implode(',', $input);
-                    $out[] = ')';
-                    $return = implode('', $out);
-                break;
-                case 'COMMA' :
-                    $delimiter = ', ';
-                break;
-                case 'AND' :
-                    $delimiter = ' AND ';
-                break;
+            if($delimiter === 'INSERT') {
+                $out[] = '(';
+                $out[] = Arr::implodeArrayKeys($input, ',');
+                $out[] = ') VALUES (';
+                $out[] = implode(',', $input);
+                $out[] = ')';
+                $return = implode('', $out);
+                $delimiter = '';
             }
 
             if(!$return) {
                 foreach($input AS $param => $value) {
-                    $out[] = $param.' = '.$value;
+                    $out[] = $setter ? $param.' = '.$value : $value;
                 }
                 $return = implode($delimiter, $out);
             }
@@ -117,53 +229,7 @@
             return $return;
         }
         
-        
-        /**
-         * This function is for work with MySQL database
-         * @param string $type type of query
-         * @param string $db param 1
-         * @param string $column2 param 2
-         * @param string $column3 param 3
-         * @return mixed if $type is db::VIEW returned is string
-         */
-        public function uQuery($type, $db, $column2 = FALSE, $column3 = FALSE) { 
-            $return = FALSE;
-            switch($type) {
-                case self::ADD : 
-                    $query = 'INSERT INTO `'.$db.'` '.self::array2SQL('INSERT', $column2);
-                    self::q(self::QUERY, $query);
-                    $return = TRUE;
-                break;
-                case self::VIEWS :
-                    if(!$column2){
-                        $where = '1';
-                    } elseif(is_numeric($column2)) {
-                        $where = '`id` = "'.$column2.'"';
-                    } elseif(is_array($column2)) {
-                        $where = self::array2SQL('AND', $column2);
-                    }
-                    
-                    $query = 'SELECT * FROM `'.$db.'` WHERE '.$where.' '.$column3;
-                    $return = self::q(self::QUERY, $query);
-                    
-                    if(is_numeric($column2)) {
-                        $return = self::q(self::FETCH_ARRAY, $return);
-                    }
-                break;
-                case self::UPDATE : 
-                    $query = 'UPDATE `'.$db.'` SET '.self::array2SQL('COMMA', $column2).' WHERE '.self::array2SQL('AND', $column3);
-                    self::q(self::QUERY, $query);
-                    $return = TRUE;
-                break;
-                case self::DELETE :
-                    $query = 'DELETE FROM `'.$db.'` WHERE '.self::array2SQL('AND', $column2);
-                    self::q(self::QUERY, $query);
-                    $return = TRUE;
-                break;
-            }
-            return $return;
-        }
-        
+
         
         /**
          * This is function for optimize table

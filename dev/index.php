@@ -40,20 +40,44 @@
     define('STYLE', $_SESSION['style']);
     
     /** Call a error handler */
-    inc\Diagnostics\Debug::_init();
+    //inc\Diagnostics\Debug::_init();
     /** Set developer mode */
-    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
+    //inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
-    $db = db::_init(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
+    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     if(UID) {
         /** @var user's informations */
-        $user = $db->uQuery(db::VIEWS, db::USERS, UID);
+        //$user = $db->uQuery(db::VIEWS, db::USERS, UID);
         /** Check if user is logged */
         //inc\Auth::isLogged();
     }
-    if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
+    //if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
 
+    
+    
+    
+    
+    
+    
+    $test = $db->table('users, servers')
+            ->select('users.id, servers.owner')
+            ->where('id', 6)
+            ->limit(10, 15)
+            ->make();
+    
+    
+    
+    echo $test;
+    
+    
+    
+    
+    
+    
+    die();
+    
+    
     
     use inc\Lang;
 use inc\Page;
