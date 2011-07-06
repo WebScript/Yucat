@@ -25,10 +25,9 @@
         
         private $tables;
         
+        
+        private $action; 
         private $where = array();
-        private $insert = array();
-        private $delete = array();
-        private $update = array();
        
         private $select;
         
