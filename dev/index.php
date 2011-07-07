@@ -72,7 +72,7 @@
     
     
     
-    
+    //Pouzite ERR_NOT_NUMERIC
     
     
     die();
@@ -96,18 +96,6 @@ use inc\Page;
     //Load global functions
     //Page::init();
 
-    //add ERR_EMAIL_ALREADY_REGISTRED
-    //AC_LOGOUT
-    /* pridat do CZ""
-     * "T_PF_RANK_5" => "Administr�tor",
-    "T_PF_RANK_4" => "Moder�tor",
-    "T_PF_RANK_3" => "V.I.P.",
-    "T_PF_RANK_2" => "Premium u��vatel",
-    "T_PF_RANK_1" => "Business u��vatel",
-    "T_PF_RANK_0" => "Be�n� u��vatel",
-     */
-   
-    
     
     
 

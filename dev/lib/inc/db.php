@@ -18,6 +18,7 @@
      * @todo Dorobit dokumentaciu
      * @todo dorobit make() myslim
      * @todo spravit dump(), $fetch(), $fetchArray()
+     * @todo fixnut clear()
      */
 
     class db {
@@ -31,8 +32,8 @@
         private $action = 'SELECT'; 
         /** @var select in table by this e.g. SELECT * FROM ... WHERE (var) */
         private $where = array();
-        /** @var array of update values */
-        private $update = array();
+        /** @var array of update or insert values */
+        private $values = array();
         /** @var select in SELECT (var) FROM */
         private $select;
         /** @var limit of rows */
@@ -48,7 +49,7 @@
          */
         public function tables($table) {
             $this->clear();
-            $this->tables = $table;
+            $this->tables = \inc\Security::protect($table, TRUE);
             return $this;
         }
         
@@ -67,7 +68,7 @@
         
         public function insert(array $input) {
             $this->action = 'INSERT';
-            $this->insert = array_merge($this->insert, $input);
+            $this->values = array_merge($this->values, $input);
             return $this;
         }
         
@@ -80,7 +81,7 @@
         
         public function update(array $what) {
             $this->action = 'UPDATE';
-            $this->update = $what;
+            $this->values = $what;
         }
 
         
@@ -92,8 +93,12 @@
 
 
         public function limit($limit, $offset = NULL) {
-            $this->limit = $limit;
-            $this->offset = $offset;
+            if(is_numeric($limit) && is_numeric($offset)) {
+                $this->limit = $limit;
+                $this->offset = $offset;
+            } else {
+                Diagnostics\ExceptionHandler::Exception('ERR_NOT_NUMERIC');
+            }
             return $this;
         }
         
@@ -113,7 +118,11 @@
        
         
         
-        
+        /*
+         * insert
+         * update
+         * where
+         */
         
         
         
@@ -175,7 +184,7 @@
             // SELECT * FROM users WHERE id = 7 LIMIT 1, 30
             $query = array();
             
-            if($this->action === 'INSERT') {
+            if($this->action === 'SELECT') {
                 $query[] = 'SELECT ';
                 $query[] = $this->select ? $this->select : '*';
                 $query[] = ' FROM ';
@@ -193,8 +202,10 @@
                         
                     }
                 }
-            } elseif($this->action === 'SELECT') {
-                
+            } elseif($this->action === 'INSERT') {
+                $query[] = 'INSERT INTO ';
+                $query[] = $this->tables;
+                $query[] = $this->parse($this->values, 'INSERT');
             } elseif($this->action === 'UPDATE') {
                 
             } elseif($this->action === 'DELETE') {
