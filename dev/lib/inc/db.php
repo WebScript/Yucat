@@ -13,14 +13,10 @@
      * @since      Class available since Release 0.3.2
      * 
      * 
-     * @todo Dorobit dokumentaciu
      * @todo spravit dump()
-     * @todo sformatovat vsetky metody
      */
 
     namespace inc;
-
-
 
     class db {
         /** @var ressource of connection to DB */
@@ -42,108 +38,14 @@
         /** @var offset */
         private $offset;
         
-        
+               
         /**
-         * Select table for actions with DB 
-         * @param string $table users, servers, machines, etc.
-         * @return db 
+         * Create a connection with DB
+         * @param string $host
+         * @param string $login
+         * @param string $password
+         * @param string $db 
          */
-        public function tables($table) {
-            $this->clear();
-            $this->tables = \inc\Security::protect($table, TRUE);
-            return $this;
-        }
-        
-        
-        /**
-         * Set where for get data from DB
-         * @param string $what
-         * @param string $by
-         * @return db 
-         */
-        public function where($what, $by) {
-            $this->where = array_merge($this->where, array($what => $by));
-            return $this;
-        }
-        
-        
-        public function insert(array $input) {
-            $this->action = 'INSERT';
-            $this->values = array_merge($this->values, $input);
-            return $this;
-        }
-        
-        
-        public function delete() {
-            $this->action = 'DELETE';
-            return $this;
-        }
-        
-        
-        public function update(array $what) {
-            $this->action = 'UPDATE';
-            $this->values = $what;
-        }
-
-        
-        public function select($input) {
-            $this->select = $input;
-            return $this;
-        }
-
-
-
-        public function limit($limit, $offset = NULL) {
-            if(is_numeric($limit) && is_numeric($offset)) {
-                $this->limit = $limit;
-                $this->offset = $offset;
-            } else {
-                Diagnostics\ExceptionHandler::Exception('ERR_NOT_NUMERIC');
-            }
-            return $this;
-        }
-        
-        
-        public function query() {
-            return mysql_query($this->make());
-        }
-        
-        
-        public function exec($input) {
-            return mysql_query($input);
-        }
-        
-        
-
-
-       public function fetch() {
-           $out = array();
-           $result = $this->query();
-           
-           while($row = mysql_fetch_object($result)) {
-               $out[] = $row;
-           }
-           
-           return $out;
-       }
-        
-        
-        
-        private function clear() {
-            $this->tables = NULL;
-            $this->action = 'SELECT';
-            $this->where = array();
-            $this->values = array();
-            $this->select = NULL;
-            $this->limit = NULL;
-            $this->offset = NULL;
-        }
-        
-      
-
-        
-        
-
         public function __construct($host, $login, $password, $db) {
             $this->connection = mysql_connect($host, $login, $password) OR Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
             mysql_select_db($db, $this->connection);
@@ -151,7 +53,13 @@
         }
        
        
-        
+        /**
+         * Parase array to SQL values
+         * @param array $input
+         * @param string $delimiter
+         * @param BOOL $setter
+         * @return string 
+         */
         private function parse(array $input, $delimiter, $setter = FALSE) {
             $return = FALSE;
             $out = array();
@@ -181,8 +89,10 @@
         }
         
         
-
-        
+        /**
+         * Make a SQL query from vlass variables
+         * @return string
+         */
         public function make() {
             $query = array();
             
@@ -237,5 +147,146 @@
             $this->query = $query;
             return $query;
         }
+        
+        /**
+         * Select table for actions with DB 
+         * @param string $table users, servers, machines, etc.
+         * @return db 
+         */
+        public function tables($table) {
+            $this->clean();
+            $this->tables = \inc\Security::protect($table, TRUE);
+            return $this;
+        }
+        
+        
+        /**
+         * Set where for get data from DB
+         * @param string $what
+         * @param string $by
+         * @return db 
+         */
+        public function where($what, $by) {
+            $this->where = array_merge($this->where, array($what => $by));
+            return $this;
+        }
+        
+        
+        /**
+         * Insert values to DB
+         * @param array $input
+         * @return db 
+         */
+        public function insert(array $input) {
+            $this->action = 'INSERT';
+            $this->values = array_merge($this->values, $input);
+            return $this;
+        }
+        
+        
+        /**
+         * If you can delete table use this with table() and where()
+         * @return db 
+         */
+        public function delete() {
+            $this->action = 'DELETE';
+            return $this;
+        }
+        
+        
+        /**
+         * Update DB
+         * @param array $what 
+         */
+        public function update(array $what) {
+            $this->action = 'UPDATE';
+            $this->values = $what;
+        }
 
+        
+        /**
+         * Select select() from DB e.g. SELECT $input FROM ...
+         * @param string $input
+         * @return db 
+         */
+        public function select($input) {
+            $this->select = \inc\Security::protect($input);
+            return $this;
+        }
+
+
+        /**
+         * Set rows limit
+         * @param integer $limit
+         * @param integer $offset
+         * @return db 
+         */
+        public function limit($limit, $offset = 0) {
+            if(is_numeric($limit) && is_numeric($offset)) {
+                $this->limit = $limit;
+                $this->offset = $offset;
+            } else {
+                Diagnostics\ExceptionHandler::Exception('ERR_NOT_NUMERIC');
+            }
+            return $this;
+        }
+        
+        
+        /**
+         * Create a result from query in class vars
+         * @return mixed
+         */
+        public function query() {
+            return mysql_query($this->make());
+        }
+        
+        
+        /**
+         * alias for mysql_query
+         * NOT SECURED!!
+         * 
+         * @param string $input
+         * @return mixed 
+         */
+        public function exec($input) {
+            return mysql_query($input);
+        }
+        
+        
+        /**
+         * Create a array of objects of DB query
+         * e.g.
+         * Array (
+         * [0] => ->name
+         *        ->password
+         * [1] => ->name
+         *        ->password
+         * )
+         * 
+         * @return array
+         */
+        public function fetch() {
+           $out = array();
+           $result = $this->query();
+           
+           while($row = mysql_fetch_object($result)) {
+               $out[] = $row;
+           }
+           
+           return $out;
+       }
+        
+        
+        /**
+         * This is private function for clean class vars
+         */
+        private function clean() {
+            $this->tables = NULL;
+            $this->action = 'SELECT';
+            $this->where = array();
+            $this->values = array();
+            $this->select = NULL;
+            $this->limit = NULL;
+            $this->offset = NULL;
+        }
     }
