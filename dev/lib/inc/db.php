@@ -1,6 +1,4 @@
 <?php
-    namespace inc;
-
     /**
      * This is class for connect, manage and database.
      *
@@ -13,13 +11,17 @@
      * @version    Release: 0.3.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
-     * @deprecated Class deprecated in Release 0.0.0
+     * 
      * 
      * @todo Dorobit dokumentaciu
      * @todo dorobit make() myslim
      * @todo spravit dump(), $fetch(), $fetchArray()
      * @todo fixnut clear()
      */
+
+    namespace inc;
+
+
 
     class db {
         /** @var ressource of connection to DB */
@@ -216,72 +218,5 @@
             $this->query = $query;
             return $query;
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /**
-         * @todo DELETE!!
-         */
-        public function q($type, $query) {
-            $return = FALSE;
-            
-            switch($type) {
-                case self::QUERY : 
-                    $return = mysql_query($query, self::$connection); 
-                break;
-                case self::NUM_ROWS : 
-                    $return = mysql_num_rows($query); 
-                break;
-                case self::FETCH_OBJECT : 
-                    $return = mysql_fetch_object($query); 
-                break;
-                case self::FETCH_ARRAY : 
-                    $result = mysql_fetch_array($query, MYSQL_ASSOC);
-                    if(is_array($result)) $return = Arr::treatArrayValue($result);
-                break;
-            }
-            return $return;
-        }
-        
 
-        
-        /**
-         * @todo DELETE !!
-         */
-        public function optimizeTables() {
-            $alltables = mysql_query("SHOW TABLES;");
-            $output = array();
-            
-            while($table = mysql_fetch_assoc($alltables)) {
-                foreach($table as $db => $tablename) {
-                    $sql = 'OPTIMIZE TABLE '.$tablename.';';
-                    $response = mysql_query($sql);
-                    $output[] = mysql_fetch_assoc($response);
-                };
-            };
-            return $output;
-        }
     }

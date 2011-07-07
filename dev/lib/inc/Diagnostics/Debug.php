@@ -18,7 +18,6 @@
      * @version    Release: 0.2.1
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.0
-     * @deprecated Class deprecated in Release 0.0.0
      * 
      * @todo dorobit dokumentaciu
      * @todo dorobit funkcie pre developer mod
