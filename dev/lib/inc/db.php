@@ -14,9 +14,8 @@
      * 
      * 
      * @todo Dorobit dokumentaciu
-     * @todo dorobit make() myslim
      * @todo spravit dump()
-     * @todo fixnut clear()
+     * @todo sformatovat vsetky metody
      */
 
     namespace inc;
@@ -129,25 +128,19 @@
        }
         
         
-        /*
-         * insert
-         * update
-         * where
-         */
-        
-        
-        
-        
         
         private function clear() {
             $this->tables = NULL;
+            $this->action = 'SELECT';
             $this->where = array();
-            $this->insert = array();
+            $this->values = array();
+            $this->select = NULL;
             $this->limit = NULL;
             $this->offset = NULL;
         }
         
       
+
         
         
 
@@ -188,11 +181,9 @@
         }
         
         
-        /**
-         * @todo dorobyt, zostroji sql query podla globalnych premenych v classe
-         */
+
+        
         public function make() {
-            // SELECT * FROM users WHERE id = 7 LIMIT 1, 30
             $query = array();
             
             if($this->action === 'SELECT') {
