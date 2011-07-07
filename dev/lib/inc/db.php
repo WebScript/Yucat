@@ -21,16 +21,18 @@
      */
 
     class db {
-        /** @var Ressource of connection to DB */
+        /** @var ressource of connection to DB */
         private $connection;
         /** @var SQL query */
         private $query;
-        /** @var Name tables with is used */
+        /** @var name tables with is used */
         private $tables;
-        /** @var Main action, INSERT, UPDATE, DELETE, SELECT */
+        /** @var main action, INSERT, UPDATE, DELETE, SELECT */
         private $action = 'SELECT'; 
         /** @var select in table by this e.g. SELECT * FROM ... WHERE (var) */
         private $where = array();
+        /** @var array of update values */
+        private $update = array();
         /** @var select in SELECT (var) FROM */
         private $select;
         /** @var limit of rows */
@@ -65,7 +67,7 @@
         
         public function insert(array $input) {
             $this->action = 'INSERT';
-            $this->insert = array_merge($this->insert, Arr::treatArrayValue($input));
+            $this->insert = array_merge($this->insert, $input);
             return $this;
         }
         
@@ -73,6 +75,12 @@
         public function delete() {
             $this->action = 'DELETE';
             return $this;
+        }
+        
+        
+        public function update(array $what) {
+            $this->action = 'UPDATE';
+            $this->update = $what;
         }
 
         
@@ -224,10 +232,7 @@
         
         
         /**
-         * This is 'all in 1' function
-         * @param string $type type of mysql function
-         * @param mixed $query MySQL query
-         * @return mixed
+         * @todo DELETE!!
          */
         public function q($type, $query) {
             $return = FALSE;
@@ -253,8 +258,7 @@
 
         
         /**
-         * This is function for optimize table
-         * @return array
+         * @todo DELETE !!
          */
         public function optimizeTables() {
             $alltables = mysql_query("SHOW TABLES;");
