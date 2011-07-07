@@ -225,7 +225,21 @@
                 $query[] = ' WHERE ';
                 $query[] = $this->parse($this->where, ' AND ', TRUE);
             } elseif($this->action === 'DELETE') {
+                $query[] = 'DELETE FROM ';
+                $query[] = $this->tables;
+                $query[] = ' WHERE ';
+                $query[] = $this->parse($this->where, ' AND ', TRUE);
                 
+                if($this->limit) {
+                    $query[] = ' LIMIT ';
+                    $query[] = $this->limit;
+                    
+                    if($this->offset) {
+                        $query[] = ', ';
+                        $query[] = $this->offset;
+                        
+                    }
+                }
             }
             
             $query = implode('', $query);
