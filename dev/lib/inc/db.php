@@ -15,7 +15,7 @@
      * 
      * @todo Dorobit dokumentaciu
      * @todo dorobit make() myslim
-     * @todo spravit dump(), $fetch(), $fetchArray()
+     * @todo spravit dump()
      * @todo fixnut clear()
      */
 
@@ -117,7 +117,16 @@
         
 
 
-       
+       public function fetch() {
+           $out = array();
+           $result = $this->query();
+           
+           while($row = mysql_fetch_object($result)) {
+               $out[] = $row;
+           }
+           
+           return $out;
+       }
         
         
         /*
