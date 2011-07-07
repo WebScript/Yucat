@@ -88,3 +88,8 @@ Podane tickety - tabulka = lockunte, riesia sa, neotvorene, zrusene
 
 Mini-forum:
 je to vlastne pokec kde si mozete zakladat vlastne temy a odpovedat na kazdu
+
+
+
+NEWS - nespracovane !! :
+Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
