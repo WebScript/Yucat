@@ -53,6 +53,7 @@ Add to lanugage translate
     PAGE_NOT_FOUND
     ERR_SET_STYLE
     ERR_MYSQL_CONNECT
+    ERR_NOT_NUMERIC
     
     
     Pridat do konfigu time zone
