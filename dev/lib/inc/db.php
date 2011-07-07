@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Yucat Technologies (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.3
+     * @version    Release: 0.8.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
      * 
@@ -147,6 +147,7 @@
             $this->query = $query;
             return $query;
         }
+        
         
         /**
          * Select table for actions with DB 
