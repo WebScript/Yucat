@@ -218,7 +218,12 @@
                 $query[] = $this->tables;
                 $query[] = $this->parse($this->values, 'INSERT');
             } elseif($this->action === 'UPDATE') {
-                
+                $query[] = 'UPDATE ';
+                $query[] = $this->tables;
+                $query[] = ' SET ';
+                $query[] = $this->parse($this->where, ',', TRUE);
+                $query[] = ' WHERE ';
+                $query[] = $this->parse($this->where, ' AND ', TRUE);
             } elseif($this->action === 'DELETE') {
                 
             }
