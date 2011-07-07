@@ -16,32 +16,47 @@
      * @deprecated Class deprecated in Release 0.0.0
      * 
      * @todo Dorobit dokumentaciu
+     * @todo dorobit make() myslim
+     * @todo spravit dump(), $fetch(), $fetchArray()
      */
 
     class db {
-        /** @var ressource of connection to DB */
+        /** @var Ressource of connection to DB */
         private $connection;
+        /** @var SQL query */
         private $query;
-        
+        /** @var Name tables with is used */
         private $tables;
-        
-        
-        private $action; 
+        /** @var Main action, INSERT, UPDATE, DELETE, SELECT */
+        private $action = 'SELECT'; 
+        /** @var select in table by this e.g. SELECT * FROM ... WHERE (var) */
         private $where = array();
-       
+        /** @var select in SELECT (var) FROM */
         private $select;
-        
+        /** @var limit of rows */
         private $limit;
+        /** @var offset */
         private $offset;
         
         
-        public function table($table) {
+        /**
+         * Select table for actions with DB 
+         * @param string $table users, servers, machines, etc.
+         * @return db 
+         */
+        public function tables($table) {
             $this->clear();
             $this->tables = $table;
             return $this;
         }
         
         
+        /**
+         * Set where for get data from DB
+         * @param string $what
+         * @param string $by
+         * @return db 
+         */
         public function where($what, $by) {
             $this->where = array_merge($this->where, array($what => $by));
             return $this;
@@ -49,13 +64,14 @@
         
         
         public function insert(array $input) {
-            $this->insert = array_merge($this->insert, $input);
+            $this->action = 'INSERT';
+            $this->insert = array_merge($this->insert, Arr::treatArrayValue($input));
             return $this;
         }
         
         
-        public function delete($what, $by) {
-            $this->delete = array_merge($this->delete, array($what => $by));
+        public function delete() {
+            $this->action = 'DELETE';
             return $this;
         }
 
@@ -74,59 +90,19 @@
         }
         
         
-        public function query($query) {
-            return mysql_query($query);
+        public function query() {
+            return mysql_query($this->make());
         }
         
         
-        public function make() {
-            // SELECT * FROM users WHERE id = 7 LIMIT 1, 30
-            $query = array();
-            
-            if($this->where) {
-                $query[] = 'SELECT ';
-                $query[] = $this->select ? $this->select : '*';
-                $query[] = ' FROM ';
-                $query[] = $this->tables;
-                $query[] = ' WHERE ';
-                $query[] = $this->parse($this->where, ' AND ', TRUE);
-                
-                if($this->limit) {
-                    $query[] = ' LIMIT ';
-                    $query[] = $this->limit;
-                    
-                    if($this->offset) {
-                        $query[] = ', ';
-                        $query[] = $this->offset;
-                        
-                    }
-                }
-            } elseif($this->insert) {
-                
-            } elseif($this->delete) {
-                
-            } elseif($this->update) {
-                
-            }
-            
-            $query = implode('', $query);
-            $this->query = $query;
-            return $query;
+        public function exec($input) {
+            return mysql_query($input);
         }
-
-
-
-
-
-
-       /* public function fetch() {
-            $
-        }
-        */
         
         
-        
-        
+
+
+       
         
         
         
@@ -143,35 +119,18 @@
             $this->offset = NULL;
         }
         
-        
-        
-        
-        
-        
-        
-       /**
-        * Create a connection to the database
-        * @param string $host is hostname of database
-        * @param string $lgoin is username for login to the database
-        * @param string $password is password for login to the database
-        * @param string $db is selected database
-        */
-        public function __construct($host, $login, $password, $db) {
-            self::$connection = mysql_connect($host, $login, $password) OR Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
-            mysql_select_db($db, self::$connection);
-            mysql_query('SET CHARACTER SET UTF-8');
-        }
+      
         
         
 
-        
+        public function __construct($host, $login, $password, $db) {
+            $this->connection = mysql_connect($host, $login, $password) OR Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
+            mysql_select_db($db, $this->connection);
+            mysql_query('SET CHARACTER SET UTF-8');
+        }
        
-        /**
-         * Parase array to sql input
-         * @param string $parase type of parase (INSERT, COMMA, AND, NONE)
-         * @param array $input input for db query
-         * @return string is returned sql input
-         */
+       
+        
         private function parse(array $input, $delimiter, $setter = FALSE) {
             $return = FALSE;
             $out = array();
@@ -199,6 +158,69 @@
             }
             return $return;
         }
+        
+        
+        /**
+         * @todo dorobyt, zostroji sql query podla globalnych premenych v classe
+         */
+        public function make() {
+            // SELECT * FROM users WHERE id = 7 LIMIT 1, 30
+            $query = array();
+            
+            if($this->action === 'INSERT') {
+                $query[] = 'SELECT ';
+                $query[] = $this->select ? $this->select : '*';
+                $query[] = ' FROM ';
+                $query[] = $this->tables;
+                $query[] = ' WHERE ';
+                $query[] = $this->parse($this->where, ' AND ', TRUE);
+                
+                if($this->limit) {
+                    $query[] = ' LIMIT ';
+                    $query[] = $this->limit;
+                    
+                    if($this->offset) {
+                        $query[] = ', ';
+                        $query[] = $this->offset;
+                        
+                    }
+                }
+            } elseif($this->action === 'SELECT') {
+                
+            } elseif($this->action === 'UPDATE') {
+                
+            } elseif($this->action === 'DELETE') {
+                
+            }
+            
+            $query = implode('', $query);
+            $this->query = $query;
+            return $query;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         /**
