@@ -15,98 +15,53 @@
      */
 ?>
 
-
-DELETE @deprecated!!!
-
+    Pouzivat MVP nie MVC!
 
 
 Funkcne stranky:
     inc\db
-    inc\Status
-    inc\Date
-    inc\Arr
-    inc\Router
 
-Robim na:
-    Diagnostics
-        Error handler
-        Exception handler
-    Sablonovaci system
-        Open pages
-        Macro    
+Core updates:
+    class String
     AJAX
+    Sablonovaci system
+    Presenter
+    Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
+    Licenciu vlozit, asi GNU GPL v2
+    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
+    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
+    Multi-language (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.)
+    Premenne nastavovat cez $this->template->neco a vo VIEW {$neco} (aj M-Language)
+    Updatevit config-example na zaklade config.php
+    Router (Pridat redirect a aj prerobit trochu tie adresovania!)
     
-    a treba classu text alebo string na pracu z textom
-
-jazyky rozkuskovat do files a potom ich volat a predavat iba tie ktore su potrebne http://doc.nette.org/cs/components
-uz nenahradzovat {neco} za array ale $this->template->neco;
-
-
-Opravit sablonovaci sytem
-strcit veci do temp
-oddelit napr objednanie serveru atd od ostatnych
-toto, one, pouzivat ajax na zistenie napr. max dlzok znakov vo formulari
-
-Kuknut licenciu a pridat subor licence
-
-Pridat active_id do tabulky users a do last_login zapisat datum registracie
-Potvrdenie mailom inak sa nepojde prihlasit! a ak nebude mat potvrdeny ucet a bude starsi las login ako 2 mesiace tak sa mu deletne ucet
-
+ 
 
 Add to lanugage translate
     PAGE_NOT_FOUND
     ERR_SET_STYLE
     ERR_MYSQL_CONNECT
     ERR_NOT_NUMERIC
+
     
     
-    Pridat do konfigu time zone
-    pridat presmerovanie do routru a generovanie adries
-    Pridat potom update ako cez php
     
-Upravit config example podla config.php
+Funkcionalne updaty:
+    Posielanie kreditu + do logu transakcie
+    Pridat do registracie povinny vek
+    Verejny profil v takom tom mini okienku (pre admina ban/lock, pre uzivatelov send credits)
+    Do profilu si moyu ludia dat MotD
+    Formatovanie tabuliek
+    Friends/Unfriends
+    PM spravy
+    Vlastne avatary
+    Mini-forum   
+    SAMP:
+        kontrola chmodu samp03sv a announce
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-+Dorobit posielanie kreditu + poslednych 10 transakcii
--dorobit kontrolu chmodu na samp03svr a na announce
-
-+pridat do registracii povinny vek
-+Pridat overovanie mailov
-
-
-+Spravit taky ako keby verejny profil, take mini okno kde s budu moct uzivatelia pozerat druhym profil
-+Pre admina pridat tam ban/lock tlacitko
-+a pre uzivatelov send credit
-
-
-
-Spravit do profile motto
-+Moznost session alebo cookies
-+Pridat zoradenie do tabuliek ako je napr access log
-
-
-
-Do v2 spravit:
-	Pridanie priatelov a nepriatelov
-
-	PM/online spravy
-	Vlastne avatary
-break;
-
-
-
+        
 HL menu dat ako
 Hlavne
 Statistiky

@@ -14,6 +14,7 @@
      * 
      * 
      * @todo spravit dump()
+     * @todo spravit do exec() aj take nahradzovanie znakov ? za parametre za nim
      */
 
     namespace inc;
