@@ -5,6 +5,6 @@ namespace inc\Diagnostics;
 class ExceptionHandler {
     
     public static function Exception($error) {
-        
+        echo $error;
     }
 }

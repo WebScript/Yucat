@@ -30,9 +30,9 @@
     define('LANG_DIR', ROOT.'/languages/');
 
     /** Set language by config */
-    if(!$_SESSION['lang']) $_SESSION['lang'] = CFG_DEF_LANG;
+    if(empty($_SESSION['lang'])) $_SESSION['lang'] = CFG_DEF_LANG;
     /** Set style by config */
-    if(!$_SESSION['style']) $_SESSION['style'] = CFG_DEF_STYLE;
+    if(empty($_SESSION['style'])) $_SESSION['style'] = CFG_DEF_STYLE;
 
     /** Define language */
     define('LANG', $_SESSION['lang']);
@@ -40,9 +40,9 @@
     define('STYLE', $_SESSION['style']);
     
     /** Call a error handler */
-    //inc\Diagnostics\Debug::_init();
+    inc\Diagnostics\Debug::_init();
     /** Set developer mode */
-    //inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
+    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
     $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
@@ -50,4 +50,4 @@
         /** @var user's informations */
         //$user = $db->uQuery(db::VIEWS, db::USERS, UID);
     }
-    //if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
+    if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');

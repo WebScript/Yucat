@@ -21,6 +21,7 @@
      * 
      * @todo dorobit dokumentaciu
      * @todo dorobit funkcie pre developer mod
+     * @todo Opravit dump(), co ked bude napr zlozeny array alebo object, atd.
      */
 
     namespace inc\Diagnostics;
@@ -29,7 +30,7 @@
         private $startTime;
         private static $mode = self::MODE_PROD;
         
-        const MODE_DEV = 'developerMode';
+        const MODE_DEV = 'developmentMode';
         const MODE_PROD = 'productionMode';
         
         private function __construct() {}
