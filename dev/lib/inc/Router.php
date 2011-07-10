@@ -69,23 +69,30 @@
         /**
          * This function is Head function for call and use page system
          * By URL you can call method
+         * if BOOL is FALSE = Diagnostics\ExceptionHandler::Exception ('PAGE_NOT_FOUND');
+         * @return BOOL
          * 
          * @prerobit aby tato funkcia predavala parametre sablonovaciemu systemu a ten volal presenter!
+         *  
          */
-        public static function callRoute() {
+        public function callPresenter() {
             $get = self::getAddress();
             
             if(isset($get[0])) {
-                $get[0] = '\\Model\\'.$get[0];
+                $class = '\\Model\\'.$get[0];
+                $method = $get[1];
                 
-                if(method_exists($get[0], $get[1])) {
-                    if($get[2]) {
-                        $get[0]::$get[1]($get[2]);
-                    } else { 
-                        $get[0]::$get[1]();
-                    }
-                } elseif(method_exists($get[0], 'defaultMethod')) {
-                    $get[0]::defaultMethod();
+                unset($get[0]);
+                unset($get[1]);
+                
+                if(class_exists($class)) {
+                    $class = new $class;
+                } return FALSE;
+                
+                if(empty($class)) {
+                    call_user_func_array(array($class, 'default'));
+                } elseif(method_exists($class, $get[1])) {
+                    call_user_func_array(array($class, $get[1]), $get);
                 } else Diagnostics\ExceptionHandler::Exception ('PAGE_NOT_FOUND');
             }
         } 
