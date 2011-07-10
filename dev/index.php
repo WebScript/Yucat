@@ -42,12 +42,14 @@
     /** Call a error handler */
     inc\Diagnostics\Debug::enable();
     /** Set developer mode */
-    //inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
+    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
-    $db = new d(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
+    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     if(UID) {
         /** @var user's informations */
-        //$user = $db->uQuery(db::VIEWS, db::USERS, UID);
+        $user = $db->table('users')
+                ->where('id', UID)
+                ->fetch();
     }
     if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');

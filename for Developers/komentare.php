@@ -33,12 +33,10 @@ Core updates:
     +Sablonovaci system
     Presenter
     Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
-    +Licenciu vlozit, asi GNU GPL v2
     Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
     Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
     Multi-language (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.)
     Premenne nastavovat cez $this->template->neco a vo VIEW {$neco} (aj M-Language)
-    Updatevit config-example na zaklade config.php
     +Router (Pridat redirect a aj prerobit trochu tie adresovania!)
     +ExceptionHandler hned po sablonovacom systeme!
  
