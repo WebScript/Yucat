@@ -48,7 +48,8 @@
          * @param string $db 
          */
         public function __construct($host, $login, $password, $db) {
-            $this->connection = mysql_connect($host, $login, $password) OR Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
+            $this->connection = mysql_connect($host, $login, $password) OR 
+                    Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
             mysql_select_db($db, $this->connection);
             mysql_query('SET CHARACTER SET UTF-8');
         }
@@ -62,12 +63,11 @@
          * @return string 
          */
         private function parse(array $input, $delimiter, $setter = FALSE) {
-            $return = FALSE;
             $out = array();
             
             foreach($input AS $param => $value) {
                 $value = \inc\Security::protect($value, TRUE);
-                $input[$param] = "'".$value."'";
+                $input[$param] = "'" . $value . "'";
             }
 
             if($delimiter === 'INSERT') {
@@ -82,7 +82,7 @@
 
             if(!$return) {
                 foreach($input AS $param => $value) {
-                    $out[] = $setter ? $param.' = '.$value : $value;
+                    $out[] = $setter ? $param . ' = ' . $value : $value;
                 }
                 $return = implode($delimiter, $out);
             }
@@ -228,25 +228,16 @@
                 $this->limit = $limit;
                 $this->offset = $offset;
             } else {
-                Diagnostics\ExceptionHandler::Exception('ERR_NOT_NUMERIC');
+                Diagnostics\ExceptionHandler::Exception('ERR_IS_NOT_NUMERIC');
             }
             return $this;
         }
         
         
         /**
-         * Create a result from query in class vars
-         * @return mixed
-         */
-        public function query() {
-            return mysql_query($this->make());
-        }
-        
-        
-        /**
          * alias for mysql_query
-         * You can use exec('SELECT * FROM users WHERE id = 7 AND lock = 0') - in this is not secured input!!
-         * OR exec('SELECT * FROM users WHERE id = ? AND lock = ?', 7, 0) - this have secured input
+         * You can use exec('SELECT * FROM users WHERE id = 7 AND lock = 0') - not secured input
+         * OR exec('SELECT * FROM users WHERE id = ? AND lock = ?', 7, 0) - secured input
          * @param string $input
          * @return mixed 
          */
@@ -270,7 +261,7 @@
          */
         public function fetchAll() {
            $out = array();
-           $result = $this->query();
+           $result = $this->exec($this->make());
            
            while($row = mysql_fetch_object($result)) {
                $out[] = $row;
@@ -285,13 +276,13 @@
          * @return object
          */
         public function fetch() {
-           $result = $this->query();
+           $result = $this->exec($this->make());
            return mysql_fetch_object($result);
        }
         
         
         /**
-         * This is private function for clean class vars
+         * This is private function for clean fars of class
          */
         private function clean() {
             $this->tables = NULL;

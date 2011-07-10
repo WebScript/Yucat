@@ -61,7 +61,9 @@
                 $path = array_merge($path, $p);
             }
             
-            return CFG_PROTOCOL.CFG_WEBSITE.(self::$userFriendly ? '/' : '/?param=').implode((self::$userFriendly ? '/' : '&param='), $path);
+            return CFG_PROTOCOL.CFG_WEBSITE
+                 . (self::$userFriendly ? '/' : '/?param=')
+                 . implode((self::$userFriendly ? '/' : '&param='), $path);
         }
         
         
@@ -86,13 +88,17 @@
                 
                 if(class_exists($class)) {
                     $class = new $class;
-                } return FALSE;
+                } else {
+                    return FALSE;
+                }
                 
                 if(empty($class)) {
                     call_user_func_array(array($class, 'default'));
                 } elseif(method_exists($class, $get[1])) {
                     call_user_func_array(array($class, $get[1]), $get);
-                } else Diagnostics\ExceptionHandler::Exception ('PAGE_NOT_FOUND');
+                } else {
+                    return FALSE;
+                }
             }
         } 
     }

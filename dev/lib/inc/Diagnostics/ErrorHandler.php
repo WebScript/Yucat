@@ -61,9 +61,11 @@
             foreach($source as $value) {
                
                 if($i == $line) {
-                    $output .= '<span class="highlight">Line '.$i.': '.strip_tags($value)."</span>";
+                    $output .= '<span class="highlight">Line ' . $i
+                             . ': ' . strip_tags($value) . "</span>";
                 } else {
-                    $output .= '<span class="line">Line '.$i.':</span>'.$value."\n";
+                    $output .= '<span class="line">Line ' . $i 
+                             . ':</span>' . $value . "\n";
                 }
                 
                 $i++;
@@ -104,7 +106,7 @@
             $errorParsedFile[0] = substr($errorFile, 0, strrpos($errorFile, '/') + 1);
             $errorParsedFile[1] = substr($errorFile, strrpos($errorFile, '/') + 1);
             
-            include(dirname(__FILE__).'/BSoD.phtml');
+            include(dirname(__FILE__) . '/BSoD.phtml');
         } 
         
         
@@ -114,8 +116,8 @@
          */
         public static function addLog(array $error) {
             $date = Date('U');
-            $log = $date.' @#$ '.$error['type'].' @#$ '.$error['line']
-                .' @#$ '.$error['file'].' @#$ '.$error['message'];
+            $log = $date . ' @#$ ' . $error['type'] . ' @#$ ' . $error['line']
+                 . ' @#$ ' . $error['file'] . ' @#$ ' . $error['message'];
             
             $cache = new \inc\Cache('logs');
             

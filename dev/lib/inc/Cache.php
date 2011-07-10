@@ -26,7 +26,7 @@
          
          
          public function existsLog($logname) {
-             $file = TEMP.$this->folder.'/'.$logname;
+             $file = TEMP . $this->folder . '/' . $logname;
              
              if(file_exists($file)) {
                  return $file;
@@ -43,7 +43,7 @@
          
          
          public function addToLog($logname, $what) {
-             $file = TEMP.$this->folder.'/'.$logname;
+             $file = TEMP.$this->folder . '/' . $logname;
 
              $file = fopen($file, 'a');
              fwrite($file, $what);

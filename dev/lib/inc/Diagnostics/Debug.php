@@ -77,19 +77,22 @@
                 foreach($input as $param => $value) {
                    $value = !$value ? 'NULL' : $value;
                    $out[] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                   $out[] = (is_numeric($param) ? $param : '"'.$param.'"').' => '.(is_numeric($value) || $value == 'NULL' ? $value : '"'.$value.'"').' ('.strlen($value).')<br />';
+                   $out[] = (is_numeric($param) ? $param : '"'.$param.'"')
+                          . ' => '
+                          . (is_numeric($value) || $value == 'NULL' ? $value : '"' . $value . '"')
+                          . ' (' . strlen($value) . ')<br />';
                 }
                 
                 $out[] = ');';
             } elseif(is_string($input)) {
                 $out[] = 'STRING ';
-                $out[] = '"'.$input.'"'.' ('.strlen($input).')';
+                $out[] = '"' . $input . '"' . ' (' . strlen($input) . ')';
             } elseif(is_float ($input)) {
                 $out[] = 'FLOAT ';
-                $out[] = $input.' ('.strlen($input).')';
+                $out[] = $input . ' (' . strlen($input) . ')';
             } elseif(is_integer($input)) {
                 $out[] = 'INTEGER ';
-                $out[] = $input.' ('.strlen($input).')';
+                $out[] = $input . ' (' . strlen($input) . ')';
             } elseif(is_bool($input)) {
                 $out[] = 'BOOL ';
                 $out[] = $input ? 'TRUE' : 'FALSE';
