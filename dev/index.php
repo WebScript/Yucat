@@ -23,7 +23,7 @@
     /** Define ROOT path */
     define('ROOT', dirname(__FILE__));
     /** Define cache dir */
-    define('CACHE_DIR', ROOT.'/cache/');
+    define('TEMP', ROOT.'/temp/');
     /** Define style dir */
     define('STYLE_DIR', ROOT.'/styles/');
     /** Define language dir */
@@ -40,12 +40,12 @@
     define('STYLE', $_SESSION['style']);
     
     /** Call a error handler */
-    inc\Diagnostics\Debug::_init();
+    inc\Diagnostics\Debug::enable();
     /** Set developer mode */
-    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
+    //inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
-    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
+    $db = new d(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     if(UID) {
         /** @var user's informations */
         //$user = $db->uQuery(db::VIEWS, db::USERS, UID);

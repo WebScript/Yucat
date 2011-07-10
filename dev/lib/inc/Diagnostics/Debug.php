@@ -35,7 +35,7 @@
         
         private function __construct() {}
         
-        public static function _init() {
+        public static function enable() {
             error_reporting(0);
             register_shutdown_function('inc\Diagnostics\Debug::debugHandler');
         }

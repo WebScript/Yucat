@@ -1,7 +1,4 @@
 <?php
-
-    namespace inc;
-    
     /**
      * This is main class for work with page system and template system.
      * This class getting and parsing URL and call the relevant method and class
@@ -16,6 +13,8 @@
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
+
+    namespace inc;
     
     class Router {
         

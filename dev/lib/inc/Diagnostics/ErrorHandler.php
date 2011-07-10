@@ -1,7 +1,4 @@
 <?php
-    namespace inc\Diagnostics;
-    use inc\db;
-
     /**
      * This is extend class for Debug class, error handler. Creating and writing
      * error table for developer in developer mode.
@@ -18,6 +15,8 @@
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.0
      */
+
+    namespace inc\Diagnostics;
 
     class ErrorHandler {
 
@@ -115,16 +114,13 @@
          */
         public static function addLog(array $error) {
             $date = Date('U');
+            $log = $date.' @#$ '.$error['type'].' @#$ '.$error['line']
+                .' @#$ '.$error['file'].' @#$ '.$error['message'];
             
-            if(!db::_init()->q(db::FETCH_ARRAY, db::_init()->uQuery(db::VIEWS, db::ERRORLOG, array(db::ERRORLOG_MESSAGE => $error['message'], db::ERRORLOG_FILE => $error['file'])))) {
+            $cache = new \inc\Cache('logs');
             
-                db::_init()->uQuery(db::ADD, db::ERRORLOG, array(
-                    db::ERRORLOG_DATE => $date,
-                    db::ERRORLOG_TYPE => $error['type'],
-                    db::ERRORLOG_LINE => $error['line'],
-                    db::ERRORLOG_FILE => $error['file'],
-                    db::ERRORLOG_MESSAGE => $error['message']
-                ));
+            if($cache->findInLog('Errors.log', $log) === FALSE) {
+                $cache->addToLog('Errors.log', $log);
             }
         }
      }
