@@ -1,6 +1,6 @@
 CREATE TABLE `access` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `who` INT NOT NULL ,
+   `user_id` INT NOT NULL ,
    `type` VARCHAR( 10 ) NOT NULL ,
    `action` VARCHAR( 30 ) NOT NULL ,
    `ip` VARCHAR( 15 ) NOT NULL ,
@@ -11,7 +11,7 @@ CREATE TABLE `access` (
 
 CREATE TABLE `banners` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `who` INT NOT NULL ,
+   `user_id` INT NOT NULL ,
    `date` INT NOT NULL ,
    `size` INT NOT NULL ,
    `web` VARCHAR( 70 ) NOT NULL ,
@@ -22,9 +22,9 @@ CREATE TABLE `banners` (
 
 CREATE TABLE `servers` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `owner` INT NOT NULL ,
+   `user_id` INT NOT NULL ,
    `type` VARCHAR( 14 ) NOT NULL ,
-   `machine` INT NOT NULL ,
+   `machine_id` INT NOT NULL ,
    `port` INT NOT NULL ,
    `slots` INT NOT NULL ,
    `lock` INT NOT NULL,
@@ -47,9 +47,8 @@ CREATE TABLE `codecredits` (
 
 CREATE TABLE `messages` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+   `user_id` INT NOT NULL ,
    `date` INT NOT NULL ,
-   `time` INT NOT NULL ,
-   `who` INT NOT NULL ,
    `title` TEXT NOT NULL ,
    `message` TEXT NOT NULL,
    `type` INT NOT NULL ,
@@ -60,7 +59,7 @@ CREATE TABLE `messages` (
 
 CREATE TABLE `chat` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `who` INT NOT NULL ,
+   `user_id` INT NOT NULL ,
    `date` INT NOT NULL ,
    `message` TEXT NOT NULL
 ) ENGINE = innodb COLLATE utf8_bin;
@@ -69,7 +68,7 @@ CREATE TABLE `chat` (
 
 CREATE TABLE `tickets` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `who` INT NOT NULL ,
+   `user_id` INT NOT NULL ,
    `type` INT NOT NULL,
    `category` VARCHAR( 10 ) NOT NULL ,
    `message` TEXT NOT NULL ,
