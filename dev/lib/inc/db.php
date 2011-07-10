@@ -11,10 +11,6 @@
      * @version    Release: 0.8.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
-     * 
-     * 
-     * @todo spravit dump()
-     * @todo spravit do exec() aj take nahradzovanie znakov ? za parametre za nim
      */
 
     namespace inc;

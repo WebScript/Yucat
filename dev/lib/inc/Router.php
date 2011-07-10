@@ -23,7 +23,7 @@
       
         
         /**
-         * With this function you can get $_GET and parase it
+         * With this function you can get $_GET and parse it
          * @return array
          */
         public static function getAddress() {

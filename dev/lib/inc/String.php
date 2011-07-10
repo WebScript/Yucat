@@ -11,14 +11,17 @@
      * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
-     * 
-     * @todo dorobit dokumentaciu
      */
 
     namespace inc;
 
     class String {
         
+        /**
+         * Replace a '?' in $args[0] by array of $args
+         * @param array $args
+         * @return string
+         */
         public static function paramsReplace(array $args) {
             $string = $args[0];
             unset($args[0]);

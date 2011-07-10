@@ -19,22 +19,30 @@
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.0
      * 
-     * @todo dorobit dokumentaciu
-     * @todo dorobit funkcie pre developer mod
      * @todo Opravit dump(), co ked bude napr zlozeny array alebo object, atd.
      */
 
     namespace inc\Diagnostics;
 
     class Debug extends ErrorHandler {
-        private $startTime;
+        
+        /** @var Start time for timer() */
+        private static $startTime;
+        /** @var Mode of debug Production/Development */
         private static $mode = self::MODE_PROD;
         
+        /** Development mode*/
         const MODE_DEV = 'developmentMode';
+        /** Production mode */
         const MODE_PROD = 'productionMode';
         
+        /** You can't call dynamicly this class */
         private function __construct() {}
         
+        
+        /**
+         * Enable Debugging
+         */
         public static function enable() {
             error_reporting(0);
             register_shutdown_function('inc\Diagnostics\Debug::debugHandler');
@@ -56,9 +64,9 @@
          * @param string $input 
          */
         public static function timer($input = FALSE) {
-            if(!$input) $this->startTime = self::getTime();
+            if(!$input) self::$startTime = self::getTime();
             else {
-                echo self::getTime() - $this->startTime;
+                echo self::getTime() - self::$startTime;
             }
         }
         

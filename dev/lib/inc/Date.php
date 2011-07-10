@@ -35,7 +35,7 @@
         
         
         /**
-         * Transfer date in seconds to date 
+         * Transfer date in seconds to time 
          * @param integer $date date in seconds
          * @return string date
          */

@@ -11,14 +11,13 @@
      * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
-     * 
-     * @todo dopisat dokumentaciu
      */
 
     namespace inc;
 
     class Security {
         
+        /** This variable is added to passwrod and is hashed */
         const PASSWORD_HASH = ''; //45E85G1H8UJ';
         
         private function __construct() {}
@@ -75,6 +74,12 @@
         }
         
         
+        /**
+         * Protect string, mysql escape or special chars
+         * @param string $string
+         * @param BOOL $isInput
+         * @return string 
+         */
         public static function protect($string, $isInput) {
             $out = FALSE;
             
@@ -91,6 +96,11 @@
         }
         
         
+        /**
+         * Create a hash of password
+         * @param string $password
+         * @return string
+         */
         public static function createHash($password) {
             return md5($password . self::PASSWORD_HASH);
         }
