@@ -245,8 +245,8 @@
         
         /**
          * alias for mysql_query
-         * NOT SECURED!!
-         * 
+         * You can use exec('SELECT * FROM users WHERE id = 7 AND lock = 0') - in this is not secured input!!
+         * OR exec('SELECT * FROM users WHERE id = ? AND lock = ?', 7, 0) - this have secured input
          * @param string $input
          * @return mixed 
          */
