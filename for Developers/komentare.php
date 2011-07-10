@@ -6,8 +6,8 @@
      * @category   Yucat
      * @package    Includes
      * @name       db
-     * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Yucat Technologies (http://www.yucat.net/)
+     * @author     René Èinèura (Bloodman Arun)
+     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
      * @version    Release: 0.0.0
      * @link       http://www.yucat.net/documentation
@@ -17,23 +17,30 @@
 
     Pouzivat MVP nie MVC!
 
+Model View Presenter:
+    Uzivatel zavola nejaky link
+    link sa v routry preroby a posle do Template
+    v template sa zavola Parse ktory spracuje templatua ulozi ju do cache a zavola ju
+    Template nasledne zavola Presenter a ten si vola Modeli podla potreby
 
 Funkcne stranky:
     inc\db
+    inc\Diagnostics\Debug
+    inc\Diagnostics\ErrorHandler
 
 Core updates:
     AJAX
-    Sablonovaci system
+    +Sablonovaci system
     Presenter
     Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
-    Licenciu vlozit, asi GNU GPL v2
+    +Licenciu vlozit, asi GNU GPL v2
     Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
     Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
     Multi-language (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.)
     Premenne nastavovat cez $this->template->neco a vo VIEW {$neco} (aj M-Language)
     Updatevit config-example na zaklade config.php
-    Router (Pridat redirect a aj prerobit trochu tie adresovania!)
-    
+    +Router (Pridat redirect a aj prerobit trochu tie adresovania!)
+    +ExceptionHandler hned po sablonovacom systeme!
  
 
 Add to lanugage translate

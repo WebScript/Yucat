@@ -9,8 +9,8 @@
      * @category   Yucat
      * @package    Includes
      * @name       Router
-     * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Yucat Technologies (http://www.yucat.net/)
+     * @author     René Činčura (Bloodman Arun)
+     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
      * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
@@ -43,10 +43,12 @@
         
         /**
          * This function is for parse and create URL
-         * You can use e.g. 'User:Profile password' and his call class User
-         * method Profile with arguments password as array
+         * You can use e.g. 'User:Profile password,auth_key' and his call class User
+         * method Profile with arguments password and auth_key as array
          * @param string $input
          * @return string
+         * 
+         * @todo opravit klasicke smerovanie
          */
         public static function traceRoute($input) {
             $input = explode(' ', $input, 2);
@@ -67,6 +69,8 @@
         /**
          * This function is Head function for call and use page system
          * By URL you can call method
+         * 
+         * @prerobit aby tato funkcia predavala parametre sablonovaciemu systemu a ten volal presenter!
          */
         public static function callRoute() {
             $get = self::getAddress();
