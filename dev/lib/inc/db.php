@@ -251,6 +251,7 @@
          * @return mixed 
          */
         public function exec($input) {
+            $input = String::paramsReplace(func_get_args());
             return mysql_query($input);
         }
         
@@ -267,7 +268,7 @@
          * 
          * @return array
          */
-        public function fetch() {
+        public function fetchAll() {
            $out = array();
            $result = $this->query();
            
@@ -276,6 +277,16 @@
            }
            
            return $out;
+       }
+       
+       
+       /**
+         * Create a object of DB query
+         * @return object
+         */
+        public function fetch() {
+           $result = $this->query();
+           return mysql_fetch_object($result);
        }
         
         

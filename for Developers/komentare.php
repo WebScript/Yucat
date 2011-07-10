@@ -22,7 +22,6 @@ Funkcne stranky:
     inc\db
 
 Core updates:
-    class String
     AJAX
     Sablonovaci system
     Presenter

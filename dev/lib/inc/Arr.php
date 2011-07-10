@@ -1,6 +1,4 @@
 <?php
-    namespace inc;
-
     /**
      * Arr is class for work with array
      *
@@ -10,14 +8,17 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Yucat Technologies (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.1
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.1
      */
 
+    namespace inc;
+
     class Arr {
          
-         private function __construct() {}
+        /** Lock dynamic call */
+        private function __construct() {}
          
          
          /**
