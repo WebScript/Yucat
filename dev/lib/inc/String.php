@@ -28,7 +28,7 @@
             foreach($args as $val) {
                 $first = substr($string, 0, strpos($string, '?'));
                 $last = substr($string, strpos($string, '?') + 1);
-                $string = $first.$val.$last;
+                $string = $first.Security::protect($val, TRUE).$last;
             }
             echo $string;
         }
