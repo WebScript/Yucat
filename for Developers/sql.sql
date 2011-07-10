@@ -100,17 +100,6 @@ CREATE TABLE `banned` (
 
 
 
-CREATE TABLE `error_logs` (
-   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `date` INT NOT NULL ,
-   `type` INT NOT NULL ,
-   `message` TEXT NOT NULL ,
-   `line` INT NOT NULL ,
-   `file` TEXT NOT NULL
-) ENGINE = innodb COLLATE utf8_bin;
-
-
-
 CREATE TABLE `users` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
    `login` VARCHAR( 14 ) NOT NULL ,
