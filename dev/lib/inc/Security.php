@@ -18,7 +18,7 @@
     class Security {
         
         /** This variable is added to passwrod and is hashed */
-        const PASSWORD_HASH = ''; //45E85G1H8UJ';
+        const PASSWORD_HASH = '45E85G1H8UJ';
         
         private function __construct() {}
         
@@ -102,6 +102,6 @@
          * @return string
          */
         public static function createHash($password) {
-            return md5($password . self::PASSWORD_HASH);
+            return md5(self::PASSWORD_HASH . md5($password . self::PASSWORD_HASH) . self::PASSWORD_HASH);
         }
     }
