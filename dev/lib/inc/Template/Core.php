@@ -1,10 +1,10 @@
 <?php
     /**
-     * Parse template, save to cache, include and delete page
+     * Core of work woth templates
      *
      * @category   Yucat
      * @package    Includes\Template
-     * @name       Parse
+     * @name       Core
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
@@ -15,9 +15,18 @@
 
     namespace inc\Template;
     
-    class Parse {
+    class Core {
+        private $macros = array();        
         
-        public function parseMacro() {
+        public function install() {
             
         }
+        
+        public function addMacro($macro, $start, $end = FALSE) {
+            //skontrolovat ci este neexistuje podla keyu
+            //pridat key = macro
+            // value = start alebo value = array(start, end)
+            //end je pre micromacro
+        }
+        
     }
