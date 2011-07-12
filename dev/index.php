@@ -5,9 +5,9 @@
     session_start();
     
     /** Load configuration file */
-    require_once(dirname(__FILE__).'/config.conf');
+    require_once(__DIR__ . '/config.conf');
     /** Load _autoload for autload classes */
-    require_once (dirname(__FILE__).'/lib/init.php');
+    require_once (__DIR__ . '/lib/init.php');
 
     /** Use inc\db a db */
     use inc\db;
@@ -21,7 +21,7 @@
     /** Set time zone */
     date_default_timezone_set(CFG_TIME_ZONE);
     /** Define ROOT path */
-    define('ROOT', dirname(__FILE__));
+    define('ROOT', __DIR__);
     /** Define cache dir */
     define('TEMP', ROOT.'/temp/');
     /** Define style dir */
