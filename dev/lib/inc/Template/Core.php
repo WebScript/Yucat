@@ -8,9 +8,11 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.0
+     * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.0
+     * @since      Class available since Release 0.1.0
+     * 
+     * @todo dorobuit dokumentaciu
      */
 
     namespace inc\Template;
@@ -24,7 +26,6 @@
                 'include %key' => 'macroInclude(%key)',
                 'if(%key):' => 'if(%key):',
                 'endif;' => 'endif;',
-                '{$%key}' => '{echo $%key}'
             );
         }
 
@@ -34,9 +35,19 @@
                 $this->macros[$macro] = $function;
             }
         }
-              
-        public function translate($website) {
+           
+        
+        
+        public function varTranslate($text, $replace, $var = FALSE) {
+            if(is_object($replace)) {
+                $replace = get_object_vars($replace);
+            }
             
+            foreach($replace as $key => $val) {
+                $text = str_replace('{' . ($var ? '$' : '') . $key . '}', $replace, $text);
+            }
+            
+            return implode('', $out);
         }
         
     }
