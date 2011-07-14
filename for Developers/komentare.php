@@ -35,11 +35,20 @@ Core updates:
     Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
     Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
     Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
-    Multi-language (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.)
+    Multi-language (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.) bude to array a budu oznacene keys ako _ANY_TEXT
     Premenne nastavovat cez $this->template->neco a vo VIEW {$neco} (aj M-Language)
     +Router (Pridat redirect a aj prerobit trochu tie adresovania!)
     +ExceptionHandler hned po sablonovacom systeme!
- 
+    tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
+    *Emailer, niekdo da odoslat mail a ten sa zapise do db  potom cron kazdych 10 sec posle mail
+    
+    Legenda: + - prioritne, * - mozny navrh
+    Uploader cez jQuery a graficky vykreslit
+    jazyky sa budu brat v prioritach ako subdomena (cz.gshost.eu, sk.gshost.eu atd.), Users DB, predvolebny jazyk prehliadaca, CFG DEFAULT
+    Pridat do routru default page
+    Brat domeny ako Zlozka/Presenter/method - lebo napr aby nebolo vsetko nadrbane v jednom a pre AJAX
+    pridat na hl web yucat nejake api na zistenie  noviniek ohladom administrace a potom aby sa to vypisovalo kazdemu kdo pouziva muju adminku
+    V configu orezavat medzeri alebo v sec treat pred a za value
 
 Add to lanugage translate
     PAGE_NOT_FOUND
