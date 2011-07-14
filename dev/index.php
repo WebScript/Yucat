@@ -53,3 +53,25 @@
                 ->fetch();
     }
     if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
+    
+    
+    $parse = new inc\Template\Parse();
+
+    $file = fopen('styles/Turbo/layer.html', 'r');
+    $file = fread($file, filesize('styles/Turbo/layer.html'));
+    
+    $text = 'textik napr. {if(1 == TRUE):} :D';
+    
+    $neco = array(
+                'include %key' => 'macroInclude(%key)lool',
+                'if(%key):' => 'if(%key):',
+                'endif;' => 'endif;'
+            );
+    //echo $file;
+    echo $parse->parseSpecial($file, $neco);
+
+    
+    
+    
+    
+    

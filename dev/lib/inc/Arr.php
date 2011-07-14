@@ -63,6 +63,8 @@
         
         
         /**
+         * DEPRECATED: Not used function!
+         * 
          * Replace value 2nd array with value 1st array by param 1st == value 2nd
          * e.g.
          * array('one' => 'apple', 'five' => 'waterMelon')
@@ -71,6 +73,8 @@
          * @param array $array
          * @param array $input
          * @return array 
+         * 
+         * @deprecated
          */
         public static function arrayKeyReplace(array $array, array $input) {
             $out = array();

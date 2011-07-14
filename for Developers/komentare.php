@@ -99,6 +99,11 @@ NEWS - nespracovane !! :
 Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
 call_user_func_array !!
 
+Spravit to tak ze kredity budu dostavat iba ked je clovek na tej istej stranke co maju v profile a kredity budu asi 1 ku 100 a moznost kupit cez sms
+
+
+
+
 
 
 Standardy:

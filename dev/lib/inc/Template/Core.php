@@ -16,17 +16,27 @@
     namespace inc\Template;
     
     class Core {
-        private $macros = array();        
+        private $macros = array();       
         
-        public function install() {
-            
+        public function __construct() {
+            //test
+            $this->macros = array(
+                'include %key' => 'macroInclude(%key)',
+                'if(%key):' => 'if(%key):',
+                'endif;' => 'endif;',
+                '{$%key}' => '{echo $%key}'
+            );
         }
+
         
-        public function addMacro($macro, $start, $end = FALSE) {
-            //skontrolovat ci este neexistuje podla keyu
-            //pridat key = macro
-            // value = start alebo value = array(start, end)
-            //end je pre micromacro
+        public function addMacro($macro, $function) {
+            if(!array_key_exists($macro, $this->macros)) {
+                $this->macros[$macro] = $function;
+            }
+        }
+              
+        public function translate($website) {
+            
         }
         
     }

@@ -47,6 +47,9 @@
             $this->connection = mysql_connect($host, $login, $password) OR 
                     Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
             mysql_select_db($db, $this->connection);
+            
+            if(!mysql_ping()) Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
+            
             mysql_query('SET CHARACTER SET UTF-8');
         }
        
