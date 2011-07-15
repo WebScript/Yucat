@@ -47,4 +47,17 @@
             $text = str_replace('}', '?>', $text);
             return $text;
         }
+        
+        
+        public function translate($text, $replace, $var = FALSE) {
+            if(is_object($replace)) {
+                $replace = get_object_vars($replace);
+            }
+            
+            foreach($replace as $key => $val) {
+                $text = str_replace('{' . ($var ? '$' : '') . $key . '}', $replace, $text);
+            }
+            
+            return implode('', $out);
+        }
     }
