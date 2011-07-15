@@ -41,20 +41,19 @@
         
         
         /**
-         * This function is for parse and create URL
-         * You can use e.g. 'User:Profile password,auth_key' and his call class User
-         * method Profile with arguments password and auth_key as array
+         * This function is for create a real URL
+         * You can use e.g. 'User:Profile:ajaxGetForm password,auth_key' and his call class Profile
+         * in dir User and method Profile with arguments password and auth_key as array
          * @param string $input
          * @return string
          * 
          * @todo opravit klasicke smerovanie
          */
         public static function traceRoute($input) {
+            //Parse to call and arguments
             $input = explode(' ', $input, 2);
-            $path = array();
-            
-            $called = explode(':', $input[0], 2);
-            $path = array_merge($path, $called);
+            //Parse to simple called method, class and dir
+            $path = explode(':', $input[0], 3);
             
             if(isset($input[1])) {
                 $p = explode(',', $input[1]);
@@ -72,19 +71,17 @@
          * By URL you can call method
          * if BOOL is FALSE = Diagnostics\ExceptionHandler::Exception ('PAGE_NOT_FOUND');
          * @return BOOL
-         * 
-         * @prerobit aby tato funkcia predavala parametre sablonovaciemu systemu a ten volal presenter!
-         *  
          */
         public function callPresenter() {
             $get = self::getAddress();
             
             if(isset($get[0])) {
-                $class = '\\Model\\'.$get[0];
-                $method = $get[1];
+                $class = '\\Model\\' . $get[0] . '\\' . $get[1];
+                $method = $get[2];
                 
                 unset($get[0]);
                 unset($get[1]);
+                unset($get[2]);
                 
                 if(class_exists($class)) {
                     $class = new $class;
@@ -92,10 +89,10 @@
                     return FALSE;
                 }
                 
-                if(empty($class)) {
+                if(method_exists($class, $method)) {
+                    call_user_func_array(array($class, $method), $get);
+                } elseif(method_exists($class, 'default')) {
                     call_user_func_array(array($class, 'default'));
-                } elseif(method_exists($class, $get[1])) {
-                    call_user_func_array(array($class, $get[1]), $get);
                 } else {
                     return FALSE;
                 }
