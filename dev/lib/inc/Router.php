@@ -92,4 +92,13 @@
 
             call_user_func_array(array($class, $method), $get);
         }
+        
+        
+        /**
+         * Redirect to web by special syntax for traceRoute
+         * @param string $input 
+         */
+        public function redirect($input) {
+            header('location: ' . self::traceRoute($input));
+        }
     }
