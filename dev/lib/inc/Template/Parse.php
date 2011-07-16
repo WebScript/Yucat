@@ -11,14 +11,24 @@
      * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
-     * 
-     * @todo Dorobit dokumentaciu
      */
 
     namespace inc\Template;
     
     class Parse extends Macro {
         
+        public function __construct() {
+            
+        }
+        
+        
+        /**
+         * Parse template witch $search
+         * @param string $text
+         * @param array $search
+         * @param string $delimiter
+         * @return string 
+         */
         public function parseSpecial($text, array $search, $delimiter = '%key') {
             $macro = $fnc = array();
 
@@ -50,11 +60,11 @@
         
         
         /**
-         *
-         * @param type $text
-         * @param type $replace
-         * @param type $var
-         * @return type 
+         * Translate template, variables and language translations
+         * @param string $text
+         * @param mixed $replace
+         * @param string $var
+         * @return string 
          * 
          * @todo pridat aj napr nevo ako _NECO ako translate
          */

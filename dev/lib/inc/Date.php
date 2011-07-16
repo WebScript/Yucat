@@ -2,8 +2,7 @@
     namespace inc;
     
     /**
-     * Date and time for view. To database is write date and time in seconds in
-     * php format 'U'
+     * Date and time for view. To database is write stamp time()
      *
      * @category   Yucat
      * @package    Includes
