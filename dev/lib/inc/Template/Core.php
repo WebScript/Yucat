@@ -39,10 +39,10 @@
             $f = fopen($template, 'r');
             $template = fread($f, filesize($template));
             
-               
+
             //Este pridat language translator
             $parse = new Parse();
-            $template = $parse->translate($template, $presenter->getVar(), TRUE);
+            $template = $parse->translate($template, $presenter->getVar(), '$');
             $template = $parse->parseSpecial($template, $parse->getMacros());
             
             $name = rand(11111, 99999);

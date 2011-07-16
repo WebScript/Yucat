@@ -18,7 +18,7 @@
     class Parse extends Macro {
         
         public function __construct() {
-            
+            parent::__construct();
         }
         
         

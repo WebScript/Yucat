@@ -15,43 +15,34 @@
      */
 ?>
 
-    Pouzivat MVP nie MVC!
-
-Model View Presenter:
-    Uzivatel zavola nejaky link
-    link sa v routry preroby a posle do Template
-    v template sa zavola Parse ktory spracuje templatua ulozi ju do cache a zavola ju
-    Template nasledne zavola Presenter a ten si vola Modeli podla potreby
-
 Funkcne stranky:
     inc\db
     inc\Diagnostics\Debug
     inc\Diagnostics\ErrorHandler
+    Treba upravit...
 
 Core updates:
     AJAX
-    +Sablonovaci system
-    Presenter
     Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
     Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
     Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
     Multi-language (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.) bude to array a budu oznacene keys ako _ANY_TEXT
-    Premenne nastavovat cez $this->template->neco a vo VIEW {$neco} (aj M-Language)
-    +Router (Pridat redirect a aj prerobit trochu tie adresovania!)
-    +ExceptionHandler hned po sablonovacom systeme!
+    +ExceptionHandler
     tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
     *Emailer, niekdo da odoslat mail a ten sa zapise do db  potom cron kazdych 10 sec posle mail
-    +Cron
-    +Backup
-    +Credit
-    
-    Legenda: + - prioritne, * - mozny navrh
+    Cron, Backup, Credit
     Uploader cez jQuery a graficky vykreslit
     jazyky sa budu brat v prioritach ako subdomena (cz.gshost.eu, sk.gshost.eu atd.), Users DB, predvolebny jazyk prehliadaca, CFG DEFAULT
-    Pridat do routru default page
     Brat domeny ako Zlozka/Presenter/method - lebo napr aby nebolo vsetko nadrbane v jednom a pre AJAX
     pridat na hl web yucat nejake api na zistenie  noviniek ohladom administrace a potom aby sa to vypisovalo kazdemu kdo pouziva muju adminku
     V configu orezavat medzeri alebo v sec treat pred a za value
+    Spravit to tak ze kredity budu dostavat iba ked je clovek na tej istej stranke co maju v profile a kredity budu asi 1 ku 100 a moznost kupit cez sms
+    Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
+    
+    Legenda: + - prioritne, * - mozny navrh
+    
+    
+    
 
 Add to lanugage translate
     PAGE_NOT_FOUND
@@ -104,16 +95,6 @@ Podane tickety - tabulka = lockunte, riesia sa, neotvorene, zrusene
 
 Mini-forum:
 je to vlastne pokec kde si mozete zakladat vlastne temy a odpovedat na kazdu
-
-
-
-NEWS - nespracovane !! :
-Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
-call_user_func_array !!
-
-Spravit to tak ze kredity budu dostavat iba ked je clovek na tej istej stranke co maju v profile a kredity budu asi 1 ku 100 a moznost kupit cez sms
-
-
 
 
 
