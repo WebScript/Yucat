@@ -26,10 +26,20 @@
         
         public function templateTranslate() {
             $router = new \inc\Router();
-            
             $address = $router->getAddress();
             
+            \inc\Diagnostics\Debug::dump($address);
+            
+            $template = array_slice($address, 0, 2);
+            $template = implode('/', $template);
+            $template = STYLE_DIR . STYLE . '/' . $template . '.html';
+            
+            echo $template;
+            
             $router->callPresenter();
+            
+            
+            //fopen(, $mode)
             
         }
     }

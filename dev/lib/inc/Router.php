@@ -36,6 +36,16 @@
                     $out[] = $value;
                 }
             }
+            
+            /* Check if dir, class and metod exists */
+            if(!isset($out[0]) || !isset($out[1]) || !class_exists('\\Presenter\\' . $out[0] . '\\' . $out[1])) {
+                $out[0] = 'Auth';
+                $out[1] = 'Login';
+            }
+            
+            if(!isset($out[2]) || !method_exists('\\Presenter\\' . $out[0] . '\\' . $out[1], $out[2])) {
+                $out[2] = 'Login';
+            }    
             return array_filter($out);
         }
         

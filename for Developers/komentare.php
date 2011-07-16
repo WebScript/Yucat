@@ -41,6 +41,9 @@ Core updates:
     +ExceptionHandler hned po sablonovacom systeme!
     tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
     *Emailer, niekdo da odoslat mail a ten sa zapise do db  potom cron kazdych 10 sec posle mail
+    +Cron
+    +Backup
+    +Credit
     
     Legenda: + - prioritne, * - mozny navrh
     Uploader cez jQuery a graficky vykreslit

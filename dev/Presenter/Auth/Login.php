@@ -18,6 +18,7 @@
     class Login extends \Presenter\BasePresenter {
         
         public function Login() {
+            $this->template->testVar = 'testovacia premenna';
             echo 'test presenter';
         }
     }

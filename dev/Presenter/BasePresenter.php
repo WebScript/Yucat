@@ -22,6 +22,8 @@
         private $db;
         
         public function __construct() {
+            $this->template = new \stdClass();
+            
             global $db;
             $this->db = $db; 
         }
