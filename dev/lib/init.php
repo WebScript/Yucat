@@ -21,6 +21,15 @@
 
     function __autoload($class) {
         $class = str_replace('\\', '/', $class);
-        $dir = dirname(__FILE__).'/'.$class.'.php';
-        require_once($dir);
+
+        /* Check if class is in inc add lib */
+        list($check) = explode('/', $class, 2);
+        if($check == 'inc') {
+            $class = 'lib/' . $class;
+        }
+        
+        $dir = ROOT.'/'.$class.'.php';
+        if(file_exists($dir)) {
+            require_once($dir);
+        }
     }
