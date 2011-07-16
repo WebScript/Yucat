@@ -73,23 +73,24 @@
         public function callPresenter() {
             $get = self::getAddress();
             $class = '\\Presenter\\';
-            
-            if(isset($get[0]) && class_exists($class . $get[0] . '\\' . $get[1])) {
+
+            if(isset($get[0]) && isset($get[1]) && class_exists($class . $get[0] . '\\' . $get[1])) {
                 $class .= $get[0] . '\\' . $get[1];
             } else {
                 $class .= 'Auth\\Login';
             }
             
-            if(method_exists($class, $get[2])) {
+            if(isset($get[2]) && method_exists($class, $get[2])) {
                 $method = $get[2];
             } else {
                 $method = 'Login';
-            }                                
+            }    
             
             unset($get[0]);
             unset($get[1]);
             unset($get[2]);
 
+            $class = new $class();
             call_user_func_array(array($class, $method), $get);
         }
         
