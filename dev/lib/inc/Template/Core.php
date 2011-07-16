@@ -30,13 +30,21 @@
             
             $template = array_slice($address, 0, 2);
             $template = implode('/', $template);
-            $template = STYLE_DIR . STYLE . '/template/' . $template . '.html';
+            $template = STYLE_DIR . STYLE . '/template/' . $template . '_' . $address[2] . '.html';
             
             $router->callPresenter();
             
             $f = fopen($template, 'r');
-            
             $template = fread($f, filesize($template));
             
+            //Sem pridat este template translate
+            
+            $name = rand(11111, 99999);
+            $cache = new \inc\Cache('cache');
+            $cache->createCache($name, $template);
+            
+            include TEMP . 'cache/' . $name;
+            
+            //Sem pridat este delete template
         }
     }

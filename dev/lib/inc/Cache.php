@@ -43,10 +43,27 @@
          
          
          public function addToLog($logname, $what) {
-             $file = TEMP.$this->folder . '/' . $logname;
+             $file = TEMP . $this->folder . '/' . $logname;
 
              $file = fopen($file, 'a');
              fwrite($file, $what);
              fclose($file);
          }
+         
+         
+         public function createCache($name, $content) {
+             $file = fopen(TEMP . $this->folder . '/' . $name, 'w');
+             fwrite($file, $content);
+             fclose($file);
+         }
+         
+         /* NOT USED!!
+         public function getCache($name) {
+             $dir = TEMP . $this->folder . '/' . $name;
+             $file = fopen($dir, 'r');
+             
+             $out = fread($file, filesize($dir));
+             fclose($file);
+             return $out;
+         }*/
      }
