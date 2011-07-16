@@ -50,7 +50,8 @@
             
             if(!mysql_ping()) Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
             
-            mysql_query('SET CHARACTER SET UTF-8');
+            //Fucked stupid free hosting...
+            //mysql_query('SET CHARACTER SET UTF-8');
         }
        
        

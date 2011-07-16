@@ -55,6 +55,27 @@
     if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
     
+    
+    
+    
+    
+    $template = new \inc\Template\Core();
+    
+    $template->templateTranslate();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
     $parse = new inc\Template\Parse();
 
     $file = fopen('styles/Turbo/layer.html', 'r');
@@ -73,5 +94,4 @@
     
     
     
-    
-    
+    */

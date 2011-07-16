@@ -25,6 +25,11 @@
         }
         
         public function templateTranslate() {
+            $router = new \inc\Router();
+            
+            $address = $router->getAddress();
+            
+            $router->callPresenter();
             
         }
     }

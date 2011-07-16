@@ -3,7 +3,7 @@
      * Base model for main functions for this system
      * 
      * @category   Yucat
-     * @package    Includes
+     * @package    Model
      * @name       BaseModel
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
