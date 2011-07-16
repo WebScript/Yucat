@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      * 
@@ -28,18 +28,15 @@
             $router = new \inc\Router();
             $address = $router->getAddress();
             
-            \inc\Diagnostics\Debug::dump($address);
-            
             $template = array_slice($address, 0, 2);
             $template = implode('/', $template);
-            $template = STYLE_DIR . STYLE . '/' . $template . '.html';
-            
-            echo $template;
+            $template = STYLE_DIR . STYLE . '/template/' . $template . '.html';
             
             $router->callPresenter();
             
+            $f = fopen($template, 'r');
             
-            //fopen(, $mode)
+            $template = fread($f, filesize($template));
             
         }
     }
