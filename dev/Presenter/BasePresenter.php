@@ -32,7 +32,7 @@
             return $this->db;
         }
         
-        public function getPresenter() {
+        public function getVar() {
             return $this->template;
         }
     }

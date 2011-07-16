@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      * 
@@ -17,7 +17,7 @@
 
     namespace inc\Template;
     
-    class Parse {
+    class Parse extends Macro {
         
         public function parseSpecial($text, array $search, $delimiter = '%key') {
             $macro = $fnc = array();
@@ -43,21 +43,32 @@
                 }
             }
 
-            $text = str_replace('{', '<?php', $text);
-            $text = str_replace('}', '?>', $text);
+            $text = str_replace('{', '<?php ', $text);
+            $text = str_replace('}', ' ?>', $text);
             return $text;
         }
         
         
-        public function translate($text, $replace, $var = FALSE) {
+        /**
+         *
+         * @param type $text
+         * @param type $replace
+         * @param type $var
+         * @return type 
+         * 
+         * @todo pridat aj napr nevo ako _NECO ako translate
+         */
+        public function translate($text, $replace, $var = '') {
             if(is_object($replace)) {
                 $replace = get_object_vars($replace);
             }
             
             foreach($replace as $key => $val) {
-                $text = str_replace('{' . ($var ? '$' : '') . $key . '}', $replace, $text);
+                if($var == '$') {
+                    $text = str_replace('{$' . $key . '}', '<?php echo \'' . $val . '\' ?>', $text);
+                }
+                $text = str_replace($var . $key, '\'' . $val . '\'', $text);
             }
-            
-            return implode('', $out);
+            return $text;
         }
     }

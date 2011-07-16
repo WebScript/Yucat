@@ -111,7 +111,15 @@
                 $out[] = get_resource_type($input);
             } elseif(is_object($input)) {
                 $out[] = 'OBJECT ';
-                $out[] = get_object_vars($input);
+                
+                foreach(get_object_vars($input) as $param => $value) {
+                   $value = !$value ? 'NULL' : $value;
+                   $out[] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                   $out[] = (is_numeric($param) ? $param : '"'.$param.'"')
+                          . ' => '
+                          . (is_numeric($value) || $value == 'NULL' ? $value : '"' . $value . '"')
+                          . ' (' . strlen($value) . ')<br />';
+                }
             } else {
                 $out[] = 'Unknown type!';
             }

@@ -19,11 +19,7 @@
         
         public function Login() {
             $this->template->testVar = 'testovacia premenna';
+            $this->template->test = 'lol';
             //echo 'test presenter';
-        }
-        
-        
-        public function getPresenter() {
-            return $this->template;
         }
     }

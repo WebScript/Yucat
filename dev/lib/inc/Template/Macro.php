@@ -8,9 +8,9 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.0
+     * @version    Release: 0.2.3
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.0
+     * @since      Class available since Release 0.2.3
      * 
      * @todo Dorobit dokumentaciu
      */
@@ -22,8 +22,10 @@
         
         public function __construct() {
             $this->addMacro('include %key', 'macroInclude(%key)');
-            $this->addMacro('if(%key):', 'if(%key):');
-            $this->addMacro('endif;', 'endif;');
+            $this->addMacro('if %key :', 'if(%key):');
+            $this->addMacro('/if', 'endif;');
+            $this->addMacro('foreach %key :', 'foreach(%key):');
+            $this->addMacro('/foreach', 'endforeach;');
         }
         
         

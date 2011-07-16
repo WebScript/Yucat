@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.7
+     * @version    Release: 0.2.1
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      * 
@@ -30,27 +30,20 @@
             
             $template = array_slice($address, 0, 2);
             $template = implode('/', $template);
-            $template = STYLE_DIR . STYLE . '/template/' . $template . '_' . $address[2] . '.html';
+            $template = STYLE_DIR . STYLE . '/template/' . $template . '_' . strtolower($address[2]) . '.html';
             
             $presenter = $router->callPresenter();
             
             $f = fopen($template, 'r');
             $template = fread($f, filesize($template));
             
-            
-            
-            
-            //Sem pridat este template translate
-            echo $presenter->getPresenter()->testVar;
-            
-            
-            
-            
-            
-            
+               
+            //Este pridat language translator
+            $parse = new Parse();
+            $template = $parse->translate($template, $presenter->getVar(), TRUE);
+            $template = $parse->parseSpecial($template, $parse->getMacros());
             
             $name = rand(11111, 99999);
-            
             $cache = new \inc\Cache('cache');
             $cache->createCache($name, $template);
             $cache->includeCache($name);
