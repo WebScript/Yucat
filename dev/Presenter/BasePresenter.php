@@ -31,4 +31,8 @@
         public function db() {
             return $this->db;
         }
+        
+        public function getPresenter() {
+            return $this->template;
+        }
     }

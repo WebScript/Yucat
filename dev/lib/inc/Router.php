@@ -79,6 +79,7 @@
         /**
          * This function is Head function for call and use page system
          * By URL you can call method
+         * @return resource of called class
          */
         public function callPresenter() {
             $get = self::getAddress();
@@ -102,6 +103,7 @@
 
             $class = new $class();
             call_user_func_array(array($class, $method), $get);
+            return $class;
         }
         
         

@@ -19,6 +19,11 @@
         
         public function Login() {
             $this->template->testVar = 'testovacia premenna';
-            echo 'test presenter';
+            //echo 'test presenter';
+        }
+        
+        
+        public function getPresenter() {
+            return $this->template;
         }
     }

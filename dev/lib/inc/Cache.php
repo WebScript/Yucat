@@ -66,4 +66,16 @@
              fclose($file);
              return $out;
          }*/
+         
+         
+         public function deleteCache($name) {
+             $name = TEMP . $this->folder . '/' . $name;
+             unlink($name);
+         }
+         
+         
+         public function includeCache($name) {
+             $name = TEMP . $this->folder . '/' . $name;
+             include $name;
+         }
      }
