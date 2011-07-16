@@ -13,7 +13,7 @@
      * @since      Class available since Release 0.1.0
      */
 
-    namespace Presenter;
+    namespace Model;
     
     class BaseModel {
         //Resource of DB connection

@@ -69,33 +69,27 @@
         /**
          * This function is Head function for call and use page system
          * By URL you can call method
-         * if BOOL is FALSE = Diagnostics\ExceptionHandler::Exception ('PAGE_NOT_FOUND');
-         * @return BOOL
          */
         public function callPresenter() {
             $get = self::getAddress();
+            $class = '\\Presenter\\';
             
-            if(isset($get[0])) {
-                $class = '\\Model\\' . $get[0] . '\\' . $get[1];
-                $method = $get[2];
-                
-                unset($get[0]);
-                unset($get[1]);
-                unset($get[2]);
-                
-                if(class_exists($class)) {
-                    $class = new $class;
-                } else {
-                    return FALSE;
-                }
-                
-                if(method_exists($class, $method)) {
-                    call_user_func_array(array($class, $method), $get);
-                } elseif(method_exists($class, 'default')) {
-                    call_user_func_array(array($class, 'default'));
-                } else {
-                    return FALSE;
-                }
+            if(isset($get[0]) && class_exists($class . $get[0] . '\\' . $get[1])) {
+                $class .= $get[0] . '\\' . $get[1];
+            } else {
+                $class .= 'Auth\\Login';
             }
-        } 
+            
+            if(method_exists($class, $get[2])) {
+                $method = $get[2];
+            } else {
+                $method = 'Login';
+            }                                
+            
+            unset($get[0]);
+            unset($get[1]);
+            unset($get[2]);
+
+            call_user_func_array(array($class, $method), $get);
+        }
     }
