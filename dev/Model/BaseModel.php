@@ -1,10 +1,10 @@
 <?php
     /**
-     * Base presenter for main functions for this system
+     * Base model for main functions for this system
      * 
      * @category   Yucat
      * @package    Includes
-     * @name       BasePresenter
+     * @name       BaseModel
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
@@ -15,9 +15,7 @@
 
     namespace Presenter;
     
-    class BasePresenter {
-        //Object of variables for translate
-        protected $template;
+    class BaseModel {
         //Resource of DB connection
         private $db;
         
