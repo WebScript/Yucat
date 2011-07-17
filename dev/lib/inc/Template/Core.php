@@ -26,23 +26,17 @@
         /**
          * Main function for work with MVP
          */
-        public function templateTranslate() {
-            $router = new \inc\Router();
-            $address = $router->getAddress();
-            
-            $template = array_slice($address, 0, 2);
-            $template = implode('/', $template);
-            $template = STYLE_DIR . STYLE . '/template/' . $template . '_' . strtolower($address[2]) . '.html';
-            
-            $presenter = $router->callPresenter();
-            
+        public function templateTranslate() {   
+            $template = STYLE_DIR . STYLE . '/layer.html';
             $f = fopen($template, 'r');
             $template = fread($f, filesize($template));
+            //fclose($f);
             
 
             //Este pridat language translator
+            $basePresenter = new \Presenter\BasePresenter();
             $parse = new Parse();
-            $template = $parse->translate($template, $presenter->getVar(), '$');
+            $template = $parse->translate($template, $basePresenter->getVar(), '$');
             $template = $parse->parseSpecial($template, $parse->getMacros());
             
             $name = rand(11111, 99999);

@@ -55,5 +55,10 @@
     if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
     /** Call a template system*/
-    $template = new \inc\Template\Core();
-    $template->templateTranslate();
+    //$template = new \inc\Template\Core();
+    //$template->templateTranslate();
+    
+    
+    $test = new inc\Template\Parse();
+    
+    $test->parseTest($haystack, $search);

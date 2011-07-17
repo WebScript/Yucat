@@ -33,30 +33,49 @@
             $macro = $fnc = array();
 
             foreach($search as $key => $val) {
-                $fnc[] = explode($delimiter, $val, 2);
+                $fnnc = explode($delimiter, $val, 2);
                 $mcr = explode($delimiter, $key, 2);
                 
-                if(isset($mcr[1])) {
-                    str_replace('macro', '\inc\Template\Macro::macro', $mcr[1]);
+                if(isset($fnnc[0])) {
+                    $fnnc[0] = str_replace('macro', '\inc\Template\Macro::macro', $fnnc[0]);
                 }
                 
+                $fnc[] = $fnnc;
                 $macro[] = $mcr;
             }
 
             foreach($macro as $key => $val) {
                 if(isset($val[0]) && isset($fnc[$key][0])) {
-                    $text = str_replace($val[0], $fnc[$key][0], $text);
+                    $text = str_replace('{' . $val[0], '<?php ' . $fnc[$key][0], $text);
                 }
 
-                if(isset($val[1]) && isset($fnc[$key][1])) {
-                    $text = str_replace($val[1], $fnc[$key][1], $text);
+                if(isset($val[1]) && isset($fnc[$key][1])) { 
+                    $text = str_replace($val[1] . '}', $fnc[$key][1] . ' ?>', $text);
+                } else {
+                    $text = str_replace($fnc[$key][0] . '}', $fnc[$key][0] . '; ?>', $text);
                 }
             }
 
-            $text = str_replace('{', '<?php ', $text);
-            $text = str_replace('}', ' ?>', $text);
+            //$text = str_replace('{', '<?php ', $text);
+            //$text = str_replace('}', '>', $text);
             return $text;
         }
+        
+        
+        
+        
+        
+        public function parseTest($haystack, array $search, $delimiter = '%key') {
+            preg_match('/\{[a-zA-z0-9_\-=<>\ \(\)]+/}/', $haystack, $finded); //pridat specialne znaky
+            
+            foreach($finded as $val) {
+                
+                $search_key = array_search($needle, $search);
+            }
+            
+        }
+        
+        
         
         
         /**
