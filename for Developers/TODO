@@ -1,0 +1,52 @@
+Tasky podla urgentnosti 1-10 (1 - urgentne, 10 - neurgentne )
+
+TASKS 1:
+    Dorobit template system
+    ExceptionHandler
+    Language system (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.) bude to array a budu oznacene keys ako _ANY_TEXT
+    Jazyky sa budu brat v prioritach ako Users DB, predvolebny jazyk prehliadaca, CFG DEFAULT
+
+TASKS 2:
+    AJAX
+    Brat domeny ako Zlozka/Presenter/method - lebo napr aby nebolo vsetko nadrbane v jednom a pre AJAX
+    Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
+    Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
+
+TASKS 3:
+    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
+    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
+    tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
+
+TASKS 4:
+    Spravit to tak ze kredity budu dostavat iba ked je clovek na tej istej stranke co maju v profile a kredity budu asi 1 ku 100
+    Moznost kupit kredit cez sms
+
+TASKS 5:
+    Spravit templatu Turbo
+
+TASKS 6:
+    (SAMP) V configu orezavat medzeri alebo v sec treat pred a za value
+    (SAMP ale aj ine) Uploader cez jQuery a graficky vykreslit 
+    (SAMP FTP) replace \ za / potom explode a if in_array .. so delete a potom otvorit..
+    (SAMP) kontrola chmodu samp03sv a announce
+    Cron, Backup, Credit
+
+TASKS 7:
+    Pridat tasky do adminky
+    Do install do adminky dat kontrolu povolenych modulov, ssh2, file_Get_contants atd.
+    pridat na hl web yucat nejake api na zistenie  noviniek ohladom administrace a potom aby sa to vypisovalo kazdemu kdo pouziva muju adminku
+    Emailer, niekdo da odoslat mail a ten sa zapise do db  potom cron kazdych 10 sec posle mail
+    Pridat do registracie povinny vek
+
+TASKS 8:
+    Posielanie kreditu + do logu transakcie
+    Verejny profil v takom tom mini okienku (pre admina ban/lock, pre uzivatelov send credits)
+    Do profilu si moyu ludia dat MotD
+
+TASKS 9:
+    Friends/Unfriends
+    PM spravy
+    Vlastne avatary
+
+TASKS 10:
+    Mini-forum
