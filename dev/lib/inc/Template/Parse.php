@@ -66,38 +66,31 @@
         
         
         public function parseTest($haystack, array $search, $delimiter = '%key') {
-            preg_match('/\{[a-zA-z0-9_\-=<>\ \(\)]+/}/', $haystack, $finded); //pridat specialne znaky
+            $regular = '([a-zA-z0-9_\-=<>\ \/\(\)\'\"$%@!^&|*]+)';
+            preg_match_all('/\{' . $regular . '\}/', $haystack, $finded);
             
-            foreach($finded as $val) {
+            foreach($finded[1] as $val) {
+                //echo $val . '<br />';
                 
-                $search_key = array_search($needle, $search);
-            }
-            
-        }
-        
-        
-        
-        
-        /**
-         * Translate template, variables and language translations
-         * @param string $text
-         * @param mixed $replace
-         * @param string $var
-         * @return string 
-         * 
-         * @todo pridat aj napr nevo ako _NECO ako translate
-         */
-        public function translate($text, $replace, $var = '') {
-            if(is_object($replace)) {
-                $replace = get_object_vars($replace);
-            }
-            
-            foreach($replace as $key => $val) {
-                if($var == '$') {
-                    $text = str_replace('{$' . $key . '}', '<?php echo \'' . $val . '\' ?>', $text);
+                $search = \inc\Arr::arrayKeyReplace($delimiter, $regular, $search);
+                
+                foreach($search as $key2 => $val2) {
+                    preg_match_all('/' . $key2 . '/', $val2, $match);
+                    
                 }
-                $text = str_replace($var . $key, '\'' . $val . '\'', $text);
+                
+                
+                
+                
+                //$search_key = array_search($needle, $search);
+                /*
+                 * Replace %key za regulary
+                 * Zobrat array z macrami a rozdelit to podla %key
+                 * Potom pouzit array_search a najst ci existuje
+                 */
             }
-            return $text;
+            print_r($match[0][0]);
+            \inc\Diagnostics\Debug::dump(array(1 => 'lol', 2 => array('lol' => 'omg', 'ggg' => 'dd')));
+            \inc\Diagnostics\Debug::dump($search);
         }
     }

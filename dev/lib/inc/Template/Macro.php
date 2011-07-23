@@ -53,28 +53,4 @@
         public function getMacros() {
             return $this->macros;
         }
-        
-        
-        
-        public static function macroInclude() {
-            $router = new \inc\Router();
-            $address = $router->getAddress();
-            
-            $template = array_slice($address, 0, 2);
-            $template = implode('/', $template);
-            $template = STYLE_DIR . STYLE . '/template/' . $template . '_' . strtolower($address[2]) . '.html';
-            
-            $presenter = $router->callPresenter();
-            
-            $f = fopen($template, 'r');
-            $template = fread($f, filesize($template));
-            fclose($f);
-            
-            
-            //Este pridat language translator
-            $parse = new Parse();
-            $template = $parse->translate($template, $presenter->getVar(), '$');
-            $template = $parse->parseSpecial($template, $parse->getMacros());
-             return $template;
-        }
     }

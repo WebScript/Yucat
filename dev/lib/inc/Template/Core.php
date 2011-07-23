@@ -19,6 +19,18 @@
             
         
         public function __construct() {
+            $router = new \inc\Router();
+            $address = $router->getAddress();
+            
+            $template = STYLE_DIR . STYLE . '/layer.html';
+            $f = fopen($template, 'r');
+            $template = fread($f, filesize($template));
+            fclose($f);
+            
+            $basePresenter = new \Presenter\BasePresenter();
+            //Sem pridat $template->neco na $neco
+            
+            
             
         }
         
@@ -27,22 +39,39 @@
          * Main function for work with MVP
          */
         public function templateTranslate() {   
-            $template = STYLE_DIR . STYLE . '/layer.html';
-            $f = fopen($template, 'r');
-            $template = fread($f, filesize($template));
-            //fclose($f);
             
-
-            //Este pridat language translator
-            $basePresenter = new \Presenter\BasePresenter();
             $parse = new Parse();
-            $template = $parse->translate($template, $basePresenter->getVar(), '$');
-            $template = $parse->parseSpecial($template, $parse->getMacros());
+            //$template = $parse->translate($template, $basePresenter->getVar(), '$');
+            //$template = $parse->parseSpecial($template, $parse->getMacros());
             
             $name = rand(11111, 99999);
             $cache = new \inc\Cache('cache');
             $cache->createCache($name, $template);
             $cache->includeCache($name);
             $cache->deleteCache($name);
+        }
+        
+        
+        
+        /* Testing */
+        public static function presenterInclude(array $address) {
+            $template = STYLE_DIR . STYLE . '/template/' 
+                      . strtolower($address[1]) . '_' 
+                      . strtolower($address[2]) . '.html';
+            
+            $presenter = $router->callPresenter();
+            
+            $f = fopen($template, 'r');
+            $template = fread($f, filesize($template));
+            fclose($f);
+            
+            
+            /*
+             * Tu sa zavola parser pre macra a nastavia sa premene z $this->template->neco na $neco
+             */
+            $parse = new Parse();
+            $template = $parse->translate($template, $presenter->getVar(), '$');
+            $template = $parse->parseSpecial($template, $parse->getMacros());
+            return $template;
         }
     }

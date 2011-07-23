@@ -1,2 +1,6 @@
 RewriteEngine on
-RewriteRule ^([A-Za-z0-9-\/&_]+)/?$ %{DOCUMENT_ROOT}/index.php?uf=$1 [L]
+
+RewriteCond %{HTTP_HOST} ^([a-z\-]+).([a-z]+)(.uk)?$ [NC]
+RewriteRule (.*) http://www.%{HTTP_HOST}/$1 [L,R=301] 
+
+RewriteRule ^([A-Za-z0-9\-\/&]+)/?$ %{DOCUMENT_ROOT}/index.php?uf=$1 [L]

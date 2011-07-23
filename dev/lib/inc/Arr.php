@@ -61,26 +61,12 @@
             return $array;
         }
         
-        
-        /**
-         * DEPRECATED: Not used function!
-         * 
-         * Replace value 2nd array with value 1st array by param 1st == value 2nd
-         * e.g.
-         * array('one' => 'apple', 'five' => 'waterMelon')
-         * array('one', 'two', 'three')
-         * 
-         * @param array $array
-         * @param array $input
-         * @return array 
-         * 
-         * @deprecated
-         */
-        public static function arrayKeyReplace(array $array, array $input) {
+       
+        public static function arrayKeyReplace($what, $input, array $array) {
             $out = array();
 
-            foreach($input as $value) {
-                    $out[] = str_replace(array_keys($array), $array, $value);
+            foreach($array as $key => $val) {
+                    $out[str_replace($what, $input, $key)] = $val;
             }
             return $out;
         }

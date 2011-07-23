@@ -60,5 +60,11 @@
     
     
     $test = new inc\Template\Parse();
+    $macro = new inc\Template\Macro();
     
-    $test->parseTest($haystack, $search);
+    
+    $f = fopen('./styles/Turbo/template/profile.html', 'r');
+    $fil = fread($f, filesize('./styles/Turbo/template/profile.html'));
+    
+    
+    $test->parseTest($fil, $macro->getMacros());

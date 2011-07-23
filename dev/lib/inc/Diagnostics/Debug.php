@@ -80,18 +80,7 @@
             $out[] = '<div style="background-color: #F0F0F0; float: left;">&nbsp;';
                 
             if(is_array($input)) {
-                $out[] = 'Array (<br />';
-                
-                foreach($input as $param => $value) {
-                   $value = !$value ? 'NULL' : $value;
-                   $out[] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                   $out[] = (is_numeric($param) ? $param : '"'.$param.'"')
-                          . ' => '
-                          . (is_numeric($value) || $value == 'NULL' ? $value : '"' . $value . '"')
-                          . ' (' . strlen($value) . ')<br />';
-                }
-                
-                $out[] = ');';
+                $out[] = self::getArray($input);
             } elseif(is_string($input)) {
                 $out[] = 'STRING ';
                 $out[] = '"' . $input . '"' . ' (' . strlen($input) . ')';
@@ -111,21 +100,37 @@
                 $out[] = get_resource_type($input);
             } elseif(is_object($input)) {
                 $out[] = 'OBJECT ';
-                
-                foreach(get_object_vars($input) as $param => $value) {
-                   $value = !$value ? 'NULL' : $value;
-                   $out[] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                   $out[] = (is_numeric($param) ? $param : '"'.$param.'"')
-                          . ' => '
-                          . (is_numeric($value) || $value == 'NULL' ? $value : '"' . $value . '"')
-                          . ' (' . strlen($value) . ')<br />';
-                }
-            } else {
+                $out[] = self::getArray(get_object_vars($input));
                 $out[] = 'Unknown type!';
             }
             
             $out[] = '&nbsp;</div><br /><br /><br />';
             echo implode('', $out);
+        }
+        
+        
+        public static function getArray(array $array, $space = '') {
+            $out = array();
+            $out[] = 'Array (<br />';
+            $space1 = $space . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            
+            foreach($array as $key => $val) {
+               $val = !$val ? 'NULL' : $val;
+               $out[] = $space1;
+               
+               if(is_array($val)) {
+                   $out[] = (is_numeric($key) ? $key : '"'.$key.'"')
+                          . ' => ' . self::getArray($val, $space1);
+               } else {
+                   $out[] = (is_numeric($key) ? $key : '"'.$key.'"')
+                          . ' => '
+                          . (is_numeric($val) || $val === 'NULL' ? $val : '"' . $val . '"')
+                          . ' (' . strlen($val) . ')<br />';
+               }
+            }
+            
+            $out[] = $space . ');<br />';
+            return implode('', $out);
         }
         
         
