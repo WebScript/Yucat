@@ -102,6 +102,6 @@
          * @return string
          */
         public static function createHash($password) {
-            return md5(self::PASSWORD_HASH . md5($password . self::PASSWORD_HASH) . self::PASSWORD_HASH);
+            return md5(self::PASSWORD_HASH . md5($password . self::PASSWORD_HASH) . md5(self::PASSWORD_HASH));
         }
     }

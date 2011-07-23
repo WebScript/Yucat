@@ -66,31 +66,27 @@
         
         
         public function parseTest($haystack, array $search, $delimiter = '%key') {
-            $regular = '([a-zA-z0-9_\-=<>\ \/\(\)\'\"$%@!^&|*]+)';
-            preg_match_all('/\{' . $regular . '\}/', $haystack, $finded);
+            $regular = '([a-zA-z0-9' . preg_quote('_-=<> ()\'"$%@!^&|*') . ']+)';
             
-            foreach($finded[1] as $val) {
-                //echo $val . '<br />';
-                
-                $search = \inc\Arr::arrayKeyReplace($delimiter, $regular, $search);
-                
-                foreach($search as $key2 => $val2) {
-                    preg_match_all('/' . $key2 . '/', $val2, $match);
-                    
-                }
-                
-                
-                
-                
+            preg_match_all('/\{' . $regular . '\}/', $haystack, $finded);
+            $search = \inc\Arr::arrayKeyReplace($delimiter, $regular, $search);
+
+            
                 //$search_key = array_search($needle, $search);
-                /*
+                /* replacnut aj va;ue z arrayu a potom cey [preg porovnat real z macrim ci exstuje
+                 * a potom ho nahradit
                  * Replace %key za regulary
                  * Zobrat array z macrami a rozdelit to podla %key
                  * Potom pouzit array_search a najst ci existuje
                  */
-            }
-            print_r($match[0][0]);
-            \inc\Diagnostics\Debug::dump(array(1 => 'lol', 2 => array('lol' => 'omg', 'ggg' => 'dd')));
-            \inc\Diagnostics\Debug::dump($search);
+
+            
+            /*foreach($search as $key2 => $val2) {
+                    echo $key2 . '<br />';
+                    preg_match_all('/' . preg_quote($key2) . '/', $val2, $match);
+                    
+                }*/
+           // \inc\Diagnostics\Debug::dump($match);
+           // \inc\Diagnostics\Debug::dump($finded);
         }
     }

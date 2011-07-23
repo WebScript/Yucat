@@ -61,12 +61,13 @@
             return $array;
         }
         
+        
        
         public static function arrayKeyReplace($what, $input, array $array) {
             $out = array();
 
             foreach($array as $key => $val) {
-                    $out[str_replace($what, $input, $key)] = $val;
+                $out[str_replace($what, $input, preg_quote($key, '/'))] = $val;
             }
             return $out;
         }
