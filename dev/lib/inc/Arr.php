@@ -67,7 +67,7 @@
             $out = array();
 
             foreach($array as $key => $val) {
-                $out[str_replace($what, $input, preg_quote($key, '/'))] = $val;
+                $out[str_replace($what, $input, preg_quote($key, '/'))] = str_replace($what, $input, preg_quote($val, '/'));
             }
             return $out;
         }

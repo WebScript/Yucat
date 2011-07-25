@@ -71,9 +71,16 @@
             preg_match_all('/\{' . $regular . '\}/', $haystack, $finded);
             $search = \inc\Arr::arrayKeyReplace($delimiter, $regular, $search);
 
-            
+            foreach($finded as $key => $val) {
+                \inc\Diagnostics\Debug::dump($val);
+                
+                foreach($search as $key2 => $val2) {
+                    if(preg_match('/' . $key2 . '/', $val[1])) echo 'ok <br />';
+                    else echo 'ne <br />';
+                }
+            }
                 //$search_key = array_search($needle, $search);
-                /* replacnut aj va;ue z arrayu a potom cey [preg porovnat real z macrim ci exstuje
+                /* potom cey [preg porovnat real z macrim ci exstuje
                  * a potom ho nahradit
                  * Replace %key za regulary
                  * Zobrat array z macrami a rozdelit to podla %key
