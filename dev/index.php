@@ -59,12 +59,23 @@
     //$template->templateTranslate();
     
     
-    $test = new inc\Template\Parse();
-    $macro = new inc\Template\Macro();
+    //$test = new inc\Template\Parse();
+    //$macro = new inc\Template\Macro();
     
     
-    $f = fopen('./styles/Turbo/template/profile.html', 'r');
-    $fil = fread($f, filesize('./styles/Turbo/template/profile.html'));
+    //$f = fopen('./styles/Turbo/template/profile.html', 'r');
+    //$fil = fread($f, filesize('./styles/Turbo/template/profile.html'));
     
     
-    $test->parseTemplate($fil, $macro->getMacros());
+    //$test->parseTemplate($fil, $macro->getMacros());
+    
+    $name = 'Auth_Login';
+    
+    $presenter = '\\Presenter\\' . str_replace('_', '\\', $name);
+    
+    exit ($presenter);
+    $presenter = new $presenter;
+    
+    echo $presenter->template->test;
+    
+   

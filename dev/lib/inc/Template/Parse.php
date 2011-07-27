@@ -46,6 +46,9 @@
                     }
                 }
             }
+            
+            $haystack = preg_replace('/\{$' . $regular . '\}/', '<?php ' . $regular . ' ?>', $haystack);
+            
             echo $haystack;
         }
     }

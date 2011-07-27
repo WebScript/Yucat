@@ -56,5 +56,26 @@
         
         public function macroInclude($name) {
             return $name . 'pica';
+            
+            $template = STYLE_DIR . STYLE . '/' . $name . '.html';
+            $f = fopen($template, 'r');
+            $template = fread($f, filesize($template));
+            fclose($f);
+            
+            
+            //Experimental, nedorobene
+            $parse = new Parse();
+            $presenter = '\\Presenter\\' . str_replace('_', '\\', $name);
+            $presenter = new $presenter;
+            
+            
+            //Set vars $template->any as $any
+            foreach(get_object_vars($basePresenter->template) as $key => $val) {
+                $$key = $val;
+            }
+            
+            $template = $parse->parseTemplate($template, $this->getMacros());
+            
+            //return $template;
         }
     }

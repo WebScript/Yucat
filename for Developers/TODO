@@ -13,6 +13,7 @@ TASKS 2:
     Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
 
 TASKS 3:
+    Pridat error 404
     Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
     Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
     tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
@@ -29,6 +30,7 @@ TASKS 6:
     (SAMP ale aj ine) Uploader cez jQuery a graficky vykreslit 
     (SAMP FTP) replace \ za / potom explode a if in_array .. so delete a potom otvorit..
     (SAMP) kontrola chmodu samp03sv a announce
+    nastavit prioritu procesov ze napr free ma najmensiu prioritu a admin najvetsiu
     Cron, Backup, Credit
 
 TASKS 7:
@@ -52,5 +54,4 @@ TASKS 10:
     Mini-forum
 
 NAPAD:
-    Co nieco ako nastavit prioritu procesov? ze napr free ma najmensiu prioritu a admin najvetsiu
-    Pridat error 404
+    Dorobit Macro include a potom bude uz asi vsetko hotovo, este asi var translate

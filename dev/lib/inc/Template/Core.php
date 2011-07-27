@@ -28,8 +28,14 @@
             fclose($f);
             
             $basePresenter = new \Presenter\BasePresenter();
-            //Sem pridat $template->neco na $neco
+            $parse = new Parse();
+
+            //Set vars $template->any as $any
+            foreach(get_object_vars($basePresenter->template) as $key => $val) {
+                $$key = $val;
+            }
             
+            $template = $parse->parseTemplate($template, $parse->getMacros());
             
             
         }
