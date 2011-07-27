@@ -27,7 +27,7 @@
          */
         public function __construct() {
             $this->addMacro('include', 'macroInclude()');
-            $this->addMacro('if %key :', 'if(%key):');
+            $this->addMacro('if %key :', 'if(\\1):');
             $this->addMacro('/if', 'endif;');
             $this->addMacro('foreach %key :', 'foreach(%key):');
             $this->addMacro('/foreach', 'endforeach;');

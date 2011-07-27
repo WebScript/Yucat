@@ -66,17 +66,26 @@
         
         
         public function parseTest($haystack, array $search, $delimiter = '%key') {
-            $regular = '([a-zA-z0-9' . preg_quote('_-=<> ()\'"$%@!^&|*') . ']+)';
+            $regular = '([a-zA-z0-9' . preg_quote('_-=<> ()\'"$%@!^&|:.*') . ']+)';
             
+            /** List of finded variables */
             preg_match_all('/\{' . $regular . '\}/', $haystack, $finded);
+            /** Protect $search var */
             $search = \inc\Arr::arrayKeyReplace($delimiter, $regular, $search);
-
-            foreach($finded as $key => $val) {
-                \inc\Diagnostics\Debug::dump($val);
+            
+            
+            //\inc\Diagnostics\Debug::dump($finded);
+           // \inc\Diagnostics\Debug::dump($search);
+            
+            foreach($finded[1] as $key => $val) {
+               // \inc\Diagnostics\Debug::dump($val);
                 
-                foreach($search as $key2 => $val2) {
-                    if(preg_match('/' . $key2 . '/', $val[1])) echo 'ok <br />';
-                    else echo 'ne <br />';
+                foreach($search as $key2 => $val2) {                 //   \inc\Diagnostics\Debug::dump($key2);
+                    if(preg_match('/' . $key2 . '/', $val)) {
+                        $haystack = preg_replace('/' . $key2 . '/', $val2, $haystack);
+                        //echo 'ok <br />';
+                    }
+                   // else echo 'ne <br />';
                 }
             }
                 //$search_key = array_search($needle, $search);
@@ -95,5 +104,7 @@
                 }*/
            // \inc\Diagnostics\Debug::dump($match);
            // \inc\Diagnostics\Debug::dump($finded);
+            
+            echo $haystack;
         }
     }
