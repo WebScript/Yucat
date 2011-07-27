@@ -26,10 +26,10 @@
          * Call default macrss
          */
         public function __construct() {
-            $this->addMacro('include', 'macroInclude()');
+            $this->addMacro('macroInclude %key', 'test');
             $this->addMacro('if %key :', 'if(\\1):');
             $this->addMacro('/if', 'endif;');
-            $this->addMacro('foreach %key :', 'foreach(%key):');
+            $this->addMacro('foreach %key :', 'foreach(\\1):');
             $this->addMacro('/foreach', 'endforeach;');
         }
         
@@ -52,5 +52,9 @@
          */
         public function getMacros() {
             return $this->macros;
+        }
+        
+        public function macroInclude($name) {
+            return $name . 'pica';
         }
     }

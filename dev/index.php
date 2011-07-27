@@ -67,4 +67,4 @@
     $fil = fread($f, filesize('./styles/Turbo/template/profile.html'));
     
     
-    $test->parseTest($fil, $macro->getMacros());
+    $test->parseTemplate($fil, $macro->getMacros());
