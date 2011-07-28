@@ -55,3 +55,5 @@ TASKS 10:
 
 NAPAD:
     Dorobit Macro include a potom bude uz asi vsetko hotovo, este asi var translate
+v core vytvorit premenu do ktorej sa natiahnu vsetky premene a potom sa naraz prelozia
+    v .htaccess odstranit posledne / v adrese
