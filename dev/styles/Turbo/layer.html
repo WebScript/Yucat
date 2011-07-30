@@ -30,7 +30,11 @@
 <script src="{THEME_DIR}js/jquery.elastic.js"></script>
 <script src="{THEME_DIR}js/jquery.apprise.js"></script>
 
-{macroContent}
+{ifset $test :}
+    {macroInclude auth_logged}
+{else}
+    {macroContent}
+{/if}
 
 <script src="{THEME_DIR}js/page.js"></script>     
 <script type="text/javascript">

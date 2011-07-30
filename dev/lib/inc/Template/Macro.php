@@ -29,7 +29,12 @@
             $this->addMacro('macroInclude %key', '');
             $this->addMacro('macroContent', '');
             $this->addMacro('if %key :', 'if(\\1):');
+            $this->addMacro('ifset %key :', 'if(isset(\\1)):');
             $this->addMacro('/if', 'endif;');
+            $this->addMacro('/ifset', 'endif;');
+            $this->addMacro('elseif', 'elseif(\\1):');
+            $this->addMacro('elseifset', 'elseif(isset(\\1)) :');
+            $this->addMacro('else', 'else :');
             $this->addMacro('foreach %key :', 'foreach(\\1):');
             $this->addMacro('/foreach', 'endforeach;');
         }
