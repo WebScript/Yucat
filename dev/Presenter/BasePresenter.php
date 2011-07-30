@@ -35,4 +35,8 @@
         public function getVar() {
             return $this->template;
         }
+        
+        public function getTemplate() {
+            return $this->template;
+        }
     }

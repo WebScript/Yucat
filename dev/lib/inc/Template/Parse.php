@@ -47,8 +47,8 @@
                 }
             }
             
-            $haystack = preg_replace('/\{$' . $regular . '\}/', '<?php ' . $regular . ' ?>', $haystack);
+            //$haystack = preg_replace('/\{$' . $regular . '\}/', '<?php ' . $regular . '; ?\>', $haystack);
             
-            echo $haystack;
+            return $haystack;
         }
     }

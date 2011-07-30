@@ -45,7 +45,7 @@
     inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
-    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
+    //$db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     if(UID) {
         /** @var user's informations */
         $user = $db->table('users')
@@ -68,14 +68,5 @@
     
     
     //$test->parseTemplate($fil, $macro->getMacros());
-    
-    $name = 'Auth_Login';
-    
-    $presenter = '\\Presenter\\' . str_replace('_', '\\', $name);
-    
-    exit ($presenter);
-    $presenter = new $presenter;
-    
-    echo $presenter->template->test;
-    
-   
+
+    $core = new inc\Template\Core();

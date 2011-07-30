@@ -54,28 +54,19 @@
             return $this->macros;
         }
         
+        
         public function macroInclude($name) {
-            return $name . 'pica';
-            
-            $template = STYLE_DIR . STYLE . '/' . $name . '.html';
+            $template = STYLE_DIR . STYLE . '/template/' . $name . '.html';
             $f = fopen($template, 'r');
             $template = fread($f, filesize($template));
             fclose($f);
             
-            
-            //Experimental, nedorobene
             $parse = new Parse();
-            $presenter = '\\Presenter\\' . str_replace('_', '\\', $name);
+            $name = ucwords(str_replace('_', ' ', $name));
+            $presenter = '\\Presenter\\' . str_replace(' ', '\\', $name);
             $presenter = new $presenter;
-            
-            
-            //Set vars $template->any as $any
-            foreach(get_object_vars($basePresenter->template) as $key => $val) {
-                $$key = $val;
-            }
-            
+            Core::$translate = get_object_vars($presenter->getTemplate());
             $template = $parse->parseTemplate($template, $this->getMacros());
-            
-            //return $template;
+            return $template;
         }
     }

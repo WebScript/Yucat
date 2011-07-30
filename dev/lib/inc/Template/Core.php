@@ -17,6 +17,7 @@
     
     class Core {
             
+        public static $translate;
         
         public function __construct() {
             $router = new \inc\Router();
@@ -30,13 +31,14 @@
             $basePresenter = new \Presenter\BasePresenter();
             $parse = new Parse();
 
-            //Set vars $template->any as $any
-            foreach(get_object_vars($basePresenter->template) as $key => $val) {
-                $$key = $val;
-            }
-            
             $template = $parse->parseTemplate($template, $parse->getMacros());
             
+            //Set vars $template->any as $any
+          /*  foreach(get_object_vars(Core::$translate) as $key => $val) {
+                $$key = $val;
+            }*/
+            
+            echo $template;
             
         }
         
