@@ -87,14 +87,4 @@
              $name = TEMP . $this->folder . '/' . $name;
              unlink($name);
          }
-         
-         
-         /**
-          * Include a cache file
-          * @param string $name 
-          */
-         public function includeCache($name) {
-             $name = TEMP . $this->folder . '/' . $name;
-             include $name;
-         }
      }

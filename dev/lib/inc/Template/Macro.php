@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.4
+     * @version    Release: 0.2.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -26,7 +26,8 @@
          * Call default macrss
          */
         public function __construct() {
-            $this->addMacro('macroInclude %key', 'test');
+            $this->addMacro('macroInclude %key', '');
+            $this->addMacro('macroContent', '');
             $this->addMacro('if %key :', 'if(\\1):');
             $this->addMacro('/if', 'endif;');
             $this->addMacro('foreach %key :', 'foreach(\\1):');
@@ -65,8 +66,16 @@
             $name = ucwords(str_replace('_', ' ', $name));
             $presenter = '\\Presenter\\' . str_replace(' ', '\\', $name);
             $presenter = new $presenter;
-            Core::$translate = get_object_vars($presenter->getTemplate());
+            
+            Core::$translate = array_merge(get_object_vars($presenter->getTemplate()), Core::$translate);
             $template = $parse->parseTemplate($template, $this->getMacros());
             return $template;
+        }
+        
+        public function macroContent() {
+            $router = new \inc\Router();
+            $address = $router->getAddress();
+            $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
+            return $this->macroInclude($addr);
         }
     }

@@ -22,7 +22,9 @@
         private $db;
         
         public function __construct() {
-            $this->template = new \stdClass();
+            if(!is_object($this->template)) {
+                $this->template = new \stdClass();
+            }
             
             global $db;
             $this->db = $db; 

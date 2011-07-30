@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.2
+     * @version    Release: 0.3.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -17,18 +17,21 @@
     
     class Parse extends Macro {
         
+        private $regular;
+
         public function __construct() {
+            $this->regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> ()\'"$%@!^&|:.*') . ']+)';
             parent::__construct();
         }
        
         
         
         public function parseTemplate($haystack, array $search, $delimiter = '%key') {
-            $regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> ()\'"$%@!^&|:.*') . ']+)';
+            
             /** List of finded variables */
-            preg_match_all('/\{' . $regular . '\}/', $haystack, $finded);
+            preg_match_all('/\{' . $this->regular . '\}/', $haystack, $finded);
             /** Protect $search var */
-            $search = \inc\Arr::arrayKeyReplace($delimiter, $regular, $search);
+            $search = \inc\Arr::arrayKeyReplace($delimiter, $this->regular, $search);
             $macro = new Macro();
             
             foreach($finded[1] as $key => $val) {
@@ -36,7 +39,11 @@
                     if(preg_match('/' . $key2 . '/', $val)) {
                         if(strpos($val, 'macro') !== FALSE) {
                             $str = explode(' ', $val, 2);
-                            $params = explode(',', $str[1]);
+                            if(isset($str[1])) {
+                                $params = explode(',', $str[1]);
+                            } else {
+                                $params = array();
+                            }
                             
                             $content = call_user_func_array(array($macro, $str[0]), $params);
                             $haystack = preg_replace('/\{' . $key2 . '\}/', $content, $haystack);
@@ -47,8 +54,10 @@
                 }
             }
             
-            //$haystack = preg_replace('/\{$' . $regular . '\}/', '<?php ' . $regular . '; ?\>', $haystack);
-            
             return $haystack;
+        }
+        
+        public function setVariable($template) {
+            return preg_replace('/\{\$' . $this->regular . '\}/','<?php echo $\\1; ?>', $template);
         }
     }

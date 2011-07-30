@@ -17,9 +17,9 @@
     
     class Login extends \Presenter\BasePresenter {
         
-        public function Login() {
+        public function __construct() {
+            parent::__construct();
             $this->template->testVar = 'testovacia premenna';
-            $this->template->test = 'lol';
-            //echo 'test presenter';
+            $this->template->test = 'ljol';
         }
     }
