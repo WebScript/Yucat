@@ -4,7 +4,6 @@ TASKS 1:
 TASKS 2:
     AJAX
     v .htaccess odstranit posledne / v adrese
-    Brat domeny ako Zlozka/Presenter/method - lebo napr aby nebolo vsetko nadrbane v jednom a pre AJAX
     Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
     Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
 
@@ -53,3 +52,8 @@ NAPADY:
 presenter sa nacita ako prvy
     v ajax classe bude nieco ako sendJSON sendHTML atd. a prose ak bude sendJSON tak sa ani nenacita templata a ani language system iba presenter
 a ked bude sendHTML tak sa nacita vsetko okrem layer a auth_logged
+
+$.get(window.location.pathname);
+
+
+window.location.replace(url);

@@ -43,12 +43,12 @@
     inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
-    //$db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
+    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     if(UID) {
         /** @var user's informations */
-       /* $user = $db->table('users')
+        $user = $db->table('users')
                 ->where('id', UID)
-                ->fetch();*/
+                ->fetch();
     }
     if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
@@ -57,7 +57,7 @@
 
    // ob_flush();
    // ob_clean();
-    
+
     function d($p) {
         \inc\Diagnostics\Debug::dump($p);
     }

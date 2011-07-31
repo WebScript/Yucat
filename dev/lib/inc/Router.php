@@ -9,7 +9,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.9
+     * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -37,14 +37,18 @@
                 }
             }
             
-            /* Check if dir, class and metod exists */
-            if(!isset($out[0]) || !isset($out[1]) || !class_exists('\\Presenter\\' . $out[0] . '\\' . $out[1])) {
+            if(!isset($out[0]) || !isset($out[1])) {
                 $out[0] = 'Auth';
                 $out[1] = 'Login';
             }
             
-            if(!isset($out[2]) || !method_exists('\\Presenter\\' . $out[0] . '\\' . $out[1], $out[2])) {
-                $out[2] = 'Login';
+            /* Check if dir, class and metod exists */
+            if(!class_exists('\\Presenter\\' . $out[0] . '\\' . $out[1])) {
+                Diagnostics\Debug::error404();
+            }
+            
+            if(isset($out[2]) && !method_exists('\\Presenter\\' . $out[0] . '\\' . $out[1], $out[2])) {
+                Diagnostics\Debug::error404();
             }    
             return array_filter($out);
         }
@@ -74,38 +78,7 @@
                  . (self::$userFriendly ? '/' : '/?param=')
                  . implode((self::$userFriendly ? '/' : '&param='), $path);
         }
-        
-        
-        /**
-         * This function is Head function for call and use page system
-         * By URL you can call method
-         * @return resource of called class
-         */
-        public function callPresenter() {
-            $get = self::getAddress();
-            $class = '\\Presenter\\';
 
-            if(isset($get[0]) && isset($get[1]) && class_exists($class . $get[0] . '\\' . $get[1])) {
-                $class .= $get[0] . '\\' . $get[1];
-            } else {
-                $class .= 'Auth\\Login';
-            }
-            
-            if(isset($get[2]) && method_exists($class, $get[2])) {
-                $method = $get[2];
-            } else {
-                $method = 'Login';
-            }    
-            
-            unset($get[0]);
-            unset($get[1]);
-            unset($get[2]);
-
-            $class = new $class();
-            call_user_func_array(array($class, $method), $get);
-            return $class;
-        }
-        
         
         /**
          * Redirect to web by special syntax for traceRoute

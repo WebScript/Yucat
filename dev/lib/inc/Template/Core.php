@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.7
+     * @version    Release: 0.2.8
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -20,23 +20,20 @@
         public static $translate = array();
         
         public function __construct() {
-            $lang = new Language('cz'); //Sem pride potom if UID a bla bla..
+            $lang = new Language(isset($user) ? $user->language : NULL);
             
-            
-                        
+            $template = ROOT . STYLE_DIR . STYLE . '/layer.html';
+            $f = fopen($template, 'r');
+            $template = fread($f, filesize($template));
+            fclose($f);
+
+            $basePresenter = new \Presenter\BasePresenter();
+            $parse = new Parse();
+            $template = $parse->parseTemplate($template, $parse->getMacros());
+             
             if(\inc\Ajax::isAjax() && \inc\Ajax::getMode()) {
                 echo \inc\Ajax::getMode();
             } else {
-                $template = ROOT . STYLE_DIR . STYLE . '/layer.html';
-                $f = fopen($template, 'r');
-                $template = fread($f, filesize($template));
-                fclose($f);
-
-                $basePresenter = new \Presenter\BasePresenter();
-                $parse = new Parse();
-                $template = $parse->parseTemplate($template, $parse->getMacros());
-
-                //Set vars $template->any as $any
                 foreach(Core::$translate as $key => $val) {
                     $$key = $val;
                 }

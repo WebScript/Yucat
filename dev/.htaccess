@@ -3,7 +3,4 @@ RewriteEngine on
 #RewriteCond %{HTTP_HOST} ^([a-z\-]+).([a-z]+)(.uk|.us|.cc)?$ [NC]
 #RewriteRule (.*) http://www.%{HTTP_HOST}/$1 [L,R=301] 
 
-RewriteRule ^(.*)!(.png|.ico|.jpg|.jpeg|.js)$ %{DOCUMENT_ROOT}/index.php?uf=$1 [L]
-
-#deny from all
-allow from 109.230.33.205
+RewriteRule ^([a-zA-Z0-9\-\/]+)$ %{DOCUMENT_ROOT}/index.php?uf=$1 [L]
