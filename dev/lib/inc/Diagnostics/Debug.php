@@ -121,6 +121,9 @@
                if(is_array($val)) {
                    $out[] = (is_numeric($key) ? $key : '"'.$key.'"')
                           . ' => ' . self::getArray($val, $space1);
+               } elseif(is_object($val)) {
+                   $out[] = (is_numeric($key) ? $key : '"'.$key.'"')
+                          . ' => ' . self::getArray(get_object_vars($val), $space1);
                } else {
                    $out[] = (is_numeric($key) ? $key : '"'.$key.'"')
                           . ' => '

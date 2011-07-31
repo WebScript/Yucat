@@ -8,9 +8,9 @@
                 <div id="login-content">
                     <form action="" method="post" id="wl-form" name="wl-form">
                         <label for="wl-username">{$_LOGIN}</label>
-                        <input type="text" id="wl-username" name="username" />
+                        <input type="{$form['username']['type']}" id="wl-username" name="{$form['username']['name']}" />
                         <label for="wl-password">{$_PASSWORD}</label>
-                        <input type="password" id="wl-password" name="password" />
+                        <input type="{$form['password']['type']}" id="wl-password" name="{$form['password']['name']}" />
                         <label for="wl-remember">{$_REMEMBER}</label>
                         <input type="checkbox" id="wl-remember" name="remember" />
                         <input type="submit" value="{$_ENTER}" id="wl-btn" name="wl-btn" class="fright" />

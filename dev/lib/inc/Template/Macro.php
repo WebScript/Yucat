@@ -61,7 +61,7 @@
         }
         
         
-        public function macroInclude($name) {
+        public function macroInclude($name, $method = NULL, $params = NULL) {
             $templ_dir = ROOT . STYLE_DIR . STYLE . '/template/' . $name . '.html';
             if(file_exists($templ_dir)) {
                 $f = fopen($templ_dir, 'r');
@@ -74,8 +74,12 @@
             $presenter = '\\Presenter\\' . str_replace(' ', '\\', $name2);
             if(class_exists($presenter)) {
                 $presenter = new $presenter;
+                
+                if($method !== NULL && $method !== NULL) {
+                    call_user_func_array(array($presenter, $method), $params);
+                }
 
-                Core::$translate = array_merge(get_object_vars($presenter->getTemplate()), Core::$translate);
+                Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
                 Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
                 $template = $parse->parseTemplate($template, $this->getMacros());
                 return $template;
@@ -84,9 +88,14 @@
         
         
         public function macroContent() {
+            
             $router = new \inc\Router();
             $address = $router->getAddress();
             $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
-            return $this->macroInclude($addr);
+            $addr2 = $address[2];
+            unset($address[0]);
+            unset($address[1]);
+            unset($address[2]);
+            return $this->macroInclude($addr, $addr2, is_array($address) ? $address : array());
         }
     }

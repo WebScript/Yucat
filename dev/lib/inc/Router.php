@@ -46,7 +46,6 @@
             if(!class_exists('\\Presenter\\' . $out[0] . '\\' . $out[1])) {
                 Diagnostics\Debug::error404();
             }
-            
             if(isset($out[2]) && !method_exists('\\Presenter\\' . $out[0] . '\\' . $out[1], $out[2])) {
                 Diagnostics\Debug::error404();
             }    

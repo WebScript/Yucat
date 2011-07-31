@@ -24,5 +24,24 @@
                 echo 'lol';
             }
             
+            $form = new \inc\Form();
+            
+            $form->addElement('username', 'login123', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(20)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('nauc se psat debile...');
+            
+            $form->addElement('password', 'login123', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(20)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('nauc se psat debile...');
+            
+            $this->template->form = $form->sendForm();
+        }
+        
+        public function check() {
+            \inc\Ajax::sendHTML('lol');
         }
     }

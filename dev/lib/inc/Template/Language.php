@@ -54,9 +54,9 @@
         
         public static function getTranslate($name) {
             $filename = ROOT . LANG_DIR . LANG . '/' . $name . '.php';
-            if(file_exists($filename)) {
+            if(file_exists($filename)) { 
                 include_once(ROOT . LANG_DIR . LANG . '/' . $name . '.php');
-                if(!isset($translate) || !is_array($translate)) {
+                if(!isset($translate) || !is_array($translate)) { 
                     $translate = array();
                 } else {
                     foreach($translate as $key => $val) {

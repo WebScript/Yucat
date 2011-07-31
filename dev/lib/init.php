@@ -13,9 +13,7 @@
      * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.0
-     * @deprecated Class deprecated in Release 0.0.0
      * 
-     * @todo Prerobit...
      */
 
 
@@ -28,7 +26,7 @@
             $class = 'lib/' . $class;
         }
         
-        $dir = ROOT.'/'.$class.'.php';
+        $dir = ROOT . '/' . $class . '.php';
         if(file_exists($dir)) {
             require_once($dir);
         }

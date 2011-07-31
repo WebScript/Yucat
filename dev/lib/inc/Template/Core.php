@@ -30,14 +30,14 @@
             $basePresenter = new \Presenter\BasePresenter();
             $parse = new Parse();
             $template = $parse->parseTemplate($template, $parse->getMacros());
-             
+            //d(\inc\Ajax::getMode());
+            
             if(\inc\Ajax::isAjax() && \inc\Ajax::getMode()) {
                 echo \inc\Ajax::getMode();
             } else {
                 foreach(Core::$translate as $key => $val) {
                     $$key = $val;
                 }
-
                 $template = $parse->setVariable($template);
 
                 $name = rand(11111, 99999) . '.phtml';

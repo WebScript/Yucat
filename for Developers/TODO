@@ -57,3 +57,6 @@ $.get(window.location.pathname);
 
 
 window.location.replace(url);
+
+Niekedy potom pridat do Parse ze ak sa uz ten isty include ras parsoval tak necho ho neparsuje znovu
+v layery cez js on click a val == 
