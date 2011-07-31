@@ -1,7 +1,6 @@
 TASKS 1:
     ExceptionHandler
     Language system (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.) bude to array a budu oznacene keys ako _ANY_TEXT
-    Jazyky sa budu brat v prioritach ako Users DB, predvolebny jazyk prehliadaca, CFG DEFAULT
 
 TASKS 2:
     AJAX

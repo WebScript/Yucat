@@ -1,0 +1,3 @@
+mod_dosevasive !! for Dos DoSS and flood protection
+max_limit in php.ini to 8 MB
+max_connection 30

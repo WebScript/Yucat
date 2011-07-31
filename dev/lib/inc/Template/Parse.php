@@ -27,7 +27,6 @@
         
         
         public function parseTemplate($haystack, array $search, $delimiter = '%key') {
-            
             /** List of finded variables */
             preg_match_all('/\{' . $this->regular . '\}/', $haystack, $finded);
             /** Protect $search var */

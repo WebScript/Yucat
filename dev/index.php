@@ -1,8 +1,8 @@
 <?php
     /** Out buffer start */
-    ob_start(); 
+    //ob_start(); 
     /** Session start */
-    session_start();
+   // session_start();
     
     /** Load configuration file */
     require_once(__DIR__ . '/config.conf');
@@ -27,15 +27,13 @@
     /** Define style dir */
     define('STYLE_DIR', '/styles/');
     /** Define language dir */
-    define('LANG_DIR', ROOT . '/languages/');
+    define('LANG_DIR', '/languages/');
 
     /** Set language by config */
     if(empty($_SESSION['lang'])) $_SESSION['lang'] = CFG_DEF_LANG;
     /** Set style by config */
     if(empty($_SESSION['style'])) $_SESSION['style'] = CFG_DEF_STYLE;
 
-    /** Define language */
-    define('LANG', $_SESSION['lang']);
     /** Define style */
     define('STYLE', $_SESSION['style']);
     
@@ -48,11 +46,20 @@
     //$db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     if(UID) {
         /** @var user's informations */
-        $user = $db->table('users')
+       /* $user = $db->table('users')
                 ->where('id', UID)
-                ->fetch();
+                ->fetch();*/
     }
-    if(!is_dir(ROOT . STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
+    if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
     /** Call a template system*/
-    $core = new inc\Template\Core();
+    //$core = new inc\Template\Core();
+    
+   // $lang = new \inc\Template\Language('sk');
+    
+    //\inc\Diagnostics\Debug::dump($_SERVER);
+    
+    echo 'lol';
+    
+   // ob_flush();
+   // ob_clean();

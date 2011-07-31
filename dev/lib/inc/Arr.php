@@ -26,6 +26,7 @@
          * @param array $array Array for check
          * @param array $check Checking array
          * @return BOOL
+         * @deprecated
          */
         public static function isInArray(array $array, array $check) {
             if(count($array) != count($check)) return FALSE;

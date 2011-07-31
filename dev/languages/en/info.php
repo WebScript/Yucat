@@ -1,0 +1,2 @@
+<?php
+    $thisLang = "Český";
