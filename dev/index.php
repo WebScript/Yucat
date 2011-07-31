@@ -55,18 +55,4 @@
     if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
     /** Call a template system*/
-    //$template = new \inc\Template\Core();
-    //$template->templateTranslate();
-    
-    
-    //$test = new inc\Template\Parse();
-    //$macro = new inc\Template\Macro();
-    
-    
-    //$f = fopen('./styles/Turbo/template/profile.html', 'r');
-    //$fil = fread($f, filesize('./styles/Turbo/template/profile.html'));
-    
-    
-    //$test->parseTemplate($fil, $macro->getMacros());
-
     $core = new inc\Template\Core();

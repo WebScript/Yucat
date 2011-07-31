@@ -1,10 +1,10 @@
 <?php
     /**
-     * Authentification - login
+     * Authentification - Logged
      *
      * @category   Yucat
      * @package    Presenter\Auth
-     * @name       Login
+     * @name       Logged
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
@@ -15,7 +15,7 @@
 
     namespace Presenter\Auth;
     
-    class Login extends \Presenter\BasePresenter {
+    class Logged extends \Presenter\BasePresenter {
         
         public function __construct() {
             parent::__construct();

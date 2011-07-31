@@ -1,7 +1,6 @@
 Tasky podla urgentnosti 1-10 (1 - urgentne, 10 - neurgentne )
 
 TASKS 1:
-    Dorobit template system
     ExceptionHandler
     Language system (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.) bude to array a budu oznacene keys ako _ANY_TEXT
     Jazyky sa budu brat v prioritach ako Users DB, predvolebny jazyk prehliadaca, CFG DEFAULT
@@ -54,6 +53,4 @@ TASKS 10:
     Mini-forum
 
 NAPAD:
-    Dorobit Macro include a potom bude uz asi vsetko hotovo, este asi var translate
-v core vytvorit premenu do ktorej sa natiahnu vsetky premene a potom sa naraz prelozia
     v .htaccess odstranit posledne / v adrese

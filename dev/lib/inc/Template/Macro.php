@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.7
+     * @version    Release: 0.2.8
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -63,18 +63,22 @@
         
         public function macroInclude($name) {
             $template = STYLE_DIR . STYLE . '/template/' . $name . '.html';
-            $f = fopen($template, 'r');
-            $template = fread($f, filesize($template));
-            fclose($f);
+            if(file_exists($template)) {
+                $f = fopen($template, 'r');
+                $template = fread($f, filesize($template));
+                fclose($f);
+            } else \inc\Diagnostics\ErrorHandler::error404();
             
             $parse = new Parse();
             $name = ucwords(str_replace('_', ' ', $name));
             $presenter = '\\Presenter\\' . str_replace(' ', '\\', $name);
-            $presenter = new $presenter;
-            
-            Core::$translate = array_merge(get_object_vars($presenter->getTemplate()), Core::$translate);
-            $template = $parse->parseTemplate($template, $this->getMacros());
-            return $template;
+            if(class_exists($presenter)) {
+                $presenter = new $presenter;
+
+                Core::$translate = array_merge(get_object_vars($presenter->getTemplate()), Core::$translate);
+                $template = $parse->parseTemplate($template, $this->getMacros());
+                return $template;
+            } else \inc\Diagnostics\ErrorHandler::error404();
         }
         
         public function macroContent() {

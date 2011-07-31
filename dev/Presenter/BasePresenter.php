@@ -26,6 +26,8 @@
                 $this->template = new \stdClass();
             }
             
+            $this->template->isLogged = UID;
+            
             global $db;
             $this->db = $db; 
         }
