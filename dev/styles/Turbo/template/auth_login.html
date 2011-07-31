@@ -7,25 +7,25 @@
                 </div>
                 <div id="login-content">
                     <form action="" method="post" id="wl-form" name="wl-form">
-                        <label for="wl-username">{T_LOGIN_USERNAME}</label>
+                        <label for="wl-username">{$_LOGIN}</label>
                         <input type="text" id="wl-username" name="username" />
-                        <label for="wl-password">{T_LOGIN_PASSWORD}</label>
+                        <label for="wl-password">{$_PASSWORD}</label>
                         <input type="password" id="wl-password" name="password" />
-                        <label for="wl-remember">{T_LOGIN_REMEMBER}</label>
+                        <label for="wl-remember">{$_REMEMBER}</label>
                         <input type="checkbox" id="wl-remember" name="remember" />
-                        <input type="submit" value="{T_LOGIN_ENTER}" id="wl-btn" name="wl-btn" class="fright" />
+                        <input type="submit" value="{$_ENTER}" id="wl-btn" name="wl-btn" class="fright" />
                     </form>
                     <form action="" method="post" id="wr-form" name="wr-form" class="dis-none">
-                        <label for="wr-email">{T_LOGIN_ENTER_MAIL}</label>
+                        <label for="wr-email">{$_EMAIL}</label>
                         <input type="text" id="wr-email" name="email" />
                         <p class="tright">
-                            <input type="submit" value="{T_LOGIN_SEND_PASSWORD}" id="wr-btn" name="wr-btn" />
+                            <input type="submit" value="{$_SEND_PASS}" id="wr-btn" name="wr-btn" />
                         </p>
                     </form>
                 </div>
                 <div id="login-extra" class="radius-bottom">
-                    <a id="a-reminder" href="javascript: void(0)" class="afooter-link">{T_LOGIN_FORGOT_PASSWORD}</a>
-                    <a id="a-login" href="javascript: void(0)" class="afooter-link dis-none">{T_SUDDENDLY_REMEMBERED}</a>
+                    <a id="a-reminder" href="javascript: void(0)" class="afooter-link">{$_FORGOT_PASS}</a>
+                    <a id="a-login" href="javascript: void(0)" class="afooter-link dis-none">{$_SUDDENDLY_PASS}</a>
                 </div>
             </div>
         </div>

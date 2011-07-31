@@ -54,11 +54,7 @@
     
     /** Call a template system*/
     $core = new inc\Template\Core();
-    
-    //$lang = new \inc\Template\Language('sk');
-    
 
-    
    // ob_flush();
    // ob_clean();
     

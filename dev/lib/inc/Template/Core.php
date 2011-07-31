@@ -20,28 +20,34 @@
         public static $translate = array();
         
         public function __construct() {
-            $template = ROOT . STYLE_DIR . STYLE . '/layer.html';
-            $f = fopen($template, 'r');
-            $template = fread($f, filesize($template));
-            fclose($f);
-            
-            $basePresenter = new \Presenter\BasePresenter();
-            $parse = new Parse();
             $lang = new Language('cz'); //Sem pride potom if UID a bla bla..
-
-            $template = $parse->parseTemplate($template, $parse->getMacros());
-                        
-            //Set vars $template->any as $any
-            foreach(Core::$translate as $key => $val) {
-                $$key = $val;
-            }
-
-            $template = $parse->setVariable($template);
             
-            $name = rand(11111, 99999) . '.phtml';
-            $cache = new \inc\Cache('cache');
-            $cache->createCache($name, $template);
-            include ROOT . '/temp/cache/' . $name;
-            $cache->deleteCache($name);
+            
+                        
+            if(\inc\Ajax::isAjax() && \inc\Ajax::getMode()) {
+                echo \inc\Ajax::getMode();
+            } else {
+                $template = ROOT . STYLE_DIR . STYLE . '/layer.html';
+                $f = fopen($template, 'r');
+                $template = fread($f, filesize($template));
+                fclose($f);
+
+                $basePresenter = new \Presenter\BasePresenter();
+                $parse = new Parse();
+                $template = $parse->parseTemplate($template, $parse->getMacros());
+
+                //Set vars $template->any as $any
+                foreach(Core::$translate as $key => $val) {
+                    $$key = $val;
+                }
+
+                $template = $parse->setVariable($template);
+
+                $name = rand(11111, 99999) . '.phtml';
+                $cache = new \inc\Cache('cache');
+                $cache->createCache($name, $template);
+                include ROOT . '/temp/cache/' . $name;
+                $cache->deleteCache($name);
+            }
         }
     }

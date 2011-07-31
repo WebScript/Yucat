@@ -58,6 +58,11 @@
                 include_once(ROOT . LANG_DIR . LANG . '/' . $name . '.php');
                 if(!isset($translate) || !is_array($translate)) {
                     $translate = array();
+                } else {
+                    foreach($translate as $key => $val) {
+                        $trsl['_' . $key] = $val;
+                    }
+                    $translate = $trsl;
                 }
             } else {
                 $translate = array();

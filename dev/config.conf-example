@@ -14,6 +14,10 @@
     define("CFG_DEF_LANG", "cz");                 // Default set language
     define('CFG_DEF_STYLE','Turbo');              //Defualt set style
     define('CFG_TIME_ZONE', 'Europe/Bratislava'); //Time zone
+    
+        //Text
+    define('CFG_TMLP_KEYWORDS', 'Hosting, Host, Server Hosting, Server Host, Game Server Hosting, Game Server Host');
+    define('CFG_TMLP_DESCRIPTION', 'Game Server Hosting');
 
         //Cost
     define("COST_SAMP", "1.667");                 //1.667 credit peer 50 slots peer 30 day

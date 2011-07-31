@@ -4,3 +4,6 @@ RewriteEngine on
 #RewriteRule (.*) http://www.%{HTTP_HOST}/$1 [L,R=301] 
 
 RewriteRule ^(.*)!(.png|.ico|.jpg|.jpeg|.js)$ %{DOCUMENT_ROOT}/index.php?uf=$1 [L]
+
+#deny from all
+allow from 109.230.33.205

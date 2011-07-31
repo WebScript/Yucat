@@ -1,34 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{$__TITLE}</title>
-    <meta http-equiv='content-type' content='text/html; charset=UTF-8' />
-    <meta name="author" content="Bloodman Arun" />
-    <meta name="description" content="{$__DESCRIPTION}" />
-    <meta name="keywords" content="{$__KEYWORDS}" />
-    <link rel="shortcut icon" href="{$__THEME_DIR}img/favicon.ico" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/style.css" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery-ui-1.8.11.custom.css" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.fullcalendar.css" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.fullcalendar.print.css" media="print" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.tiptip.css" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.wysiwyg.css" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.uniform.css" />
-    <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.apprise.css" />
-</head>
-<body>
-<!--[if lte IE 8]><script src="{$__THEME_DIR}js/excanvas.min.js"></script><![endif]-->
-<script src="{$__THEME_DIR}js/jquery.min.js"></script>
-<script src="{$__THEME_DIR}js/jquery.uniform.js"></script>
-<script src="{$__THEME_DIR}js/jquery-ui-1.8.11.custom.min.js"></script>
-<script src="{$__THEME_DIR}js/jquery.flot.min.js"></script>
-<script src="{$__THEME_DIR}js/jquery.fullcalendar.js"></script>
-<script src="{$__THEME_DIR}js/jquery.wysiwyg.js"></script>
-<script src="{$__THEME_DIR}js/jquery.tabify.js"></script>
-<script src="{$__THEME_DIR}js/jquery.limit.js"></script>
-<script src="{$__THEME_DIR}js/jquery.tiptip.js"></script>
-<script src="{$__THEME_DIR}js/jquery.elastic.js"></script>
-<script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
+{if !$isAjax :}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{$__TITLE}</title>
+        <meta http-equiv='content-type' content='text/html; charset=UTF-8' />
+        <meta name="author" content="Bloodman Arun" />
+        <meta name="description" content="{$__DESCRIPTION}" />
+        <meta name="keywords" content="{$__KEYWORDS}" />
+        <link rel="shortcut icon" href="{$__THEME_DIR}img/favicon.ico" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/style.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery-ui-1.8.11.custom.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.fullcalendar.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.fullcalendar.print.css" media="print" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.tiptip.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.wysiwyg.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.uniform.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.apprise.css" />
+    </head>
+    <body>
+    <!--[if lte IE 8]><script src="{$__THEME_DIR}js/excanvas.min.js"></script><![endif]-->
+    <script src="{$__THEME_DIR}js/jquery.min.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.uniform.js"></script>
+    <script src="{$__THEME_DIR}js/jquery-ui-1.8.11.custom.min.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.flot.min.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.fullcalendar.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.wysiwyg.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.tabify.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.limit.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.tiptip.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.elastic.js"></script>
+    <script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
+{/if}
 
 {ifset $isLogged :}
     {macroInclude auth_logged}
@@ -36,18 +38,20 @@
     {macroContent}
 {/if}
 
-<script src="{$__THEME_DIR}js/page.js"></script>     
-<script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-16158021-2']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-            var ga = document.createElement('script'); 
-            ga.type = 'text/javascript'; 
-            ga.async = true;
-            ga.src = '{THEME_DIR}js/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-</body>
-</html>
+{if !$isAjax :}
+    <script src="{$__THEME_DIR}js/page.js"></script>     
+    <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-16158021-2']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); 
+                ga.type = 'text/javascript'; 
+                ga.async = true;
+                ga.src = '{$__THEME_DIR}js/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </body>
+    </html>
+{/if}

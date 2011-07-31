@@ -23,15 +23,15 @@
         
         public function __construct() {
             if(!is_object($this->template)) {
-                $this->template = new \stdClass();
+                $this->template = new \stdClass;
             }
             
             $this->template->isLogged       = UID;
+            $this->template->isAjax         = \inc\Ajax::isAjax();
             $this->template->__THEME_DIR    = STYLE_DIR . STYLE . '/theme/';
-            $this->template->__KEYWORDS     = 'test';
-            $this->template->__DESCRIPTION  = 'test';
-            $this->template->__TITLE        = 'test';
-            
+            $this->template->__KEYWORDS     = CFG_TMLP_KEYWORDS;
+            $this->template->__DESCRIPTION  = CFG_TMLP_DESCRIPTION;
+
             global $db;
             $this->db = $db; 
         }

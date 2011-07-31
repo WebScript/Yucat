@@ -19,5 +19,10 @@
         
         public function __construct() {
             parent::__construct();
+            
+            if($_POST) {
+                echo 'lol';
+            }
+            
         }
     }
