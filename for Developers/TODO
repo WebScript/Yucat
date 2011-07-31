@@ -1,6 +1,5 @@
 TASKS 1:
     ExceptionHandler
-    Language system (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.) bude to array a budu oznacene keys ako _ANY_TEXT
 
 TASKS 2:
     AJAX
@@ -51,3 +50,6 @@ TASKS 10:
     Mini-forum
 
 NAPADY:
+presenter sa nacita ako prvy
+    v ajax classe bude nieco ako sendJSON sendHTML atd. a prose ak bude sendJSON tak sa ani nenacita templata a ani language system iba presenter
+a ked bude sendHTML tak sa nacita vsetko okrem layer a auth_logged

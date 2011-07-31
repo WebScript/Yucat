@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.8
+     * @version    Release: 0.3.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -70,16 +70,18 @@
             } else \inc\Diagnostics\ErrorHandler::error404();
             
             $parse = new Parse();
-            $name = ucwords(str_replace('_', ' ', $name));
-            $presenter = '\\Presenter\\' . str_replace(' ', '\\', $name);
+            $name2 = ucwords(str_replace('_', ' ', $name));
+            $presenter = '\\Presenter\\' . str_replace(' ', '\\', $name2);
             if(class_exists($presenter)) {
                 $presenter = new $presenter;
 
                 Core::$translate = array_merge(get_object_vars($presenter->getTemplate()), Core::$translate);
+                Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
                 $template = $parse->parseTemplate($template, $this->getMacros());
                 return $template;
             } else \inc\Diagnostics\ErrorHandler::error404();
         }
+        
         
         public function macroContent() {
             $router = new \inc\Router();

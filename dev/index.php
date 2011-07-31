@@ -1,8 +1,8 @@
 <?php
     /** Out buffer start */
-    //ob_start(); 
+   // ob_start(); 
     /** Session start */
-   // session_start();
+    session_start();
     
     /** Load configuration file */
     require_once(__DIR__ . '/config.conf');
@@ -53,13 +53,15 @@
     if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
     /** Call a template system*/
-    //$core = new inc\Template\Core();
+    $core = new inc\Template\Core();
     
-   // $lang = new \inc\Template\Language('sk');
+    //$lang = new \inc\Template\Language('sk');
     
-    //\inc\Diagnostics\Debug::dump($_SERVER);
-    
-    echo 'lol';
+
     
    // ob_flush();
    // ob_clean();
+    
+    function d($p) {
+        \inc\Diagnostics\Debug::dump($p);
+    }

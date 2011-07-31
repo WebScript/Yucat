@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.1
+     * @version    Release: 0.1.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      * 
@@ -22,7 +22,7 @@
         private $avaiable_languages = array();
 
 
-        public function __construct($defaultLang) {
+        public function __construct($defaultLang = NULL) {
             $dir = opendir(ROOT . LANG_DIR);
             
             while($langs = readdir($dir)) {
@@ -52,7 +52,16 @@
         }
         
         
-        public function getTranslate($name) {
-            $dir = opendir(ROOT . LANG_DIR . LANG . '/' . $name . '.php');
+        public static function getTranslate($name) {
+            $filename = ROOT . LANG_DIR . LANG . '/' . $name . '.php';
+            if(file_exists($filename)) {
+                include_once(ROOT . LANG_DIR . LANG . '/' . $name . '.php');
+                if(!isset($translate) || !is_array($translate)) {
+                    $translate = array();
+                }
+            } else {
+                $translate = array();
+            }
+            return $translate;
         }
     }
