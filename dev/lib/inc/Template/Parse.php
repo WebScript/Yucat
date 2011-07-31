@@ -18,6 +18,7 @@
     class Parse extends Macro {
         
         private $regular;
+        private static $called = array();
 
         public function __construct() {
             $this->regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> ()\'"$%@!^&|:.*') . ']+)';
@@ -38,13 +39,18 @@
                     if(preg_match('/' . $key2 . '/', $val)) {
                         if(strpos($val, 'macro') !== FALSE) {
                             $str = explode(' ', $val, 2);
-                            if(isset($str[1])) {
-                                $params = explode(',', $str[1]);
-                            } else {
-                                $params = array();
-                            }
-                            
-                            $content = call_user_func_array(array($macro, $str[0]), $params);
+                                if(!key_exists($val, self::$called)) {
+                                    if(isset($str[1])) {
+                                        $params = explode(',', $str[1]);
+                                    } else {
+                                        $params = array();
+                                    }
+
+                                    $content = call_user_func_array(array($macro, $str[0]), $params);
+                                    self::$called[$val] = $content;
+                                } else {
+                                    $content = self::$called[$val];
+                                }
                             $haystack = preg_replace('/\{' . $key2 . '\}/', $content, $haystack);
                         } else {
                             $haystack = preg_replace('/\{' . $key2 . '\}/', '<?php ' . $val2 . ' ?>', $haystack);

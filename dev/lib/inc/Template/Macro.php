@@ -92,7 +92,7 @@
             $router = new \inc\Router();
             $address = $router->getAddress();
             $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
-            $addr2 = $address[2];
+            $addr2 = isset($address[2]) ? $address[2] : NULL;
             unset($address[0]);
             unset($address[1]);
             unset($address[2]);

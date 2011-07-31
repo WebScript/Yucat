@@ -2,8 +2,8 @@
 
     $translate = array(
         '_TITLE' => 'Adminsitrace servera',
-        'LOGIN' => 'Login',
-        'PASSWORD' => 'Heslo',
+        'LOGIN' => 'Username',
+        'PASSWORD' => 'Password',
         'REMEMBER' => 'Zapametat?',
         'EMAIL' => 'E-Mail',
         'ENTER' => 'Enter',

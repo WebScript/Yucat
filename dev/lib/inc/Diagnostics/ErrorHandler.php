@@ -107,7 +107,7 @@
             $errorParsedFile[1] = substr($errorFile, strrpos($errorFile, '/') + 1);
             
             /** @todo Delete in php 5.4!! */
-            if($errorName !== E_DEPRECATED) {
+            if($errorName != E_DEPRECATED) {
                 include(dirname(__FILE__) . '/BSoD.phtml');
             }
         } 

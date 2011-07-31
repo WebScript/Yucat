@@ -8,7 +8,6 @@ TASKS 2:
     Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
 
 TASKS 3:
-    Pridat error 404
     Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
     Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
     tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
@@ -58,5 +57,8 @@ $.get(window.location.pathname);
 
 window.location.replace(url);
 
-Niekedy potom pridat do Parse ze ak sa uz ten isty include ras parsoval tak necho ho neparsuje znovu
 v layery cez js on click a val == 
+class="input-error tiptip-bottom"
+input-ok
+
+este potom dokoncit automaticke overovanie formov verifyForm($_GET);
