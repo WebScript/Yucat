@@ -128,7 +128,7 @@
         
         
         public static function error404() {
-            echo '<script>document.body("");</script>';
             include_once(dirname(__FILE__).'/404.html');
+            exit;
         }
      }

@@ -1,3 +1,2 @@
 <?php
-$thisLang = "Český";
-?>
+    $thisLang = "Český";

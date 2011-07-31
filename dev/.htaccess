@@ -1,6 +1,6 @@
 RewriteEngine on
 
-RewriteCond %{HTTP_HOST} ^([a-z\-]+).([a-z]+)(.uk)?$ [NC]
-RewriteRule (.*) http://www.%{HTTP_HOST}/$1 [L,R=301] 
+#RewriteCond %{HTTP_HOST} ^([a-z\-]+).([a-z]+)(.uk|.us|.cc)?$ [NC]
+#RewriteRule (.*) http://www.%{HTTP_HOST}/$1 [L,R=301] 
 
-RewriteRule (.*) %{DOCUMENT_ROOT}/index.php?uf=$1 [L]
+RewriteRule ^(.*)!(.png|.ico|.jpg|.jpeg|.js)$ %{DOCUMENT_ROOT}/index.php?uf=$1 [L]

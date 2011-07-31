@@ -62,10 +62,10 @@
         
         
         public function macroInclude($name) {
-            $template = STYLE_DIR . STYLE . '/template/' . $name . '.html';
-            if(file_exists($template)) {
-                $f = fopen($template, 'r');
-                $template = fread($f, filesize($template));
+            $templ_dir = ROOT . STYLE_DIR . STYLE . '/template/' . $name . '.html';
+            if(file_exists($templ_dir)) {
+                $f = fopen($templ_dir, 'r');
+                $template = fread($f, filesize($templ_dir));
                 fclose($f);
             } else \inc\Diagnostics\ErrorHandler::error404();
             

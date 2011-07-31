@@ -1,4 +1,4 @@
-<?php 
+<?php
     /** Out buffer start */
     ob_start(); 
     /** Session start */
@@ -23,11 +23,11 @@
     /** Define ROOT path */
     define('ROOT', __DIR__);
     /** Define cache dir */
-    define('TEMP', ROOT.'/temp/');
+    define('TEMP', ROOT . '/temp/');
     /** Define style dir */
-    define('STYLE_DIR', ROOT.'/styles/');
+    define('STYLE_DIR', '/styles/');
     /** Define language dir */
-    define('LANG_DIR', ROOT.'/languages/');
+    define('LANG_DIR', ROOT . '/languages/');
 
     /** Set language by config */
     if(empty($_SESSION['lang'])) $_SESSION['lang'] = CFG_DEF_LANG;
@@ -52,7 +52,7 @@
                 ->where('id', UID)
                 ->fetch();
     }
-    if(!is_dir(STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
+    if(!is_dir(ROOT . STYLE_DIR)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
     /** Call a template system*/
     $core = new inc\Template\Core();

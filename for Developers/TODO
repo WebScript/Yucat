@@ -1,5 +1,3 @@
-Tasky podla urgentnosti 1-10 (1 - urgentne, 10 - neurgentne )
-
 TASKS 1:
     ExceptionHandler
     Language system (Rozkuskovat jazyky do suborov napr Users.php co je pre classu Users atd.) bude to array a budu oznacene keys ako _ANY_TEXT
@@ -7,6 +5,7 @@ TASKS 1:
 
 TASKS 2:
     AJAX
+    v .htaccess odstranit posledne / v adrese
     Brat domeny ako Zlozka/Presenter/method - lebo napr aby nebolo vsetko nadrbane v jednom a pre AJAX
     Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
     Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
@@ -52,5 +51,4 @@ TASKS 9:
 TASKS 10:
     Mini-forum
 
-NAPAD:
-    v .htaccess odstranit posledne / v adrese
+NAPADY:

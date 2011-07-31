@@ -20,7 +20,7 @@
         public static $translate = array();
         
         public function __construct() {
-            $template = STYLE_DIR . STYLE . '/layer.html';
+            $template = ROOT . STYLE_DIR . STYLE . '/layer.html';
             $f = fopen($template, 'r');
             $template = fread($f, filesize($template));
             fclose($f);

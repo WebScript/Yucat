@@ -26,7 +26,11 @@
                 $this->template = new \stdClass();
             }
             
-            $this->template->isLogged = UID;
+            $this->template->isLogged       = UID;
+            $this->template->__THEME_DIR    = STYLE_DIR . STYLE . '/theme/';
+            $this->template->__KEYWORDS     = 'test';
+            $this->template->__DESCRIPTION  = 'test';
+            $this->template->__TITLE        = 'test';
             
             global $db;
             $this->db = $db; 
