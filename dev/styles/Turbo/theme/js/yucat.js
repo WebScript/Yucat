@@ -4,10 +4,16 @@ $(function() {
         var input = $(this);
         
         $.get('Auth/Login/check', name + '=' + $(this).val(), function(msg) {
-            if(msg == 'error'){
+            var response = $.parseJSON(msg);
+            
+            if(response.status == 'error'){
                 input.removeClass('input-ok');
                 input.addClass('input-error');
-            } else if(msg == 'ok') {
+                
+                if(response.message) {
+                    //alert(response.message);
+                }
+            } else if(response.status == 'ok') {
                 input.removeClass('input-error');
                 input.addClass('input-ok');
             }

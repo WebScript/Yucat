@@ -80,4 +80,29 @@
         public function sendForm() {
             return $this->form;
         }
+        
+        
+        public function validateData(array $input) {
+            foreach($this->form as $key => $val) {
+                if(array_key_exists($val['name'], $input)) {
+                    if(isset($val['minLenght']) && is_numeric($val['minLenght']) 
+                            && strlen($input[$val['name']]) < $val['minLenght']) {
+                        $error = array('status' => 'error');
+                    } elseif(isset($val['maxLenght']) && is_numeric($val['maxLenght']) 
+                            && strlen($input[$val['name']]) > $val['maxLenght']) {
+                        $error = array('status' => 'error');
+                    } else {
+                        $error = array('status' => 'ok');
+                    }
+                    
+                    /** @todo pridat kontrolu, ci to je text, mail, link alebo nieco ine... */
+                    
+                    if($error['status'] == 'error' && isset($val['errorMessage'])) {
+                        $error = array_merge($error, array('message' => $val['errorMessage']));
+                    }
+                    return $error;
+                }
+            }
+            return array();
+        }
     }

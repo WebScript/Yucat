@@ -34,7 +34,7 @@
                     ->setErrorType('TEXT')
                     ->setErrorMessage('nauc se psat debile...');
             
-            $this->form->addElement('password', 'login123', 'text')
+            $this->form->addElement('password', 'omglol', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(20)
                     ->setErrorType('TEXT')
@@ -46,10 +46,13 @@
         
         public function check() {//echo 'ok ' . $_GET['name'];
         //d($_GET);
-            if(strlen($_GET['login123']) < 7) { 
+          /*  if(strlen($_GET['login123']) < 7) { 
                 \inc\Ajax::sendHTML('error');
             } else {
                 \inc\Ajax::sendHTML('ok');
-            }
+            }*/
+         //\inc\Diagnostics\Debug::dump($this->form->validateData($_GET));
+         \inc\Ajax::sendJSON($this->form->validateData($_GET));
+         //\inc\Ajax::sendHTML(d($this->form->validateData($_GET)));
         }
     }

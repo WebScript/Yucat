@@ -31,8 +31,7 @@
         
         
         public static function sendJSON(array $json) {
-            //format array as JSON
-            self::$content = $json;
+            self::$content = self::drawJSON($json);
         }
         
         
@@ -43,6 +42,21 @@
         
         public static function getMode() {
             return self::$content;
+        }
+        
+        
+        private static function drawJSON(array $array) {
+            $out = array();
+            
+            foreach($array as $key => $val) {
+                if(is_array($val)) {
+                    $this->drawJSON($val);
+                } else {
+                    $out[] = '"' . $key . '" : "' . $val . '"';
+                }
+            }
+            
+            return '{' . implode(', ', $out) . '}';
         }
         
     }

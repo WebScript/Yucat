@@ -2,10 +2,10 @@ TASKS 1:
     ExceptionHandler
 
 TASKS 2:
-    AJAX
++    AJAX
     v .htaccess odstranit posledne / v adrese
-    Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
-    Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
++    Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
++    Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
 
 TASKS 3:
     Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
