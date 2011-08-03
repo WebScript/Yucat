@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -82,27 +82,44 @@
         }
         
         
-        public function validateData(array $input) {
+        public function validateData($input = NULL) {
+            $input = $input === NULL ? $_GET : $input;
+            $return = array();
+            
             foreach($this->form as $key => $val) {
-                if(array_key_exists($val['name'], $input)) {
+                $name = $val['name'];
+                if(array_key_exists($name, $input)) {
                     if(isset($val['minLenght']) && is_numeric($val['minLenght']) 
-                            && strlen($input[$val['name']]) < $val['minLenght']) {
-                        $error = array('status' => 'error');
+                            && strlen($input[$name]) < $val['minLenght']) {
+                        $out = array($name => array('status' => 'error'));
                     } elseif(isset($val['maxLenght']) && is_numeric($val['maxLenght']) 
-                            && strlen($input[$val['name']]) > $val['maxLenght']) {
-                        $error = array('status' => 'error');
+                            && strlen($input[$name]) > $val['maxLenght']) {
+                        $out = array($name => array('status' => 'error'));
                     } else {
-                        $error = array('status' => 'ok');
+                        $out = array($name => array('status' => 'ok'));
                     }
                     
                     /** @todo pridat kontrolu, ci to je text, mail, link alebo nieco ine... */
                     
-                    if($error['status'] == 'error' && isset($val['errorMessage'])) {
-                        $error = array_merge($error, array('message' => $val['errorMessage']));
+                    if(is_array($out[$name]) 
+                            && $out[$name]['status'] == 'error' 
+                            && isset($val['errorMessage'])) {
+                        $out[$name] = array_merge($out[$name], array('message' => $val['errorMessage']));
                     }
-                    return $error;
+                    $return = array_merge($return, $out);
                 }
             }
-            return array();
+            return $return;
+        }
+        
+        
+        public function isValidData($input = NULL) {
+            $input = $this->validateData($input === NULL ? $_GET : $input);
+            
+            if(\inc\Arr::isInExtendedArray($input, 'error') === FALSE) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
         }
     }

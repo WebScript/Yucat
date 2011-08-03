@@ -50,7 +50,7 @@
             
             foreach($array as $key => $val) {
                 if(is_array($val)) {
-                    $this->drawJSON($val);
+                    $out[] = '"' . $key . '" : ' . self::drawJSON($val);
                 } else {
                     $out[] = '"' . $key . '" : "' . $val . '"';
                 }

@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.3
+     * @version    Release: 0.1.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.1
      */
@@ -71,5 +71,19 @@
                 $out[str_replace($what, $input, preg_quote($key, '/'))] = $val;
             }
             return $out;
+        }
+        
+        
+        public static function isInExtendedArray(array $array, $search) {
+            foreach($array as $key => $val) {
+                if(is_array($val)) {
+                   if(self::isInExtendedArray($val, $search)) {
+                       return TRUE;
+                   }
+                } elseif($val == $search) {
+                    return TRUE;
+                }
+            }
+            return FALSE;
         }
      }

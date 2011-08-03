@@ -131,7 +131,11 @@
         
         
         public static function error404() {
-            include_once(dirname(__FILE__).'/404.html');
+            if(\inc\Ajax::isAjax()) {
+                echo 'Error: 404';
+            } else {
+                include_once(dirname(__FILE__).'/404.html');
+            }
             exit;
         }
      }

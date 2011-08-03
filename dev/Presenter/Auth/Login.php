@@ -28,31 +28,35 @@
             
             $this->form = new \inc\Form();
             
-            $this->form->addElement('username', 'login123', 'text')
+            $this->form->addElement('username', 'username', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(20)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('nauc se psat debile...');
             
-            $this->form->addElement('password', 'omglol', 'text')
+            $this->form->addElement('password', 'password', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(20)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('nauc se psat debile...');
+            
+            $this->form->addElement('remember', 'remember', 'checkbox');
+            $this->form->addElement('login', 'login', 'submit');
             
             $this->template->form = $this->form->sendForm();
         }
         
         
-        public function check() {//echo 'ok ' . $_GET['name'];
-        //d($_GET);
-          /*  if(strlen($_GET['login123']) < 7) { 
-                \inc\Ajax::sendHTML('error');
+        public function check() {
+            \inc\Ajax::sendJSON($this->form->validateData($_GET));
+        }
+        
+        
+        public function login() {
+            if($this->form->isValidData()) {
+                \inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
             } else {
-                \inc\Ajax::sendHTML('ok');
-            }*/
-         //\inc\Diagnostics\Debug::dump($this->form->validateData($_GET));
-         \inc\Ajax::sendJSON($this->form->validateData($_GET));
-         //\inc\Ajax::sendHTML(d($this->form->validateData($_GET)));
+                \inc\Ajax::sendJSON($this->form->validateData());
+            }
         }
     }
