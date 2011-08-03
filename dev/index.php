@@ -38,15 +38,15 @@
     define('STYLE', $_SESSION['style']);
     
     /** Call a error handler */
-    inc\Diagnostics\Debug::enable();
+    //inc\Diagnostics\Debug::enable();
     /** Set developer mode */
-    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
+    //inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
     $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     if(UID) {
         /** @var user's informations */
-        $user = $db->table('users')
+        $user = $db->tables('users')
                 ->where('id', UID)
                 ->fetch();
     }

@@ -102,7 +102,7 @@ CREATE TABLE `banned` (
 
 CREATE TABLE `users` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `login` VARCHAR( 14 ) NOT NULL ,
+   `username` VARCHAR( 14 ) NOT NULL ,
    `password` VARCHAR( 50 ) NOT NULL ,
 
    `firstname` VARCHAR( 30 ) NOT NULL ,
@@ -125,7 +125,7 @@ CREATE TABLE `users` (
    `last_login2` INT NOT NULL ,
    `chat` BOOL NOT NULL ,
    `lock` INT NOT NULL,
-    UNIQUE (`login`)
+    UNIQUE (`username`)
 ) ENGINE = innodb COLLATE utf8_bin;
 
 

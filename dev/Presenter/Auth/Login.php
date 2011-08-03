@@ -54,8 +54,19 @@
         
         public function login() {
             if($this->form->isValidData()) {
-                echo $this->form->getValue('password') . 'lol';
-                \inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
+                $result = $this->db()
+                        ->tables('users')
+                        ->where('username', $this->form->getValue('username'))
+                        ->where('password', $this->form->getValue('password'))
+                        ->limit(1)
+                        ->fetch();
+                //\inc\Ajax::sendHTML($result);
+                if($result) {
+                    
+                } else {
+                    \inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
+                }
+                //\inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
                 
             } else {
                 \inc\Ajax::sendJSON($this->form->validateData());
