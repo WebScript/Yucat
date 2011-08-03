@@ -54,7 +54,9 @@
         
         public function login() {
             if($this->form->isValidData()) {
+                echo $this->form->getValue('password') . 'lol';
                 \inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
+                
             } else {
                 \inc\Ajax::sendJSON($this->form->validateData());
             }

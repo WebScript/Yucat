@@ -122,4 +122,9 @@
                 return FALSE;
             }
         }
+        
+        
+        public function getValue($name) {
+            return $_GET[$this->form[$name]['name']];
+        }
     }
