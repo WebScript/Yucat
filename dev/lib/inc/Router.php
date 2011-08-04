@@ -78,6 +78,8 @@
          * @param string $input 
          */
         public static function redirect($input) {
-            header('location: ' . self::traceRoute($input));
+            if(self::traceRoute($input) !== $_SERVER['SCRIPT_URI']) {
+                header('location: ' . self::traceRoute($input));
+            }
         }
     }

@@ -86,12 +86,13 @@
             if(class_exists($presenter)) {
                 $presenter = new $presenter;
                 
-                if($method) {
-                    call_user_func_array(array($presenter, $method), $params);
-                }
-
                 Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
                 Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
+
+                if(method_exists($presenter, $method)) {
+                    call_user_func_array(array($presenter, $method), $params);
+                } elseif($method !== NULL) \inc\Diagnostics\ErrorHandler::error404();
+                
                 $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
                 return $template;
             } else \inc\Diagnostics\ErrorHandler::error404();
@@ -99,9 +100,7 @@
         
         
         public function macroContent() {
-            
-            $router = new \inc\Router();
-            $address = $router->getAddress();
+            $address = \inc\Router::getAddress();
             if(isset($address[1]) && file_exists(ROOT . '/Presenter/' . $address[0] . '/' . $address[1] . '.php')) {
                 $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
                 $addr2 = isset($address[2]) ? $address[2] : NULL;
