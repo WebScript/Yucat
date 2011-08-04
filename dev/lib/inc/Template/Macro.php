@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.1
+     * @version    Release: 0.3.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -62,8 +62,11 @@
         }
         
         
-        public function macroInclude($name, $method = NULL, $params = NULL) {
-            $templ_dir = ROOT . STYLE_DIR . STYLE . '/template/' . $name . '.html';
+        public function macroInclude($name, $method = NULL, $params = NULL) { d($method);
+            $templ_dir = ROOT . STYLE_DIR . STYLE 
+                       . '/template/' . $name 
+                       . ($method ? '/' . implode('_', $method) . '/' : '') 
+                       . '.html';
            // d($templ_dir);
             if(file_exists($templ_dir)) {
                 $f = fopen($templ_dir, 'r');
@@ -99,17 +102,17 @@
             
             $router = new \inc\Router();
             $address = $router->getAddress();
-            if(isset($address[1]) && file_exists(ROOT . 'Presenter/' . $address[0] . '/' . $address[1] . '.php')) {
+            if(isset($address[1]) && file_exists(ROOT . '/Presenter/' . $address[0] . '/' . $address[1] . '.php')) {
                 $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
                 $addr2 = isset($address[2]) ? $address[2] : NULL;
-             
+                
                 unset($address[0]);
                 unset($address[1]);
                 unset($address[2]);
             } else {
                 $addr = strtolower($address[0]);
                 $addr2 = isset($address[1]) ? $address[1] : NULL;
-                
+
                 unset($address[0]);
                 unset($address[1]);
             }

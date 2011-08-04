@@ -3,7 +3,7 @@
      * Authentification - login
      *
      * @category   Yucat
-     * @package    Model\Auth
+     * @package    Model
      * @name       Login
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
@@ -13,7 +13,7 @@
      * @since      Class available since Release 0.0.1
      */
 
-    namespace Model\Auth;
+    namespace Model;
     
     class Login extends \Model\BaseModel {
         
@@ -28,8 +28,8 @@
             if($result) {
                 $time = $remember ? 31104000 : 0;
                 
-                //setcookie('id', $result->id, $time, '/', DOMAIN);
-                //setcookie('password', $result->password, $time, '/', DOMAIN);
+                setcookie('id', $result->id, $time, '/', DOMAIN);
+                setcookie('password', $result->password, $time, '/', DOMAIN);
                 return TRUE;
             } else {
                 return FALSE;

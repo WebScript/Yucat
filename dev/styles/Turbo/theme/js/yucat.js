@@ -2,14 +2,13 @@ $(function() {
     
     $('form').submit(function(val) { 
         var elements = $(this.elements).serialize();
-        console.log(this.action);
-        $.get(this.action, elements, function(msg) {
+
+        $.get(this.action + '/send', elements, function(msg) {
             var response = $.parseJSON(msg);
             
             $.each(response, function(id, v) {
                 if(id == 'redirect') {
-                    console.log(v);
-                    //window.location = v;
+                    window.location = v;
                 } else if(id == 'alert') {
                     alert(v);
                 }
@@ -25,7 +24,7 @@ $(function() {
         var input = $(this);
         
         if(trg.target.type !== 'submit') {
-            $.get(this.action, name + '=' + $(this).val(), function(msg) {
+            $.get($(this).parent().attr('action') + '/check', name + '=' + $(this).val(), function(msg) {
                 changeStats(input, $($.parseJSON(msg)).attr(name));
             });
         }

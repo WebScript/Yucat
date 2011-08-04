@@ -90,10 +90,10 @@
                 $name = $val['name'];
                 if(array_key_exists($name, $input)) {
                     if(isset($val['minLenght']) && is_numeric($val['minLenght']) 
-                            && strlen($input[$name]) <= $val['minLenght']) {
+                            && strlen($input[$name]) < $val['minLenght']) {
                         $out = array($name => array('status' => 'error'));
                     } elseif(isset($val['maxLenght']) && is_numeric($val['maxLenght']) 
-                            && strlen($input[$name]) >= $val['maxLenght']) {
+                            && strlen($input[$name]) > $val['maxLenght']) {
                         $out = array($name => array('status' => 'error'));
                     } else {
                         $out = array($name => array('status' => 'ok'));

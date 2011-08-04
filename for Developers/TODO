@@ -2,7 +2,7 @@ TASKS 1:
     ExceptionHandler
 
 TASKS 2:
-
+    Dorobit JavaScript
 TASKS 3:
 -    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
 -    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)

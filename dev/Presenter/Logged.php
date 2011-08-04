@@ -3,7 +3,7 @@
     * Authentification - Logged
     *
     * @category Yucat
-    * @package Presenter\Auth
+    * @package Presenter
     * @name Logged
     * @author René Činčura (Bloodman Arun)
     * @copyright Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)

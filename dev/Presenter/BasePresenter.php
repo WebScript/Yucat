@@ -21,7 +21,7 @@
         //Resource of DB connection
         private $db;
         
-        public function __construct() {
+        protected function __construct() {
             if(!is_object($this->template)) {
                 $this->template = new \stdClass;
             }
@@ -36,7 +36,7 @@
             $this->template->__DESCRIPTION  = CFG_TMLP_DESCRIPTION;
         }
         
-        public function db() {
+        protected function db() {
             return $this->db;
         }
         
@@ -49,7 +49,7 @@
         }
         
         
-        public function isLogged() {
+        protected function isLogged() {
             if(empty($_COOKIE['id']) || empty($_COOKIE['id'])) {
                 return FALSE;
             }
@@ -64,6 +64,19 @@
                 return $result;
             } else {
                 return FALSE;
+            }
+        }
+        
+        
+        protected function forNotLogged($url = 'User:Profile') {
+            if($this->isLogged()) {
+                \inc\Router::redirect($url);
+            }
+        }
+        
+        protected function forLogged($url = 'Login') {
+            if(!$this->isLogged()) {
+                \inc\Router::redirect($url);
             }
         }
     }

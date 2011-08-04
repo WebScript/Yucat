@@ -3,7 +3,7 @@
      * Authentification - login
      *
      * @category   Yucat
-     * @package    Presenter\Auth
+     * @package    Presenter
      * @name       Login
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
@@ -21,7 +21,7 @@
         
         public function __construct() {
             parent::__construct();
-            
+            $this->forNotLogged();
             
             $this->form = new \inc\Form();
             
@@ -49,21 +49,18 @@
         }
         
         
-        public function login() {
+        public function send() {
             if($this->form->isValidData()) {
-                //$this->form->getValue('username')
-                $model = new \Model\Auth\Login();
+                $model = new \Model\Login();
                 $login = $model->login($this->form->getValue('username'), 
                         $this->form->getValue('password'), 
                         $this->form->getValue('remember'));
                 
                 if($login) {
-                    \inc\Ajax::sendJSON(array('alert' => 'Uspesne ste sa prihlasili'));
+                    \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('User:Profile')));
                 } else {
                     \inc\Ajax::sendJSON(array('alert' => 'Zadali ste zle meno alebo heslo...'));
                 }
-                //\inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
-                
             } else {
                 \inc\Ajax::sendJSON($this->form->validateData());
             }

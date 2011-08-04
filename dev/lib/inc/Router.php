@@ -9,7 +9,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.1
+     * @version    Release: 0.2.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -64,7 +64,10 @@
                 $path = array_merge($path, $p);
             }
             
-            return DOMAIN
+            $path = array_filter($path);
+            
+            return CFG_PROTOCOL 
+                 . DOMAIN
                  . (self::$userFriendly ? '/' : '/?param=')
                  . implode((self::$userFriendly ? '/' : '&param='), $path);
         }
@@ -74,7 +77,7 @@
          * Redirect to web by special syntax for traceRoute
          * @param string $input 
          */
-        public function redirect($input) {
+        public static function redirect($input) {
             header('location: ' . self::traceRoute($input));
         }
     }

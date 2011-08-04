@@ -6,7 +6,7 @@
     define("DB_DB",        "");                   //Database
 
         //Other
-    //define('CFG_PROTOCOL','http://');             //Protocol
+    define('CFG_PROTOCOL','http://');             //Protocol
     //define("CFG_WEBSITE",      "");               //without http://www.
     define("CFG_VERSION",  "0.0.0");              //Actual version of this administration
     define("CFG_MAX_SRVS", "1");                  //Max servers for free user

@@ -27,7 +27,6 @@
             $template = fread($f, filesize($template));
             fclose($f);
 
-            $basePresenter = new \Presenter\BasePresenter();
             $parse = new Parse();
             $template = $parse->parseTemplate($template, $parse->getMacros());
             
