@@ -21,7 +21,7 @@
         //Resource of DB connection
         private $db;
         
-        protected function __construct() {
+        public function __construct() {
             if(!is_object($this->template)) {
                 $this->template = new \stdClass;
             }

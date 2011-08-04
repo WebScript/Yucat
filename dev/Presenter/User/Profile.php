@@ -17,4 +17,9 @@
     
     class Profile extends \Presenter\BasePresenter {
         
+        public function __construct() {
+            parent::__construct();
+            $this->forLogged();
+        }
+        
     }

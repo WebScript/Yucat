@@ -8,9 +8,9 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.4
+     * @version    Release: 0.0.7
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
+     * @since      Class available since Release 0.0.4
      */
 
     namespace Presenter;
@@ -64,5 +64,10 @@
             } else {
                 \inc\Ajax::sendJSON($this->form->validateData());
             }
+        }
+        
+        public function logout() {
+            $model = new \Model\Login();
+            $model->logout();
         }
     }

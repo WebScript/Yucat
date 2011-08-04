@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.3
+     * @version    Release: 0.3.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -67,12 +67,12 @@
                        . '/template/' . $name 
                        . ($method ? '_' . $method : '') 
                        . '.html';
-            
+
             if(file_exists($templ_dir)) {
                 $f = fopen($templ_dir, 'r');
                 $template = fread($f, filesize($templ_dir));
                 fclose($f);
-            } else \inc\Diagnostics\ErrorHandler::error404();
+            } elseif($method === NULL) \inc\Diagnostics\ErrorHandler::error404();
             
             $parse = new Parse();
             $name2 =  explode('_', $name);
@@ -86,13 +86,13 @@
             if(class_exists($presenter)) {
                 $presenter = new $presenter;
                 
-                if($method !== NULL && $method !== NULL) {
+                if($method) {
                     call_user_func_array(array($presenter, $method), $params);
                 }
 
                 Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
                 Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
-                $template = $parse->parseTemplate($template, $this->getMacros());
+                $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
                 return $template;
             } else \inc\Diagnostics\ErrorHandler::error404();
         }
@@ -105,7 +105,7 @@
             if(isset($address[1]) && file_exists(ROOT . '/Presenter/' . $address[0] . '/' . $address[1] . '.php')) {
                 $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
                 $addr2 = isset($address[2]) ? $address[2] : NULL;
-                
+
                 unset($address[0]);
                 unset($address[1]);
                 unset($address[2]);

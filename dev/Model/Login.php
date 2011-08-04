@@ -35,4 +35,9 @@
                 return FALSE;
             }
         }
+        
+        public function logout() {
+            setcookie('id', NULL, 0, '/', DOMAIN);
+            setcookie('password', NULL, 0, '/', DOMAIN);
+        }
     }
