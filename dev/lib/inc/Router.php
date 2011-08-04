@@ -9,7 +9,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.0
+     * @version    Release: 0.2.1
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -37,18 +37,9 @@
                 }
             }
             
-            if(!isset($out[0]) || !isset($out[1])) {
-                $out[0] = 'Auth';
-                $out[1] = 'Login';
-            }
-            
-            /* Check if dir, class and metod exists */
-            if(!class_exists('\\Presenter\\' . $out[0] . '\\' . $out[1])) {
-                Diagnostics\Debug::error404();
-            }
-            if(isset($out[2]) && !method_exists('\\Presenter\\' . $out[0] . '\\' . $out[1], $out[2])) {
-                Diagnostics\Debug::error404();
-            }    
+            if(!isset($out[0]) && !isset($out[1])) {
+                $out[0] = 'Login';
+            } 
             return array_filter($out);
         }
         
@@ -73,7 +64,7 @@
                 $path = array_merge($path, $p);
             }
             
-            return CFG_PROTOCOL.CFG_WEBSITE
+            return DOMAIN
                  . (self::$userFriendly ? '/' : '/?param=')
                  . implode((self::$userFriendly ? '/' : '&param='), $path);
         }

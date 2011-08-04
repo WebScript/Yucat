@@ -1,6 +1,6 @@
 <?php
     /** Out buffer start */
-   // ob_start(); 
+    //ob_start(); 
     /** Session start */
     session_start();
     
@@ -19,7 +19,7 @@
     /** Define User Internet Protocol address */
     define('UIP', $_SERVER['REMOTE_ADDR']);
     /** Define domain */
-    define('DOMAIN', $_SERVER['SCRIPT_URI']);
+    define('DOMAIN', $_SERVER['HTTP_HOST']);
     /** Set time zone */
     date_default_timezone_set(CFG_TIME_ZONE);
     /** Define ROOT path */
@@ -40,9 +40,9 @@
     define('STYLE', $_SESSION['style']);
     
     /** Call a error handler */
-    //inc\Diagnostics\Debug::enable();
+    inc\Diagnostics\Debug::enable();
     /** Set developer mode */
-    //inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
+    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
     
     /** Create a connection with database */
     $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);

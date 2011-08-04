@@ -80,7 +80,7 @@
                 $delimiter = '';
             }
 
-            if(!$return) {
+            if(empty($return)) {
                 foreach($input AS $param => $value) {
                     $out[] = $setter ? $param . ' = ' . $value : $value;
                 }

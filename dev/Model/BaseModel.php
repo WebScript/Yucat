@@ -30,6 +30,10 @@
         
         
         public function isLogged() {
+        if(empty($_COOKIE['id']) || empty($_COOKIE['id'])) {
+                return FALSE;
+            }
+            
             $result = $this->db()
                     ->tables('users')
                     ->where('id', $_COOKIE['id'])

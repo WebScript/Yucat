@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.0
+     * @version    Release: 0.3.1
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -64,6 +64,7 @@
         
         public function macroInclude($name, $method = NULL, $params = NULL) {
             $templ_dir = ROOT . STYLE_DIR . STYLE . '/template/' . $name . '.html';
+           // d($templ_dir);
             if(file_exists($templ_dir)) {
                 $f = fopen($templ_dir, 'r');
                 $template = fread($f, filesize($templ_dir));
@@ -71,8 +72,14 @@
             } else \inc\Diagnostics\ErrorHandler::error404();
             
             $parse = new Parse();
-            $name2 = ucwords(str_replace('_', ' ', $name));
-            $presenter = '\\Presenter\\' . str_replace(' ', '\\', $name2);
+            $name2 =  explode('_', $name);
+            
+            if(isset($name2[1])) {
+                $presenter = '\\Presenter\\' . ucwords($name2[0]) . '\\' . ucwords($name2[1]);
+            } else {
+                $presenter = '\\Presenter\\' . ucwords($name2[0]);
+            }
+
             if(class_exists($presenter)) {
                 $presenter = new $presenter;
                 
@@ -92,11 +99,21 @@
             
             $router = new \inc\Router();
             $address = $router->getAddress();
-            $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
-            $addr2 = isset($address[2]) ? $address[2] : NULL;
-            unset($address[0]);
-            unset($address[1]);
-            unset($address[2]);
+            if(isset($address[1]) && file_exists(ROOT . 'Presenter/' . $address[0] . '/' . $address[1] . '.php')) {
+                $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
+                $addr2 = isset($address[2]) ? $address[2] : NULL;
+             
+                unset($address[0]);
+                unset($address[1]);
+                unset($address[2]);
+            } else {
+                $addr = strtolower($address[0]);
+                $addr2 = isset($address[1]) ? $address[1] : NULL;
+                
+                unset($address[0]);
+                unset($address[1]);
+            }
+            
             return $this->macroInclude($addr, $addr2, is_array($address) ? $address : array());
         }
         

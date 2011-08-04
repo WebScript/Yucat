@@ -8,12 +8,12 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.2
+     * @version    Release: 0.0.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
 
-    namespace Presenter\Auth;
+    namespace Presenter;
     
     class Login extends \Presenter\BasePresenter {
         private $form;
@@ -22,9 +22,6 @@
         public function __construct() {
             parent::__construct();
             
-            if($_POST) {
-                //echo 'lol';
-            }
             
             $this->form = new \inc\Form();
             
@@ -61,9 +58,9 @@
                         $this->form->getValue('remember'));
                 
                 if($login) {
-                    \inc\Ajax::sendHTML('ok');
+                    \inc\Ajax::sendJSON(array('alert' => 'Uspesne ste sa prihlasili'));
                 } else {
-                    \inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
+                    \inc\Ajax::sendJSON(array('alert' => 'Zadali ste zle meno alebo heslo...'));
                 }
                 //\inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
                 
