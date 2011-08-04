@@ -34,6 +34,7 @@
             $this->template->__THEME_DIR    = STYLE_DIR . STYLE . '/theme/';
             $this->template->__KEYWORDS     = CFG_TMLP_KEYWORDS;
             $this->template->__DESCRIPTION  = CFG_TMLP_DESCRIPTION;
+            $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . CFG_VERSION . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
         }
         
         protected function db() {

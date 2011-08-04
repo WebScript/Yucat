@@ -2,7 +2,7 @@
     /** Out buffer start */
     //ob_start(); 
     /** Session start */
-    session_start();
+    //session_start();
     
     /** Load configuration file */
     require_once(__DIR__ . '/config.conf');

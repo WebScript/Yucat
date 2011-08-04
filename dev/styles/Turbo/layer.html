@@ -1,4 +1,6 @@
-{if !$isAjax :}
+{if $isAjax :}
+    {macroContent}
+{else}
     <!DOCTYPE html>
     <html>
     <head>
@@ -31,7 +33,6 @@
     <script src="{$__THEME_DIR}js/jquery.tiptip.js"></script>
     <script src="{$__THEME_DIR}js/jquery.elastic.js"></script>
     <script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
-{/if}
 
 {ifset $isLogged :}
     {macroInclude logged}
@@ -39,7 +40,6 @@
     {macroContent}
 {/if}
 
-{if !$isAjax :}
     <script src="{$__THEME_DIR}js/page.js"></script>     
     <script type="text/javascript">
             var _gaq = _gaq || [];

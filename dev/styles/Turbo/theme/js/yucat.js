@@ -31,6 +31,13 @@ $(function() {
     });
     
     
+    function changePage(page) {
+        $.get(page, function(msg) {
+           $('div.ajaxContent').html(msg);
+        });
+    }
+    
+    
     function changeStats(input, object) {
         if(object.status == 'error') {
             input.removeClass('input-ok');

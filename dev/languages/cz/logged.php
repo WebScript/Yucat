@@ -1,6 +1,8 @@
 <?php
 
     $translate = array(
-      '_TITLE' => 'Adminsitrace servera',
-      'TEST_VAR' => 'testovacia premenna'  
+        '_TITLE' => 'Adminsitrace servera',
+        'HI' => 'Vitaj',
+        'VISIT' => 'Visit',
+        'LOGOUT' => 'Logout'
     );
