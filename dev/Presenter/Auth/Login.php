@@ -62,7 +62,7 @@
                         ->fetch();
                 //\inc\Ajax::sendHTML($result);
                 if($result) {
-                    
+                    \inc\Ajax::sendHTML('ok');
                 } else {
                     \inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));
                 }

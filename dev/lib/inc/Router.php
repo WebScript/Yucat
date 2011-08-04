@@ -56,7 +56,7 @@
         /**
          * This function is for create a real URL
          * You can use e.g. 'User:Profile:ajaxGetForm password,auth_key' and his call class Profile
-         * in dir User and method Profile with arguments password and auth_key as array
+         * in dir User and method ajaxGetForm with arguments password and auth_key as array
          * @param string $input
          * @return string
          * 

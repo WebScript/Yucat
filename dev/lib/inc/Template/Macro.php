@@ -28,6 +28,7 @@
         public function __construct() {
             $this->addMacro('macroInclude %key', '');
             $this->addMacro('macroContent', '');
+            $this->addMacro('macroLink %key', '');
             $this->addMacro('if %key :', 'if(\\1):');
             $this->addMacro('ifset %key :', 'if(isset(\\1)):');
             $this->addMacro('/if', 'endif;');
@@ -97,5 +98,11 @@
             unset($address[1]);
             unset($address[2]);
             return $this->macroInclude($addr, $addr2, is_array($address) ? $address : array());
+        }
+        
+        
+        public function macroLink($val) {
+            $router = new \inc\Router();
+            return $router->traceRoute($val);
         }
     }

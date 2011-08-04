@@ -2,7 +2,7 @@ $(function() {
     
     $('form').submit(function(val) { 
         var elements = $(this.elements).serialize();
-        
+        //console.log(this.action);
         $.get('Auth/Login/login', elements, function(msg) {
             var response = $.parseJSON(msg);
             

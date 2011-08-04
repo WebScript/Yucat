@@ -1,5 +1,4 @@
 TASKS 1:
-    opravit paramsReplace v string triede!!!
     ExceptionHandler
 
 TASKS 2:
@@ -63,3 +62,5 @@ class="input-error tiptip-bottom"
 input-ok
 
 este potom dokoncit automaticke overovanie formov verifyForm($_GET);
+
+Pridat potom do admin panelu povolenie ci moze google indexovat stranky
