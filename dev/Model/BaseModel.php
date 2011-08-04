@@ -27,4 +27,19 @@
         public function db() {
             return $this->db;
         }
+        
+        
+        public function isLogged() {
+            $result = $this->db()
+                    ->tables('users')
+                    ->where('id', $_COOKIE['id'])
+                    ->where('password', $_COOKIE['password'])
+                    ->limit(1)
+                    ->fetch();
+            if($result) {
+                return $result;
+            } else {
+                return FALSE;
+            }
+        }
     }

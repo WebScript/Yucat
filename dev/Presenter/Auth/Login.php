@@ -54,14 +54,13 @@
         
         public function login() {
             if($this->form->isValidData()) {
-                $result = $this->db()
-                        ->tables('users')
-                        ->where('username', $this->form->getValue('username'))
-                        ->where('password', $this->form->getValue('password'))
-                        ->limit(1)
-                        ->fetch();
-                //\inc\Ajax::sendHTML($result);
-                if($result) {
+                //$this->form->getValue('username')
+                $model = new \Model\Auth\Login();
+                $login = $model->login($this->form->getValue('username'), 
+                        $this->form->getValue('password'), 
+                        $this->form->getValue('remember'));
+                
+                if($login) {
                     \inc\Ajax::sendHTML('ok');
                 } else {
                     \inc\Ajax::sendJSON(array('redirect' => 'http://google.cz/'));

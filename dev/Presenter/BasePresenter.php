@@ -26,14 +26,14 @@
                 $this->template = new \stdClass;
             }
             
-            $this->template->isLogged       = UID;
+            global $db;
+            $this->db = $db; 
+            
+            $this->template->isLogged       = $this->isLogged() ? TRUE : NULL;
             $this->template->isAjax         = \inc\Ajax::isAjax();
             $this->template->__THEME_DIR    = STYLE_DIR . STYLE . '/theme/';
             $this->template->__KEYWORDS     = CFG_TMLP_KEYWORDS;
             $this->template->__DESCRIPTION  = CFG_TMLP_DESCRIPTION;
-
-            global $db;
-            $this->db = $db; 
         }
         
         public function db() {
@@ -46,5 +46,20 @@
         
         public function getTemplate() {
             return $this->template;
+        }
+        
+        
+        public function isLogged() {
+            $result = $this->db()
+                    ->tables('users')
+                    ->where('id', $_COOKIE['id'])
+                    ->where('password', $_COOKIE['password'])
+                    ->limit(1)
+                    ->fetch();
+            if($result) {
+                return $result;
+            } else {
+                return FALSE;
+            }
         }
     }

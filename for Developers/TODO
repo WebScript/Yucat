@@ -2,14 +2,10 @@ TASKS 1:
     ExceptionHandler
 
 TASKS 2:
-+    AJAX
-    v .htaccess odstranit posledne / v adrese
-+    Form (jak v nette, nadefinovat form a potom tam dat aj chybove hlasky atd.)
-+    Vzdy cez javascript on change odosielat ajaxovy poziadavok z menom napr. login, password, email atd. na server a kontrolovat dlzku znakov atd.
 
 TASKS 3:
-    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
-    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
+-    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
+-    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
     tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
 
 TASKS 4:
@@ -48,19 +44,11 @@ TASKS 10:
     Mini-forum
 
 NAPADY:
-presenter sa nacita ako prvy
-    v ajax classe bude nieco ako sendJSON sendHTML atd. a prose ak bude sendJSON tak sa ani nenacita templata a ani language system iba presenter
-a ked bude sendHTML tak sa nacita vsetko okrem layer a auth_logged
-
 $.get(window.location.pathname);
-
-
 window.location.replace(url);
 
-v layery cez js on click a val == 
 class="input-error tiptip-bottom"
 input-ok
 
-este potom dokoncit automaticke overovanie formov verifyForm($_GET);
-
 Pridat potom do admin panelu povolenie ci moze google indexovat stranky
+Spravit vlastne cookie

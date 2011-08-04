@@ -15,9 +15,11 @@
     use inc\Diagnostics\ExceptionHandler;
     
     /** Define User IDentificator (UID) */
-    define('UID',isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
+    //define('UID',isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
     /** Define User Internet Protocol address */
     define('UIP', $_SERVER['REMOTE_ADDR']);
+    /** Define domain */
+    define('DOMAIN', $_SERVER['SCRIPT_URI']);
     /** Set time zone */
     date_default_timezone_set(CFG_TIME_ZONE);
     /** Define ROOT path */
@@ -44,12 +46,12 @@
     
     /** Create a connection with database */
     $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
-    if(UID) {
+    /*if(UID) {
         /** @var user's informations */
-        $user = $db->tables('users')
+        /*$user = $db->tables('users')
                 ->where('id', UID)
                 ->fetch();
-    }
+    }*/
     if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
     /** Call a template system*/
