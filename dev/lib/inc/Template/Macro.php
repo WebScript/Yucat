@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.2
+     * @version    Release: 0.3.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -62,12 +62,12 @@
         }
         
         
-        public function macroInclude($name, $method = NULL, $params = NULL) { d($method);
+        public function macroInclude($name, $method = NULL, $params = NULL) {
             $templ_dir = ROOT . STYLE_DIR . STYLE 
                        . '/template/' . $name 
-                       . ($method ? '/' . implode('_', $method) . '/' : '') 
+                       . ($method ? '_' . $method : '') 
                        . '.html';
-           // d($templ_dir);
+            
             if(file_exists($templ_dir)) {
                 $f = fopen($templ_dir, 'r');
                 $template = fread($f, filesize($templ_dir));
