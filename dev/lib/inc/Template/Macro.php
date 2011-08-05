@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.5
+     * @version    Release: 0.3.6
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -84,9 +84,9 @@
             }
 
             if(class_exists($presenter)) {
+                Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
                 $presenter = new $presenter;
                 
-                Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
                 if(method_exists($presenter, $method)) {
                     call_user_func_array(array($presenter, $method), $params);
                 } elseif($method !== NULL) \inc\Diagnostics\ErrorHandler::error404();

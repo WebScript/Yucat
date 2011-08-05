@@ -26,15 +26,16 @@
             }
             $this->template->user = $this->isLogged();
             
+            
             $menu = Array(
-                'T_MENU_MAIN' => Array(
-                    'T_MENU_NEWS' => 'User:Profile:news',
-                    'T_MENU_PROFILE' => 'User:Profile:profile'
+                '_MENU_MAIN' => Array(
+                    '_MENU_NEWS' => 'User:Profile:news',
+                    '_MENU_PROFILE' => 'User:Profile:profile'
                     ),
-               /* 'T_MENU_STATISTIC' => Array(
-                    'bannery' => 'stat_banners',
-                    'access log' => 'stat_access'
-                ),
+                '_MENU_STATISTIC' => Array(
+                    '_MENU_BANNERS' => 'User:Profile:bannery',
+                    '_MENU_ACCESS_LOG' => 'User:Profile:access'
+                ),/*
                 'T_MENU_CREDIT' => Array(
                     'T_MENU_BUY_CREDIT' => 'credit_buy',
                     'T_MENU_CODE_CREDIT' => 'credit_code',
@@ -48,14 +49,11 @@
                 'T_MENU_SERVERS' => 'servers'*/
                 );
                 
-            $this->template->T_MENU_MAIN = 'lol';
-            $this->template->T_MENU_NEWS = 'sslol';
-            $this->template->T_MENU_PROFILE = 'profile vole';
             
             if(\inc\Ajax::isAjax()) {
-                \inc\Ajax::sendHTML(\Model\Menu::createMenu($menu, $this->template));
+                \inc\Ajax::sendHTML(\Model\Menu::createMenu($menu, \inc\Template\Core::$translate));
             } else {
-                $this->template->__MENU = \Model\Menu::createMenu($menu, $this->template);
+                $this->template->__MENU = \Model\Menu::createMenu($menu, \inc\Template\Core::$translate);
             }            
         }
     }

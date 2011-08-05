@@ -37,5 +37,11 @@
         public function news() {
             \inc\Ajax::sendHTML('news bla bla xDD');
         }
+        public function bannery() {
+            \inc\Ajax::sendHTML('news bsdfsdsdffla bla xDD');
+        }
+        public function access() {
+            \inc\Ajax::sendHTML('news sdfsdfsdsfsdfsdfsdfdfsbla bla xDD');
+        }
         
     }

@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.4
+     * @version    Release: 0.0.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
@@ -24,8 +24,8 @@
              foreach($array AS $key => $value) {
                   $menu .= '<li><a href="javascript:changePage(\''.\inc\Router::traceRoute(is_array($value) ? $value[key($value)] : $value).'\');"'
                         . (is_array($value) && in_array($url, $value) || $url == $value ? 'class="active submenu-active"' : '')
-                        . '><img src="/styles/' . STYLE . '/theme/img/' . $key . '.png" alt="' . $translate->$key
-                        . '" /><span>' . $translate->$key . '</span>' 
+                        . '><img src="/styles/' . STYLE . '/theme/img/' . $key . '.png" alt="' . $translate[$key]
+                        . '" /><span>' . $translate[$key] . '</span>' 
                         . (is_Array($value) && in_array($url, $value) || $url == $value ? '<span class="submenu-arrow"></span>' : '')
                         . '</a></li>';
                   if(is_Array($value) && in_array($url, $value)) {
@@ -33,7 +33,7 @@
 
                       foreach($value AS $param => $val) {
                           $sub_menu .= '<li><a href="javascript:changePage(\'' . \inc\Router::traceRoute($val) . '\');"' . ($url == $val ? 'class="active"' : '')
-                                    . '>' . $translate->$param . '</a></li>';
+                                    . '>' . $translate[$param] . '</a></li>';
                       }
                       $sub_menu .= '</ul>';
                   }

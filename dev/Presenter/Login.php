@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.7
+     * @version    Release: 0.0.8
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.4
      */
@@ -21,7 +21,7 @@
         
         public function __construct() {
             parent::__construct();
-            //$this->forNotLogged();
+            $this->forNotLogged();
             
             $this->form = new \inc\Form();
             
@@ -65,6 +65,7 @@
                 \inc\Ajax::sendJSON($this->form->validateData());
             }
         }
+        
         
         public function logout() {
             $model = new \Model\Login();
