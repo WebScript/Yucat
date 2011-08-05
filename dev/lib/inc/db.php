@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.8.0
+     * @version    Release: 0.8.1
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
      */
@@ -34,6 +34,8 @@
         private $limit;
         /** @var offset */
         private $offset;
+        
+        private $order;
         
                
         /**
@@ -104,6 +106,11 @@
                 $query[] = $this->tables;
                 $query[] = ' WHERE ';
                 $query[] = $this->parse($this->where, ' AND ', TRUE);
+                
+                if($this->order) {
+                    $query[] = ' ORDER BY ';
+                    $query[] = $this->order;
+                }
                 
                 if($this->limit) {
                     $query[] = ' LIMIT ';
@@ -215,6 +222,12 @@
             $this->select = \inc\Security::protect($input);
             return $this;
         }
+        
+        
+        public function order($by) {
+            $this->order = \inc\Security::protect($by);
+            return $this;
+        }
 
 
         /**
@@ -294,5 +307,6 @@
             $this->select = NULL;
             $this->limit = NULL;
             $this->offset = NULL;
+            $this->order = NULL;
         }
     }

@@ -1,0 +1,52 @@
+<div id="content" class="clearfix">
+    <div id="side-content-right">
+        <h3>{$_SEARCH}</h3>
+        <div class="body-con">
+            <form action="javascript: void(0)" method="post" id="search-form" name="search-form" class="pos-rel">
+                <input type="text" id="search-keyword" name="search-keyword" value="Search..." onfocus="this.value = '';" class="search" />
+                <input type="submit" value="Go" id="search-btn" name="search-btn" class="grey search" />
+            </form>
+        </div>
+        <ul id="s-tabs" class="content-tabs clearfix">
+            <li class="active"><a href="#s-updates">{$_UPDATES}</a></li>
+            <li><a href="#s-notifications">{$_NOTIFICATIONS}</a></li>
+        </ul>
+        <div class="body-con">
+            <div id="s-updates">
+                {foreach $updates as $val :}
+                    <div class="msg-{$val->value} enable-close"><h6>{$date->getDate($val->date)} {$val->type}</h6>{$val->message}</div>
+                {/foreach}
+            </div>
+            <div id="s-notifications"> 
+                {foreach $notifications as $val :}
+                    <div class="msg-{$val->value} enable-close"><h6>{$date->getDate($val->date)} {$val->type}</h6>{$val->message}</div>
+                {/foreach}
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">{$_STATS}</th>
+                </tr>
+            </thead>
+<!--sem-->
+        </table>
+    </div>
+    
+    <div id="main-content-left">
+        <h2>{$_WELCOME} {$user->username}</h2>                            
+        <div class="body-con tcenter">{$_WELCOME_DESC}</div>
+        <h2>{$_NEWS}</h2>
+        <div class="body-con">
+            <form action="" method="post">    
+                {foreach $news as $val :}
+                    <fieldset>
+                        <legend>{$val->title}</legend>
+                        <p>{$val->message}</p>
+                        <h6>{$_AUTHOR} {$db->where('id', {$val->UID})->fetch()->username} | {$_DAY} {$date::getDate($val->date)} | {$_TIME} {$date::getTime($val->date)}</h6>
+                    </fieldset>
+                {/foreach}
+            </form>
+        </div>                      
+    </div>
+</div>

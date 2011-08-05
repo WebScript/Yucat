@@ -48,6 +48,6 @@ $(function() {
 
     function changePage(page) {
         $.get(page, function(msg) {
-           $('div.ajaxContent').html(msg);
+            $('div.ajaxContent').html(msg);
         });
     }

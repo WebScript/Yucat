@@ -80,7 +80,7 @@
          * @param BOOL $isInput
          * @return string 
          */
-        public static function protect($string, $isInput) {
+        public static function protect($string, $isInput = FALSE) {
             $out = FALSE;
             
             if($isInput) {

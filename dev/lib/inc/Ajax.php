@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.2
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      * 
@@ -19,7 +19,10 @@
     
     class Ajax {
         private static $content;
-        
+        /** Send template content? */
+        private static $send = FALSE;
+
+
         public static function isAjax() {
             if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
                 strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
@@ -40,8 +43,18 @@
         }
         
         
-        public static function getMode() {
+        public static function setMode($val) {
+            self::$send = $val;
+        }
+        
+        
+        public static function getContent() {
             return self::$content;
+        }
+        
+        
+        public static function getMode() {
+            return self::$send;
         }
         
         

@@ -35,18 +35,18 @@
                 '_MENU_STATISTIC' => Array(
                     '_MENU_BANNERS' => 'User:Profile:bannery',
                     '_MENU_ACCESS_LOG' => 'User:Profile:access'
-                ),/*
-                'T_MENU_CREDIT' => Array(
-                    'T_MENU_BUY_CREDIT' => 'credit_buy',
-                    'T_MENU_CODE_CREDIT' => 'credit_code',
-                    'T_MENU_SEND_CREDIT' => 'credit_send',
-                    'T_MENU_VIEW_BNS' => 'banners_view'
+                ),
+                '_MENU_CREDIT' => Array(
+                    '_MENU_BUY_CREDIT' => 'credit_buy',
+                    '_MENU_CODE_CREDIT' => 'credit_code',
+                    '_MENU_SEND_CREDIT' => 'credit_send',
+                    '_MENU_VIEW_BNS' => 'banners_view'
                     ),
-                'T_MENU_ORDER_M' => Array(
-                    'T_MENU_ORDER_SERVER' => 'order_server',
-                    'T_MENU_DELETE_SERVER' => 'delete_server'
+                '_MENU_ORDER_M' => Array(
+                    '_MENU_ORDER_SERVER' => 'order_server',
+                    '_MENU_DELETE_SERVER' => 'delete_server'
                     ),
-                'T_MENU_SERVERS' => 'servers'*/
+                '_MENU_SERVERS' => 'servers'
                 );
                 
             

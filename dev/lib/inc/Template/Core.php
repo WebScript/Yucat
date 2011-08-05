@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.8
+     * @version    Release: 0.2.9
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -30,9 +30,11 @@
             $parse = new Parse();
             $template = $parse->parseTemplate($template, $parse->getMacros());
             
-            if(\inc\Ajax::isAjax() && \inc\Ajax::getMode()) { 
-                echo \inc\Ajax::getMode();
-            } else {
+            if(\inc\Ajax::isAjax()) {
+                echo \inc\Ajax::getContent();            
+            }
+            
+            if(\inc\Ajax::isAjax() && \inc\Ajax::getMode() || !\inc\Ajax::isAjax()) {
                 foreach(Core::$translate as $key => $val) {
                     $$key = $val;
                 }

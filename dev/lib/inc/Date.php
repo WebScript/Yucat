@@ -19,9 +19,6 @@
         public static $date_format = 'd. M. Y';
         public static $time_format = 'H:i:s';
         
-        private function __construct() {}
-        
-        
         /**
          * Transfer date in seconds to date 
          * @param integer $date date in seconds
