@@ -28,6 +28,9 @@
         
         public function profile() {
             \inc\Ajax::sendHTML('profile bla bla xDD');
+             //d(\inc\Ajax::getMode());
+            // \inc\Ajax::sendJSON(array('omg' => 'lol'));
+            
         }
         
         

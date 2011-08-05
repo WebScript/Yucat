@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.4
+     * @version    Release: 0.3.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -33,8 +33,8 @@
             $this->addMacro('ifset %key :', 'if(isset(\\1)):');
             $this->addMacro('/if', 'endif;');
             $this->addMacro('/ifset', 'endif;');
-            $this->addMacro('elseif', 'elseif(\\1):');
-            $this->addMacro('elseifset', 'elseif(isset(\\1)) :');
+            $this->addMacro('elseif %key :', 'elseif(\\1):');
+            $this->addMacro('elseifset %key :', 'elseif(isset(\\1)) :');
             $this->addMacro('else', 'else :');
             $this->addMacro('foreach %key :', 'foreach(\\1):');
             $this->addMacro('/foreach', 'endforeach;');
@@ -86,12 +86,11 @@
             if(class_exists($presenter)) {
                 $presenter = new $presenter;
                 
-                Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
                 Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
-
                 if(method_exists($presenter, $method)) {
                     call_user_func_array(array($presenter, $method), $params);
                 } elseif($method !== NULL) \inc\Diagnostics\ErrorHandler::error404();
+                Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
                 
                 $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
                 return $template;
@@ -115,7 +114,7 @@
                 unset($address[0]);
                 unset($address[1]);
             }
-            
+
             return $this->macroInclude($addr, $addr2, is_array($address) ? $address : array());
         }
         

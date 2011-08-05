@@ -36,7 +36,7 @@
         
         
         public static function sendHTML($html) {
-            self::$content = self::$content . $html;
+            self::$content .= $html;
         }
         
         

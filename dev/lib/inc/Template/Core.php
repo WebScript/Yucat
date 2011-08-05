@@ -30,7 +30,7 @@
             $parse = new Parse();
             $template = $parse->parseTemplate($template, $parse->getMacros());
             
-            if(\inc\Ajax::isAjax() && \inc\Ajax::getMode()) {
+            if(\inc\Ajax::isAjax() && \inc\Ajax::getMode()) { 
                 echo \inc\Ajax::getMode();
             } else {
                 foreach(Core::$translate as $key => $val) {

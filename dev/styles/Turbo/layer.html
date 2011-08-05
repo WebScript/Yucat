@@ -1,6 +1,4 @@
-{if $isAjax :}
-    {macroContent}
-{else}
+{if !$isAjax :}
     <!DOCTYPE html>
     <html>
     <head>
@@ -33,13 +31,13 @@
     <script src="{$__THEME_DIR}js/jquery.tiptip.js"></script>
     <script src="{$__THEME_DIR}js/jquery.elastic.js"></script>
     <script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
-
-{ifset $isLogged :}
-    {macroInclude logged}
-{else}
-    {macroContent}
-{/if}
-
+    
+    {ifset $isLogged :}
+         {macroInclude logged}
+    {else}
+        {macroContent}
+    {/if}
+    
     <script src="{$__THEME_DIR}js/page.js"></script>     
     <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -55,4 +53,6 @@
         </script>
     </body>
     </html>
+{elseif $isAjax :}
+    {macroContent}
 {/if}
