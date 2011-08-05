@@ -1,6 +1,6 @@
 $(function() {
     
-    $('form').submit(function(val) { 
+    $('form').submit(function(val) {
         var elements = $(this.elements).serialize();
 
         $.get(this.action + '/send', elements, function(msg) {
@@ -31,13 +31,6 @@ $(function() {
     });
     
     
-    function changePage(page) {
-        $.get(page, function(msg) {
-           $('div.ajaxContent').html(msg);
-        });
-    }
-    
-    
     function changeStats(input, object) {
         if(object.status == 'error') {
             input.removeClass('input-ok');
@@ -51,6 +44,10 @@ $(function() {
             input.addClass('input-ok');
         }
     }
-    
-    
 });
+
+    function changePage(page) {
+        $.get(page, function(msg) {
+           $('div.ajaxContent').html(msg);
+        });
+    }

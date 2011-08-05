@@ -21,7 +21,7 @@
         
         public function __construct() {
             parent::__construct();
-            $this->forNotLogged();
+            //$this->forNotLogged();
             
             $this->form = new \inc\Form();
             
@@ -44,7 +44,7 @@
         }
         
         
-        public function check() {
+        public function check() { 
             \inc\Ajax::sendJSON($this->form->validateData($_GET));
         }
         

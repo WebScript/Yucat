@@ -9,7 +9,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.2
+     * @version    Release: 0.2.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -78,7 +78,7 @@
          * @param string $input 
          */
         public static function redirect($input) {
-            if(self::traceRoute($input) !== $_SERVER['SCRIPT_URI']) {
+            if(!substr_count($_SERVER['SCRIPT_URI'], self::traceRoute($input))) {
                 header('location: ' . self::traceRoute($input));
             }
         }

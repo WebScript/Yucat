@@ -20,13 +20,19 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::redirect('User:Profile:profile');
+            # WTF??
+            //\inc\Router::redirect('User:Profile:profile');
                 
             //\inc\Ajax::sendHTML(\Model\Menu::createMenu($menu, $this->template));
         }
         
         public function profile() {
-            //echo '123';
+            \inc\Ajax::sendHTML('profile bla bla xDD');
+        }
+        
+        
+        public function news() {
+            \inc\Ajax::sendHTML('news bla bla xDD');
         }
         
     }
