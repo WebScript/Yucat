@@ -78,7 +78,14 @@
          * @param string $input 
          */
         public static function redirect($input, $class = FALSE) {
-            if(!substr_count($_SERVER['SCRIPT_URI'], self::traceRoute($input))) {
+            if($class) {
+                $search = substr($input, 0, strrpos($input, ':'));
+                $search = self::traceRoute($search . '/(.*)');
+            } else {
+                $search = self::traceRoute($input);
+            }
+            
+            if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI'])) {
                 header('location: ' . self::traceRoute($input));
             }
         }

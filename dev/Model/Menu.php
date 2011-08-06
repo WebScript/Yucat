@@ -40,6 +40,6 @@
              }
 
              $menu .= '</ul>';
-             return $menu . $sub_menu;
+             return $menu . (isset($sub_menu) ? $sub_menu : '');
         }
     }

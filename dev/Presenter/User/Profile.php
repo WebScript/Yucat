@@ -22,7 +22,7 @@
             $this->forLogged();
             # WTF??
            // exit ('sdssd');
-            \inc\Router::redirect('User:Profile:profile');
+            \inc\Router::redirect('User:Profile:profile', TRUE);
                 
             //\inc\Ajax::sendHTML(\Model\Menu::createMenu($menu, $this->template));
         }
