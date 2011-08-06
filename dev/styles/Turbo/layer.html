@@ -9,7 +9,7 @@
         <meta name="keywords" content="{$__KEYWORDS}" />
         <link rel="shortcut icon" href="{$__THEME_DIR}img/favicon.ico" />
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/style.css" />
-        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery-ui-1.8.11.custom.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery-ui-1.8.14.custom.css" />
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.fullcalendar.css" />
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.fullcalendar.print.css" media="print" />
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.tiptip.css" />
@@ -19,10 +19,10 @@
     </head>
     <body>
     <!--[if lte IE 8]><script src="{$__THEME_DIR}js/excanvas.min.js"></script><![endif]-->
-    <script src="{$__THEME_DIR}js/jquery.min.js"></script>
+    <script src="{$__THEME_DIR}js/jquery-1.6.2.min.js"></script>
     <script src="{$__THEME_DIR}js/yucat.js"></script>
     <script src="{$__THEME_DIR}js/jquery.uniform.js"></script>
-    <script src="{$__THEME_DIR}js/jquery-ui-1.8.11.custom.min.js"></script>
+    <script src="{$__THEME_DIR}js/jquery-ui-1.8.14.custom.min.js"></script>
     <script src="{$__THEME_DIR}js/jquery.flot.min.js"></script>
     <script src="{$__THEME_DIR}js/jquery.fullcalendar.js"></script>
     <script src="{$__THEME_DIR}js/jquery.wysiwyg.js"></script>
@@ -31,6 +31,10 @@
     <script src="{$__THEME_DIR}js/jquery.tiptip.js"></script>
     <script src="{$__THEME_DIR}js/jquery.elastic.js"></script>
     <script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
+    
+    <div id="dialog" title="N00B!!!">
+	<p>Any message</p>
+    </div>
     
     {ifset $isLogged :}
          {macroInclude logged}

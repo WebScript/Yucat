@@ -31,7 +31,7 @@
                     ->setErrorType('TEXT')
                     ->setErrorMessage('nauc se psat debile...');
             
-            $this->form->addElement('password', 'password', 'text')
+            $this->form->addElement('password', 'password', 'password')
                     ->setMinLenght(4)
                     ->setMaxLenght(20)
                     ->setErrorType('TEXT')
@@ -56,9 +56,9 @@
                         $this->form->getValue('password'), 
                         $this->form->getValue('remember'));
                 
-                if($login) {//exit('ok');
+                if($login) {
                     \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('User:Profile')));
-                } else {//exit('err   ');
+                } else {
                     \inc\Ajax::sendJSON(array('alert' => 'Zadali ste zle meno alebo heslo...'));
                 }
             } else {
