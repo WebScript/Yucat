@@ -24,7 +24,7 @@ $(function() {
         var input = $(this);
         
         if(trg.target.type !== 'submit') {
-            $.get($(this).parent().attr('action') + '/check', name + '=' + $(this).val(), function(msg) {
+            $.get($(this).closest("form").attr('action') + '/check', name + '=' + $(this).val(), function(msg) {
                 changeStats(input, $($.parseJSON(msg)).attr(name));
             });
         }

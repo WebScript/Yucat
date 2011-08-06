@@ -44,7 +44,7 @@
         }
         
         
-        public function check() { 
+        public function check() {
             \inc\Ajax::sendJSON($this->form->validateData($_GET));
         }
         
