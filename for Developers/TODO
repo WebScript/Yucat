@@ -21,13 +21,13 @@ TASKS 5:
 TASKS 6:
     (SAMP) V configu orezavat medzeri alebo v sec treat pred a za value
     (SAMP ale aj ine) Uploader cez jQuery a graficky vykreslit 
-    (SAMP FTP) replace \ za / potom explode a if in_array .. so delete a potom otvorit..
+    (SAMP FTP) replace \ za / potom explode a if in_array .. so delete a potom otvorit.. (overenie ci je v array ..)
     (SAMP) kontrola chmodu samp03sv a announce
-    nastavit prioritu procesov ze napr free ma najmensiu prioritu a admin najvetsiu
++   nastavit prioritu procesov ze napr free ma najmensiu prioritu a admin najvetsiu
     Cron, Backup, Credit
 
 TASKS 7:
-    Pridat tasky do adminky
+-   Pridat tasky do adminky
     Do install do adminky dat kontrolu povolenych modulov, ssh2, file_Get_contants atd.
     pridat na hl web yucat nejake api na zistenie  noviniek ohladom administrace a potom aby sa to vypisovalo kazdemu kdo pouziva muju adminku
     Emailer, niekdo da odoslat mail a ten sa zapise do db  potom cron kazdych 10 sec posle mail
@@ -61,3 +61,11 @@ ERRORS :
 http://developer.yucat.net/User/Profile/Profile
 
 
+Updater:
+    Pri vstupe do adminky sa posle request na server ze aka je aktualna verzia a ak je nova verzia tak,
+    Adminka posle na server request ze chce updatovat a potom jej server posle array kde kluc bude cesta a meno suboru 
+        a hodnota bode verzia scriptu a adminka si porovna svoju verziju scriptu ktora bude v '@version Release: x.x.x' a ak je nizsia verzia tak odosle request
+        na poslanie novej verzie a potom ju nahradi...
+
+    Spravit aj taky ban system, ze ked admin pojde do adminky adminky (:D) tak sa posle request na moj server a ak tam ma ban tak 
+        mu to proste zmaze adminku

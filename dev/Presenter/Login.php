@@ -50,15 +50,15 @@
         
         
         public function send() {
-            if($this->form->isValidData()) {
+            if($this->form->isValidData()) { 
                 $model = new \Model\Login();
                 $login = $model->login($this->form->getValue('username'), 
                         $this->form->getValue('password'), 
                         $this->form->getValue('remember'));
                 
-                if($login) {
+                if($login) {//exit('ok');
                     \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('User:Profile')));
-                } else {
+                } else {//exit('err   ');
                     \inc\Ajax::sendJSON(array('alert' => 'Zadali ste zle meno alebo heslo...'));
                 }
             } else {
