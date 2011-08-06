@@ -20,11 +20,7 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            # WTF??
-           // exit ('sdssd');
-            \inc\Router::redirect('User:Profile:profile', TRUE);
-                
-            //\inc\Ajax::sendHTML(\Model\Menu::createMenu($menu, $this->template));
+            \inc\Router::redirect('User:Profile:news', TRUE);
         }
         
         public function profile() {
@@ -35,7 +31,7 @@
         }
         
         
-        public function news() { //d(\inc\Template\Core::$translate);
+        public function news() {
             $this->template->updates        = $this->db()->tables('messages')->where('type', '2')->limit(10)->order('id DESC')->fetchAll();
             $this->template->notifications  = $this->db()->tables('messages')->where('type', '1')->limit(10)->order('id DESC')->fetchAll();
             $this->template->news           = $this->db()->tables('messages')->where('type', '0')->limit(10)->order('id DESC')->fetchAll();

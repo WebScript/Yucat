@@ -17,7 +17,7 @@
 
     class Date {
         public static $date_format = 'd. M. Y';
-        public static $time_format = 'H:i:s';
+        public static $time_format = 'H:i';
         
         /**
          * Transfer date in seconds to date 
