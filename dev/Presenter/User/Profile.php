@@ -21,7 +21,8 @@
             parent::__construct();
             $this->forLogged();
             # WTF??
-            //\inc\Router::redirect('User:Profile:profile');
+           // exit ('sdssd');
+            \inc\Router::redirect('User:Profile:profile');
                 
             //\inc\Ajax::sendHTML(\Model\Menu::createMenu($menu, $this->template));
         }

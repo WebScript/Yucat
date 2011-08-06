@@ -77,7 +77,7 @@
          * Redirect to web by special syntax for traceRoute
          * @param string $input 
          */
-        public static function redirect($input) {
+        public static function redirect($input, $class = FALSE) {
             if(!substr_count($_SERVER['SCRIPT_URI'], self::traceRoute($input))) {
                 header('location: ' . self::traceRoute($input));
             }

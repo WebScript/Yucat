@@ -64,15 +64,10 @@
         
         public function macroInclude($name, $method = NULL, $params = NULL) {
             $templ_dir = ROOT . STYLE_DIR . STYLE 
-                       . '/template/' . $name 
-                       . ($method ? '_' . $method : '') 
-                       . '.html';
+                   . '/template/' . $name 
+                   . ($method ? '_' . $method : '') 
+                   . '.html';
 
-            if(file_exists($templ_dir)) {
-                $f = fopen($templ_dir, 'r');
-                $template = fread($f, filesize($templ_dir));
-                fclose($f);
-            } elseif($method === NULL) \inc\Diagnostics\ErrorHandler::error404();
             
             $parse = new Parse();
             $name2 =  explode('_', $name);
@@ -92,6 +87,12 @@
                 } elseif($method !== NULL) \inc\Diagnostics\ErrorHandler::error404();
                 Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
                 
+            if(file_exists($templ_dir)) {
+                $f = fopen($templ_dir, 'r');
+                $template = fread($f, filesize($templ_dir));
+                fclose($f);
+            } elseif($method === NULL) \inc\Diagnostics\ErrorHandler::error404();
+            
                 $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
                 return $template;
             } else \inc\Diagnostics\ErrorHandler::error404();
