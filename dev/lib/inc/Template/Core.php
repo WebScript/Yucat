@@ -35,7 +35,7 @@
             }
             
             if(\inc\Ajax::isAjax() && \inc\Ajax::getMode() || !\inc\Ajax::isAjax()) {
-                foreach(Core::$translate as $key => $val) {
+                foreach(self::$translate as $key => $val) {
                     $$key = $val;
                 }
                 $template = $parse->setVariable($template);

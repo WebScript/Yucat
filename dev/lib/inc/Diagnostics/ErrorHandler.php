@@ -11,7 +11,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license   GNU GPL License
-     * @version    Release: 0.2.1
+     * @version    Release: 0.2.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.0
      */
@@ -134,7 +134,7 @@
         
         public static function error404() {
             if(\inc\Ajax::isAjax()) {
-                echo 'Error: 404';
+                echo '{"alert" : "Error: 404 Page not found!"}';
             } else {
                 include_once(dirname(__FILE__).'/404.html');
             }

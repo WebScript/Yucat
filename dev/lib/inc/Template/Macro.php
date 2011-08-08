@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.6
+     * @version    Release: 0.3.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -63,6 +63,8 @@
         
         
         public function macroInclude($name, $method = NULL, $params = NULL) {
+            Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
+            
             $templ_dir = ROOT . STYLE_DIR . STYLE 
                    . '/template/' . $name 
                    . ($method ? '_' . $method : '') 
@@ -79,13 +81,12 @@
             }
 
             if(class_exists($presenter)) {
-                Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
                 $presenter = new $presenter;
                 
                 if(method_exists($presenter, $method)) {
                     call_user_func_array(array($presenter, $method), $params);
                 } elseif($method !== NULL) \inc\Diagnostics\ErrorHandler::error404();
-                Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
+                Core::$translate = get_object_vars($presenter->getTemplate());
                 
             if(file_exists($templ_dir)) {
                 $f = fopen($templ_dir, 'r');

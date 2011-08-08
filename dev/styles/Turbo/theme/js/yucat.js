@@ -24,7 +24,7 @@ $(function() {
     $('form').submit(function(val) {
         var elements = $(this.elements).serialize();
 
-        $.get(this.action + '/send', elements, function(msg) {
+        $.post(this.action + '/send', elements, function(msg) {
             var response = $.parseJSON(msg);
 
             $.each(response, function(id, v) {
@@ -49,7 +49,7 @@ $(function() {
             var action = $(this).closest("form").attr('action');
             
             if(action) {
-                $.get(action + '/check', name + '=' + $(this).val(), function(msg) {
+                $.post(action + '/check', name + '=' + $(this).val(), function(msg) {
                     changeStats(input, $($.parseJSON(msg)).attr(name));
                 });
             }
@@ -63,7 +63,7 @@ $(function() {
             input.addClass('input-error');
 
             if(object.message) {
-                //alert(response.message);
+                $('#AJAXMessage').html(object.message);
             }
         } else if(object.status == 'ok') {
             input.removeClass('input-error');
@@ -76,5 +76,6 @@ $(function() {
         $.get(page, function(msg) {
             $('div.ajaxContent').html(msg);
             $('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/page.js"></script>');
+            $('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/yucat.js"></script>');
         });
     }

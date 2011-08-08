@@ -24,28 +24,27 @@
             $this->forNotLogged();
             
             $this->form = new \inc\Form();
+            $this->form->setAction('Login');
+            $this->form->setMethod('POST');
             
             $this->form->addElement('username', 'username', 'text')
                     ->setMinLenght(4)
-                    ->setMaxLenght(20)
-                    ->setErrorType('TEXT')
-                    ->setErrorMessage('nauc se psat debile...');
+                    ->setMaxLenght(20);
             
             $this->form->addElement('password', 'password', 'password')
                     ->setMinLenght(4)
-                    ->setMaxLenght(20)
-                    ->setErrorType('TEXT')
-                    ->setErrorMessage('nauc se psat debile...');
+                    ->setMaxLenght(20);
             
             $this->form->addElement('remember', 'remember', 'checkbox');
-            $this->form->addElement('login', 'login', 'submit');
+            $this->form->addElement('login', 'login', 'submit')
+                    ->setValue($this->template->_ENTER);
             
             $this->template->form = $this->form->sendForm();
         }
         
         
         public function check() {
-            \inc\Ajax::sendJSON($this->form->validateData($_GET));
+            \inc\Ajax::sendJSON($this->form->validateData());
         }
         
         

@@ -16,6 +16,7 @@
     namespace Presenter\User;
     
     class Profile extends \Presenter\BasePresenter {
+        private $form;
         
         public function __construct() {
             parent::__construct();
@@ -23,11 +24,113 @@
             \inc\Router::redirect('User:Profile:news', TRUE);
         }
         
+        
         public function profile() {
-            \inc\Ajax::sendHTML('profile bla bla xDD');
-             //d(\inc\Ajax::getMode());
-            // \inc\Ajax::sendJSON(array('omg' => 'lol'));
+            switch($this->isLogged()->rank) {
+                case 0: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_0 . '</b>';
+                    break;
+                case 1: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_1 . '</b>';
+                    break;
+                case 2: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_2 . '</b>';
+                    break;
+                case 3: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_3 . '</b>';
+                    break;
+                case 4: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_4 . '</b>';
+                    break;
+                case 5: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_5 . '</b>';
+                    break;
+            }
             
+            $this->template->peer_day = 0;
+            
+            $srvs = $this->db()->tables('servers')->where('UID', UID)->fetchAll();
+            foreach($srvs as $val) {
+                switch($val->type) {
+                    case 'SAMP':
+                        $this->template->peer_day += $val->slots * COST_SAMP / 50 / 30;
+                        break;
+                }
+            }
+            
+            $this->form = new \inc\Form();
+            $this->form->setAction('User:Profile');
+            $this->form->setMethod('POST');
+            
+            $this->form->addElement('firstname', 'firstname', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->firstname)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('lastname', 'lastname', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->lastname)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('email', 'email', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->email)
+                    ->setErrorType('EMAIL')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('address', 'address', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->address)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('language', 'language', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->lastname)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('city', 'city', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->city)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('postcode', 'postcode', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->postcode)
+                    ->setErrorType('NUMBER')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('telephone', 'telephone', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->telephone)
+                    ->setErrorType('TELEPHONE')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('website', 'website', 'text')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setValue($this->template->user->website)
+                    ->setErrorType('WEBSITE')
+                    ->setErrorMessage('error');
+            
+            $this->form->addElement('save', 'save', 'submit')
+                    ->setValue('Odoslat');
+
+            $this->template->form = $this->form->sendForm();
+            
+            \inc\Ajax::setMode(TRUE);
         }
         
         

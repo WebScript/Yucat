@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.5
+     * @version    Release: 0.1.6
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.1
      */
@@ -85,5 +85,15 @@
                 }
             }
             return FALSE;
+        }
+        
+        public static function array2Object(array $array) {
+            $obj = new \StdClass();
+
+            foreach($array as $key => $val){
+                $obj->$key = $val;
+            }
+            
+            return $obj;
         }
      }

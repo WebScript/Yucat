@@ -10,11 +10,17 @@
         'UPDATES' => 'Updates',
         'NOTIFICATIONS' => 'Notifications',
         'SEARCH' => 'Search',
-        
-        //nvm
+
         'STATS' => 'Statistiky',
         'STATS_USERS' => 'Užívatelé',
         'STATS_CREDIT' => 'Kredit v obehu',
         'STATS_VIEWS_BANNERS' => 'Zobrazené bannery',
         'STATS_SERVERS' => 'Hostované servery',
+        
+        "RANK_5" => "Administrator",
+        "RANK_4" => "Moderator",
+        "RANK_3" => "V.I.P.",
+        "RANK_2" => "Premium uzivatel",
+        "RANK_1" => "Business uzivatel",
+        "RANK_0" => "Bezny uzivatel",
     );

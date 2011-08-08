@@ -1,6 +1,5 @@
 TASKS 1:
-    Blbne logout
-    Dorobit menu
+    Spravit select pre Form class
     Spravit profil
 
 TASKS 2:
@@ -78,3 +77,6 @@ DOROBIT:
     Profile;
         Search
         Aby do Updates a Notifications tahalo z mojho servera!!
+
+
+{$form['']['']}

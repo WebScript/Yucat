@@ -15,7 +15,7 @@
     use inc\Diagnostics\ExceptionHandler;
     
     /** Define User IDentificator (UID) */
-    //define('UID',isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
+    define('UID',isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
     /** Define User Internet Protocol address */
     define('UIP', $_SERVER['REMOTE_ADDR']);
     /** Define domain */
@@ -53,10 +53,9 @@
                 ->fetch();
     }*/
     if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
-    
+   
     /** Call a template system*/
     $core = new inc\Template\Core();
-
    // ob_flush();
    // ob_clean();
 

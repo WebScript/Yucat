@@ -20,6 +20,18 @@
         private $last;
         
         
+        public function setAction($action) {
+            $this->form['action'] = Router::traceRoute($action);
+            return $this;
+        }
+        
+        
+        public function setMethod($method) {
+            $this->form['method'] = $method;
+            return $this;
+        }
+        
+        
         public function addElement($id, $name, $type) {
             $this->last = $id;
             $this->form = array_merge($this->form, array(
@@ -83,7 +95,7 @@
         
         
         public function validateData($input = NULL) {
-            $input = $input === NULL ? $_GET : $input;
+            $input = $input === NULL ? $_POST : $input;
             $return = array();
             
             foreach($this->form as $key => $val) {
@@ -114,7 +126,7 @@
         
         
         public function isValidData($input = NULL) {
-            $input = $this->validateData($input === NULL ? $_GET : $input);
+            $input = $this->validateData($input === NULL ? $_POST : $input);
             
             if(\inc\Arr::isInExtendedArray($input, 'error') === FALSE) {
                 return TRUE;
@@ -125,6 +137,6 @@
         
         
         public function getValue($name) {
-            return isset($_GET[$this->form[$name]['name']]) ? $_GET[$this->form[$name]['name']] : NULL;
+            return isset($_POST[$this->form[$name]['name']]) ? $_POST[$this->form[$name]['name']] : NULL;
         }
     }

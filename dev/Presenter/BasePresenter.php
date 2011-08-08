@@ -22,9 +22,7 @@
         private $db;
         
         public function __construct() {
-            if(!is_object($this->template)) {
-                $this->template = new \stdClass;
-            }
+            $this->template = \inc\Arr::array2Object(\inc\Template\Core::$translate);
             
             global $db;
             $this->db = $db; 
@@ -35,6 +33,10 @@
             $this->template->__KEYWORDS     = CFG_TMLP_KEYWORDS;
             $this->template->__DESCRIPTION  = CFG_TMLP_DESCRIPTION;
             $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . CFG_VERSION . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
+            
+            if($this->isLogged()) {
+                $this->template->user       = $db->tables('users')->where('id', $_COOKIE['id'])->fetch();
+            }
         }
         
         protected function db() {
@@ -51,7 +53,7 @@
         
         
         protected function isLogged() {
-            if(empty($_COOKIE['id']) || empty($_COOKIE['id'])) {
+            if(empty($_COOKIE['id']) || empty($_COOKIE['password'])) {
                 return FALSE;
             }
             
@@ -59,7 +61,6 @@
                     ->tables('users')
                     ->where('id', $_COOKIE['id'])
                     ->where('password', $_COOKIE['password'])
-                    ->limit(1)
                     ->fetch();
             if($result) {
                 return $result;

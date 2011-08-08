@@ -1,14 +1,141 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div id="content" class="clearfix">
+    <div id="side-content-left">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Udaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="backcolor tleft" width="100">ID:</td>
+                    <td>{$user->id}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Login:</td>
+                    <td>{$user->username}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Rank:</td>
+                    <td>{$rank}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Kredit:</td>
+                    <td>{$user->credit}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Denna spotreba:</td>
+                    <td>{$peer_day}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">IP:</td>
+                    <td>{$user->ip}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Last login:</td>
+                    <td>{$user->last_login}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Informacie</h3>
+        <div class="body-con">
+            <p><strong>Vas ucet</strong> nejake picoviny o ucte</p>
+            <p>The <strong>Twitter widget</strong> is ready for work. Enter your Twitter's app credentials and update your status right away.</p>
+        </div>
+    </div>
+    
+    
+    <div id="main-content-right">
+        <h2>Profil</h2>
+        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>Zakaznicke udaje</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="firstname">Meno</label>
+
+                        <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="{$form['firstname']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage">lol</span>
+                    </li>
+                    <li>
+                        <label for="lastname">Priezvisko</label>
+
+                        <input type="{$form['lastname']['type']}" id="lastname" name="{$form['lastname']['name']}" value="{$form['lastname']['value']}" />
+                    </li>
+                    <li>
+                        <label for="email">E-mail</label>
+                        <input type="{$form['email']['type']}" id="email" name="{$form['email']['name']}" value="{$form['email']['value']}" disabled />
+                    </li>
+                    <li>
+                        <label for="address">Adresa</label>
+                        <input type="{$form['address']['type']}" id="address" name="{$form['address']['name']}" value="{$form['address']['value']}" />
+                    </li>
+                    <li>
+                        <label for="language">Jazyk</label>
+                        <select id="language" name="language" />
+                        <!--
+                       
+                            $msg = array();
+                            foreach(Lang::$avaiable_language AS $param => $value) {
+                                if($param == $user[db::USERS_LANGUAGE]) $msg[] = '<option value="'.$param.'" selected>'.$value.'</option>';
+                                else $msg[] = '<option value="'.$param.'">'.$value.'</option>';
+                            }
+                            echo implode('', $msg);
+                        -->
+                        
+                        </select>
+                    </li>
+                    <li>
+                        <label for="city">Mesto</label>
+                        <input type="{$form['city']['type']}" id="city" name="{$form['city']['name']}" value="{$form['city']['value']}" />
+                    </li>
+                    <li>
+                        <label for="postcode">PSC</label>
+                        <input type="{$form['postcode']['type']}" id="postcode" name="{$form['postcode']['name']}" value="{$form['postcode']['value']}"/>
+                    </li>
+                    <li>
+                        <label for="telephone">Telefonne cislo</label>
+                        <input type="{$form['telephone']['type']}" id="telephone" name="{$form['telephone']['name']}" value="{$form['telephone']['value']}" />
+                        <span class="msg-form-info">Piste vo formate +421 xxxxxxxxx</span>
+                    </li>
+                    <li>
+                        <label for="website">Web</label>
+                        <input type="{$form['website']['type']}" id="website" name="{$form['website']['name']}" value="{$form['website']['value']}" />
+                    </li>
+                    <li>
+                        <label></label>
+                        <input type="{$form['save']['type']}" name="{$form['save']['name']}" value="{$form['save']['value']}"/>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+        
+        <form action="" method="post" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>Zmena hesla</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="old_pass">Stare heslo</label>
+
+                        <input type="password" id="old_pass" name="old_pass" />
+                    </li>
+                    <li>
+                        <label for="password">Nove heslo</label>
+
+                        <input type="password" id="password" name="password" />
+                    </li>
+                    <li>
+                        <label for="retry_pass">Nove heslo (znovu)</label>
+                        <input type="password" id="retry_pass" name="retry_pass" />
+                    </li>
+                    <li>
+                        <label></label>
+                        <input type="submit" name="change" value="Zmenit"/>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+        
+        
+    </div>
+</div>
