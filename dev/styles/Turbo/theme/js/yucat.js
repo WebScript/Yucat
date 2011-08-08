@@ -1,4 +1,13 @@
-$(function() {
+$(function() { 
+    $('#loading').hide();
+    $("#loading").ajaxStart(function(){
+        $(this).show();
+    });
+    $("#loading").ajaxStop(function(){
+        $(this).hide();
+    });  
+    
+    
     $('#dialog').dialog({
             autoOpen: false,
             width: 600,
@@ -15,7 +24,7 @@ $(function() {
     $('form').submit(function(val) {
         var elements = $(this.elements).serialize();
 
-$.get(this.action + '/send', elements, function(msg) {
+        $.get(this.action + '/send', elements, function(msg) {
             var response = $.parseJSON(msg);
 
             $.each(response, function(id, v) {

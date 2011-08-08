@@ -1287,3 +1287,11 @@ div.image-gallery-con, div.file-gallery-con {
     overflow: auto;
     height: 1%;
 }
+
+div.loading {
+    position: fixed;
+    right: 50%;
+    top: 50%;
+    width: 8em;
+  
+}

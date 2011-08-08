@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.8.1
+     * @version    Release: 0.8.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
      */
@@ -29,7 +29,7 @@
         /** @var array of update or insert values */
         private $values = array();
         /** @var select in SELECT (var) FROM */
-        private $select;
+        private $select = '*';
         /** @var limit of rows */
         private $limit;
         /** @var offset */
@@ -101,11 +101,11 @@
             
             if($this->action === 'SELECT') {
                 $query[] = 'SELECT ';
-                $query[] = $this->select ? $this->select : '*';
+                $query[] = $this->select;
                 $query[] = ' FROM ';
                 $query[] = $this->tables;
                 $query[] = ' WHERE ';
-                $query[] = $this->parse($this->where, ' AND ', TRUE);
+                $query[] = $this->where ? $this->parse($this->where, ' AND ', TRUE) : '1';
                 
                 if($this->order) {
                     $query[] = ' ORDER BY ';
@@ -294,6 +294,12 @@
            $result = $this->exec($this->make());
            return mysql_fetch_object($result);
        }
+       
+       
+       public function num_rows() {
+           $result = $this->exec($this->make());
+           return mysql_num_rows($result);
+       }
         
         
         /**
@@ -304,7 +310,7 @@
             $this->action = 'SELECT';
             $this->where = array();
             $this->values = array();
-            $this->select = NULL;
+            $this->select = '*';
             $this->limit = NULL;
             $this->offset = NULL;
             $this->order = NULL;

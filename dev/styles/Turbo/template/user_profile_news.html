@@ -29,7 +29,53 @@
                     <th colspan="2">{$_STATS}</th>
                 </tr>
             </thead>
+                        <tbody>
+                <tr>
+                    <td class="backcolor tleft">{$_STATS_USERS}</td>
+                    <td class="tright tbold">{$db->tables('users')->num_rows()}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">{$_STATS_CREDIT}</td>
+                    <td class="tright">{$db->tables('users')->select('ROUND(SUM(`credit`), 4) AS allcr')->fetch()->allcr}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">{$_STATS_VIEWS_BANNERS}</td>
+                    <td class="tright">{$db->tables('banners')->num_rows()}</td>
+                </tr>
 <!--sem-->
+
+                <tr>
+                    <td class="backcolor tcenter tbold" colspan="2">{$_STATS_SERVERS}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">SA:MP</td>
+                    <td class="tright">{$db->tables('servers')->where('type', 'SAMP')->num_rows()}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">CS 1.6</td>
+                    <td class="tright">{$db->tables('servers')->where('type', 'CS16')->num_rows()}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">CS Source</td>
+                    <td class="tright">{$db->tables('servers')->where('type', 'CSS')->num_rows()}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Ventrilo</td>
+                    <td class="tright">{$db->tables('servers')->where('type', 'VNT')->num_rows()}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">MTA</td>
+                    <td class="tright">{$db->tables('servers')->where('type', 'MTA')->num_rows()}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Shoutcast</td>
+                    <td class="tright">{$db->tables('servers')->where('type', 'SHC')->num_rows()}</td>
+                </tr>
+
+
+            </tbody>
+
         </table>
     </div>
     
@@ -42,7 +88,7 @@
                 <fieldset>
                     <legend>{$val->title}</legend>
                     <p>{$val->message}</p>
-                    <h6>{$_AUTHOR} {$db->where('id', $val->UID)->fetch()->username} | {$_DAY} {$date::getDate($val->date)} | {$_TIME} {$date::getTime($val->date)}</h6>
+                    <h6>{$_AUTHOR} {$db->tables('users')->where('id', $val->UID)->fetch()->username} | {$_DAY} {$date::getDate($val->date)} | {$_TIME} {$date::getTime($val->date)}</h6>
                 </fieldset>
             {/foreach}
         </div>                      

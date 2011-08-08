@@ -43,7 +43,12 @@
         {macroContent}
     {/if}
     
-    <script src="/styles/Turbo/theme/js/page.js"></script>
+    <script src="{$__THEME_DIR}js/page.js"></script>
+    
+    <div id="loading" class="loading">
+        <img src="{$__THEME_DIR}img/loading.gif" alt="loading..." />
+    </div>
+    
     </body>
     </html>
 {elseif $isAjax :}

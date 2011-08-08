@@ -1,21 +1,3 @@
-            <tbody>
-                <tr>
-                    <td class="backcolor tleft">{T_STATS_USERS}</td>
-                    <td class="tright tbold"><?php //echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::USERS)); ?></td>
-                </tr>
-                <tr>
-                    <td class="backcolor tleft">{T_STATS_CREDIT}</td>
-                    <td class="tright">
-                        <?php /*$users = $db->uQuery(db::VIEWS, db::USERS);
-                            while($lnk = $db->q(db::FETCH_ARRAY, $users)) $credit += $lnk[db::USERS_CREDIT];
-                            echo Round($credit, 3);*/
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="backcolor tleft">{T_STATS_VIEWS_BANNERS}</td>
-                    <td class="tright"><?php //echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, 'banners')); ?></td>
-                </tr>
                 <tr>
                     <td class="backcolor tcenter tbold" colspan="2">{T_STATS_SERVERS}</td>
                 </tr>
@@ -43,4 +25,3 @@
                     <td class="backcolor tleft">Shoutcast</td>
                     <td class="tright"><?php //echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::SC))); ?></td>
                 </tr>
-            </tbody>
