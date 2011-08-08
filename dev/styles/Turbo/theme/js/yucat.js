@@ -66,5 +66,6 @@ $.get(this.action + '/send', elements, function(msg) {
     function changePage(page) {
         $.get(page, function(msg) {
             $('div.ajaxContent').html(msg);
+            $('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/page.js"></script>');
         });
     }
