@@ -22,7 +22,7 @@ $.get(this.action + '/send', elements, function(msg) {
                 if(id == 'redirect') {
                     window.location = v;
                 } else if(id == 'alert') {
-                    $('#dialog').html(v)
+                    $('#dialog').html(v);
                     $('#dialog').dialog('open');
                 }
                 changeStats($(':input[name=' + id + ']'), v);

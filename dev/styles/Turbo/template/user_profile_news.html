@@ -19,7 +19,7 @@
             </div>
             <div id="s-notifications"> 
                 {foreach $notifications as $val :}
-                    <div class="msg-{$val->value} enable-close"><h6>{$date->getDate($val->date)} {$val->type}</h6>{$val->message}</div>
+                    <div class="msg-{$val->value} enable-close"><h6>{$date->getDate($val->date)} {$date->getTime($val->date)}</h6>{$val->message}</div>
                 {/foreach}
             </div>
         </div>
@@ -38,15 +38,13 @@
         <div class="body-con tcenter">{$_WELCOME_DESC}</div>
         <h2>{$_NEWS}</h2>
         <div class="body-con">
-            <form action="" method="post">    
-                {foreach $news as $val :}
-                    <fieldset>
-                        <legend>{$val->title}</legend>
-                        <p>{$val->message}</p>
-                        <h6>{$_AUTHOR} {$db->where('id', {$val->UID})->fetch()->username} | {$_DAY} {$date::getDate($val->date)} | {$_TIME} {$date::getTime($val->date)}</h6>
-                    </fieldset>
-                {/foreach}
-            </form>
+            {foreach $news as $val :}
+                <fieldset>
+                    <legend>{$val->title}</legend>
+                    <p>{$val->message}</p>
+                    <h6>{$_AUTHOR} {$db->where('id', $val->UID)->fetch()->username} | {$_DAY} {$date::getDate($val->date)} | {$_TIME} {$date::getTime($val->date)}</h6>
+                </fieldset>
+            {/foreach}
         </div>                      
     </div>
 </div>
