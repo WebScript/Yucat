@@ -23,4 +23,6 @@
         "RANK_2" => "Premium uzivatel",
         "RANK_1" => "Business uzivatel",
         "RANK_0" => "Bezny uzivatel",
+        
+        'DATA' => 'Udaje',
     );

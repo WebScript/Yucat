@@ -17,51 +17,18 @@
     
     class Profile extends \Presenter\BasePresenter {
         private $form;
+        private $pass;
         
         public function __construct() {
             parent::__construct();
             $this->forLogged();
             \inc\Router::redirect('User:Profile:news', TRUE);
-        }
-        
-        
-        public function profile() {
-            switch($this->isLogged()->rank) {
-                case 0: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_0 . '</b>';
-                    break;
-                case 1: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_1 . '</b>';
-                    break;
-                case 2: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_2 . '</b>';
-                    break;
-                case 3: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_3 . '</b>';
-                    break;
-                case 4: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_4 . '</b>';
-                    break;
-                case 5: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_5 . '</b>';
-                    break;
-            }
             
-            $this->template->peer_day = 0;
-            
-            $srvs = $this->db()->tables('servers')->where('UID', UID)->fetchAll();
-            foreach($srvs as $val) {
-                switch($val->type) {
-                    case 'SAMP':
-                        $this->template->peer_day += $val->slots * COST_SAMP / 50 / 30;
-                        break;
-                }
-            }
             
             $this->form = new \inc\Form();
             $this->form->setAction('User:Profile');
             $this->form->setMethod('POST');
-            
+           
             $this->form->addElement('firstname', 'firstname', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
@@ -127,8 +94,71 @@
             
             $this->form->addElement('save', 'save', 'submit')
                     ->setValue('Odoslat');
+            
+            
+            
+            $this->pass = new \inc\Form();
+            $this->pass->setAction('User:Profile');
+            $this->pass->setMethod('POST');
+            
+            $this->pass->addElement('oldpass', 'oldpass', 'password')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->pass->addElement('newpass', 'newpass', 'password')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->pass->addElement('retrypass', 'retrypass', 'password')
+                    ->setMinLenght(4)
+                    ->setMaxLenght(30)
+                    ->setErrorType('TEXT')
+                    ->setErrorMessage('error');
+            
+            $this->pass->addElement('change', 'change', 'submit')
+                    ->setValue('Zmenit');
+        }
+        
+        
+        public function profile() {
+            switch($this->isLogged()->rank) {
+                case 0: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_0 . '</b>';
+                    break;
+                case 1: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_1 . '</b>';
+                    break;
+                case 2: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_2 . '</b>';
+                    break;
+                case 3: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_3 . '</b>';
+                    break;
+                case 4: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_4 . '</b>';
+                    break;
+                case 5: 
+                    $this->template->rank = '<b>' . $this->template->_RANK_5 . '</b>';
+                    break;
+            }
+            
+            $this->template->peer_day = 0;
+            
+            $srvs = $this->db()->tables('servers')->where('UID', UID)->fetchAll();
+            foreach($srvs as $val) {
+                switch($val->type) {
+                    case 'SAMP':
+                        $this->template->peer_day += $val->slots * COST_SAMP / 50 / 30;
+                        break;
+                }
+            }
 
             $this->template->form = $this->form->sendForm();
+            $this->template->pass = $this->pass->sendForm();
             
             \inc\Ajax::setMode(TRUE);
         }
@@ -142,6 +172,19 @@
             $this->template->date           = new \inc\Date();
             \inc\Ajax::setMode(TRUE);
         }
+        
+        
+        public function check() {
+            if(!$this->form->validateData()) {
+                \inc\Ajax::sendJSON($this->pass->validateData());
+            } else {
+                \inc\Ajax::sendJSON($this->form->validateData());
+            }
+        }
+
+
+
+
         public function bannery() {
             \inc\Ajax::sendHTML('news bsdfsdsdffla bla xDD');
         }

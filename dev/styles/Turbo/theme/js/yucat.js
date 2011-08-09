@@ -63,17 +63,19 @@ $(function() {
             input.addClass('input-error');
 
             if(object.message) {
-                $('#AJAXMessage').html(object.message);
+                input.closest("li").find('#AJAXMessage').html(object.message);
             }
         } else if(object.status == 'ok') {
             input.removeClass('input-error');
             input.addClass('input-ok');
+            input.closest("li").find('#AJAXMessage').html('');
         }
     }
 });
 
+
     function changePage(page) {
-        $.get(page, function(msg) {
+        $.post(page, function(msg) {
             $('div.ajaxContent').html(msg);
             $('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/page.js"></script>');
             $('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/yucat.js"></script>');
