@@ -24,7 +24,7 @@
             $this->forNotLogged();
             
             $this->form = new \inc\Form();
-            $this->form->setAction('Login:l');
+            $this->form->setAction('Login:');
             $this->form->setMethod('POST');
             
             $this->form->addElement('username', 'username', 'text')

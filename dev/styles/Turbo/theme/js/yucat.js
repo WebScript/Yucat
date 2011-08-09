@@ -49,12 +49,11 @@ $(function() {
             var action = $(this).closest("form").attr('action');
             
             if(action) {
-                $.post(action + '/check', name + '=' + $(this).val(), function(msg) {
+                $.post(action + 'check', name + '=' + $(this).val(), function(msg) {
                     if($.parseJSON(msg).alert) {
                         $('#dialog').html($.parseJSON(msg).alert);
                         $('#dialog').dialog('open');
-                    }
-                    changeStats(input, $($.parseJSON(msg)).attr(name));
+                    } else changeStats(input, $($.parseJSON(msg)).attr(name));
                 });
             }
         }

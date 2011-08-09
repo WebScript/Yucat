@@ -9,7 +9,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.4
+     * @version    Release: 0.2.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -54,7 +54,8 @@
          * @todo opravit klasicke smerovanie
          */
         public static function traceRoute($input) {
-            //Parse to call and arguments
+          
+            /*//Parse to call and arguments
             $input = explode(' ', $input, 2);
             //Parse to simple called method, class and dir
             $path = explode(':', $input[0], 3);
@@ -69,7 +70,12 @@
             return CFG_PROTOCOL 
                  . DOMAIN
                  . (self::$userFriendly ? '/' : '/?param=')
-                 . implode((self::$userFriendly ? '/' : '&param='), $path);
+                 . implode((self::$userFriendly ? '/' : '&param='), $path);*/
+            $input = str_replace(':', '/', $input);
+            return CFG_PROTOCOL 
+                 . DOMAIN
+                 . '/' 
+                 . $input;
         }
 
         

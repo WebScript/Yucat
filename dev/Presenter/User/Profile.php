@@ -26,7 +26,7 @@
             
             
             $this->form = new \inc\Form();
-            $this->form->setAction('User:Profile');
+            $this->form->setAction('User:Profile:data');
             $this->form->setMethod('POST');
            
             $this->form->addElement('firstname', 'firstname', 'text')
@@ -98,7 +98,7 @@
             
             
             $this->pass = new \inc\Form();
-            $this->pass->setAction('User:Profile');
+            $this->pass->setAction('User:Profile:pass');
             $this->pass->setMethod('POST');
             
             $this->pass->addElement('oldpass', 'oldpass', 'password')
@@ -173,12 +173,13 @@
         }
         
         
-        public function check() {
-            if(!$this->form->validateData()) {
-                \inc\Ajax::sendJSON($this->pass->validateData());
-            } else {
-                \inc\Ajax::sendJSON($this->form->validateData());
-            }
+        public function passcheck() {
+            \inc\Ajax::sendJSON($this->pass->validateData());
+        }
+        
+        
+        public function datacheck() {
+            \inc\Ajax::sendJSON($this->form->validateData());
         }
 
 

@@ -1,6 +1,7 @@
 TASKS 1:
     Spravit select pre Form class
     Spravit profil
+    Pridat do Form class kontrolu ci neni v GET nejaky parameter naviac
 
 TASKS 2:
     ExceptionHandler
@@ -27,7 +28,6 @@ TASKS 6:
     Cron, Backup, Credit
 
 TASKS 7:
--   Pridat tasky do adminky
     Do install do adminky dat kontrolu povolenych modulov, ssh2, file_Get_contants atd.
     pridat na hl web yucat nejake api na zistenie  noviniek ohladom administrace a potom aby sa to vypisovalo kazdemu kdo pouziva muju adminku
     Emailer, niekdo da odoslat mail a ten sa zapise do db  potom cron kazdych 10 sec posle mail
