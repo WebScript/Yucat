@@ -147,7 +147,6 @@
             }
             
             $this->template->peer_day = 0;
-            
             $srvs = $this->db()->tables('servers')->where('UID', UID)->fetchAll();
             foreach($srvs as $val) {
                 switch($val->type) {

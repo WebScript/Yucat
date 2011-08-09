@@ -50,6 +50,10 @@ $(function() {
             
             if(action) {
                 $.post(action + '/check', name + '=' + $(this).val(), function(msg) {
+                    if($.parseJSON(msg).alert) {
+                        $('#dialog').html($.parseJSON(msg).alert);
+                        $('#dialog').dialog('open');
+                    }
                     changeStats(input, $($.parseJSON(msg)).attr(name));
                 });
             }
@@ -69,6 +73,7 @@ $(function() {
             input.removeClass('input-error');
             input.addClass('input-ok');
             input.closest("li").find('#AJAXMessage').html('');
+        } else {
         }
     }
 });
