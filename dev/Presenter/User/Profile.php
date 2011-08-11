@@ -125,39 +125,12 @@
         
         
         public function profile() {
-            switch($this->isLogged()->rank) {
-                case 0: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_0 . '</b>';
-                    break;
-                case 1: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_1 . '</b>';
-                    break;
-                case 2: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_2 . '</b>';
-                    break;
-                case 3: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_3 . '</b>';
-                    break;
-                case 4: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_4 . '</b>';
-                    break;
-                case 5: 
-                    $this->template->rank = '<b>' . $this->template->_RANK_5 . '</b>';
-                    break;
-            }
-            
-            $this->template->peer_day = 0;
-            $srvs = $this->db()->tables('servers')->where('UID', UID)->fetchAll();
-            foreach($srvs as $val) {
-                switch($val->type) {
-                    case 'SAMP':
-                        $this->template->peer_day += $val->slots * COST_SAMP / 50 / 30;
-                        break;
-                }
-            }
-
-            $this->template->form = $this->form->sendForm();
-            $this->template->pass = $this->pass->sendForm();
+            $rank = new \Model\Profile();
+            $this->template->rank       = $rank->getUserRank($this->isLogged()->rank, $this->translate);
+            $this->template->peer_day   = $rank->getCreditPeerDay(UID);
+            $this->template->form       = $this->form->sendForm();
+            $this->template->pass       = $this->pass->sendForm();
+            $this->template->date       = new \inc\Date();
             
             \inc\Ajax::setMode(TRUE);
         }

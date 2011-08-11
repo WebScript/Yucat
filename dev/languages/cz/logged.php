@@ -26,5 +26,12 @@
         
         'HI' => 'Vitaj',
         'VISIT' => 'Visit',
-        'LOGOUT' => 'Logout'
+        'LOGOUT' => 'Logout',
+        
+        "RANK_5" => "Administrator",
+        "RANK_4" => "Moderator",
+        "RANK_3" => "V.I.P.",
+        "RANK_2" => "Premium uzivatel",
+        "RANK_1" => "Business uzivatel",
+        "RANK_0" => "Bezny uzivatel",
     );

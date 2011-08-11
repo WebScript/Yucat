@@ -25,3 +25,38 @@
                     <td class="backcolor tleft">Shoutcast</td>
                     <td class="tright"><?php //echo $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::SERVERS, Array(db::SERVERS_TYPE => Server::SC))); ?></td>
                 </tr>
+
+
+
+
+
+
+
+            <tbody>
+                <?php
+                    $etc = Page::getAddress(2);
+                    if(!$etc) $etc = 1;
+                    $out = array();
+                    $num = 1;
+                    $banners = $db->uQuery(db::VIEWS, db::BANNERS, array(db::BANNERS_WHO => UID), 'LIMIT '.($etc - 1).', '.($etc + 50));
+                    while($lnk = $db->q(db::FETCH_ARRAY, $banners)) {
+                        $out[] = '<tr>';
+                        $out[] = '<td class="tbold backcolor">'.$num.'</td>';
+                        $out[] = '<td>'.$lnk[db::BANNERS_SIZE].'</td>';
+                        $out[] = '<td>'.$lnk[db::BANNERS_URL].'</td>';
+                        $out[] = '<td>'.Date::getDate($lnk[db::BANNERS_DATE]).'</td>';
+                        $out[] = '<td>'.Date::getTime($lnk[db::BANNERS_DATE]).'</td>';
+                        $out[] = '<td>'.$lnk[db::BANNERS_IP].'</td>';
+                        $out[] = '</tr>';
+                        $num++;
+                    }
+                    echo implode('', $out);
+                ?>
+            </tbody>
+        </table>
+        <ul class="pagination tcenter">
+            <?php
+                $count = $db->q(db::NUM_ROWS, $db->uQuery(db::VIEWS, db::BANNERS, array(db::BANNERS_WHO => UID)));
+                echo Page::pager($etc, $count, 50);
+            ?>
+        </ul>
