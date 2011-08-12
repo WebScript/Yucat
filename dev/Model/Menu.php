@@ -18,7 +18,7 @@
     class Menu extends \Model\BaseModel {
         
         public static function createMenu(array $array, $translate) {
-            $url = implode(':', \inc\Router::getAddress());
+            $url = implode(':', array_slice(\inc\Router::getAddress(), 0, 3));
             $menu = '<ul id="main-menu" class="radius-top clearfix">';
 
              foreach($array AS $key => $value) {
