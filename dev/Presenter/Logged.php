@@ -33,7 +33,7 @@
                     '_MENU_PROFILE' => 'User:Profile:profile'
                     ),
                 '_MENU_STATISTIC' => Array(
-                    '_MENU_BANNERS' => 'User:Profile:bannery',
+                    '_MENU_BANNERS' => 'User:Statistic:banners',
                     '_MENU_ACCESS_LOG' => 'User:Profile:access'
                 ),
                 '_MENU_CREDIT' => Array(

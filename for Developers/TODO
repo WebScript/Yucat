@@ -1,4 +1,6 @@
 TASKS 1:
+    Opdavit pager
+    Opravit menu (ked je napr za /User/Statistic/banners/ 4 tak to neukazuje submenu
     Spravit select pre Form class
     Spravit profil
     Pridat do Form class kontrolu ci neni v GET nejaky parameter naviac

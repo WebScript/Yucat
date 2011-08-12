@@ -34,7 +34,7 @@
 
             <tbody>
                 <?php
-                    $etc = Page::getAddress(2);
+                    $etc = Page::getAddress(2); end(Router::getAddress());
                     if(!$etc) $etc = 1;
                     $out = array();
                     $num = 1;

@@ -19,7 +19,7 @@
     class Router {
         
         /** Is address user friendly? */
-        private static $userFriendly = 1;
+        //private static $userFriendly = 1;
       
         
         /**

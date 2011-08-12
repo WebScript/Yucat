@@ -29,36 +29,12 @@
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
             $this->template->date = new \inc\Date();
             
-            
-            
-            $out = array(
-                '01' => 0,
-                '02' => 0,
-                '03' => 0,
-                '04' => 0,
-                '05' => 0,
-                '06' => 0,
-                '07' => 0,
-                '08' => 0,
-                '09' => 0,
-                '10' => 0,
-                '11' => 0,
-                '12' => 0
-                );
-//echo date('U', time() + 60 * 60 * 24 * 30 * 2);
-                $str = array();
-                $banners = $this->db()->tables('banners')->where('UID', UID)->fetchAll();
-                foreach($banners as $val) { //echo $val->date;
-                    $out[date('m', $val->date)]++;
-                }
+            $statistic = new \Model\Statistic();
+            $banners = $this->db()->tables('banners')->where('UID', UID)->fetchAll();
+            $this->template->graph = $statistic->createGraph($banners, 'date');
 
-                $str[] = 'var d1 = [ ';
-                foreach($out AS $key => $val) {
-                    $str[] = '[' . $key . ', ' . $val . '],';
-                }
-                $str[] = '];';
-                $this->template->graph = implode('', $str);
-            
+            $menu = new \Model\Menu();
+            $this->template->map = $menu->pager(500);
             \inc\Ajax::setMode(TRUE);
         }
     }
