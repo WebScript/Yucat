@@ -81,7 +81,9 @@ $(function() {
     function changePage(page) {
         $.post(page, function(msg) {
             $('div.ajaxContent').html(msg);
-            $('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/page.js"></script>');
-            $('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/yucat.js"></script>');
+            $('div.ajaxContent').load();
+            //$('div.ajaxContent').prepend($('div.jsPrepend'));
+            //$('div.ajaxContent').append($('<script src="/styles/turbo/theme/js/page.js"></script>'));
+            //$('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/yucat.js"></script>');
         });
     }

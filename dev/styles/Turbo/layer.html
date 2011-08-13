@@ -18,19 +18,21 @@
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.apprise.css" />
     </head>
     <body>
-    <!--[if lte IE 8]><script src="{$__THEME_DIR}js/excanvas.min.js"></script><![endif]-->
-    <script src="{$__THEME_DIR}js/jquery-1.6.2.min.js"></script>
-    <script src="{$__THEME_DIR}js/yucat.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.uniform.js"></script>
-    <script src="{$__THEME_DIR}js/jquery-ui-1.8.14.custom.min.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.flot.min.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.fullcalendar.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.wysiwyg.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.tabify.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.limit.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.tiptip.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.elastic.js"></script>
-    <script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
+        <div id="jsPreend">
+            <!--[if lte IE 8]><script src="{$__THEME_DIR}js/excanvas.min.js"></script><![endif]-->
+            <script src="{$__THEME_DIR}js/jquery-1.6.2.min.js"></script>
+            <script src="{$__THEME_DIR}js/jquery-ui-1.8.14.custom.min.js"></script>
+            <script src="{$__THEME_DIR}js/yucat.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.uniform.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.flot.min.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.fullcalendar.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.wysiwyg.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.tabify.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.limit.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.tiptip.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.elastic.js"></script>
+            <script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
+        </div>
     
     
     <div id="dialog" title="N00B!!!">
@@ -42,10 +44,9 @@
     {else}
         {macroContent}
     {/if}
-    
+
     <script src="{$__THEME_DIR}js/page.js"></script>
 
-    
     <div id="loading" class="loading">
         <img src="{$__THEME_DIR}img/loading.gif" alt="loading..." />
     </div>
