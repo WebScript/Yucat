@@ -93,10 +93,10 @@ $(function() {
     
     
     function refreshHeadMenu() {
-        $('#tabs1').tabify();
+      /*  $('#tabs1').tabify();
         $('#tabs2').tabify();
         $('#tabs3').tabify();
-        $('#t-twitter-status').limit('140','#t-twitter-limit');
+        $('#t-twitter-status').limit('140','#t-twitter-limit');*/
     }
     
     function loadComponents() {
