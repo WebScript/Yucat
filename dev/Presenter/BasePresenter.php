@@ -30,9 +30,9 @@
             $this->template->isLogged       = $this->isLogged() ? TRUE : NULL;
             $this->template->isAjax         = \inc\Ajax::isAjax();
             $this->template->__THEME_DIR    = STYLE_DIR . STYLE . '/theme/';
-            $this->template->__KEYWORDS     = CFG_TMLP_KEYWORDS;
-            $this->template->__DESCRIPTION  = CFG_TMLP_DESCRIPTION;
-            $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . CFG_VERSION . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
+            $this->template->__KEYWORDS     = $GLOBALS['conf']['template_keywords'];
+            $this->template->__DESCRIPTION  = $GLOBALS['conf']['template_description'];
+            $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
             
             if($this->isLogged()) {
                 $this->template->user       = $db->tables('users')->where('id', $_COOKIE['id'])->fetch();

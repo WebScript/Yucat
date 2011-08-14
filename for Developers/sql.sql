@@ -14,7 +14,7 @@ CREATE TABLE `banners` (
    `UID` INT NOT NULL ,
    `date` INT NOT NULL ,
    `size` INT NOT NULL ,
-   `web` VARCHAR( 70 ) NOT NULL ,
+   `website` VARCHAR( 70 ) NOT NULL ,
    `ip` VARCHAR( 15 ) NOT NULL
 ) ENGINE = innodb COLLATE utf8_bin;
 
@@ -129,3 +129,9 @@ CREATE TABLE `users` (
 ) ENGINE = innodb COLLATE utf8_bin;
 
 
+
+CREATE TABLE `config` (
+   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+   `param` VARCHAR( 50 ) NOT NULL ,
+   `value` VARCHAR( 50 ) NOT NULL
+) ENGINE = innodb COLLATE utf8_bin;

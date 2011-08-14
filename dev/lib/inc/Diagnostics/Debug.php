@@ -17,9 +17,7 @@
      * @license    http://www.yucat.net/license GNU GPL License
      * @version    Release: 0.2.1
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.0
-     * 
-     * @todo Opravit dump(), co ked bude napr zlozeny array alebo object, atd.
+     * @since      Class available since Release 0.2.1
      */
 
     namespace inc\Diagnostics;

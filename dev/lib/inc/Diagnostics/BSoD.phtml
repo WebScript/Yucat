@@ -375,7 +375,7 @@
                     
                     <ul>
                         <li>Report generated at <?php echo $date ?></li>
-                        <li><a href="<?php echo CFG_PROTOCOL . DOMAIN; ?>"><?php echo CFG_PROTOCOL . DOMAIN; ?></a></li>
+                        <li><a href="<?php echo $GLOBALS['conf']['protocol'] . DOMAIN; ?>"><?php echo $GLOBALS['conf']['protocol'] . DOMAIN; ?></a></li>
                         <li>PHP <?php echo phpversion(); ?></li>
                         <li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
                         <li>Yucat administration for manage servers</i></li>

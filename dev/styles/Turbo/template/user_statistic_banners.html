@@ -60,11 +60,24 @@
                 </tr>
 
             </thead>
-            </table> <!-- bez tohoto -->
-<!--sem-->
-<ul class="pagination tcenter">
-    {$map}
-</ul>
+            
+            <tbody>
+                {foreach $table_content as $val :}
+                    <tr>
+                        <td>{$val->id}</td>
+                        <td>{$val->size}</td>
+                        <td>{$val->website}</td>
+                        <td>{$date->getDate($val->size)}</td>
+                        <td>{$date->getTime($val->size)}</td>
+                        <td>{$val->ip}</td>
+                    </tr>
+                {/foreach}
+            </tbody>
+            
+            </table>
+            <ul class="pagination tcenter">
+                {$map}
+            </ul>
         <h2>Graf</h2>
         <div class="body-con">
             <div id="stats" class="flot-con"></div>

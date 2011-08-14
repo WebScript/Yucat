@@ -24,7 +24,7 @@ $(function() {
     $('form').submit(function(val) {
         var elements = $(this.elements).serialize();
 
-        $.post(this.action + '/send', elements, function(msg) {
+        $.post(this.action + 'send', elements, function(msg) {
             var response = $.parseJSON(msg);
 
             $.each(response, function(id, v) {

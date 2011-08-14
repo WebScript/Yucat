@@ -23,7 +23,7 @@
             \inc\Router::redirect('User:Statistic:banners', TRUE);
         }
         
-        public function banners() {
+        public function banners($page = 1) {
             $rank = new \Model\Profile();
             $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
@@ -34,7 +34,8 @@
             $this->template->graph = $statistic->createGraph($banners, 'date');
 
             $menu = new \Model\Menu();
-            $this->template->map = $menu->pager(500);
+            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows());
+            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit($page - 1, $page + 50)->fetchAll();
             \inc\Ajax::setMode(TRUE);
         }
     }

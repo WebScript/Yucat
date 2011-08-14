@@ -38,8 +38,8 @@
                 $_SESSION['lang'] = $defaultLang;
             } elseif(array_key_exists($lang, $this->avaiable_languages)) {
                 $_SESSION['lang'] = $lang;
-            } elseif($_SESSION['lang'] !== CFG_DEF_LANG) {
-                $_SESSION['lang'] = CFG_DEF_LANG;
+            } elseif(empty($_SESSION['lang']) || $_SESSION['lang'] !== $GLOBALS['conf']['default_language']) {
+                $_SESSION['lang'] = $GLOBALS['conf']['default_language'];
             }
             
             /** Define language */

@@ -253,8 +253,6 @@
          * OR exec('SELECT * FROM users WHERE id = ? AND lock = ?', 7, 0) - secured input
          * @param string $input
          * @return mixed 
-         * 
-         * @todo opravit paramsReplace
          */
         public function exec($input) {
             $input = String::paramsReplace(func_get_args());

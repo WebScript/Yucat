@@ -72,7 +72,7 @@
                  . (self::$userFriendly ? '/' : '/?param=')
                  . implode((self::$userFriendly ? '/' : '&param='), $path);*/
             $input = str_replace(':', '/', $input);
-            return CFG_PROTOCOL 
+            return $GLOBALS['conf']['protocol']
                  . DOMAIN
                  . '/' 
                  . $input;
@@ -92,7 +92,12 @@
             }
             
             if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI'])) {
-                header('location: ' . self::traceRoute($input));
+                if(Ajax::isAjax()) {
+                    /** @todo dokoncit */
+                    exit('{"redirect" : ' . self::traceRoute($input) . '}');
+                } else {
+                    header('location: ' . self::traceRoute($input));
+                }
             }
         }
     }
