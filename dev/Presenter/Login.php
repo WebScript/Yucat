@@ -24,7 +24,7 @@
             $this->forNotLogged();
             
             $this->form = new \inc\Form();
-            $this->form->setAction('Login:');
+            $this->form->setAction('Login:login');
             $this->form->setMethod('POST');
             
             $this->form->addElement('username', 'username', 'text')
@@ -43,12 +43,12 @@
         }
         
         
-        public function check() {
+        public function loginCheck() {
             \inc\Ajax::sendJSON($this->form->validateData());
         }
         
         
-        public function send() {
+        public function loginSend() {
             if($this->form->isValidData()) { 
                 $model = new \Model\Login();
                 $login = $model->login($this->form->getValue('username'), 
@@ -69,5 +69,6 @@
         public function logout() {
             $model = new \Model\Login();
             $model->logout();
+            \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('login')));
         }
     }

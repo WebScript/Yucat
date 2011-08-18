@@ -9,7 +9,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.5
+     * @version    Release: 0.2.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -17,11 +17,7 @@
     namespace inc;
     
     class Router {
-        
-        /** Is address user friendly? */
-        //private static $userFriendly = 1;
-      
-        
+       
         /**
          * With this function you can get $_GET and parse it
          * @return array
@@ -30,17 +26,75 @@
             $out = array();
             
             if(isset($_GET['uf'])) {
-                $out = explode('/', $_GET['uf']);
+                $route = explode('/', $_GET['uf']);
             } elseif(isset($_GET)) {
-                foreach($_GET as $value) {
-                    $out[] = $value;
+                $route = $_GET;
+            }
+            $i = 0;
+                
+            foreach($route as $val) {
+                $a = '/Presenter/' . implode('/', $out);
+                $dir = ROOT . $a . '/' . $val;
+            
+                if(is_dir($dir)) {
+                    $out['dir'] = $val;
+                } elseif(file_exists($dir . '.php')) {
+                    $out['class'] = $val;
+                } elseif(method_exists(str_replace('/', '\\', $a), $val)) {
+                    $out['method'] = $val;
+                } else {
+                    $out['key' . $i] = $val;
+                    $i++;
                 }
             }
             
-            if(!isset($out[0]) && !isset($out[1])) {
-                $out[0] = 'Login';
-            } 
-            return array_filter($out);
+            if(empty($out['class'])) {
+                $out = array();
+                $out['class'] = 'Login';
+            }
+            
+            $out['dir'] = isset($out['dir']) ? $out['dir'] : NULL;
+            $out['class'] = isset($out['class']) ? $out['class'] : NULL;
+            $out['method'] = isset($out['method']) ? $out['method'] : NULL;
+
+            return $out;
+        }
+        
+        
+        public static function getLevel() {
+            $addr = self::getAddress();
+            
+            if(isset($addr['dir']) && isset($addr['class']) && isset($addr['method'])) {
+                return '3';
+            } elseif(isset($addr['dir']) && isset($addr['class'])) {
+                return '2';
+            } elseif(isset($addr['class'])) {
+                return '1';
+            } else {
+                return FALSE;
+            }
+        }
+        
+        
+        public static function getOnlyParam() {
+            $addr = self::getAddress();
+            
+            for($i=0;$i<self::getLevel();$i++) {
+                unset($addr[array_search(reset($addr), $addr)]);
+            }
+            return $addr;
+        }
+        
+        
+        public static function getOnlyAddress() {
+            $addr = self::getAddress();
+            $out = array();
+            
+            for($i=0;$i<self::getLevel();$i++) {
+                $out[array_search(reset($addr), $addr)] = $addr[array_search(reset($addr), $addr)];
+                unset($addr[array_search(reset($addr), $addr)]);
+            }
+            return $out;
         }
         
         
@@ -50,32 +104,32 @@
          * in dir User and method ajaxGetForm with arguments password and auth_key as array
          * @param string $input
          * @return string
-         * 
-         * @todo opravit klasicke smerovanie
          */
         public static function traceRoute($input) {
           
-            /*//Parse to call and arguments
+            //Parse to call and arguments
             $input = explode(' ', $input, 2);
             //Parse to simple called method, class and dir
-            $path = explode(':', $input[0], 3);
+            $path = explode(':', $input[0]);
             
             if(isset($input[1])) {
                 $p = explode(',', $input[1]);
                 $path = array_merge($path, $p);
             }
-            
             $path = array_filter($path);
             
-            return CFG_PROTOCOL 
-                 . DOMAIN
-                 . (self::$userFriendly ? '/' : '/?param=')
-                 . implode((self::$userFriendly ? '/' : '&param='), $path);*/
-            $input = str_replace(':', '/', $input);
+            if(!empty($GLOBALS['conf']['url_userfriendly'])) {
+                $vals = '/' . implode('/', $path);
+            } else {
+                foreach($path as $key => $val) {
+                    $path[$key] = 'param' . $key . '=' . $val;
+                }
+                $vals = '/?' . implode('&', $path);
+            }
+            
             return $GLOBALS['conf']['protocol']
                  . DOMAIN
-                 . '/' 
-                 . $input;
+                 . $vals;
         }
 
         

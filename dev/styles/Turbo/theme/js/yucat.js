@@ -1,12 +1,5 @@
 $(function() { 
     $('#loading').hide();
-    $("#loading").ajaxStart(function(){
-        $(this).show();
-    });
-    $("#loading").ajaxStop(function(){
-        $(this).hide();
-    });  
-    
     
     $('#dialog').dialog({
             autoOpen: false,
@@ -21,13 +14,10 @@ $(function() {
             }
     });
     
+    
     $('form').submit(function(val) {
-        var elements = $(this.elements).serialize();
-
-        $.post(this.action + 'send', elements, function(msg) {
-            var response = $.parseJSON(msg);
-
-            $.each(response, function(id, v) {
+        $.post(this.action + 'Send', $(this.elements).serialize(), function(msg) {
+            $.each($.parseJSON(msg), function(id, v) {
                 if(id == 'redirect') {
                     window.location = v;
                 } else if(id == 'alert') {
@@ -41,19 +31,18 @@ $(function() {
     });
     
     
-    $(':input').bind('keyup click', function(trg) {
+    $(':input').bind('keyup click', function(trg) {console.log('ll');
         var name = trg.target.name;
-        var input = $(this);
         
         if(trg.target.type !== 'submit') {
             var action = $(this).closest("form").attr('action');
             
             if(action) {
-                $.post(action + 'check', name + '=' + $(this).val(), function(msg) {
+                $.post(action + 'Check', name + '=' + $(this).val(), function(msg) {
                     if($.parseJSON(msg).alert) {
                         $('#dialog').html($.parseJSON(msg).alert);
                         $('#dialog').dialog('open');
-                    } else changeStats(input, $($.parseJSON(msg)).attr(name));
+                    } else changeStats($(this), $($.parseJSON(msg)).attr(name));
                 });
             }
         }
@@ -79,13 +68,16 @@ $(function() {
 
 
     function changePage(page) {
+       // $('#loading').show();
         $.post(page, function(msg) {
-            $('div.ajaxContent').html(msg);
-            loadComponents();
-            //$('div.ajaxContent').prepend($('div.jsPrepend'));
-            //$('div.ajaxContent').append('<script src="/styles/Turbo/theme/js/yucat.js"></script>');
-            //$('div.ajaxContent').append('<script src="/styles/turbo/theme/js/page.js"></script>');
-            
+            if($.isJSON(msg)) {
+                console.log($.parseJSON(msg));
+                //window.location = $.parseJSON(msg).redirect;
+            } else {
+                //$('div.ajaxContent').html(msg);
+                //loadComponents();
+            }
+           // $('#loading').hide();
         });
     }
     

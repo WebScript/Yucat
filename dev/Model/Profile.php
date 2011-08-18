@@ -17,7 +17,7 @@
     
     class Profile extends \Model\BaseModel {
         
-        public function getUserRank($rank, $translate) {
+        public function getUserRank($rank, $translate) { 
             switch($rank) {
                 case 0: 
                     return '<b>' . $translate->_RANK_0 . '</b>';

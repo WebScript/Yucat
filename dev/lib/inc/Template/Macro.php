@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.7
+     * @version    Release: 0.3.8
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      * 
@@ -101,28 +101,13 @@
         
         
         public function macroContent() {
-            $address = \inc\Router::getAddress();
-            if(isset($address[1]) && file_exists(ROOT . '/Presenter/' . $address[0] . '/' . $address[1] . '.php')) {
-                $addr = strtolower($address[0]) . '_' . strtolower($address[1]);
-                $addr2 = isset($address[2]) ? $address[2] : NULL;
-
-                unset($address[0]);
-                unset($address[1]);
-                unset($address[2]);
-            } else {
-                $addr = strtolower($address[0]);
-                $addr2 = isset($address[1]) ? $address[1] : NULL;
-
-                unset($address[0]);
-                unset($address[1]);
-            }
-
-            return $this->macroInclude($addr, $addr2, is_array($address) ? $address : array());
+            $addr = \inc\Router::getAddress();
+            $link = \inc\Router::getLevel() >= 2 ? strtolower($addr['dir']) . '_' . strtolower($addr['class']) : strtolower($addr['class']);
+            return $this->macroInclude($link, $addr['method'], \inc\Router::getOnlyParam());
         }
         
         
         public function macroLink($val) {
-            $router = new \inc\Router();
-            return $router->traceRoute($val);
+            return \inc\Router::traceRoute($val);
         }
     }

@@ -43,13 +43,22 @@
     inc\Diagnostics\Debug::enable();
     /** Set developer mode */
     inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
+    /** Debug function */
+    test();
     
     if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
-   
+    
     /** Call a template system*/
     $core = new inc\Template\Core();
 
     
     function d($p) {
         \inc\Diagnostics\Debug::dump($p);
+    }
+    
+    function test() {
+        
+       // d(\inc\Router::getOnlyAddress());
+        
+       // exit;
     }
