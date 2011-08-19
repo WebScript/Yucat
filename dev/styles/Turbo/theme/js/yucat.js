@@ -1,6 +1,7 @@
 $(function() { 
     $('#loading').hide();
     
+
     $('#dialog').dialog({
             autoOpen: false,
             width: 600,
@@ -31,8 +32,9 @@ $(function() {
     });
     
     
-    $(':input').bind('keyup click', function(trg) {console.log('ll');
+    $(':input').bind('keyup click', function(trg) {
         var name = trg.target.name;
+        var ths = $(this);
         
         if(trg.target.type !== 'submit') {
             var action = $(this).closest("form").attr('action');
@@ -42,7 +44,7 @@ $(function() {
                     if($.parseJSON(msg).alert) {
                         $('#dialog').html($.parseJSON(msg).alert);
                         $('#dialog').dialog('open');
-                    } else changeStats($(this), $($.parseJSON(msg)).attr(name));
+                    } else changeStats(ths, $($.parseJSON(msg)).attr(name));
                 });
             }
         }
@@ -68,16 +70,16 @@ $(function() {
 
 
     function changePage(page) {
-       // $('#loading').show();
-        $.post(page, function(msg) {
-            if($.isJSON(msg)) {
-                console.log($.parseJSON(msg));
-                //window.location = $.parseJSON(msg).redirect;
+        $('#loading').show();
+        $.post(page, function(msg) {console.log(msg);
+            if(typeof(msg) == 'JSON') {
+                //console.log($.parseJSON(msg));
+               // window.location = $.parseJSON(msg).redirect;
             } else {
-                //$('div.ajaxContent').html(msg);
-                //loadComponents();
-            }
-           // $('#loading').hide();
+                $('div.ajaxContent').html(msg);
+                loadComponents();
+           }
+            $('#loading').hide();
         });
     }
     
