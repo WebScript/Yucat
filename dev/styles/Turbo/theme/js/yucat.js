@@ -71,7 +71,7 @@ $(function() {
 
     function changePage(page) {
         $('#loading').show();
-        $.post(page, function(msg) {console.log(msg);
+        $.post(page, function(msg) {//console.log(msg);
             if(typeof(msg) == 'JSON') {
                 //console.log($.parseJSON(msg));
                // window.location = $.parseJSON(msg).redirect;

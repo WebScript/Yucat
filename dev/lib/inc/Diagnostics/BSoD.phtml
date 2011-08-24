@@ -360,11 +360,7 @@
 
                         <div id="omg" class="collapsed inner">
                             <h3>Headers</h3>
-                            <pre><?php 
-                                    foreach(get_headers($_SERVER['SCRIPT_URI']) as $value) {
-                                        echo $value.'<br />';
-                                    }
-                                ?>
+                            <pre><?php echo get_headers($_SERVER['SCRIPT_URI']) ?>
                             </pre>
                         </div>
                     </div>

@@ -55,12 +55,14 @@
                 unset($thisAddress[sizeof($thisAddress) - 1]);
             }
             $count = ceil($countPages / $listPeerPage);
+            array_pop($thisAddress);
             if(!$count) $count = 1;
-            d($count);
+            //d($count);
+            //d($thisAddress);
             $address = $GLOBALS['conf']['protocol'] . DOMAIN . '/' . implode('/', $thisAddress) . '/';
 
             if($thisPage < 1) \inc\Router::redirect($thisAddress);
-            if($thisPage > $count) \inc\Router::redirect($thisAddress);
+            elseif($thisPage > $count) \inc\Router::redirect($thisAddress);
 
             if($thisPage > 1) {
                 $out[] = '<li><a href="javascript:changePage(\'' . $address . ($thisPage - 1) . '\');" class="page radius">Previous</a></li>';

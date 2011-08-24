@@ -106,25 +106,19 @@
          * @return string
          */
         public static function traceRoute($input) {
-          
-            //Parse to call and arguments
-            $input = explode(' ', $input, 2);
-            //Parse to simple called method, class and dir
-            $path = explode(':', $input[0]);
-            
-            if(isset($input[1])) {
-                $p = explode(',', $input[1]);
-                $path = array_merge($path, $p);
-            }
-            $path = array_filter($path);
-            
-            if(!empty($GLOBALS['conf']['url_userfriendly'])) {
-                $vals = '/' . implode('/', $path);
-            } else {
-                foreach($path as $key => $val) {
-                    $path[$key] = 'param' . $key . '=' . $val;
+            if(!is_array($input)) {
+                //Parse to call and arguments
+                $input = explode(' ', $input, 2);
+                //Parse to simple called method, class and dir
+                $path = explode(':', $input[0]);
+
+                if(isset($input[1])) {
+                    $p = explode(',', $input[1]);
+                    $path = array_merge($path, $p);
                 }
-                $vals = '/?' . implode('&', $path);
+                $vals = '/' . implode('/', array_filter($path));
+            } else {
+                $vals = '/' . implode('/', $input);
             }
             
             return $GLOBALS['conf']['protocol']
@@ -137,21 +131,27 @@
          * Redirect to web by special syntax for traceRoute
          * @param string $input 
          */
-        public static function redirect($input, $class = FALSE) {
-            if($class) {
-                $search = substr($input, 0, strrpos($input, ':'));
-                $search = self::traceRoute($search . '/(.*)');
-            } else {
-                $search = self::traceRoute($input);
-            }
+        public static function redirect($input, $inURL = FALSE) {
+            $search = self::traceRoute($input);
             
-            if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI'])) {
+            if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI']) && $inURL || !$inURL) {
                 if(Ajax::isAjax()) {
                     /** @todo dokoncit */
                     exit('{"redirect" : ' . self::traceRoute($input) . '}');
                 } else {
                     header('location: ' . self::traceRoute($input));
-                }
+                }    
             }
+        }
+        
+        
+        
+        public static function like($input) {
+            if(is_array($input)) { 
+                $input = implode(':', $input);
+            }
+            $search = substr($input, 0, strrpos($input, ':'));
+            $search = self::traceRoute($search . '/(.*)');
+            
         }
     }

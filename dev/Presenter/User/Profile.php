@@ -22,7 +22,7 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::redirect('User:Profile:news', TRUE);
+            \inc\Router::like('User:Profile:news');
             
             
             $this->form = new \inc\Form();
@@ -156,11 +156,9 @@
         }
 
 
-
-
-        public function bannery() {
-            \inc\Ajax::sendHTML('news bsdfsdsdffla bla xDD');
-        }
+        
+        
+        
         public function access() {
             \inc\Ajax::sendHTML('news sdfsdfsdsfsdfsdfsdfdfsbla bla xDD');
         }

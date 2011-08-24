@@ -1,4 +1,7 @@
 <?php
+
+    session_start();
+    
     /** Define ROOT path */
     define('ROOT', __DIR__);
     /** Define User Internet Protocol address */
@@ -52,12 +55,12 @@
     $core = new inc\Template\Core();
 
     
-    function d($p) {
+    function da($p) {
         \inc\Diagnostics\Debug::dump($p);
     }
     
     function test() {
-        
+        debug_backtrace();
        // d(\inc\Router::getOnlyAddress());
         
        // exit;

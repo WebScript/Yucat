@@ -20,7 +20,7 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::redirect('User:Statistic:banners', TRUE);
+            \inc\Router::like('User:Statistic:banners');
         }
         
         public function banners($page = 1) {
@@ -28,7 +28,7 @@
             $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
             $this->template->date = new \inc\Date();
-            
+
             $statistic = new \Model\Statistic();
             $banners = $this->db()->tables('banners')->where('UID', UID)->fetchAll();
             $this->template->graph = $statistic->createGraph($banners, 'date');
