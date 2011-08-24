@@ -44,22 +44,21 @@
         }
         
         
-        public static function pager($countPages, $listPeerPage = 50) {
+        public static function pager($countPages, $listPeerPage = 20) {
             $out = array(); 
             $thisAddress = \inc\Router::getAddress();
             $thisPage = end($thisAddress);
             
             if(!is_numeric($thisPage)) {
                 $thisPage = 1;
-            } else {
-                unset($thisAddress[sizeof($thisAddress) - 1]);
+            } else { 
+                array_pop($thisAddress);
             }
             $count = ceil($countPages / $listPeerPage);
-            array_pop($thisAddress);
+            
             if(!$count) $count = 1;
-            //d($count);
-            //d($thisAddress);
             $address = $GLOBALS['conf']['protocol'] . DOMAIN . '/' . implode('/', $thisAddress) . '/';
+            array_pop($thisAddress);
 
             if($thisPage < 1) \inc\Router::redirect($thisAddress);
             elseif($thisPage > $count) \inc\Router::redirect($thisAddress);

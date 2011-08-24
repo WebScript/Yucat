@@ -107,16 +107,16 @@
                 $query[] = ' WHERE ';
                 $query[] = $this->where ? $this->parse($this->where, ' AND ', TRUE) : '1';
                 
-                if($this->order) {
+                if($this->order !== NULL) {
                     $query[] = ' ORDER BY ';
                     $query[] = $this->order;
                 }
                 
-                if($this->limit) {
+                if($this->limit !== NULL) {
                     $query[] = ' LIMIT ';
                     $query[] = $this->limit;
                     
-                    if($this->offset) {
+                    if($this->offset !== NULL) {
                         $query[] = ', ';
                         $query[] = $this->offset;
                         
@@ -139,11 +139,11 @@
                 $query[] = ' WHERE ';
                 $query[] = $this->parse($this->where, ' AND ', TRUE);
                 
-                if($this->limit) {
+                if($this->limit !== NULL) {
                     $query[] = ' LIMIT ';
                     $query[] = $this->limit;
                     
-                    if($this->offset) {
+                    if($this->offset !== NULL) {
                         $query[] = ', ';
                         $query[] = $this->offset;
                         
@@ -189,7 +189,7 @@
         public function insert(array $input) {
             $this->action = 'INSERT';
             $this->values = array_merge($this->values, $input);
-            return $this;
+            $this->exec($this->make());
         }
         
         
@@ -237,12 +237,8 @@
          * @return db 
          */
         public function limit($limit, $offset = 0) {
-            if(is_numeric($limit) && is_numeric($offset)) {
-                $this->limit = $limit;
-                $this->offset = $offset;
-            } else {
-                Diagnostics\ExceptionHandler::Exception('ERR_IS_NOT_NUMERIC');
-            }
+            $this->limit = $limit;
+            $this->offset = $offset;
             return $this;
         }
         

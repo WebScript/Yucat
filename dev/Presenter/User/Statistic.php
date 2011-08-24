@@ -24,6 +24,14 @@
         }
         
         public function banners($page = 1) {
+           /* for($i=0;$i<50;$i++) {
+                $rad = rand(1, 12);
+                $size = rand(1, 3);
+                $date = strtotime('1-' . $rad . '-2012');
+                $this->db()->tables('banners')->insert(array('UID' => '1', 'date' => $date, 'size' => $size, 'website' => 'test', 'ip' => '127.0.0.1'));
+            }
+            */
+            
             $rank = new \Model\Profile();
             $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
@@ -35,7 +43,7 @@
 
             $menu = new \Model\Menu();
             $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows());
-            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit($page - 1, $page + 50)->fetchAll();
+            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit($page * 20 - 20, 20)->fetchAll();
             \inc\Ajax::setMode(TRUE);
         }
     }

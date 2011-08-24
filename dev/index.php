@@ -55,7 +55,7 @@
     $core = new inc\Template\Core();
 
     
-    function da($p) {
+    function d($p) {
         \inc\Diagnostics\Debug::dump($p);
     }
     
