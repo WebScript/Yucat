@@ -45,11 +45,24 @@
     </div>
     
     <div id="main-content-left">
+        
+        <h2>Statistiky, kdo videl vas banner</h2>
+        <div class="simple-con tleft">
+                                <select id="select-view" name="select-view">
+                                    <option value="0">Show 5</option>
+                                    <option value="1" selected>Show 10</option>
+
+                                    <option value="2">Show 25</option>
+                                    <option value="3">Show All</option>
+                                </select>
+                                <form action="javascript: void(0)" method="post" id="searchbig-form" name="searchbig-form" class="fright pos-rel">
+                                    <input type="text" id="searchbig-users" name="searchbig-users" value="Username etc.." onfocus="this.value = '';" class="search-con" />
+                                    <input type="submit" value="Search" id="searchbig-btn" name="searchbig-btn" class="grey search-con" />
+                                </form>
+                            </div>
+
         <table>
             <thead>
-                <tr>
-                    <th colspan="6">Statistiky, kdo videl vas banner</th>
-                </tr>
                 <tr>
                     <th>p.c.</th>
                     <th>Velkost</th>

@@ -49,18 +49,9 @@ TASKS 10:
     Mini-forum
 
 NAPADY:
-$.get(window.location.pathname);
-window.location.replace(url);
-
-class="input-error tiptip-bottom"
-input-ok
-
 Pridat potom do admin panelu povolenie ci moze google indexovat stranky
 Spravit vlastne cookie
 Dorobit posielanie hesla mailom
-
-ERRORS :
-http://developer.yucat.net/User/Profile/Profile
 
 
 Updater:
@@ -78,13 +69,8 @@ DOROBIT:
 
     Profile;
         Search
-        Aby do Updates a Notifications tahalo z mojho servera!!
-
 
 {$form['']['']}
 
 odstranit 
 ERR_IS_NOT_NUMERIC
-
-
-Opravit like v Router.php ktory sda vola v presentery profile

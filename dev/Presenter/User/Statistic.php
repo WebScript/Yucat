@@ -31,6 +31,9 @@
                 $this->db()->tables('banners')->insert(array('UID' => '1', 'date' => $date, 'size' => $size, 'website' => 'test', 'ip' => '127.0.0.1'));
             }
             */
+            if(empty($_SESSION['values']['banners']['view'])) {
+                $_SESSION['values']['banners']['view'] = 20;
+            }
             
             $rank = new \Model\Profile();
             $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
@@ -42,8 +45,19 @@
             $this->template->graph = $statistic->createGraph($banners, 'date');
 
             $menu = new \Model\Menu();
-            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows());
-            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit($page * 20 - 20, 20)->fetchAll();
+            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows(), $_SESSION['values']['banners']['view']);
+            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit(($page - 1) * $_SESSION['values']['banners']['view'], $_SESSION['values']['banners']['view'])->fetchAll();
             \inc\Ajax::setMode(TRUE);
+        }
+        
+        
+        public function peerPageCheck() {
+            if(is_numeric($_POST['select-view']) && $_SESSION['values']['banners']['view'] != $_POST['select-view']) {
+                $_SESSION['values']['banners']['view'] = $_POST['select-view'];
+                \inc\Ajax::sendJSON(array('reload' => 'tue'));
+            } else {
+                exit;
+                /* @todo dokoncit... */
+            }
         }
     }

@@ -1,6 +1,7 @@
 $(function() { 
     $('#loading').hide();
     
+    var last;
 
     $('#dialog').dialog({
             autoOpen: false,
@@ -63,7 +64,8 @@ $(function() {
             input.removeClass('input-error');
             input.addClass('input-ok');
             input.closest("li").find('#AJAXMessage').html('');
-        } else {
+        } else if(object.reload) {
+            changePage(last);
         }
     }
 });
@@ -71,6 +73,7 @@ $(function() {
 
     function changePage(page) {
         $('#loading').show();
+        last = page;
         $.post(page, function(msg) {//console.log(msg);
             if(typeof(msg) == 'JSON') {
                 //console.log($.parseJSON(msg));
