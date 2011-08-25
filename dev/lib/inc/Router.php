@@ -151,7 +151,10 @@
                 $input = implode(':', $input);
             }
             $search = substr($input, 0, strrpos($input, ':'));
-            $search = self::traceRoute($search . '/(.*)');
+            $search = self::traceRoute($search);
             
+            if(!preg_match('@' . $search . '/(.*)@', $_SERVER['SCRIPT_URI'])) {
+                self::redirect($input);
+            }
         }
     }

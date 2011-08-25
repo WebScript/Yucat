@@ -24,7 +24,7 @@
                         ->where('password', $password)
                         ->limit(1)
                         ->fetch();
-            
+
             if($result) { 
                 $time = $remember ? time() + 31104000 : 0;
                 setcookie('id', $result->id, $time, '/', DOMAIN);

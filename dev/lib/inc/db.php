@@ -236,7 +236,7 @@
          * @param integer $offset
          * @return db 
          */
-        public function limit($limit, $offset = 0) {
+        public function limit($limit, $offset = NULL) {
             $this->limit = $limit;
             $this->offset = $offset;
             return $this;

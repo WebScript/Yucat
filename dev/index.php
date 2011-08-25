@@ -60,7 +60,7 @@
     }
     
     function test() {
-        debug_backtrace();
+      //  debug_backtrace();
        // d(\inc\Router::getOnlyAddress());
         
        // exit;

@@ -85,3 +85,6 @@ DOROBIT:
 
 odstranit 
 ERR_IS_NOT_NUMERIC
+
+
+Opravit like v Router.php ktory sda vola v presentery profile
