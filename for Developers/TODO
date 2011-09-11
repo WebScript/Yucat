@@ -15,10 +15,11 @@ TASKS 2:
 TASKS 3:
 -    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
 -    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
-    tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password, password je md5(login + createHash hesla)
+    tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password
 
 TASKS 4:
     Spravit to tak ze kredity budu dostavat iba ked je clovek na tej istej stranke co maju v profile a kredity budu asi 1 ku 100
+    asi pridat moznost aj javascript reklamy na wweb a za klik na reklamu budu extra kredity
     Moznost kupit kredit cez sms
 
 TASKS 5:
@@ -31,6 +32,7 @@ TASKS 6:
     (SAMP FTP) replace \ za / potom explode a if in_array .. so delete a potom otvorit.. (overenie ci je v array ..)
     (SAMP) kontrola chmodu samp03sv a announce
 +   nastavit prioritu procesov ze napr free ma najmensiu prioritu a admin najvetsiu
+    prioritu nastavovat (zvisovat a znizovat) podla navstevnosti
     Cron, Backup, Credit
 
 TASKS 7:
