@@ -73,6 +73,10 @@
         
         
         public function setValue($value) {
+            if($this->form[$this->last]['type'] === 'select') {
+                /** @todo dorobit select!! */
+            }
+            
             $this->form[$this->last] = array_merge(
                     $this->form[$this->last],
                     array('value' => $value)
