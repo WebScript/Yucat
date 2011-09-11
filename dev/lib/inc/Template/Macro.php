@@ -64,7 +64,7 @@
         
         
         public function macroInclude($name, $method = NULL, $params = NULL) {
-            Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
+            Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($name));
             
             $templ_dir = ROOT . STYLE_DIR . STYLE 
                    . '/template/' . $name 

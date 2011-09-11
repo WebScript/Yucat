@@ -20,8 +20,6 @@
         public static $translate = array();
         
         public function __construct() {
-            $lang = new Language(isset($user) ? $user->language : NULL);
-            
             $template = ROOT . STYLE_DIR . STYLE . '/layer.html';
             $f = fopen($template, 'r');
             $template = fread($f, filesize($template));
@@ -44,7 +42,7 @@
                 $cache = new \inc\Cache('cache');
                 $cache->createCache($name, $template);
                 include ROOT . '/temp/cache/' . $name;
-                //$cache->deleteCache($name);
+                $cache->deleteCache($name);
             }
         }
     }

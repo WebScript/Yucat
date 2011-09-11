@@ -57,10 +57,8 @@
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
             
-            $this->form->addElement('language', 'language', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->lastname)
+            $this->form->addElement('language', 'language', 'select', $GLOBALS['lang']->getAvaiableLang())
+                    //->setValue($this->template->user->address)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
             
@@ -131,7 +129,6 @@
             $this->template->form       = $this->form->sendForm();
             $this->template->pass       = $this->pass->sendForm();
             $this->template->date       = new \inc\Date();
-            
             \inc\Ajax::setMode(TRUE);
         }
         

@@ -37,24 +37,18 @@
             $this->last = $id;
             
             if($type === 'select') {
-                foreach($array as $key => $val) {
-                    $out .= '<option value="' . $key . '">' . $val . '</option>';
+                $option = '';
+                if(is_array($array)) {
+                    foreach($array as $key => $val) {
+                        $option .= '<option value="' . $key . '">' . $val . '</option>';
+                    }
                 }
-                
-                $this->form = array_merge($this->form, array(
-                    $id => array(
-                        'name' => $name,
-                        'value' => $out
-                        )
-                    ));
+                $out = array($id => array('name' => $name, 'value' => $option));
             } else {
-                $this->form = array_merge($this->form, array(
-                    $id => array(
-                        'type' => $type,
-                        'name' => $name
-                        )
-                    ));
+                $out = array($id => array('name' => $name, 'type' => $type));
             }
+            
+            $this->form = array_merge($this->form, $out);
             return $this;
         }
         

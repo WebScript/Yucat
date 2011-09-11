@@ -123,9 +123,9 @@
                    $out[] = (is_numeric($key) ? $key : '"'.$key.'"')
                           . ' => ' . self::getArray(get_object_vars($val), $space1);
                } else {
-                   $out[] = (is_numeric($key) ? $key : '"'.$key.'"')
+                   $out[] = (is_numeric($key) ? $key : '"' . htmlspecialchars($key) . '"')
                           . ' => '
-                          . (is_numeric($val) || $val === 'NULL' ? $val : '"' . $val . '"')
+                          . (is_numeric($val) || $val === 'NULL' ? $val : '"' . htmlspecialchars($val) . '"')
                           . ' (' . strlen($val) . ')<br />';
                }
             }

@@ -22,7 +22,7 @@
         private $avaiable_languages = array();
 
 
-        public function __construct($defaultLang = NULL) {
+        public function __construct($userLang = NULL) {
             $dir = opendir(ROOT . LANG_DIR);
             
             while($langs = readdir($dir)) {
@@ -34,8 +34,8 @@
             
             list($lang, $null) = explode('-', $_SERVER['HTTP_ACCEPT_LANGUAGE'], 2);
             
-            if($defaultLang !== NULL && array_key_exists($defaultLang, $this->avaiable_languages)) {
-                $_SESSION['lang'] = $defaultLang;
+            if($userLang !== NULL && array_key_exists($userLang, $this->avaiable_languages)) {
+                $_SESSION['lang'] = $userLang;
             } elseif(array_key_exists($lang, $this->avaiable_languages)) {
                 $_SESSION['lang'] = $lang;
             } elseif(empty($_SESSION['lang']) || $_SESSION['lang'] !== $GLOBALS['conf']['default_language']) {
@@ -52,7 +52,7 @@
         }
         
         
-        public static function getTranslate($name) {
+        public function getTranslate($name) {
             $filename = ROOT . LANG_DIR . LANG . '/' . $name . '.php';
             if(file_exists($filename)) { 
                 include_once(ROOT . LANG_DIR . LANG . '/' . $name . '.php');

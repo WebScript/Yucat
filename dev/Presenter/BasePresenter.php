@@ -35,7 +35,7 @@
             $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
             
             if($this->isLogged()) {
-                $this->template->user       = $db->tables('users')->where('id', $_COOKIE['id'])->fetch();
+                $this->template->user       = $db->tables('users')->where('id', UID)->fetch();
             }
         }
         
@@ -59,7 +59,7 @@
             
             $result = $this->db()
                     ->tables('users')
-                    ->where('id', $_COOKIE['id'])
+                    ->where('id', UID)
                     ->where('password', $_COOKIE['password'])
                     ->fetch();
             if($result) {

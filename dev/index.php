@@ -14,7 +14,7 @@
     /** Define language dir */
     define('LANG_DIR', '/languages/');
     /** Define User Identificator (UID) */
-    define('UID',isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
+    define('UID', isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
     
     /** Load primary configuration file */
     require_once(__DIR__ . '/config.conf');
@@ -48,6 +48,9 @@
     test();
     
     if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
+    
+    /** Call a language system */
+    $lang = new \inc\Template\Language(isset($_COOKIE['id']) ? $db->tables('users')->where('id', UID)->fetch()->language : NULL);
     
     /** Call a template system */
     $core = new inc\Template\Core();

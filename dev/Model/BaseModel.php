@@ -30,13 +30,13 @@
         
         
         public function isLogged() {
-        if(empty($_COOKIE['id']) || empty($_COOKIE['id'])) {
+        if(empty($_COOKIE['id']) || empty($_COOKIE['password'])) {
                 return FALSE;
             }
             
             $result = $this->db()
                     ->tables('users')
-                    ->where('id', $_COOKIE['id'])
+                    ->where('id', UID)
                     ->where('password', $_COOKIE['password'])
                     ->limit(1)
                     ->fetch();

@@ -75,7 +75,10 @@
                     </li>
                     <li>
                         <label for="language">Jazyk</label>
-                        <select id="language" name="language" />
+                        <select id="language" name="{$form['language']['name']}">
+                        {$form['language']['value']}
+                        
+                        
                         <!--
                        
                             $msg = array();
