@@ -19,8 +19,7 @@
         
         public function __construct() {
             parent::__construct();
-            
-            $this->forLogged();
+
             if(!$this->isLogged()){
                 return;
             }

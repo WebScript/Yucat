@@ -72,13 +72,13 @@
         
         protected function forNotLogged($url = 'User:Profile') {
             if($this->isLogged()) {
-                \inc\Router::redirect($url, TRUE);
+                \inc\Router::like($url);
             }
         }
         
         protected function forLogged($url = 'Login') {
             if(!$this->isLogged()) {
-                \inc\Router::redirect($url, TRUE);
+                \inc\Router::like($url, TRUE);
             }
         }
     }

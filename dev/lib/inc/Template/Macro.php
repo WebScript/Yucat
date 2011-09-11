@@ -62,6 +62,7 @@
         }
         
         
+        
         public function macroInclude($name, $method = NULL, $params = NULL) {
             Core::$translate = array_merge(Core::$translate, Language::getTranslate($name));
             
@@ -69,7 +70,6 @@
                    . '/template/' . $name 
                    . ($method ? '_' . $method : '') 
                    . '.html';
-
             
             $parse = new Parse();
             $name2 =  explode('_', $name);
@@ -81,7 +81,7 @@
             }
 
             if(class_exists($presenter)) {
-                $presenter = new $presenter;
+                $presenter = new $presenter;             
                 
                 if(method_exists($presenter, $method)) {
                     call_user_func_array(array($presenter, $method), $params);
@@ -100,11 +100,13 @@
         }
         
         
+        
         public function macroContent() {
             $addr = \inc\Router::getAddress();
-            $link = \inc\Router::getLevel() >= 2 ? strtolower($addr['dir']) . '_' . strtolower($addr['class']) : strtolower($addr['class']);
+            $link = \inc\Router::getLevel() >= 2 ? ($addr['dir'] ? strtolower($addr['dir']) . '_' : '') . strtolower($addr['class']) : strtolower($addr['class']);
             return $this->macroInclude($link, $addr['method'], \inc\Router::getOnlyParam());
         }
+        
         
         
         public function macroLink($val) {

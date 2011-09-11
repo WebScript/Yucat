@@ -1,5 +1,4 @@
 <?php
-
     session_start();
     
     /** Define ROOT path */
@@ -20,8 +19,8 @@
     /** Load primary configuration file */
     require_once(__DIR__ . '/config.conf');
     /** Load _autoload for autload classes */
-    require_once (__DIR__ . '/lib/init.php');
-
+    require_once(__DIR__ . '/lib/init.php');
+    
     /** Use inc\db a db */
     use inc\db;
     /** Use Exception handler for Exception */
@@ -33,7 +32,6 @@
     $config = new \inc\Config();
     /** Load secundary configuration from db */
     $conf = $config->getConfig();
-    //d($conf);
     
     /** Set time zone */
     date_default_timezone_set($conf['time_zone']);
@@ -51,17 +49,19 @@
     
     if(!is_dir(ROOT . STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
     
-    /** Call a template system*/
+    /** Call a template system */
     $core = new inc\Template\Core();
 
     
-    function d($p) {
+    function d($p = 'Error: Not set input!', $exit = NULL) {
         \inc\Diagnostics\Debug::dump($p);
+        if($exit) {
+            exit;
+        }
     }
-    
+
     function test() {
-      //  debug_backtrace();
        // d(\inc\Router::getOnlyAddress());
+        //exit;
         
-       // exit;
     }

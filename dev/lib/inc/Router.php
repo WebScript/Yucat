@@ -63,13 +63,13 @@
         
         public static function getLevel() {
             $addr = self::getAddress();
-            
-            if(isset($addr['dir']) && isset($addr['class']) && isset($addr['method'])) {
-                return '3';
+
+            if(isset($addr['class']) && isset($addr['method'])) {
+                return 3;
             } elseif(isset($addr['dir']) && isset($addr['class'])) {
-                return '2';
+                return 2;
             } elseif(isset($addr['class'])) {
-                return '1';
+                return 1;
             } else {
                 return FALSE;
             }
@@ -137,7 +137,7 @@
             if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI']) && $inURL || !$inURL) {
                 if(Ajax::isAjax()) {
                     /** @todo dokoncit */
-                    exit('{"redirect" : ' . self::traceRoute($input) . '}');
+                    exit('{"redirect" : "' . self::traceRoute($input) . '"}');
                 } else {
                     header('location: ' . self::traceRoute($input));
                 }    

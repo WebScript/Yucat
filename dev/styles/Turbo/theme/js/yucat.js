@@ -17,7 +17,7 @@ $(function() {
     });
     
     
-    $('form').submit(function(val) {
+    $('form').live('submit', function(val) {
         $.post(this.action + 'Send', $(this.elements).serialize(), function(msg) {
             $.each($.parseJSON(msg), function(id, v) {
                 if(id == 'redirect') {
@@ -33,7 +33,7 @@ $(function() {
     });
     
     
-    $(':input').bind('keyup click', function(trg) {
+    $(':input').live('keyup click', function(trg) {
         var name = trg.target.name;
         var ths = $(this);
         
@@ -74,9 +74,9 @@ $(function() {
     function changePage(page) {
         $('#loading').show();
         last = page;
-        $.post(page, function(msg) {//console.log(msg);
+        $.post(page, function(msg) {//console.log(t); //console.log($.parseJSON(msg));
             if(typeof(msg) == 'JSON') {
-                //console.log($.parseJSON(msg));
+                //onsole.log($.parseJSON(msg));
                // window.location = $.parseJSON(msg).redirect;
             } else {
                 $('div.ajaxContent').html(msg);

@@ -309,4 +309,9 @@
             $this->offset = NULL;
             $this->order = NULL;
         }
+        
+        
+        public function __destruct() {
+            @mysql_close($this->connection);
+        }
     }
