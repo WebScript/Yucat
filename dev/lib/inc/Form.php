@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.3
+     * @version    Release: 0.1.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -32,16 +32,32 @@
         }
         
         
-        public function addElement($id, $name, $type) {
+        
+        public function addElement($id, $name, $type, $array = NULL) {
             $this->last = $id;
-            $this->form = array_merge($this->form, array(
-                $id => array(
-                    'type' => $type,
-                    'name' => $name
-                    )
-                ));
+            
+            if($type === 'select') {
+                foreach($array as $key => $val) {
+                    $out .= '<option value="' . $key . '">' . $val . '</option>';
+                }
+                
+                $this->form = array_merge($this->form, array(
+                    $id => array(
+                        'name' => $name,
+                        'value' => $out
+                        )
+                    ));
+            } else {
+                $this->form = array_merge($this->form, array(
+                    $id => array(
+                        'type' => $type,
+                        'name' => $name
+                        )
+                    ));
+            }
             return $this;
         }
+        
         
         
         public function setMinLenght($lenght) {
