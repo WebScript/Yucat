@@ -122,6 +122,10 @@
             $input = $input === NULL ? $_POST : $input;
             $return = array();
             
+            if(!Arr::isInArray($input, $this->form)) {
+                return array('status' => 'error', 'dialog' => 'Error: not match!');
+            }
+            
             foreach($this->form as $key => $val) {
                 $name = $val['name'];
                 if(array_key_exists($name, $input)) {

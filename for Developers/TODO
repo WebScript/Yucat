@@ -71,8 +71,3 @@ DOROBIT:
 
     Profile;
         Search
-
-{$form['']['']}
-
-odstranit 
-ERR_IS_NOT_NUMERIC

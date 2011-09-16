@@ -11,8 +11,6 @@
      * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
-     * 
-     * @todo Dorobit dokumentaciu
      */
 
     namespace inc\Template;

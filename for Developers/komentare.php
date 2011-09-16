@@ -14,18 +14,10 @@
      * @since      Class available since Release 0.0.0
      */
 ?>
-
-Funkcne stranky:
-    inc\db
-    inc\Diagnostics\Debug
-    inc\Diagnostics\ErrorHandler
-    Treba upravit...
-    
 Add to lanugage translate
     PAGE_NOT_FOUND
     ERR_SET_STYLE
     ERR_MYSQL_CONNECT
-    ERR_IS_NOT_NUMERIC
         
 DB:
     UID - User ID
@@ -34,8 +26,8 @@ DB:
 
 HL Menu:
     Hlavne: 
+        +Novinky
         Profil
-        Zmena hesla
 
     Statistiky:
         Skuknete bannery

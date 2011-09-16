@@ -136,7 +136,6 @@
             
             if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI']) && $inURL || !$inURL) {
                 if(Ajax::isAjax()) {
-                    /** @todo dokoncit */
                     exit('{"redirect" : "' . self::traceRoute($input) . '"}');
                 } else {
                     header('location: ' . self::traceRoute($input));
