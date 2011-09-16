@@ -33,15 +33,13 @@
         
         
         
-        public function addElement($id, $name, $type, $array = NULL) {
+        public function addElement($id, $name, $type, array $array = NULL) {
             $this->last = $id;
             
             if($type === 'select') {
                 $option = '';
-                if(is_array($array)) {
-                    foreach($array as $key => $val) {
-                        $option .= '<option value="' . $key . '">' . $val . '</option>';
-                    }
+                foreach($array as $key => $val) {
+                    $option .= '<option value="' . $key . '">' . $val . '</option>';
                 }
                 $out = array($id => array('name' => $name, 'value' => $option));
             } else {
@@ -63,6 +61,7 @@
         }
         
         
+        
         public function setMaxLenght($lenght) {
             $this->form[$this->last] = array_merge(
                     $this->form[$this->last],
@@ -72,17 +71,28 @@
         }
         
         
-        public function setValue($value) {
-            if($this->form[$this->last]['type'] === 'select') {
-                /** @todo dorobit select!! */
+        
+        public function setValue($set) {
+            if(isset($this->form[$this->last]['value'])) {
+                if(is_array($set)) {
+                    $key = key($set);
+                    $val = reset($set);
+                    $this->form[$this->last]['value'] = str_replace(
+                            '<option value="' . $key . '">' . $val . '</option>', 
+                            '<option value="' . $key . '" selected>' . $val . '</option>', 
+                            $this->form[$this->last]['value']);
+                } else {
+                    return FALSE;
+                }
+            } else {
+                $this->form[$this->last] = array_merge(
+                        $this->form[$this->last],
+                        array('value' => $set)
+                        );
             }
-            
-            $this->form[$this->last] = array_merge(
-                    $this->form[$this->last],
-                    array('value' => $value)
-                    );
             return $this;
         }
+        
         
         
         public function setErrorType($type) {
@@ -121,6 +131,10 @@
                     } elseif(isset($val['maxLenght']) && is_numeric($val['maxLenght']) 
                             && strlen($input[$name]) > $val['maxLenght']) {
                         $out = array($name => array('status' => 'error'));
+                    } elseif(isset($val['value'])) {
+                        if(!preg_match($input[$name], $val['value'])) {
+                            $out = array($name => array('status' => 'error'));
+                        }
                     } else {
                         $out = array($name => array('status' => 'ok'));
                     }

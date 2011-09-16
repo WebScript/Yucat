@@ -58,7 +58,7 @@
                     ->setErrorMessage('error');
             
             $this->form->addElement('language', 'language', 'select', $GLOBALS['lang']->getAvaiableLang())
-                    //->setValue($this->template->user->address)
+                    //->setValue(array('bb' => 'BBBBf'))
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
             

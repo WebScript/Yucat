@@ -1,8 +1,4 @@
 TASKS 1:
-    Form:
-        Pridat do validate ci je to jeden zo selectov
-        A pridat to do value aby to dalo selected na ten spravny option
-
     Opravit javaScript
     Spravit profil
     Pridat do Form class kontrolu ci neni v GET nejaky parameter naviac
