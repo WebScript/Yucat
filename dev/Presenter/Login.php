@@ -23,11 +23,12 @@
             parent::__construct();
             $router = \inc\Router::getOnlyAddress();
 
-            if(isset($router['method']) && $router['method'] !== 'logout') {
+            if(!isset($router['method']) || 
+                    isset($router['method']) && 
+                    $router['method'] !== 'logout') {
                 $this->forNotLogged();
             }
 
-            if(!$this->isLogged()) {
                 $this->form = new \inc\Form();
                 $this->form->setAction('Login:login');
                 $this->form->setMethod('POST');
@@ -45,7 +46,6 @@
                         ->setValue($this->template->_ENTER);
 
                 $this->template->form = $this->form->sendForm();
-            }
         }
         
         

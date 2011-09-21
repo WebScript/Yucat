@@ -21,18 +21,14 @@
         private function __construct() {}
          
          
-         /**
-         * Check if in $array is $check
-         * @param array $array Array for check
-         * @param array $check Checking array
-         * @return BOOL
-         * @deprecated
-         */
-        public static function isInArray(array $array, array $check) {
-            if(count($array) != count($check)) return FALSE;
+
+        public static function isInArray(array $needle, array $haystack) {
+            $needle = array_keys($needle);
+            $haystack = array_keys($haystack);
             
-            foreach($check AS $value) {
-                if(!array_key_exists($value, $array)) return FALSE;
+            if(count($needle) > count($haystack)) return FALSE;
+            foreach($needle AS $val) {
+                if(!array_search($val, $haystack)) return FALSE;
             }
             return TRUE;
         }

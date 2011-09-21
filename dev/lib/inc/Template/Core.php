@@ -42,7 +42,7 @@
                 $cache = new \inc\Cache('cache');
                 $cache->createCache($name, $template);
                 include ROOT . '/temp/cache/' . $name;
-                $cache->deleteCache($name);
+                //$cache->deleteCache($name);
             }
         }
     }
