@@ -74,13 +74,12 @@ $(function() {
     function changePage(page) {
         $('#loading').show();
         last = page;
-        $.post(page, function(msg) {console.log($(msg).find('div').$('0'));
-            if($(msg).find('div')) {console.log("test");
-                //onsole.log($.parseJSON(msg));
-               // window.location = $.parseJSON(msg).redirect;
-            } else {console.log("err");
+        $.post(page, function(msg) {
+            if($(msg).find('div').length) {
                 $('div.ajaxContent').html(msg);
                 loadComponents();
+            } else {
+                window.location = $.parseJSON(msg).redirect;
            }
             $('#loading').hide();
         });
