@@ -4,7 +4,7 @@
      *
      * @category   Yucat
      * @package    Model
-     * @name       Profile
+     * @name       Main
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
@@ -15,7 +15,7 @@
 
     namespace Model;
     
-    class Profile extends \Model\BaseModel {
+    class Main extends \Model\BaseModel {
         
         public function getUserRank($rank, $translate) { 
             switch($rank) {

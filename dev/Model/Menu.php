@@ -63,19 +63,23 @@
 
             if($thisPage < 1) \inc\Router::redirect($thisAddress);
             elseif($thisPage > $count) \inc\Router::redirect($thisAddress);
+            
+            $out[] = '<form name="pager" method="GET" action="' . \inc\Router::traceRoute(\inc\Router::getAddress()) . '">';
+            $out[] = '<input type="hidden" name="page" value="1" />';
+            $out[] = '<input type="hidden" name="peerpage" value="50" />';
 
             if($thisPage > 1) {
-                $out[] = '<li><a href="javascript:changePage(\'' . $address . ($thisPage - 1) . '\');" class="page radius">Previous</a></li>';
+                $out[] = '<li><a href="javascript:cp(\'' . ($thisPage - 1) . '\');" class="page radius">Previous</a></li>';
                 
                 if($thisPage <= 4) {
-                    if($thisPage > 1) $out[] = '<li><a href="javascript:changePage(\'' . $address . '1\');" class="page radius">1</a></li>';
-                    if($thisPage > 2) $out[] = '<li><a href="javascript:changePage(\'' . $address . '2\');" class="page radius">2</a></li>';
-                    if($thisPage > 3) $out[] = '<li><a href="javascript:changePage(\'' . $address . '3\');" class="page radius">3</a></li>';
+                    if($thisPage > 1) $out[] = '<li><a href="javascript:cp(\'1\');" class="page radius">1</a></li>';
+                    if($thisPage > 2) $out[] = '<li><a href="javascript:cp(\'2\');" class="page radius">2</a></li>';
+                    if($thisPage > 3) $out[] = '<li><a href="javascript:cp(\'3\');" class="page radius">3</a></li>';
                 } elseif($thisPage > 4) {
-                    $out[] = '<li><a href="javascript:changePage(\'' . $address . '1\');" class="page radius">1</a></li>';
-                    $out[] = '<li><a href="javascript:changePage(\'' . $address . '2\');" class="page radius">2</a></li>';
+                    $out[] = '<li><a href="javascript:cp(\'1\');" class="page radius">1</a></li>';
+                    $out[] = '<li><a href="javascript:cp(\'2\');" class="page radius">2</a></li>';
                     $out[] = ' ... ';
-                    $out[] = '<li><a href="javascript:changePage(\'' . $address . ($thisPage - 1) . '\');" class="page radius">' . ($thisPage - 1) . '</a></li>';
+                    $out[] = '<li><a href="javascript:cp(\'' . ($thisPage - 1) . '\');" class="page radius">' . ($thisPage - 1) . '</a></li>';
                 }
             }
             
@@ -83,19 +87,23 @@
             
             if($thisPage < $count) {
                 if($thisPage > ($count - 4)) {
-                    if($thisPage <= ($count - 3)) $out[] = '<li><a href="javascript:changePage(\'' . $address . ($count - 2) . '\');" class="page radius">' . ($count - 2) . '</a></li>';
-                    if($thisPage <= ($count - 2)) $out[] = '<li><a href="javascript:changePage(\'' . $address . ($count - 1) . '\');" class="page radius">' . ($count - 1) . '</a></li>';
-                    if($thisPage <= ($count - 1)) $out[] = '<li><a href="javascript:changePage(\'' . $address . $count . '\');" class="page radius">' . $count . '</a></li>';
+                    if($thisPage <= ($count - 3)) $out[] = '<li><a href="javascript:cp(\'' . ($count - 2) . '\');" class="page radius">' . ($count - 2) . '</a></li>';
+                    if($thisPage <= ($count - 2)) $out[] = '<li><a href="javascript:cp(\'' . ($count - 1) . '\');" class="page radius">' . ($count - 1) . '</a></li>';
+                    if($thisPage <= ($count - 1)) $out[] = '<li><a href="javascript:cp(\'' . $count . '\');" class="page radius">' . $count . '</a></li>';
                 } elseif($thisPage <= ($count - 4)) {
-                    $out[] = '<li><a href="javascript:changePage(\'' . $address . ($thisPage + 1) . '\');" class="page radius">' . ($thisPage + 1) . '</a></li>';
+                    $out[] = '<li><a href="javascript:cp(\'' . ($thisPage + 1) . '\');" class="page radius">' . ($thisPage + 1) . '</a></li>';
                     $out[] = ' ... ';
-                    $out[] = '<li><a href="javascript:changePage(\'' . $address . ($count - 1) . '\');" class="page radius">' . ($count - 1) . '</a></li>';
-                    $out[] = '<li><a href="javascript:changePage(\'' . $address . $count . '\');" class="page radius">' . $count . '</a></li>';
+                    $out[] = '<li><a href="javascript:cp(\'' . ($count - 1) . '\');" class="page radius">' . ($count - 1) . '</a></li>';
+                    $out[] = '<li><a href="javascript:cp(\'' . $count . '\');" class="page radius">' . $count . '</a></li>';
                 }
-                $out[] = '<li><a href="javascript:changePage(\'' . $address . ($thisPage + 1) . '\');" class="page radius">Next</a></li>';
+                $out[] = '<li><a href="javascript:cp(\'' . ($thisPage + 1) . '\');" class="page radius">Next</a></li>';
             }
             
             $out[] = '<li><span class="page-inactive radius">Page ' . $thisPage . ' of ' . $count . '</span></li>';
+            
+            $out[] = '</form>';
+            $out[] = '<script> function cp(value) {$("input:hidden[name=page]").val(value); $("form[name=pager]").submit();}</script>';
+            
             return implode('', $out);
         }
     }

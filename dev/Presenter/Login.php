@@ -64,7 +64,7 @@
                         $this->form->getValue('remember'));
                 
                 if($login) {
-                    \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('User:Profile')));
+                    \inc\Router::redirect('User:Main');
                 } else {
                     \inc\Ajax::sendJSON(array('alert' => 'Zadali ste zle meno alebo heslo...'));
                 }

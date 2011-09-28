@@ -70,7 +70,7 @@
         }
         
         
-        protected function forNotLogged($url = 'User:Profile') {
+        protected function forNotLogged($url = 'User:Main') {
             if($this->isLogged()) {
                 \inc\Router::like($url);
             }

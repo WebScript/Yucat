@@ -144,7 +144,9 @@
         }
         
         
-        
+        /*
+         * Vnutorny redirect, pouziva sa ked je zadana napr URL User/Statistic a chcete to presmerovat na User/Statistic/statistic
+         */
         public static function like($input) {
             if(is_array($input)) { 
                 $input = implode(':', $input);

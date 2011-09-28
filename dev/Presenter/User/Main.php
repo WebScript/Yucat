@@ -4,7 +4,7 @@
      *
      * @category   Yucat
      * @package    Presenter\User
-     * @name       User
+     * @name       Main
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
@@ -15,18 +15,18 @@
 
     namespace Presenter\User;
     
-    class Profile extends \Presenter\BasePresenter {
+    class Main extends \Presenter\BasePresenter {
         private $form;
         private $pass;
         
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::like('User:Profile:news');
+            \inc\Router::like('User:Main:news');
             
             
             $this->form = new \inc\Form();
-            $this->form->setAction('User:Profile:data');
+            $this->form->setAction('User:Main:data');
             $this->form->setMethod('POST');
            
             $this->form->addElement('firstname', 'firstname', 'text')
@@ -96,7 +96,7 @@
             
             
             $this->pass = new \inc\Form();
-            $this->pass->setAction('User:Profile:pass');
+            $this->pass->setAction('User:Main:pass');
             $this->pass->setMethod('POST');
             
             $this->pass->addElement('oldpass', 'oldpass', 'password')
@@ -123,7 +123,7 @@
         
         
         public function profile() {
-            $rank = new \Model\Profile();
+            $rank = new \Model\Main();
             $this->template->rank       = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day   = $rank->getCreditPeerDay(UID);
             $this->template->form       = $this->form->sendForm();
@@ -151,13 +151,4 @@
         public function datacheck() {
             \inc\Ajax::sendJSON($this->form->validateData());
         }
-
-
-        
-        
-        
-        public function access() {
-            \inc\Ajax::sendHTML('news sdfsdfsdsfsdfsdfsdfdfsbla bla xDD');
-        }
-        
     }

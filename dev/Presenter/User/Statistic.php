@@ -35,7 +35,7 @@
                 $_SESSION['values']['banners']['view'] = 20;
             }
             
-            $rank = new \Model\Profile();
+            $rank = new \Model\Main();
             $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
             $this->template->date = new \inc\Date();
@@ -59,5 +59,12 @@
                 exit;
                 /* @todo dokoncit... */
             }
+        }
+        
+        
+        public function bannersSend() {
+            d($_POST);
+            //$test = $_GET['page'];
+            //\inc\Ajax::sendJSON(array('ok' => $test));
         }
     }
