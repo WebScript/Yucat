@@ -18,18 +18,8 @@ $(function() {
     
     
     $('form').live('submit', function(val) {
-        $.post(this.action + 'Send', $(this.elements).serialize(), function(msg) {
-            $.each($.parseJSON(msg), function(id, v) {
-                if(id == 'redirect') {
-                    window.location = v;
-                } else if(id == 'alert') {
-                    $('#dialog').html(v);
-                    $('#dialog').dialog('open');
-                }
-                changeStats($(':input[name=' + id + ']'), v);
-            });
-        });
-       return false;
+        $.post(this.action + 'Send', $(this.elements).serialize(), function(msg){ sendRequest(msg)});
+        return false;
     });
     
     
@@ -86,7 +76,25 @@ $(function() {
     }
     
     
+    function sendRequest(msg) {
+        $.each($.parseJSON(msg), function(id, v) {
+            if(id == 'redirect') {
+                window.location = v;
+            } else if(id == 'alert') {
+                $('#dialog').html(v);
+                $('#dialog').dialog('open');
+            }
+            changeStats($(':input[name=' + id + ']'), v);
+        });
+    }
     
+    function sendGetParams() {
+        $('form').live('submit', function(val) {
+            $.post(this.action, $(this.elements).serialize(), function(msg){ sendRequest(msg)});
+            return false;
+        });
+    }
+
     
     function refreshHeadMenu() {
       /*  $('#tabs1').tabify();
