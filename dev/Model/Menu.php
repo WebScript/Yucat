@@ -45,28 +45,18 @@
         
         
         
-        public static function pager($countPages, $listPeerPage = 20) {
+        public static function pager($countPages, $listPeerPage = 20, $thisPage = 1) {
             $out = array(); 
             $thisAddress = \inc\Router::getAddress();
-            $thisPage = end($thisAddress);
-            
-            if(!is_numeric($thisPage)) {
-                $thisPage = 1;
-            } else { 
-                array_pop($thisAddress);
-            }
             $count = ceil($countPages / $listPeerPage);
             
             if(!$count) $count = 1;
-            $address = $GLOBALS['conf']['protocol'] . DOMAIN . '/' . implode('/', $thisAddress) . '/';
-            array_pop($thisAddress);
-
             if($thisPage < 1) \inc\Router::redirect($thisAddress);
             elseif($thisPage > $count) \inc\Router::redirect($thisAddress);
             
             $out[] = '<form name="pager" method="GET" action="' . \inc\Router::traceRoute(\inc\Router::getAddress()) . '">';
             $out[] = '<input type="hidden" name="page" value="1" />';
-            $out[] = '<input type="hidden" name="peerpage" value="50" />';
+            $out[] = '<input type="hidden" name="peerPage" value="20" />';
 
             if($thisPage > 1) {
                 $out[] = '<li><a href="javascript:cp(\'' . ($thisPage - 1) . '\');" class="page radius">Previous</a></li>';
@@ -102,7 +92,7 @@
             $out[] = '<li><span class="page-inactive radius">Page ' . $thisPage . ' of ' . $count . '</span></li>';
             
             $out[] = '</form>';
-            $out[] = '<script> function cp(value) {$("input:hidden[name=page]").val(value); $("form[name=pager]").submit();}</script>';
+            $out[] = '<script> function cp(value) {$("input:hidden[name=page]").val(value); var xy = $("form[name=pager]"); xy.submit(sendGetParams(xy));}</script>';
             
             return implode('', $out);
         }

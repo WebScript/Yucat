@@ -23,7 +23,17 @@
             \inc\Router::like('User:Statistic:banners');
         }
         
-        public function banners($page = 1) {
+        public function banners() {
+            if(empty($_GET['peerPage']) || !is_numeric($_GET['peerPage'])) {
+                $_GET['peerPage'] = 20;
+            }
+            
+            if(empty($_GET['page']) || !is_numeric($_GET['page'])) {
+                $_GET['page'] = 1;
+            }
+            
+            
+            //d($_GET);
            /* for($i=0;$i<50;$i++) {
                 $rad = rand(1, 12);
                 $size = rand(1, 3);
@@ -31,9 +41,6 @@
                 $this->db()->tables('banners')->insert(array('UID' => '1', 'date' => $date, 'size' => $size, 'website' => 'test', 'ip' => '127.0.0.1'));
             }
             */
-            if(empty($_SESSION['values']['banners']['view'])) {
-                $_SESSION['values']['banners']['view'] = 20;
-            }
             
             $rank = new \Model\Main();
             $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
@@ -45,8 +52,8 @@
             $this->template->graph = $statistic->createGraph($banners, 'date');
 
             $menu = new \Model\Menu();
-            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows(), $_SESSION['values']['banners']['view']);
-            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit(($page - 1) * $_SESSION['values']['banners']['view'], $_SESSION['values']['banners']['view'])->fetchAll();
+            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows(), $_GET['peerPage'], $_GET['page']);
+            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->fetchAll();
             \inc\Ajax::setMode(TRUE);
         }
         
