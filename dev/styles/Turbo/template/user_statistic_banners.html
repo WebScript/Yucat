@@ -48,16 +48,7 @@
         
         <h2>Statistiky, kdo videl vas banner</h2>
         <div class="simple-con tleft">
-            <form action="{macroLink User:Statistic:peerPage}" method="POST">
-                <select id="select-view" name="select-view">
-                    <option value="5">Show 5</option>
-                    <option value="10" selected>Show 10</option>
-                    <option value="25">Show 25</option>
-                    <option value="50">Show 50</option>
-                    <option value="100">Show 100</option>
-                    <option value="5000">Show All</option>
-                </select>
-            </form>
+            {$selector}
         </div>
         <table>
             <thead>

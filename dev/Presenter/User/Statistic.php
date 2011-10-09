@@ -24,24 +24,6 @@
         }
         
         public function banners() {
-            if(empty($_GET['peerPage']) || !is_numeric($_GET['peerPage'])) {
-                $_GET['peerPage'] = 20;
-            }
-            
-            if(empty($_GET['page']) || !is_numeric($_GET['page'])) {
-                $_GET['page'] = 1;
-            }
-            
-            
-            //d($_GET);
-           /* for($i=0;$i<50;$i++) {
-                $rad = rand(1, 12);
-                $size = rand(1, 3);
-                $date = strtotime('1-' . $rad . '-2012');
-                $this->db()->tables('banners')->insert(array('UID' => '1', 'date' => $date, 'size' => $size, 'website' => 'test', 'ip' => '127.0.0.1'));
-            }
-            */
-            
             $rank = new \Model\Main();
             $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
@@ -52,20 +34,10 @@
             $this->template->graph = $statistic->createGraph($banners, 'date');
 
             $menu = new \Model\Menu();
-            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows(), $_GET['peerPage'], $_GET['page']);
+            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows());
+            $this->template->selector = $menu->selectPeerPage();
             $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->fetchAll();
             \inc\Ajax::setMode(TRUE);
-        }
-        
-        
-        public function peerPageCheck() {
-            if(is_numeric($_POST['select-view']) && $_SESSION['values']['banners']['view'] != $_POST['select-view']) {
-                $_SESSION['values']['banners']['view'] = $_POST['select-view'];
-                \inc\Ajax::sendJSON(array('reload' => 'tue'));
-            } else {
-                exit;
-                /* @todo dokoncit... */
-            }
         }
         
         

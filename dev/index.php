@@ -15,6 +15,8 @@
     define('LANG_DIR', '/languages/');
     /** Define User Identificator (UID) */
     define('UID', isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
+    /** Call setters */
+    setters();
     
     /** Load primary configuration file */
     require_once(__DIR__ . '/config.conf');
@@ -51,7 +53,6 @@
     
     /** Call a language system */
     $lang = new \inc\Template\Language(isset($_COOKIE['id']) ? $db->tables('users')->where('id', UID)->fetch()->language : NULL);
-    
     /** Call a template system */
     $core = new inc\Template\Core();
 
@@ -67,4 +68,15 @@
        // d(\inc\Router::getOnlyAddress());
         //exit;
         
+    }
+    
+    function setters() {
+        if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {
+            $_GET['peerPage'] = $_GET['select-view'];
+        } else {
+            if(empty($_GET['peerPage']) || !is_numeric($_GET['peerPage'])) {
+                $_GET['peerPage'] = 25;
+            }
+        }
+        $_GET['page'] = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;        
     }

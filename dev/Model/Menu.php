@@ -45,7 +45,10 @@
         
         
         
-        public static function pager($countPages, $listPeerPage = 20, $thisPage = 1) {
+        public static function pager($countPages) {
+            $listPeerPage = isset($_GET['peerPage']) && is_numeric($_GET['peerPage']) ? $_GET['peerPage'] : 20;
+            $thisPage = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+            
             $out = array(); 
             $thisAddress = \inc\Router::getAddress();
             $count = ceil($countPages / $listPeerPage);
@@ -55,8 +58,8 @@
             elseif($thisPage > $count) \inc\Router::redirect($thisAddress);
             
             $out[] = '<form name="pager" method="GET" action="' . \inc\Router::traceRoute(\inc\Router::getAddress()) . '">';
-            $out[] = '<input type="hidden" name="page" value="1" />';
-            $out[] = '<input type="hidden" name="peerPage" value="20" />';
+            $out[] = '<input type="hidden" name="page" value="' . $thisPage . '" />';
+            $out[] = '<input type="hidden" name="peerPage" value="' . $listPeerPage . '" />';
 
             if($thisPage > 1) {
                 $out[] = '<li><a href="javascript:cp(\'' . ($thisPage - 1) . '\');" class="page radius">Previous</a></li>';
@@ -95,5 +98,23 @@
             $out[] = '<script> function cp(value) {$("input:hidden[name=page]").val(value); var xy = $("form[name=pager]"); xy.submit(sendGetParams(xy));}</script>';
             
             return implode('', $out);
+        }
+        
+        
+        public function selectPeerPage() {
+            $p = $_GET['peerPage'];
+            
+            return '
+            <form name="peerPageSelector" action="' . \inc\Router::traceRoute(\inc\Router::getAddress()) . '" method="GET">
+                <select id="select-view" name="select-view">
+                    <option value="5" ' . ($p == 5 ? 'selected' : '') . '>Show 5</option>
+                    <option value="10" ' . ($p == 10 ? 'selected' : '') . '>Show 10</option>
+                    <option value="25" ' . ($p == 25 ? 'selected' : '') . '>Show 25</option>
+                    <option value="50" ' . ($p == 50 ? 'selected' : '') . '>Show 50</option>
+                    <option value="100" ' . ($p == 100 ? 'selected' : '') . '>Show 100</option>
+                    <option value="5000" ' . ($p == 5000 ? 'selected' : '') . '>Show All</option>
+                </select>
+            </form> 
+            <script>$("#select-view").click(function() {return false;}); $("#select-view option").click(function() {sendGetParams($("form[name=peerPageSelector]"))}); </script>';
         }
     }

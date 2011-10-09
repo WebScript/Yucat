@@ -57,7 +57,7 @@ $(function() {
         $('#loading').show();
         last = page;
         $.post(page, function(msg) {
-            if($(msg).find('<div').length) {
+            if($(msg).find('div').length) {
                 $('div.ajaxContent').html(msg);
                 loadComponents();
             } else { 
@@ -87,7 +87,7 @@ $(function() {
     
     
     
-    function sendGetParams(form) { 
+    function sendGetParams(form) {
         $.get(form[0].action, $(form[0].elements).serialize(), function(msg){
             $('div.ajaxContent').html(msg);
             loadComponents();
