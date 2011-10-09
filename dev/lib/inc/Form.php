@@ -136,7 +136,7 @@
                             && strlen($input[$name]) > $val['maxLenght']) {
                         $out = array($name => array('status' => 'error'));
                     } elseif(isset($val['value'])) {
-                        if(!preg_match($input[$name], $val['value'])) {
+                        if(!preg_match('/' . $input[$name] . '/', $val['value'])) {
                             $out = array($name => array('status' => 'error'));
                         }
                     } else {

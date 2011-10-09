@@ -25,7 +25,6 @@
             }
             $this->template->user = $this->isLogged();
             
-            
             $menu = Array(
                 '_MENU_MAIN' => Array(
                     '_MENU_NEWS' => 'User:Main:news',
@@ -33,7 +32,7 @@
                     ),
                 '_MENU_STATISTIC' => Array(
                     '_MENU_BANNERS' => 'User:Statistic:banners',
-                    '_MENU_ACCESS_LOG' => 'User:Main:access'
+                    '_MENU_ACCESS_LOG' => 'User:Statistic:access'
                 ),
                 '_MENU_CREDIT' => Array(
                     '_MENU_BUY_CREDIT' => 'credit_buy',

@@ -88,9 +88,11 @@ $(function() {
     
     
     function sendGetParams(form) {
+        $('#loading').show();
         $.get(form[0].action, $(form[0].elements).serialize(), function(msg){
             $('div.ajaxContent').html(msg);
             loadComponents();
+            $('#loading').hide();
         });
         return false;
     }

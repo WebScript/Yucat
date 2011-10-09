@@ -1,6 +1,6 @@
 CREATE TABLE `access` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `user_id` INT NOT NULL ,
+   `UID` INT NOT NULL ,
    `type` VARCHAR( 10 ) NOT NULL ,
    `action` VARCHAR( 30 ) NOT NULL ,
    `ip` VARCHAR( 15 ) NOT NULL ,
