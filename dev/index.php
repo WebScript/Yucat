@@ -1,4 +1,5 @@
 <?php
+    /** Create a sesion */
     session_start();
     
     /** Define ROOT path */
@@ -71,6 +72,7 @@
     }
     
     function setters() {
+        /** Set variables for pager */
         if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {
             $_GET['peerPage'] = $_GET['select-view'];
         } else {
@@ -78,5 +80,6 @@
                 $_GET['peerPage'] = 25;
             }
         }
+        /** And this */
         $_GET['page'] = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;        
     }

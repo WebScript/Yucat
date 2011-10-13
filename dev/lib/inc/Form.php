@@ -135,11 +135,12 @@
                     } elseif(isset($val['maxLenght']) && is_numeric($val['maxLenght']) 
                             && strlen($input[$name]) > $val['maxLenght']) {
                         $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['value'])) {
-                        if(!preg_match('/' . $input[$name] . '/', $val['value'])) {
-                            $out = array($name => array('status' => 'error'));
-                        }
-                    } else {
+                    } 
+                   /** I don't known what do these condition...
+                       elseif(isset($val['value']) && !preg_match('/' . $input[$name] . '/', $val['value'])) {
+                        $out = array($name => array('status' => 'error'));
+                    } */
+                    else {
                         $out = array($name => array('status' => 'ok'));
                     }
                     
