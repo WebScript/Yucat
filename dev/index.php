@@ -16,13 +16,13 @@
     define('LANG_DIR', '/languages/');
     /** Define User Identificator (UID) */
     define('UID', isset($_COOKIE['id']) ? $_COOKIE['id'] : NULL);
-    /** Call setters */
-    setters();
     
     /** Load primary configuration file */
     require_once(__DIR__ . '/config.conf');
     /** Load _autoload for autload classes */
     require_once(__DIR__ . '/lib/init.php');
+    /** Call setters */
+    setters();
     
     /** Use inc\db a db */
     use inc\db;
@@ -72,6 +72,15 @@
     }
     
     function setters() {
+        /** Protect all input variables */
+        foreach($_GET as $key => $val) {
+            $_GET[$val] = \inc\Security::protect($val);
+        }
+        /** And again */
+        foreach($_GET as $key => $val) {
+            $_GET[$val] = \inc\Security::protect($val);
+        }
+        
         /** Set variables for pager */
         if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {
             $_GET['peerPage'] = $_GET['select-view'];

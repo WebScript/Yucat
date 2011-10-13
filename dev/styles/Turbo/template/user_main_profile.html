@@ -8,51 +8,48 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="backcolor tleft" width="100">ID:</td>
+                    <td class="backcolor tleft" width="100">{$_ID}</td>
                     <td>{$user->id}</td>
                 </tr>
                 <tr>
-                    <td class="backcolor tleft">Login:</td>
+                    <td class="backcolor tleft">{$_LOGIN}</td>
                     <td>{$user->username}</td>
                 </tr>
                 <tr>
-                    <td class="backcolor tleft">Rank:</td>
+                    <td class="backcolor tleft">{$_RANK}</td>
                     <td>{$rank}</td>
                 </tr>
                 <tr>
-                    <td class="backcolor tleft">Kredit:</td>
+                    <td class="backcolor tleft">{$_CREDIT}</td>
                     <td>{$user->credit}</td>
                 </tr>
                 <tr>
-                    <td class="backcolor tleft">Denna spotreba:</td>
+                    <td class="backcolor tleft">{$_DAILY}</td>
                     <td>{$peer_day}</td>
                 </tr>
                 <tr>
-                    <td class="backcolor tleft">IP:</td>
+                    <td class="backcolor tleft">{$_IP}</td>
                     <td>{$user->ip}</td>
                 </tr>
                 <tr>
-                    <td class="backcolor tleft">Last login:</td>
+                    <td class="backcolor tleft">{$_LAST_LOGIN}</td>
                     <td>{$user->last_login}</td>
                 </tr>
             </tbody>
         </table>
-        <h3>Informacie</h3>
-        <div class="body-con">
-            <p><strong>Vas ucet</strong> nejake picoviny o ucte</p>
-            <p>The <strong>Twitter widget</strong> is ready for work. Enter your Twitter's app credentials and update your status right away.</p>
-        </div>
+        <h3>{$_INFO_PROFILE}</h3>
+        <div class="body-con">{$_INFO_PROFILE_DESC}</div>
     </div>
     
     
     <div id="main-content-right">
-        <h2>Profil</h2>
+        <h2>{$_PROFILE}</h2>
         <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
             <fieldset>
-                <legend>Zakaznicke udaje</legend>
+                <legend>{$_USER_INFO}</legend>
                 <ul class="align-list">
                     <li>
-                        <label for="firstname">Meno</label>
+                        <label for="firstname">{$_FIRSTNAME}</label>
 
                         <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="{$form['firstname']['value']}" />
                         <span class="msg-form-error" id="AJAXMessage"></span>
@@ -75,21 +72,7 @@
                     </li>
                     <li>
                         <label for="language">Jazyk</label>
-                        <select id="language" name="{$form['language']['name']}">
-                        {$form['language']['value']}
-                        
-                        
-                        <!--
-                       
-                            $msg = array();
-                            foreach(Lang::$avaiable_language AS $param => $value) {
-                                if($param == $user[db::USERS_LANGUAGE]) $msg[] = '<option value="'.$param.'" selected>'.$value.'</option>';
-                                else $msg[] = '<option value="'.$param.'">'.$value.'</option>';
-                            }
-                            echo implode('', $msg);
-                        -->
-                        
-                        </select>
+                        <select id="language" name="{$form['language']['name']}">{$form['language']['value']}</select>
                     </li>
                     <li>
                         <label for="city">Mesto</label>

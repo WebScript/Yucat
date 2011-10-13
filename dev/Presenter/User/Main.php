@@ -143,12 +143,18 @@
         }
         
         
-        public function passcheck() {
+        public function passCheck() {
             \inc\Ajax::sendJSON($this->pass->validateData());
         }
         
         
-        public function datacheck() {
+        public function dataCheck() {
             \inc\Ajax::sendJSON($this->form->validateData());
+        }
+        
+        
+        public function dataSend() {
+            exit(d($_POST));
+            \inc\Ajax::sendJSON(array('ok'));
         }
     }
