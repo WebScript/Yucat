@@ -96,6 +96,15 @@
         }
         
         
+        
+        public static function protectArray(array $array, $isInput = FALSE) {
+            foreach($array as $key => $val) {
+                $array[$val] = \inc\Security::protect($val, $isInput);
+            }
+            return $array;
+        }
+        
+        
         /**
          * Create a hash of password
          * @param string $password

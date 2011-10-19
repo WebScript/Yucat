@@ -73,13 +73,8 @@
     
     function setters() {
         /** Protect all input variables */
-        foreach($_GET as $key => $val) {
-            $_GET[$val] = \inc\Security::protect($val);
-        }
-        /** And again */
-        foreach($_GET as $key => $val) {
-            $_GET[$val] = \inc\Security::protect($val);
-        }
+        inc\Security::protectArray($_POST, TRUE);
+        inc\Security::protectArray($_GET, TRUE);
         
         /** Set variables for pager */
         if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {
