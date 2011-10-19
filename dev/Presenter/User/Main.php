@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.1
+     * @version    Release: 0.0.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
@@ -123,7 +123,7 @@
         
         
         public function profile() {
-            $rank = new \Model\Main();
+            $rank = new \Model\User\Main();
             $this->template->rank       = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day   = $rank->getCreditPeerDay(UID);
             $this->template->form       = $this->form->sendForm();
@@ -154,7 +154,8 @@
         
         
         public function dataSend() {
-            exit(d($_POST));
-            \inc\Ajax::sendJSON(array('ok'));
+            $main = new \Model\User\Main();
+            $main->saveProfile();
+            \inc\Ajax::sendJSON(array('alert' => 'ok'));
         }
     }

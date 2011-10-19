@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.8.3
+     * @version    Release: 0.8.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
      */
@@ -19,7 +19,7 @@
         /** @var ressource of connection to DB */
         private $connection;
         /** @var SQL query */
-        private $query;
+        public $query;
         /** @var name tables with is used */
         private $tables;
         /** @var main action, INSERT, UPDATE, DELETE, SELECT */
@@ -124,13 +124,13 @@
                 }
             } elseif($this->action === 'INSERT') {
                 $query[] = 'INSERT INTO ';
-                $query[] = $this->tables;
+                $query[] = $this->tables . ' ';
                 $query[] = $this->parse($this->values, 'INSERT');
             } elseif($this->action === 'UPDATE') {
                 $query[] = 'UPDATE ';
                 $query[] = $this->tables;
                 $query[] = ' SET ';
-                $query[] = $this->parse($this->where, ',', TRUE);
+                $query[] = $this->parse($this->values, ',', TRUE);
                 $query[] = ' WHERE ';
                 $query[] = $this->parse($this->where, ' AND ', TRUE);
             } elseif($this->action === 'DELETE') {
@@ -210,6 +210,7 @@
         public function update(array $what) {
             $this->action = 'UPDATE';
             $this->values = $what;
+            $this->exec($this->make());
         }
 
         

@@ -8,12 +8,12 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     6* @version    Release: 0.0.1
+     6* @version    Release: 0.0.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
 
-    namespace Model;
+    namespace Model\User;
     
     class Main extends \Model\BaseModel {
         
@@ -52,5 +52,19 @@
                 }
             }
             return $peer_day;
+        }
+        
+        
+        public function saveProfile() {
+            $this->db()->tables('users')->where('id', UID)->update(array(
+                'firstname' => $_POST['firstname'],
+                'lastname' => $_POST['lastname'],
+                'address' => $_POST['address'],
+                'language' => $_POST['language'],
+                'city' => $_POST['city'],
+                'postcode' => $_POST['postcode'],
+                'telephone' => $_POST['telephone'],
+                'website' => $_POST['website']
+                ));
         }
     }

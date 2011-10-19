@@ -1,6 +1,7 @@
 TASKS 1:
-    Spravit profil
-    dorobit language system, skoncil som v priofile
+    Spravit profil (ukladanie hesla)
+    dorobit language system, skoncil som v profile
+    v JS treba spravit aby sa v tej chybovej hlaske dal zmenit nadpis
 
 TASKS 2:
     ExceptionHandler
