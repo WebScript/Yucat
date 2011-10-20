@@ -210,7 +210,7 @@
         public function update(array $what) {
             $this->action = 'UPDATE';
             $this->values = $what;
-            $this->exec($this->make());
+            return $this->exec($this->make());
         }
 
         

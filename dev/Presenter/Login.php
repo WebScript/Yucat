@@ -66,7 +66,7 @@
                 if($login) {
                     \inc\Router::redirect('User:Main');
                 } else {
-                    \inc\Ajax::sendJSON(array('alert' => 'Zadali ste zle meno alebo heslo...'));
+                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste zle meno alebo heslo...'));
                 }
             } else {
                 \inc\Ajax::sendJSON($this->form->validateData());

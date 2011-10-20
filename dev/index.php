@@ -21,8 +21,6 @@
     require_once(__DIR__ . '/config.conf');
     /** Load _autoload for autload classes */
     require_once(__DIR__ . '/lib/init.php');
-    /** Call setters */
-    setters();
     
     /** Use inc\db a db */
     use inc\db;
@@ -35,6 +33,8 @@
     $config = new \inc\Config();
     /** Load secundary configuration from db */
     $conf = $config->getConfig();
+    /** Call setters */
+    setters();
     
     /** Set time zone */
     date_default_timezone_set($conf['time_zone']);

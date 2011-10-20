@@ -155,7 +155,10 @@
         
         public function dataSend() {
             $main = new \Model\User\Main();
-            $main->saveProfile();
-            \inc\Ajax::sendJSON(array('alert' => 'ok'));
+            if($main->saveProfile()) {
+                \inc\Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Profil bol uspesne ulozeny!'));
+            } else {
+                \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit profil!'));
+            }
         }
     }

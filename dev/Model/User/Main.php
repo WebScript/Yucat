@@ -56,7 +56,7 @@
         
         
         public function saveProfile() {
-            $this->db()->tables('users')->where('id', UID)->update(array(
+            return $this->db()->tables('users')->where('id', UID)->update(array(
                 'firstname' => $_POST['firstname'],
                 'lastname' => $_POST['lastname'],
                 'address' => $_POST['address'],

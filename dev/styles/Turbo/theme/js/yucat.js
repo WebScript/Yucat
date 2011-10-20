@@ -5,12 +5,12 @@ $(function() {
 
     $('#dialog').dialog({
             autoOpen: false,
-            width: 600,
+            width: 400,
             buttons: {
-                    "LOL??": function() { 
+                   /* "LOL??": function() {
                             $(this).dialog("close"); 
-                    }, 
-                    "Sorry, I'm stupid...": function() { 
+                    }, */
+                    "Close": function() { 
                             $(this).dialog("close"); 
                     } 
             }
@@ -19,14 +19,15 @@ $(function() {
     
     $('form').live('submit', function() {
         $.post(this.action + 'Send', $(this.elements).serialize(), function(msg) {
-            $.each($.parseJSON(msg), function(id, v) {
+            $.each($.parseJSON(msg), function(id, v) { 
                 if(id == 'redirect') {
                     window.location = v;
-                } else if(id == 'alert') {
+                } else if(id == 'dialogName') { 
+                    $('div[role=dialog] #ui-dialog-title-dialog').html(v);
+                } else if(id == 'dialogValue') {
                     $('#dialog').html(v);
                     $('#dialog').dialog('open');
-                }
-                changeStats($(':input[name=' + id + ']'), v);
+                } else changeStats($(':input[name=' + id + ']'), v);
             });
         });
         return false;
