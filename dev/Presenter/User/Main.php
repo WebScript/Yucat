@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.4
+     * @version    Release: 0.0.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
@@ -155,7 +155,9 @@
         
         public function dataSend() {
             $main = new \Model\User\Main();
-            if($main->saveProfile()) {
+            if(!$this->form->isValidData()) {
+                \inc\Ajax::sendJSON($this->form->validateData());
+            } else if($main->saveProfile()) {
                 \inc\Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Profil bol uspesne ulozeny!'));
             } else {
                 \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit profil!'));
