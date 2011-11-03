@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.8.4
+     * @version    Release: 0.8.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
      */
@@ -291,7 +291,7 @@
        }
        
        
-       public function num_rows() {
+       public function numRows() {
            $result = $this->exec($this->make());
            return mysql_num_rows($result);
        }

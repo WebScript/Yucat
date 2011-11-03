@@ -135,3 +135,12 @@ CREATE TABLE `config` (
    `param` VARCHAR( 50 ) NOT NULL ,
    `value` VARCHAR( 50 ) NOT NULL
 ) ENGINE = innodb COLLATE utf8_bin;
+
+
+
+CREATE TABLE `cookie` (
+   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+   `UID` INT NOT NULL ,
+   `hash` VARCHAR( 15 ) NOT NULL ,
+   `logged_number` INT NOT NULL
+) ENGINE = innodb COLLATE utf8_bin;

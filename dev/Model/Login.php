@@ -27,6 +27,10 @@
 
             if($result) { 
                 $time = $remember ? time() + 31104000 : 0;
+                
+                $cookie = new \inc\Cookie();
+                $cookie->login($result->id, $time);
+                
                 setcookie('id', $result->id, $time, '/', DOMAIN);
                 setcookie('password', $result->password, $time, '/', DOMAIN);
                 return TRUE;

@@ -35,7 +35,7 @@
             $this->template->graph = $statistic->createGraph($banners, 'date');
 
             $menu = new \Model\Menu();
-            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->num_rows());
+            $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->numRows());
             $this->template->selector = $menu->selectPeerPage();
             $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->fetchAll();
             \inc\Ajax::setMode(TRUE);
@@ -53,7 +53,7 @@
             $this->template->graph = $statistic->createGraph($access, 'date');
 
             $menu = new \Model\Menu();
-            $this->template->map = $menu->pager($this->db()->tables('access')->where('UID', UID)->num_rows());
+            $this->template->map = $menu->pager($this->db()->tables('access')->where('UID', UID)->numRows());
             $this->template->selector = $menu->selectPeerPage();
             $this->template->table_content = $this->db()->tables('access')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->fetchAll();
             \inc\Ajax::setMode(TRUE);
