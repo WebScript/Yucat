@@ -40,6 +40,9 @@
         }
         
         public function logout() {
+            $cookie = new \inc\Cookie();
+            $cookie->logout($_COOKIE['HASH']);
+                
             setcookie('id', NULL, 0, '/', DOMAIN);
             setcookie('password', NULL, 0, '/', DOMAIN);
         }

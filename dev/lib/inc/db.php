@@ -67,9 +67,9 @@
         private function parse(array $input, $delimiter, $setter = FALSE) {
             $out = array();
             
-            foreach($input AS $param => $value) {
-                $value = \inc\Security::protect($value, TRUE);
-                $input[$param] = "'" . $value . "'";
+            foreach($input AS $key => $val) {
+                $val = \inc\Security::protect($val, TRUE);
+                $input[$key] = "'" . $val . "'";
             }
 
             if($delimiter === 'INSERT') {
@@ -153,6 +153,7 @@
             
             $query = implode('', $query);
             $this->query = $query;
+           // d($query);
             return $query;
         }
         
@@ -199,7 +200,7 @@
          */
         public function delete() {
             $this->action = 'DELETE';
-            return $this;
+            return $this->exec($this->make());
         }
         
         

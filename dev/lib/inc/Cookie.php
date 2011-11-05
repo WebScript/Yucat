@@ -35,12 +35,12 @@
             
             if(!$hash) {
                 $chars = "1234567890QWERTZUIOPLKJHGFDSAYXCVBNM";
-                for($i=0;$i<15;$i++) {
+                for($i=0;$i<256;$i++) {
                     $hash .= $chars[rand(0, strlen($chars)-1)];
                 }
                 $db->tables('cookie')->insert(array('UID' => $uid, 'hash' => $hash, 'logged_number' => '1'));
             } else {
-                $db->tables('cookie')->where('UID', $uid)->update(array('logged_number', 7)); //2todo nezapisuje spravne cislo do DB (logged umber je pocet prihlasenych uzivatelov na danom ucte)
+                $db->tables('cookie')->where('hash', $hash)->update(array('logged_number' => $d->logged_number + 1));
             }
             
             setcookie('HASH', $hash, $time, '/', DOMAIN);
@@ -49,11 +49,10 @@
         
         
         public function logout($hash) {
-            GLOBAL $db;
-            setcookie('HASH', NULL, 0, '/', DOMAIN);
+           GLOBAL $db;
+           setcookie('HASH', NULL, 0, '/', DOMAIN);
             
             $d = $db->tables('cookie')
-                    ->select('logged_time')
                     ->where('hash', $hash)
                     ->fetch()
                     ->logged_number;
@@ -61,7 +60,7 @@
             if($d <= 1) {
                 $db->tables('cookie')->where('hash', $hash)->delete();
             } else {
-                $db->tables('cookie')->update(array('logged_time', $d - 1));
+                $db->tables('cookie')->where('hash', $hash)->update(array('logged_number' => $d - 1));
             }
             return 1;
         }
