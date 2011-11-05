@@ -5,7 +5,7 @@
         'LOGIN'         => 'Username',
         'PASSWORD'      => 'Password',
         'REMEMBER'      => 'Zapametat?',
-        'EMAIL'         => 'E-Mail',
+        'EMAIL'         => 'E-mail',
         'ENTER'         => 'Enter',
         'SEND_PASS'     => 'Poslat heslo',
         'FORGOT_PASS'   => 'Zapomněly jste heslo?',

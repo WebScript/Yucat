@@ -1,6 +1,7 @@
 TASKS 1:
     Spravit profil (ukladanie hesla)
     dorobit language system, skoncil som v profile
+    Dorobit posielanie hesla mailom
 
 TASKS 2:
     ExceptionHandler
@@ -50,8 +51,7 @@ TASKS 10:
 
 NAPADY:
 Pridat potom do admin panelu povolenie ci moze google indexovat stranky
-Spravit vlastne cookie
-Dorobit posielanie hesla mailom
+
 Spravit do installeru take aby do configu ulozilo passhash bez ktoreho by sa nedali rozkodovat hesla
 
 
