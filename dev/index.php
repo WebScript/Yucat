@@ -28,7 +28,7 @@
     use inc\Diagnostics\ExceptionHandler;
     
     /** Create a connection with database */
-    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
+    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
     /** Create a instance of configuration class */
     $config = new \inc\Config();
     /** Load secundary configuration from db */

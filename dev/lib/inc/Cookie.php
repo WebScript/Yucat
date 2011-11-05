@@ -8,9 +8,9 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.0
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.0
+     * @since      Class available since Release 0.1.0
      */
 
     namespace inc;
@@ -22,7 +22,7 @@
         
         public static function isLogged($hash) {
             GLOBAL $db;
-            return $db->tables('cookie')->where('hash', $hash)->fetch()->UID;
+            return isset($_COOKIE['HASH']) ? $db->tables('cookie')->where('hash', $hash)->fetch()->UID : FALSE;
         }
         
         

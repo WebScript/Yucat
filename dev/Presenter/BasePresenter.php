@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.1
+     * @version    Release: 0.1.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -23,9 +23,7 @@
         
         public function __construct() {
             $this->template = \inc\Arr::array2Object(\inc\Template\Core::$translate);
-            
-            global $db;
-            $this->db = $db; 
+            $this->db = $GLOBALS['db'];
             
             $this->template->isLogged       = $this->isLogged() ? TRUE : NULL;
             $this->template->isAjax         = \inc\Ajax::isAjax();
@@ -35,7 +33,7 @@
             $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
             
             if($this->isLogged()) {
-                $this->template->user       = $db->tables('users')->where('id', UID)->fetch();
+                $this->template->user       = $this->db->tables('users')->where('id', UID)->fetch();
             }
         }
         
@@ -53,20 +51,8 @@
         
         
         protected function isLogged() {
-            if(empty($_COOKIE['id']) || empty($_COOKIE['password'])) {
-                return FALSE;
-            }
-            
-            $result = $this->db()
-                    ->tables('users')
-                    ->where('id', UID)
-                    ->where('password', $_COOKIE['password'])
-                    ->fetch();
-            if($result) {
-                return $result;
-            } else {
-                return FALSE;
-            }
+            $verified = isset($_COOKIE['HASH']) ? \inc\Cookie::isLogged($_COOKIE['HASH']) : FALSE;
+            return $verified ? $this->db()->tables('users')->where('id', $verified)->fetch() : FALSE;
         }
         
         
