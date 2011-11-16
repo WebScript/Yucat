@@ -1,11 +1,11 @@
 TASKS 1:
-    Spravit profil (ukladanie hesla)
     dorobit language system, skoncil som v profile
     Dorobit posielanie hesla mailom
 
 TASKS 2:
     ExceptionHandler
     Spravit registraciu
+    aplikovat hashovanie hesiel
 
 TASKS 3:
 -    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)

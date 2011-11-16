@@ -55,6 +55,7 @@
         }
         
         
+        
         public function saveProfile() {
             return $this->db()->tables('users')->where('id', UID)->update(array(
                 'firstname' => $_POST['firstname'],
@@ -66,5 +67,17 @@
                 'telephone' => $_POST['telephone'],
                 'website' => $_POST['website']
                 ));
+        }
+        
+        
+        
+        public function changePassword() {
+            if($_POST['newpass'] != $_POST['retrypass']) {
+                return 2;
+            } else if($this->db()->tables('users')->where('id', UID)->fetch()->password != $_POST['oldpass']) {
+                return 3;
+            } else {
+                return $this->db()->tables('users')->where('id', UID)->update(array('password' => $_POST['newpass']));
+            }
         }
     }

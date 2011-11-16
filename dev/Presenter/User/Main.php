@@ -156,11 +156,37 @@
         public function dataSend() {
             $main = new \Model\User\Main();
             if(!$this->form->isValidData()) {
-                \inc\Ajax::sendJSON($this->form->validateData());
+                \inc\Ajax::sendJSON(array_merge($this->form->validateData(), 
+                        array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));
             } else if($main->saveProfile()) {
                 \inc\Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Profil bol uspesne ulozeny!'));
             } else {
                 \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit profil!'));
+            }
+        }
+        
+        
+        public function passSend() {
+            $main = new \Model\User\Main();
+            if(!$this->pass->isValidData()) {
+                \inc\Ajax::sendJSON(array_merge($this->pass->validateData(), 
+                        array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));
+                return;
+            }
+            
+            switch($main->changePassword()) {
+                case 1:
+                    \inc\Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Heslo bolo ulozene!'));
+                    break;
+                case 2:
+                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadane hesla sa nerovnaju!'));
+                    break;
+                case 3:
+                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste nespravne heslo!'));
+                    break;
+                default :
+                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit heslo!'));
+                    break;
             }
         }
     }

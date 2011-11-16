@@ -27,7 +27,9 @@ $(function() {
                 } else if(id == 'dialogValue') {
                     $('#dialog').html(v);
                     $('#dialog').dialog('open');
-                } else changeStats($(':input[name=' + id + ']'), v);
+                } else {
+                    changeStats($(':input[name=' + id + ']'), v);
+                }
             });
         });
         return false;

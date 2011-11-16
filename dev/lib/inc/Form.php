@@ -121,9 +121,9 @@
         public function validateData($input = NULL) {
             $input = $input === NULL ? $_POST : $input;
             $return = array();
-            
+
             if(!Arr::isInArray($input, $this->form)) {
-                return array('status' => 'error', 'dialog' => 'Error: not match!');
+                return array('error');
             }
             
             foreach($this->form as $key => $val) {
