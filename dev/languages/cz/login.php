@@ -9,5 +9,5 @@
         'ENTER'         => 'Enter',
         'SEND_PASS'     => 'Poslat heslo',
         'FORGOT_PASS'   => 'Zapomněly jste heslo?',
-        'SUDDENDLY_PASS'=> 'Zapomněly jste heslo?',
+        'SUDDENDLY_PASS'=> 'Spomenuly ste si?',
     );

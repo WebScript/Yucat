@@ -45,20 +45,6 @@
             return implode($delimiter, $array);
         }
         
-        
-        /**
-         * Protect array before injection
-         * @param array $array
-         * @return array 
-         */
-        public static function treatArrayValue(array $array) {
-            foreach($array AS $param => $value) {
-                $array[$param] = Security::protect($value, FALSE);
-            }
-            return $array;
-        }
-        
-        
        
         public static function arrayKeyReplace($what, $input, array $array) {
             $out = array();

@@ -35,6 +35,7 @@
             if(\inc\Ajax::isAjax() && \inc\Ajax::getMode() || !\inc\Ajax::isAjax()) {
                 foreach(self::$translate as $key => $val) {
                     $$key = $val;
+                    d($key);
                 }
                 $template = $parse->setVariable($template);
 

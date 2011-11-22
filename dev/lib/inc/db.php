@@ -46,14 +46,8 @@
          * @param string $db 
          */
         public function __construct($host, $login, $password, $db) {
-            $this->connection = mysql_connect($host, $login, $password) OR 
-                    Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
+            $this->connection = mysql_connect($host, $login, $password);            
             mysql_select_db($db, $this->connection);
-            
-            if(!mysql_ping()) Diagnostics\ExceptionHandler::Exception('ERR_MYSQL_CONNECT');
-            
-            //Fucked stupid free hosting...
-            //mysql_query('SET CHARACTER SET UTF-8');
         }
        
        
@@ -153,6 +147,7 @@
             
             $query = implode('', $query);
             $this->query = $query;
+            //d($query);
             return $query;
         }
         

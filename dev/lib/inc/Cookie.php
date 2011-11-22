@@ -8,60 +8,161 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.3
+     * @version    Release: 0.1.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
 
     namespace inc;
 
-    class Cookie {      
+    class Cookie {
         
-        public function __construct() {}
-        
-        
-        public static function isLogged($hash) {
-            GLOBAL $db;
-            return isset($_COOKIE['HASH']) ? $db->tables('cookie')->where('hash', $hash)->fetch()->UID : FALSE;
+        public final function __construct() {     
+            $lol = $this->getCid($this->getMyCookie());
+            $uid = $GLOBALS['db']->tables('cookie_params')
+                    ->select('value')
+                    ->where('CID', '15')
+                    ->where('name', 'UID')
+                    ->fetch();
+            
+            define('UID', $uid ? $uid->value : NULL);
         }
         
         
-        public function login($uid, $time) {
+        
+        public final function getCid($hash) {
+            $id = NULL;
+            if($hash) {
+                $id = $GLOBALS['db']->tables('cookie')
+                        ->select('id')
+                        ->where('hash', $hash)
+                        ->fetch();
+                return $id ? $id->id : 0;
+            } else {
+                return 0;
+            }
+        }
+        
+        
+        
+        public final function getMyCookie() {
+            return isset($_COOKIE['HASH']) ? $_COOKIE['HASH'] : NULL;
+        }
+        
+        
+        
+        public final function getParam($name, $cid = NULL) {
             GLOBAL $db;
-            $d = $db->tables('cookie')
-                    ->where('UID', $uid)
-                    ->fetch();
-            $hash = isset($d->hash) ? $d->hash : NULL;
             
-            if(!$hash) {
-                $chars = "1234567890QWERTZUIOPLKJHGFDSAYXCVBNM";
+            if(!$cid) {
+                $cid = $this->getCid($this->getMyCookie());
+            }
+            $value = $db->tables('cookie_params')
+                    ->select('value')
+                    ->where('CID', $cid)
+                    ->where('name', $name)
+                    ->fetch();
+            
+            return $value ? $value->value : NULL;
+        }
+
+
+
+        public final function addHash($time = 1353044444) { 
+            GLOBAL $db;
+
+            while(1) {
+                $hash = '';
+                $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
                 for($i=0;$i<256;$i++) {
                     $hash .= $chars[rand(0, strlen($chars)-1)];
                 }
-                $db->tables('cookie')->insert(array('UID' => $uid, 'hash' => $hash, 'logged_number' => '1'));
-            } else {
-                $db->tables('cookie')->where('hash', $hash)->update(array('logged_number' => $d->logged_number + 1));
+                
+                if($db->tables('cookie')->select('id')->where('hash', $hash)->fetch()) {
+                    continue;
+                } else {
+                    $db->tables('cookie')->insert(array('hash' => $hash));
+                    $this->setCookie($hash, $time);
+                    break;
+                }
             }
-            
-            setcookie('HASH', $hash, $time, '/', DOMAIN);
-            return 1;
+            return $db->tables('cookie')->select('id')->where('hash', $hash)->fetch()->id;
         }
         
         
-        public function logout($hash) {
-           GLOBAL $db;
-           setcookie('HASH', NULL, 0, '/', DOMAIN);
+        
+        public final function deleteHash($hash) {
+            GLOBAL $db;
+                       
+            $db->tables('cookie_params')->where('CID', $this->getCid($hash))->delete();
+            $db->tables('cookie')->where('hash', $hash)->delete();
+            $this->setCookie(NULL, 0);
+        }
+        
+        
+        
+        public final function addParam($cid, $name, $value) {
+            GLOBAL $db;
             
-            $d = $db->tables('cookie')
-                    ->where('hash', $hash)
-                    ->fetch()
-                    ->logged_number;
-            
-            if($d <= 1) {
-                $db->tables('cookie')->where('hash', $hash)->delete();
-            } else {
-                $db->tables('cookie')->where('hash', $hash)->update(array('logged_number' => $d - 1));
+            if(!$cid) {
+                $cid = $this->addHash();
+                d($cid);
             }
-            return 1;
+            
+            $get = $db->tables('cookie_params')
+                    ->select('id')
+                    ->where('CID', $cid)
+                    ->where('name', $name)
+                    ->fetch();
+            
+            if($get) {
+                $db->tables('cookie_params')
+                        ->where('CID', $cid)
+                        ->where('name', $name)
+                        ->update(array('value' => $value));
+            } else {
+                $db->tables('cookie_params')
+                        ->insert(array('CID' => $cid, 'name' => $name, 'value' => $value));
+            }
+        }
+        
+        
+        
+        public final function deleteParam($cid, $name) {
+            $GLOBALS['db']->tables('cookie')->where('CID', $cid)->where('name', $name)->delete();
+        }
+
+        
+        
+        /*
+        public final function logout($hash) {
+            GLOBAL $db;
+            
+            $cid = $this->getCid($hash);
+            $n = $db->tables('cookie_params')
+                    ->select('loggedNumber')
+                    ->where('CID', $cid)
+                    ->fetch()
+                    ->loggedNumber;
+            
+            if($n <= 1) {
+                $db->tables('cookie_params')
+                        ->where('CID', $cid)
+                        ->delete();
+                
+                $db->tables('cookie')
+                        ->where('id', $cid)
+                        ->delete();
+            } else {
+                $db->tables('cookie_params')
+                        ->where('CID', $cid)
+                        ->update(array('loggedNumber' => $n - 1));
+            }            
+        }*/
+
+
+        
+        public final function setCookie($hash, $time) {
+            setcookie('HASH', $hash, $time, '/', DOMAIN);
         }
     }

@@ -140,7 +140,15 @@ CREATE TABLE `config` (
 
 CREATE TABLE `cookie` (
    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-   `UID` INT NOT NULL ,
-   `hash` VARCHAR( 256 ) NOT NULL ,
-   `logged_number` INT NOT NULL
+   `hash` VARCHAR( 256 ) NOT NULL
+) ENGINE = innodb COLLATE utf8_bin;
+
+
+
+CREATE TABLE `cookie_params` (
+   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+   `CID` INT NOT NULL ,
+   `name` VARCHAR( 128 ) NOT NULL ,
+   `value` VARCHAR( 256 ) NOT NULL ,
+    UNIQUE (`name`)
 ) ENGINE = innodb COLLATE utf8_bin;

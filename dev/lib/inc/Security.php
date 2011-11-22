@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.1
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -16,10 +16,7 @@
     namespace inc;
 
     class Security {
-        
-        /** This variable is added to passwrod and is hashed */
-        const PASSWORD_HASH = '45E85G1H8UJ';
-        
+       
         private function __construct() {}
         
         
@@ -28,7 +25,7 @@
          * @param string $email E-mail
          * @return BOOL
          */
-        public static function checkEmail($email) {
+        public static final function checkEmail($email) {
             $reg = '/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@'
                  . '([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/';
             
@@ -45,7 +42,7 @@
          * @param integer $size size in B
          * @return string 
          */
-        public static function getFileSize($size) {
+        public static final function getFileSize($size) {
             if(is_numeric($size)) {
                 if($size >= 1073741824) $size = round($size/1073741824*100)/100 . ' GB';
                 elseif($size >= 1048576) $size = round($size/1048576*100)/100 . ' MB';
@@ -60,8 +57,10 @@
          * Replace URL and add http://
          * @param string $link
          * @return string 
+         * 
+         * @deprecated
          */
-        public static function replaceWWW($link) {
+        public static final function replaceWWW($link) {
             if(SubStr($link, 0, 7) != 'http://' && SubStr($link, 0, 7) != 'https://') {
                 $link = 'http://'.$link;
             }
@@ -80,7 +79,7 @@
          * @param BOOL $isInput
          * @return string 
          */
-        public static function protect($string, $isInput = FALSE) {
+        public static final function protect($string, $isInput = FALSE) {
             $out = FALSE;
             
             if($isInput) {
@@ -97,7 +96,7 @@
         
         
         
-        public static function protectArray(array $array, $isInput = FALSE) {
+        public static final function protectArray(array $array, $isInput = FALSE) {
             foreach($array as $key => $val) {
                 $array[$val] = \inc\Security::protect($val, $isInput);
             }
@@ -110,7 +109,8 @@
          * @param string $password
          * @return string
          */
-        public static function createHash($password) {
-            return md5(self::PASSWORD_HASH . md5($password . self::PASSWORD_HASH) . md5(self::PASSWORD_HASH));
+        public static final function createHash($password) {
+            $passhHash = $GLOBALS['conf']['password_hash'];
+            return md5($passhHash . md5($password . $passhHash) . md5($passhHash));
         }
     }

@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.2
+     * @version    Release: 0.0.3
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      * 
@@ -21,9 +21,8 @@
     class Config {
         
         public function getConfig() {
-            global $db;
             $out = array();
-            $config = $db->tables('config')->fetchAll();
+            $config = $GLOBALS['db']->tables('config')->fetchAll();
             
             foreach($config as $val) {
                 $out[$val->param] = $val->value;

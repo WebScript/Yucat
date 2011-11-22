@@ -61,6 +61,8 @@
             return $haystack;
         }
         
+        
+        
         public function setVariable($template) {
             return preg_replace('/\{\$' . $this->regular . '\}/','<?php echo $\\1; ?>', $template);
         }

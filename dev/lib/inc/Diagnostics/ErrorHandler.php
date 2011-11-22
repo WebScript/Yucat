@@ -28,8 +28,10 @@
             if(error_get_last()) {
                 if($mode == Debug::MODE_PROD) {
                     self::addLog(error_get_last());
-                    if(!\inc\Ajax::isAjax()) {
-                        include_once(dirname(__FILE__).'/500.html');
+                    if(\inc\Ajax::isAjax()) {
+                        echo '{"alert" : "Error: 404 Page not found!"}';
+                    } else {
+                        include_once(dirname(__FILE__) . '/500.html');
                     }
                 } elseif($mode == Debug::MODE_DEV) {
                     self::drawTable(error_get_last());
@@ -107,8 +109,7 @@
             $errorFile = $error['file'];
             $errorParsedFile[0] = substr($errorFile, 0, strrpos($errorFile, '/') + 1);
             $errorParsedFile[1] = substr($errorFile, strrpos($errorFile, '/') + 1);
-            
-            /** @todo Delete in php 5.4!! */
+            d($errorTypes[$error['type']]);
             if($error['type'] != E_DEPRECATED) {
                 include(dirname(__FILE__) . '/BSoD.phtml');
             }
@@ -136,7 +137,7 @@
             if(\inc\Ajax::isAjax()) {
                 echo '{"alert" : "Error: 404 Page not found!"}';
             } else {
-                include_once(dirname(__FILE__).'/404.html');
+                include_once(dirname(__FILE__) . '/404.html');
             }
             exit;
         }

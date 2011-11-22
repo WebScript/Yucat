@@ -19,24 +19,50 @@
         
         public function login($username, $password, $remember = FALSE) {
             $result = $this->db()
-                        ->tables('users')
-                        ->where('username', $username)
-                        ->where('password', $password)
-                        ->limit(1)
-                        ->fetch();
+                    ->tables('users')
+                    ->select('id, password')
+                    ->where('username', $username)
+                    ->where('password', $password)
+                    ->limit(1)
+                    ->fetch();
 
             if($result) { 
                 $time = $remember ? time() + 31104000 : 0;
                 
                 $cookie = new \inc\Cookie();
-                $cookie->login($result->id, $time);
-                
-                setcookie('id', $result->id, $time, '/', DOMAIN);
-                setcookie('password', $result->password, $time, '/', DOMAIN);
-                return TRUE;
-            } else {
-                return FALSE;
-            }
+                $cid = $db->tables('cookie_params')
+                    ->select('CID')
+                    ->where('name', 'UID')
+                    ->where('value', $uid)
+                    ->fetch();
+            
+                if($xists) {
+                    if($cookie->cookieHash) {
+                        $cookie->deleteHash($cookie->cookieHash);
+                    }
+
+                    //Set +1 to loggedNumber
+                    $n = $db->tables('cookie_params')
+                            ->select('CID')
+                            ->where('CID', $cid)
+                            ->fetch();
+                    $db->tables('cookie_params')->where('CID', $cid)->update(array('CID' => $n + 1));
+
+                    $hash = $db->tables('cookie')
+                            ->select('hash')
+                            ->where('id', $cid)
+                            ->fetch()
+                            ->hash;
+                    $cookie->setCookie($hash, $time);
+                } else {
+                    if(!$cookie->cookieHash) {
+                        $cookie->addHash($time);
+                    }
+
+                    $this->addParam($cookie->getCid($cookie->cookieHash), 'UID', $uid);
+                    $this->addParam($cookie->getCid($cookie->cookieHash), 'loggedNumber', '1');                
+                }
+            }           
         }
         
         public function logout() {
