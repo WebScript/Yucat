@@ -29,7 +29,7 @@
                 if($mode == Debug::MODE_PROD) {
                     self::addLog(error_get_last());
                     if(\inc\Ajax::isAjax()) {
-                        echo '{"alert" : "Error: 404 Page not found!"}';
+                        echo '{"alert" : "Error: Internal server error :("}';
                     } else {
                         include_once(dirname(__FILE__) . '/500.html');
                     }
@@ -133,6 +133,7 @@
         }
         
         
+        
         public static function error404() {
             if(\inc\Ajax::isAjax()) {
                 echo '{"alert" : "Error: 404 Page not found!"}';
@@ -140,5 +141,23 @@
                 include_once(dirname(__FILE__) . '/404.html');
             }
             exit;
+        }
+        
+        
+        
+        
+        public static final function Error($error) {
+            if(Debug::$mode == Debug::MODE_PROD) {
+                $error = array('ErrorHandler', '0', '0', $error);
+                self::addLog($error);
+                if(\inc\Ajax::isAjax()) {
+                    echo '{"alert" : "Error: Internal server error :("}';
+                } else {
+                    include_once(dirname(__FILE__) . '/500.html');
+                }
+                exit;
+            } elseif(Debug::$mode == Debug::MODE_DEV) {
+                exit($error);
+            }
         }
      }

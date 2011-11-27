@@ -15,34 +15,41 @@
 
     namespace inc\Template;
     
+    use inc\Ajax;
+    use inc\Diagnostics\ErrorHandler;
+    
     class Core {
             
         public static $translate = array();
+        public static $name;
         
-        public function __construct() {
-            $template = ROOT . STYLE_DIR . STYLE . '/layer.html';
-            $f = fopen($template, 'r');
-            $template = fread($f, filesize($template));
-            fclose($f);
+        public final function __construct() {
+            $template = STYLE_DIR . STYLE . '/layer.html';
+            if(file_exists($template)) {
+                $f = fopen($template, 'r');
+                $template = fread($f, filesize($template));
+                fclose($f);
+            } else {
+                ErrorHandler::error404();
+            }
 
             $parse = new Parse();
             $template = $parse->parseTemplate($template, $parse->getMacros());
             
-            if(\inc\Ajax::isAjax()) {
-                echo \inc\Ajax::getContent();            
+            if(Ajax::isAjax()) {
+                echo Ajax::getContent();            
             }
             
-            if(\inc\Ajax::isAjax() && \inc\Ajax::getMode() || !\inc\Ajax::isAjax()) {
+            if(Ajax::isAjax() && Ajax::getMode() || !Ajax::isAjax()) {
                 foreach(self::$translate as $key => $val) {
                     $$key = $val;
-                    d($key);
                 }
                 $template = $parse->setVariable($template);
 
                 $name = rand(11111, 99999) . '.phtml';
                 $cache = new \inc\Cache('cache');
                 $cache->createCache($name, $template);
-                include ROOT . '/temp/cache/' . $name;
+                include TEMP . 'cache/' . $name;
                 //$cache->deleteCache($name);
             }
         }

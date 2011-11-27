@@ -27,7 +27,7 @@
         /** @var Start time for timer() */
         private static $startTime;
         /** @var Mode of debug Production/Development */
-        private static $mode = self::MODE_PROD;
+        public static $mode = self::MODE_PROD;
         
         /** Development mode*/
         const MODE_DEV = 'developmentMode';

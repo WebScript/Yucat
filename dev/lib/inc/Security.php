@@ -98,7 +98,7 @@
         
         public static final function protectArray(array $array, $isInput = FALSE) {
             foreach($array as $key => $val) {
-                $array[$val] = \inc\Security::protect($val, $isInput);
+                $array[$val] = self::protect($val, $isInput);
             }
             return $array;
         }
@@ -112,5 +112,24 @@
         public static final function createHash($password) {
             $passhHash = $GLOBALS['conf']['password_hash'];
             return md5($passhHash . md5($password . $passhHash) . md5($passhHash));
+        }
+        
+        
+        
+        public static function protectInput() {
+            /** Protect all input variables */
+            self::protectArray($_POST, TRUE);
+            self::protectArray($_GET, TRUE);
+
+            /** Set variables for pager */
+            if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {
+                $_GET['peerPage'] = $_GET['select-view'];
+            } else {
+                if(empty($_GET['peerPage']) || !is_numeric($_GET['peerPage'])) {
+                    $_GET['peerPage'] = 25;
+                }
+            }
+            /** And this */
+            $_GET['page'] = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;   
         }
     }

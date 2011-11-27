@@ -15,6 +15,9 @@
 
     namespace inc\Template;
     
+    use inc\Router;
+    use inc\Diagnostics\ErrorHandler;
+    
     class Macro {
         /** @var array of macros */
         private $macros = array();
@@ -64,7 +67,7 @@
         public function macroInclude($name, $method = NULL, $params = NULL) {
             Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($name));
             
-            $templ_dir = ROOT . STYLE_DIR . STYLE 
+            $templ_dir = STYLE_DIR . STYLE 
                    . '/template/' . $name 
                    . ($method ? '_' . $method : '') 
                    . '.html';
@@ -83,31 +86,32 @@
                 
                 if(method_exists($presenter, $method)) {
                     call_user_func_array(array($presenter, $method), $params);
-                } elseif($method !== NULL) \inc\Diagnostics\ErrorHandler::error404();
+                } elseif($method !== NULL) ErrorHandler::error404();
                 Core::$translate = get_object_vars($presenter->getTemplate());
                 
                 if(file_exists($templ_dir)) {
                     $f = fopen($templ_dir, 'r');
                     $template = fread($f, filesize($templ_dir));
                     fclose($f);
-                } elseif($method === NULL) \inc\Diagnostics\ErrorHandler::error404();
+                } elseif($method === NULL) ErrorHandler::error404();
 
                 $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
                 return $template;
-            } else \inc\Diagnostics\ErrorHandler::error404();
+            } else ErrorHandler::error404();
         }
         
         
         
         public function macroContent() {
-            $addr = \inc\Router::getAddress();
-            $link = \inc\Router::getLevel() >= 2 ? ($addr['dir'] ? strtolower($addr['dir']) . '_' : '') . strtolower($addr['class']) : strtolower($addr['class']);
-            return $this->macroInclude($link, $addr['method'], \inc\Router::getOnlyParam());
+            $addr = Router::getAddress();
+            $link = Router::getLevel() >= 2 ? ($addr['dir'] ? strtolower($addr['dir']) . '_' : '') . strtolower($addr['class']) : strtolower($addr['class']);
+            d($ling);
+            return $this->macroInclude($link, $addr['method'], Router::getOnlyParam());
         }
         
         
         
         public function macroLink($val) {
-            return \inc\Router::traceRoute($val);
+            return Router::traceRoute($val);
         }
     }

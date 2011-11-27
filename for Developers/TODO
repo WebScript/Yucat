@@ -3,6 +3,7 @@ TASKS 1:
     Dorobit posielanie hesla mailom
     Pridat niekam kontrolu ci je spravne nastaveny permissions
     Prvy beta test novej cookie classy dopadol dobre, vetsina chy bola fixnuta ale este nebolo uplne vsetko odskusane!
+    Dokoncit BasePresentr
 
 TASKS 2:
     ExceptionHandler

@@ -18,11 +18,11 @@
     class Cookie {
         
         public final function __construct() {     
-            $lol = $this->getCid($this->getMyCookie());
+            $cid = $this->getCid($this->getMyCookie());
             $uid = $GLOBALS['db']->tables('cookie_params')
                     ->select('value')
-                    ->where('CID', '15')
-                    ->where('name', 'UID')
+                    ->where('CID', $cid)
+                    ->where('param', 'UID')
                     ->fetch();
             
             define('UID', $uid ? $uid->value : NULL);
@@ -60,7 +60,7 @@
             $value = $db->tables('cookie_params')
                     ->select('value')
                     ->where('CID', $cid)
-                    ->where('name', $name)
+                    ->where('param', $name)
                     ->fetch();
             
             return $value ? $value->value : NULL;
@@ -70,23 +70,27 @@
 
         public final function addHash($time = 1353044444) { 
             GLOBAL $db;
+            
+            if(!$db->tables('cookie')->select('id')->where('hash', $this->getCid($this->getMyCookie()))->fetch()) {
+                while(1) {
+                    $hash = '';
+                    $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
+                    for($i=0;$i<256;$i++) {
+                        $hash .= $chars[rand(0, strlen($chars)-1)];
+                    }
 
-            while(1) {
-                $hash = '';
-                $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
-                for($i=0;$i<256;$i++) {
-                    $hash .= $chars[rand(0, strlen($chars)-1)];
+                    if($db->tables('cookie')->select('id')->where('hash', $hash)->fetch()) {
+                        continue;
+                    } else {
+                        $db->tables('cookie')->insert(array('hash' => $hash));
+                        $this->setCookie($hash, $time);
+                        break;
+                    }
                 }
-                
-                if($db->tables('cookie')->select('id')->where('hash', $hash)->fetch()) {
-                    continue;
-                } else {
-                    $db->tables('cookie')->insert(array('hash' => $hash));
-                    $this->setCookie($hash, $time);
-                    break;
-                }
+                return $db->tables('cookie')->select('id')->where('hash', $hash)->fetch()->id;
+            } else {
+                return;
             }
-            return $db->tables('cookie')->select('id')->where('hash', $hash)->fetch()->id;
         }
         
         
@@ -103,33 +107,32 @@
         
         public final function addParam($cid, $name, $value) {
             GLOBAL $db;
-            
+
             if(!$cid) {
                 $cid = $this->addHash();
-                d($cid);
             }
             
             $get = $db->tables('cookie_params')
                     ->select('id')
                     ->where('CID', $cid)
-                    ->where('name', $name)
+                    ->where('param', $name)
                     ->fetch();
             
             if($get) {
                 $db->tables('cookie_params')
                         ->where('CID', $cid)
-                        ->where('name', $name)
+                        ->where('param', $name)
                         ->update(array('value' => $value));
             } else {
                 $db->tables('cookie_params')
-                        ->insert(array('CID' => $cid, 'name' => $name, 'value' => $value));
+                        ->insert(array('CID' => $cid, 'param' => $name, 'value' => $value));
             }
         }
         
         
         
         public final function deleteParam($cid, $name) {
-            $GLOBALS['db']->tables('cookie')->where('CID', $cid)->where('name', $name)->delete();
+            $GLOBALS['db']->tables('cookie')->where('CID', $cid)->where('param', $name)->delete();
         }
 
         

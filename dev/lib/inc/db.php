@@ -282,7 +282,7 @@
          */
         public function fetch() {
            $result = $this->exec($this->make());
-           return mysql_fetch_object($result);
+           return /*$result === FALSE ? FALSE :*/ mysql_fetch_object($result);
        }
        
        

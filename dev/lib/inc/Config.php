@@ -17,6 +17,8 @@
      */
 
     namespace inc;
+    
+    use inc\Diagnostics\ErrorHandler;
 
     class Config {
         
@@ -26,6 +28,10 @@
             
             foreach($config as $val) {
                 $out[$val->param] = $val->value;
+            }
+            if(!$out) {
+                ErrorHandler::Error('Error: cannot load configuration table!');
+                exit;
             }
             return $out;
         }

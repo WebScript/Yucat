@@ -51,8 +51,14 @@
         
         
         protected function isLogged() {
-            $verified = isset($_COOKIE['HASH']) ? \inc\Cookie::isLogged($_COOKIE['HASH']) : FALSE;
-            return $verified ? $this->db()->tables('users')->where('id', $verified)->fetch() : FALSE;
+            GLOBAL $cookie;
+            
+            $uid = $this->db()->tables('cookie_params')
+                    ->where('CID', $cookie->getCid($cookie->getMyCookie()))
+                    ->where('name', 'UID')
+                    ->fetch();
+                    
+            return $uid ? $uid->value : NULL;
         }
         
         

@@ -1,10 +1,12 @@
 <?php
 
     use inc\db;
-    use inc\Diagnostics\ExceptionHandler;
+    use inc\Security;
+    use inc\Template;
+    use inc\Diagnostics\Debug;
     
     /** Create a sesion */
-    session_start();
+    //session_start();
 
     /** 
      * Define ROOT path 
@@ -12,7 +14,7 @@
      */
     define('ROOT', __DIR__ . '/');
     
-    /** 
+    /**
      * Define full temporary path 
      * e.g. /var/www/yucat/developer/temp
      */
@@ -46,43 +48,55 @@
     require_once(ROOT . 'config.conf');
     /** Load _autoload for autload classes */
     require_once(ROOT . 'lib/init.php');
-    
-    inc\Diagnostics\Debug::enable();
-    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
 
+    /** Call a error handler */
+    Debug::enable();
+    /** Set developer mode */
+    Debug::setMode(Debug::MODE_DEV);
+    
     /** Create a connection with database */
     $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
-    /** Create instance of Cookie class */
-    $cookie = new inc\Cookie();
     /** Create a instance of configuration class */
     $config = new \inc\Config();
     /** Load secundary configuration from db */
     $conf = $config->getConfig();
+    /** Create instance of Cookie class */
+    $cookie = new inc\Cookie();
     /** Call setters */
-    setters();
+    Security::protectInput();
 
+   // $cookie->addParam(2, 'name', 'test');
+    
+    //d(UID);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /** Set time zone */
     date_default_timezone_set($conf['time_zone']);
     /** Set style by config */
     if(!$cookie->getParam('style')) $cookie->addParam($cookie->getCid($cookie->getMyCookie()), 'style', $conf['default_style']);
     /** Define style */
-    //define('STYLE', $cookie->getParam('style'));
-    exit('konec');
-    /** Call a error handler */
-    inc\Diagnostics\Debug::enable();
-    /** Set developer mode */
-    inc\Diagnostics\Debug::setMode(inc\Diagnostics\Debug::MODE_DEV);
-    
-    if(!is_dir(STYLE_DIR . STYLE)) ExceptionHandler::Exception('ERR_SET_STYLE');
-    
+    define('STYLE', $cookie->getParam('style'));
+    //Check if exists defined style
+    if(!is_dir(STYLE_DIR . STYLE)) {
+        inc\Diagnostics\ErrorHandler::Error('Error: can\'t find default style!');
+    }
+        //exit('konec');
     /** Call a language system */
-    $lang = new \inc\Template\Language(UID ? $db->tables('users')->where('id', UID)->fetch()->language : NULL);
+    $lang = new Template\Language(UID ? $db->tables('users')->where('id', UID)->fetch()->language : NULL);
     /** Call a template system */
-    $core = new inc\Template\Core();
+    $core = new Template\Core();
 
     
     function d($p = 'Error: Not set input!', $exit = NULL) {
-        \inc\Diagnostics\Debug::dump($p);
+        Debug::dump($p);
         if($exit) {
             exit;
         }
@@ -91,8 +105,8 @@
     
     function setters() {
         /** Protect all input variables */
-        inc\Security::protectArray($_POST, TRUE);
-        inc\Security::protectArray($_GET, TRUE);
+        Security::protectArray($_POST, TRUE);
+        Security::protectArray($_GET, TRUE);
         
         /** Set variables for pager */
         if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {
