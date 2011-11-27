@@ -17,8 +17,8 @@
     
     class Ajax {
         private static $content;
-        /** Send template content? */
-        private static $send = FALSE;
+        /** Sending template content? */
+        private static $isJSON = FALSE;
 
 
         public static function isAjax() {
@@ -33,18 +33,14 @@
         
         public static function sendJSON(array $json) {
             self::$content = self::drawJSON($json);
+            self::$isJSON = TRUE;
         }
         
         
         public static function sendHTML($html) {
             self::$content .= $html;
         }
-        
-        
-        public static function setMode($val) {
-            self::$send = $val;
-        }
-        
+                
         
         public static function getContent() {
             return self::$content;

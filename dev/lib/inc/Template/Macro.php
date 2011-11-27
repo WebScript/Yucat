@@ -47,7 +47,7 @@
          * @param string $macro
          * @param string $function 
          */
-        public function addMacro($macro, $function) {
+        public final function addMacro($macro, $function) {
             if(!array_key_exists($macro, $this->macros)) {
                 $this->macros[$macro] = $function;
             }
@@ -58,42 +58,37 @@
          * Get macros
          * @return array macros
          */
-        public function getMacros() {
+        public final function getMacros() {
             return $this->macros;
         }
         
         
         
-        public function macroInclude($name, $method = NULL, $params = NULL) {
+        public final function macroInclude($name, $method = NULL) {
             Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($name));
             
-            $templ_dir = STYLE_DIR . STYLE 
+            $styleDir = STYLE_DIR . STYLE 
                    . '/template/' . $name 
                    . ($method ? '_' . $method : '') 
                    . '.html';
             
             $parse = new Parse();
-            $name2 =  explode('_', $name);
-            
-            if(isset($name2[1])) {
-                $presenter = '\\Presenter\\' . ucwords($name2[0]) . '\\' . ucwords($name2[1]);
-            } else {
-                $presenter = '\\Presenter\\' . ucwords($name2[0]);
-            }
 
+            $presenter = PRESENTER . str_replace('/', '\\', $name);
             if(class_exists($presenter)) {
                 $presenter = new $presenter;             
                 
                 if(method_exists($presenter, $method)) {
-                    call_user_func_array(array($presenter, $method), $params);
+                    call_user_func(array($presenter, $method));
                 } elseif($method !== NULL) ErrorHandler::error404();
-                Core::$translate = get_object_vars($presenter->getTemplate());
                 
-                if(file_exists($templ_dir)) {
-                    $f = fopen($templ_dir, 'r');
-                    $template = fread($f, filesize($templ_dir));
+                Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
+                
+                if(file_exists($styleDir)) {
+                    $f = fopen($styleDir, 'r');
+                    $template = fread($f, filesize($styleDir));
                     fclose($f);
-                } elseif($method === NULL) ErrorHandler::error404();
+                } else ErrorHandler::error404();
 
                 $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
                 return $template;
@@ -102,16 +97,18 @@
         
         
         
-        public function macroContent() {
-            $addr = Router::getAddress();
-            $link = Router::getLevel() >= 2 ? ($addr['dir'] ? strtolower($addr['dir']) . '_' : '') . strtolower($addr['class']) : strtolower($addr['class']);
-            d($ling);
-            return $this->macroInclude($link, $addr['method'], Router::getOnlyParam());
+        public final function macroContent() {
+            GLOBAL $router;
+            $link = implode('/', $router->getParam('dir')) . $router->getParam('class');
+            
+            //d($link, TRUE);
+            return $this->macroInclude($link, $router->getParam('method'));
         }
         
         
         
-        public function macroLink($val) {
-            return Router::traceRoute($val);
+        public final function macroLink($val) {
+            GLOBAL $router;
+            return $router->traceRoute($val);
         }
     }

@@ -109,7 +109,7 @@
             $errorFile = $error['file'];
             $errorParsedFile[0] = substr($errorFile, 0, strrpos($errorFile, '/') + 1);
             $errorParsedFile[1] = substr($errorFile, strrpos($errorFile, '/') + 1);
-            d($errorTypes[$error['type']]);
+            
             if($error['type'] != E_DEPRECATED) {
                 include(dirname(__FILE__) . '/BSoD.phtml');
             }

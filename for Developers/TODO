@@ -4,6 +4,7 @@ TASKS 1:
     Pridat niekam kontrolu ci je spravne nastaveny permissions
     Prvy beta test novej cookie classy dopadol dobre, vetsina chy bola fixnuta ale este nebolo uplne vsetko odskusane!
     Dokoncit BasePresentr
+    nastavit v primarnom htacces presmerovanie subdomen a deny na prislusne zlozky
 
 TASKS 2:
     ExceptionHandler

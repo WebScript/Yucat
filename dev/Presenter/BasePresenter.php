@@ -33,7 +33,7 @@
             $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
             
             if($this->isLogged()) {
-                $this->template->user       = $this->db->tables('users')->where('id', UID)->fetch();
+                //$this->template->user       = $this->db->tables('users')->where('id', UID)->fetch();
             }
         }
         

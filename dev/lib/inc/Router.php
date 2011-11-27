@@ -83,6 +83,16 @@
             return $this->address;
         }
         
+        
+        
+        public final function getParam($param) {
+            if(array_key_exists($param, $this->address)) {
+                return $this->address[$param];
+            } else {
+                return NULL;
+            }
+        }
+        
 
        
         /**

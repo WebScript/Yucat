@@ -16,15 +16,18 @@
     namespace inc\Template;
     
     use inc\Ajax;
+    use inc\Cache;
     use inc\Diagnostics\ErrorHandler;
     
     class Core {
             
         public static $translate = array();
-        public static $name;
         
         public final function __construct() {
-            $template = STYLE_DIR . STYLE . '/layer.html';
+            GLOBAL $router;
+            
+            /** load main page */
+            $template = STYLE_DIR . STYLE . $router->getParam('subDomain') . '/layer.html';
             if(file_exists($template)) {
                 $f = fopen($template, 'r');
                 $template = fread($f, filesize($template));
@@ -33,12 +36,13 @@
                 ErrorHandler::error404();
             }
 
-            $parse = new Parse();
-            $template = $parse->parseTemplate($template, $parse->getMacros());
-            
             if(Ajax::isAjax()) {
-                echo Ajax::getContent();            
+                echo Ajax::getContent();
             }
+            
+            $parse = new Parse();
+            $templete = $parse->parseTemplate($template, $parse->getMacros());
+            
             
             if(Ajax::isAjax() && Ajax::getMode() || !Ajax::isAjax()) {
                 foreach(self::$translate as $key => $val) {
@@ -47,10 +51,10 @@
                 $template = $parse->setVariable($template);
 
                 $name = rand(11111, 99999) . '.phtml';
-                $cache = new \inc\Cache('cache');
+                $cache = new Cache('cache');
                 $cache->createCache($name, $template);
                 include TEMP . 'cache/' . $name;
-                //$cache->deleteCache($name);
+                $cache->deleteCache($name);
             }
         }
     }

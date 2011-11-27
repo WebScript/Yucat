@@ -4,6 +4,7 @@
     use inc\Security;
     use inc\Template;
     use inc\Diagnostics\Debug;
+    use inc\Diagnostics\ErrorHandler;
     
     /** Create a sesion */
     //session_start();
@@ -14,7 +15,16 @@
      */
     define('ROOT', __DIR__ . '/');
     
+    /** 
+     * Define PRESENTER dir
+     * e.g. Presenter/
+     */
     define('PRESENTER', 'Presenter/');
+    
+    /** 
+     * Define MODEL dir
+     * e.g. Model/
+     */
     define('MODEL', 'Model/');
     
     /**
@@ -73,23 +83,6 @@
      */
     define('ROUTE', isset($_GET['route']) ? $_GET['route'] : NULL);
     
-    $router = new \inc\Router();
-    exit;
-    
-
-   // $cookie->addParam(2, 'name', 'test');
-    
-    //d(UID);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /** Set time zone */
     date_default_timezone_set($conf['time_zone']);
     /** Set style by config */
@@ -98,9 +91,10 @@
     define('STYLE', $cookie->getParam('style'));
     //Check if exists defined style
     if(!is_dir(STYLE_DIR . STYLE)) {
-        inc\Diagnostics\ErrorHandler::Error('Error: can\'t find default style!');
+        ErrorHandler::Error('Error: can\'t find default style!');
     }
-        //exit('konec');
+    /** Call router */
+    $router = new \inc\Router();
     /** Call a language system */
     $lang = new Template\Language(UID ? $db->tables('users')->where('id', UID)->fetch()->language : NULL);
     /** Call a template system */
@@ -112,22 +106,4 @@
         if($exit) {
             exit;
         }
-    }
-
-    
-    function setters() {
-        /** Protect all input variables */
-        Security::protectArray($_POST, TRUE);
-        Security::protectArray($_GET, TRUE);
-        
-        /** Set variables for pager */
-        if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {
-            $_GET['peerPage'] = $_GET['select-view'];
-        } else {
-            if(empty($_GET['peerPage']) || !is_numeric($_GET['peerPage'])) {
-                $_GET['peerPage'] = 25;
-            }
-        }
-        /** And this */
-        $_GET['page'] = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;        
     }
