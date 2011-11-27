@@ -14,6 +14,9 @@
      */
     define('ROOT', __DIR__ . '/');
     
+    define('PRESENTER', 'Presenter/');
+    define('MODEL', 'Model/');
+    
     /**
      * Define full temporary path 
      * e.g. /var/www/yucat/developer/temp
@@ -64,6 +67,15 @@
     $cookie = new inc\Cookie();
     /** Call setters */
     Security::protectInput();
+    
+    /** 
+     * Define 'ROUTE'. route is domain path
+     */
+    define('ROUTE', isset($_GET['route']) ? $_GET['route'] : NULL);
+    
+    $router = new \inc\Router();
+    exit;
+    
 
    // $cookie->addParam(2, 'name', 'test');
     

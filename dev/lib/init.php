@@ -26,7 +26,8 @@
             $class = 'lib/' . $class;
         }
         
-        $dir = ROOT . '/' . $class . '.php';
+        $dir = ROOT . $class . '.php';
+        
         if(file_exists($dir)) {
             require_once($dir);
         }

@@ -9,15 +9,83 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.7
+     * @version    Release: 0.2.8
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
 
     namespace inc;
     
+    use inc\Diagnostics\ErrorHandler;
+    
     class Router {
+        private $subDomain  = NULL;
+        private $address    = array(
+            'subdomain' => '', 
+            'dir' => array(),
+            'class' => ''
+            );
+        private $route      = array();
+        
+        
+        public final function __construct() {
+            /** Get domain, e.g. admin, mobile, etc. */
+            list($this->subDomain, $null) = explode('.', DOMAIN);
+            
+            /** parse domain path to array */
+            if(ROUTE) {
+                $this->route = explode('/', $_GET['route']);
+            } 
+            
+            /** set subdomain to variable address */
+            if($this->subDomain !== NULL && is_dir(ROOT . PRESENTER . $this->subDomain)) {
+                $this->address['subdomain'] = $this->subDomain;
+            } else {
+                $this->address['subdomain'] = 'website';
+            }
+            
+            
+            $dir = PRESENTER . $this->address['subdomain'] . '/';
+            $i = 0;
+
+            /** Set dir names */
+            while(1) {
+               if(count($this->route) >= $i + 1 && is_dir(ROOT . $dir . $this->route[$i])) {
+                    $this->address['dir']['d' . $i] = $this->route[$i];
+                    $dir .= $this->route[$i] . '/';
+                } else {
+                    break;
+                }
+                $i++;
+            }
+            
+            
+            $cDir = str_replace('/', '\\', $dir);
+
+            /** Set class */
+            if(count($this->route) > $i && class_exists($cDir . $this->route[$i])) {
+                $this->address['class'] = $this->route[$i];
+            } else {
+                ErrorHandler::error404();
+            }
+            $i++;
+
+            /** Set method */
+            if(count($this->route) > $i && method_exists($cDir . $this->address['class'], $this->route[$i])) {
+                $this->address['method'] = $this->route[$i];
+            }
+           
+            
+            
+            
+            
+            echo $dir;
+            d($this->address);
+            d($this->route);
+        }
        
+        
+        
         /**
          * With this function you can get $_GET and parse it
          * @return array
@@ -25,11 +93,6 @@
         public static function getAddress() {
             $out = array();
             
-            if(isset($_GET['uf'])) {
-                $route = explode('/', $_GET['uf']);
-            } elseif(isset($_GET)) {
-                $route = $_GET;
-            }
             $i = 0;
                 
             foreach($route as $val) {
