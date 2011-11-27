@@ -31,7 +31,7 @@
                     if(\inc\Ajax::isAjax()) {
                         echo '{"alert" : "Error: Internal server error :("}';
                     } else {
-                        include_once(dirname(__FILE__) . '/500.html');
+                        include_once(__DIR__ . '/500.html');
                     }
                 } elseif($mode == Debug::MODE_DEV) {
                     self::drawTable(error_get_last());

@@ -39,7 +39,7 @@
             } 
             
             /** set subdomain to variable address */
-            if($this->subDomain !== NULL && is_dir(ROOT . PRESENTER . $this->subDomain)) {
+            if($this->subDomain != NULL && $this->subDomain != 'www' && is_dir(ROOT . PRESENTER . $this->subDomain)) {
                 $this->address['subdomain'] = $this->subDomain;
             } else {
                 $this->address['subdomain'] = 'website';
@@ -66,7 +66,7 @@
             /** Set class */
             if(count($this->route) > $i && class_exists($cDir . $this->route[$i])) {
                 $this->address['class'] = $this->route[$i];
-            } else {
+            } else { //@todo sem pridat aby ked neni nic zadane tak aby sa to presmerovalo na index 
                 ErrorHandler::error404();
             }
             $i++;

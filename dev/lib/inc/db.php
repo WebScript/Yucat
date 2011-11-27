@@ -147,7 +147,7 @@
             
             $query = implode('', $query);
             $this->query = $query;
-            d($query);
+            //d($query);
             return $query;
         }
         
