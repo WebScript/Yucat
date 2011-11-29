@@ -66,8 +66,12 @@
             /** Set class */
             if(count($this->route) > $i && class_exists($cDir . $this->route[$i])) {
                 $this->address['class'] = $this->route[$i];
-            } else { //@todo sem pridat aby ked neni nic zadane tak aby sa to presmerovalo na index 
-                ErrorHandler::error404();
+            } else {
+                if(class_exists($cDir . 'Index')) {
+                    $this->address['class'] = 'Index';
+                } else {
+                    ErrorHandler::error404();
+                }
             }
             $i++;
 

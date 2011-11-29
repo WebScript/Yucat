@@ -27,7 +27,7 @@
             GLOBAL $router;
             
             /** load main page */
-            $template = STYLE_DIR . STYLE . $router->getParam('subDomain') . '/layer.html';
+            $template = STYLE_DIR . STYLE . '/' . $router->getParam('subdomain') . '/layer.html';
             if(file_exists($template)) {
                 $f = fopen($template, 'r');
                 $template = fread($f, filesize($template));

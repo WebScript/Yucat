@@ -100,8 +100,7 @@
         public final function macroContent() {
             GLOBAL $router;
             $link = implode('/', $router->getParam('dir')) . $router->getParam('class');
-            
-            //d($link, TRUE);
+           
             return $this->macroInclude($link, $router->getParam('method'));
         }
         
