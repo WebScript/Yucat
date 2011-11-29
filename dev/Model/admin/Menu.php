@@ -13,12 +13,12 @@
      * @since      Class available since Release 0.0.1
      */
 
-    namespace Model;
+    namespace Model\admin;
     
     class Menu extends \Model\BaseModel {
         
         public static function createMenu(array $array, $translate) {
-            $url = implode(':', array_slice(\inc\Router::getAddress(), 0, 3));
+            $url = implode(':', array_slice(\inc\Router::getAddress(), 0, 3)); //@todo prerobit...
             $menu = '<ul id="main-menu" class="radius-top clearfix">';
 
              foreach($array AS $key => $value) {

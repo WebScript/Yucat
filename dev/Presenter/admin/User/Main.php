@@ -13,7 +13,10 @@
      * @since      Class available since Release 0.0.1
      */
 
-    namespace Presenter\User;
+    namespace Presenter\admin\User;
+    
+    use inc\Ajax;
+    use inc\Date;
     
     class Main extends \Presenter\BasePresenter {
         private $form;
@@ -123,13 +126,12 @@
         
         
         public function profile() {
-            $rank = new \Model\User\Main();
+            $rank = new \Model\User\admin\Main();
             $this->template->rank       = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day   = $rank->getCreditPeerDay(UID);
             $this->template->form       = $this->form->sendForm();
             $this->template->pass       = $this->pass->sendForm();
-            $this->template->date       = new \inc\Date();
-            \inc\Ajax::setMode(TRUE);
+            $this->template->date       = new Date();
         }
         
         
@@ -138,54 +140,53 @@
             $this->template->notifications  = $this->db()->tables('messages')->where('type', '1')->limit(10)->order('id DESC')->fetchAll();
             $this->template->news           = $this->db()->tables('messages')->where('type', '0')->limit(10)->order('id DESC')->fetchAll();
             $this->template->db             = $this->db();
-            $this->template->date           = new \inc\Date();
-            \inc\Ajax::setMode(TRUE);
+            $this->template->date           = new Date();
         }
         
         
         public function passCheck() {
-            \inc\Ajax::sendJSON($this->pass->validateData());
+            Ajax::sendJSON($this->pass->validateData());
         }
         
         
         public function dataCheck() {
-            \inc\Ajax::sendJSON($this->form->validateData());
+            Ajax::sendJSON($this->form->validateData());
         }
         
         
         public function dataSend() {
-            $main = new \Model\User\Main();
+            $main = new \Model\User\admin\Main();
             if(!$this->form->isValidData()) {
-                \inc\Ajax::sendJSON(array_merge($this->form->validateData(), 
+                Ajax::sendJSON(array_merge($this->form->validateData(), 
                         array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));
             } else if($main->saveProfile()) {
-                \inc\Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Profil bol uspesne ulozeny!'));
+                Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Profil bol uspesne ulozeny!'));
             } else {
-                \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit profil!'));
+                Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit profil!'));
             }
         }
         
         
         public function passSend() {
-            $main = new \Model\User\Main();
+            $main = new \Model\User\admin\Main();
             if(!$this->pass->isValidData()) {
-                \inc\Ajax::sendJSON(array_merge($this->pass->validateData(), 
+                Ajax::sendJSON(array_merge($this->pass->validateData(), 
                         array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));
                 return;
             }
             
             switch($main->changePassword()) {
                 case 1:
-                    \inc\Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Heslo bolo ulozene!'));
+                    Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Heslo bolo ulozene!'));
                     break;
                 case 2:
-                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadane hesla sa nerovnaju!'));
+                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadane hesla sa nerovnaju!'));
                     break;
                 case 3:
-                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste nespravne heslo!'));
+                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste nespravne heslo!'));
                     break;
                 default :
-                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit heslo!'));
+                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit heslo!'));
                     break;
             }
         }

@@ -2,7 +2,7 @@
 
     namespace Presenter\website;
     
-    class Index {
+    class Index  extends \Presenter\BasePresenter {
 
         public final function __construct() {
 

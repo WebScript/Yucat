@@ -13,7 +13,10 @@
     * @since Class available since Release 0.0.1
     */
 
-    namespace Presenter;
+    namespace Presenter\admin;
+    
+    use inc\Ajax;
+    use inc\Template\Core;
     
     class Logged extends \Presenter\BasePresenter {
         
@@ -48,10 +51,10 @@
                 );
                 
             
-            if(\inc\Ajax::isAjax()) {
-                \inc\Ajax::sendHTML(\Model\Menu::createMenu($menu, \inc\Template\Core::$translate));
+            if(Ajax::isAjax()) {
+                Ajax::sendHTML(\Model\admin\Menu::createMenu($menu, Core::$translate));
             } else {
-                $this->template->__MENU = \Model\Menu::createMenu($menu, \inc\Template\Core::$translate);
+                $this->template->__MENU = \Model\admin\Menu::createMenu($menu, Core::$translate);
             }            
         }
     }

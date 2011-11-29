@@ -13,7 +13,7 @@
      * @since      Class available since Release 0.0.1
      */
 
-    namespace Model\User;
+    namespace Model\admin\User;
     
     class Main extends \Model\BaseModel {
         

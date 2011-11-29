@@ -54,6 +54,7 @@
         }
         
         
+        
         /**
          * Get macros
          * @return array macros
@@ -73,8 +74,8 @@
                    . '.html';
             
             $parse = new Parse();
+            $presenter = str_replace('/', '\\', PRESENTER . $name);
 
-            $presenter = PRESENTER . str_replace('/', '\\', $name);
             if(class_exists($presenter)) {
                 $presenter = new $presenter;             
                 
@@ -99,8 +100,7 @@
         
         public final function macroContent() {
             GLOBAL $router;
-            $link = implode('/', $router->getParam('dir')) . $router->getParam('class');
-           
+            $link = $router->getParam('subdomain') . '/' . implode('/', $router->getParam('dir')) . $router->getParam('class');
             return $this->macroInclude($link, $router->getParam('method'));
         }
         

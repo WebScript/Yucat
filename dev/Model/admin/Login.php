@@ -13,7 +13,7 @@
      * @since      Class available since Release 0.0.1
      */
 
-    namespace Model;
+    namespace Model\admin;
     
     class Login extends \Model\BaseModel {
         

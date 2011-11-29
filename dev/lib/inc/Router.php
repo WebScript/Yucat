@@ -148,16 +148,16 @@
         /*
          * Vnutorny redirect, pouziva sa ked je zadana napr URL User/Statistic a chcete to presmerovat na User/Statistic/statistic
          */
-        public final function like($input) {
+        public static function like($input) {
             if(is_array($input)) { 
                 $input = implode(':', $input);
             }
             
             $search = substr($input, 0, strrpos($input, ':'));
-            $search = $this->traceRoute($search);
+            $search = $GLOBALS['router']->traceRoute($search);
             
             if(!preg_match('@' . $search . '/(.*)@', $_SERVER['SCRIPT_URI'])) {
-                $this->redirect($input);
+                $GLOBALS['router']->redirect($input);
             }
         }
     }

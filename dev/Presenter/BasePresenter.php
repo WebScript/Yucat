@@ -15,6 +15,11 @@
 
     namespace Presenter;
     
+    use inc\Arr;
+    use inc\Ajax;
+    use inc\Router;
+    use inc\Template\Core;
+    
     class BasePresenter {
         //Object of variables for translate
         protected $template;
@@ -22,11 +27,11 @@
         private $db;
         
         public function __construct() {
-            $this->template = \inc\Arr::array2Object(\inc\Template\Core::$translate);
+            $this->template = Arr::array2Object(Core::$translate);
             $this->db = $GLOBALS['db'];
             
             $this->template->isLogged       = $this->isLogged() ? TRUE : NULL;
-            $this->template->isAjax         = \inc\Ajax::isAjax();
+            $this->template->isAjax         = Ajax::isAjax();
             $this->template->__THEME_DIR    = STYLE_DIR . STYLE . '/theme/';
             $this->template->__KEYWORDS     = $GLOBALS['conf']['template_keywords'];
             $this->template->__DESCRIPTION  = $GLOBALS['conf']['template_description'];
@@ -64,13 +69,13 @@
         
         protected function forNotLogged($url = 'User:Main') {
             if($this->isLogged()) {
-                \inc\Router::like($url);
+                Router::like($url);
             }
         }
         
         protected function forLogged($url = 'Login') {
             if(!$this->isLogged()) {
-                \inc\Router::like($url, TRUE);
+                Router::like($url, TRUE);
             }
         }
     }

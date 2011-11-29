@@ -8,12 +8,14 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.8
+     * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.4
      */
 
-    namespace Presenter;
+    namespace Presenter\admin;
+    
+    use inc\Ajax;
     
     class Login extends \Presenter\BasePresenter {
         private $form;
@@ -21,11 +23,11 @@
         
         public function __construct() {
             parent::__construct();
-            $router = \inc\Router::getOnlyAddress();
+            $method = $GLOBALS['router']->getParam('method');
 
-            if(!isset($router['method']) || 
-                    isset($router['method']) && 
-                    $router['method'] !== 'logout') {
+            if(!isset($method) || 
+                    isset($method) && 
+                    $method !== 'logout') {
                 $this->forNotLogged();
             }
 
@@ -51,33 +53,33 @@
         
         public function loginCheck() {
             $this->forNotLogged();
-            \inc\Ajax::sendJSON($this->form->validateData());
+            Ajax::sendJSON($this->form->validateData());
         }
         
         
         public function loginSend() {
             $this->forNotLogged();
             if($this->form->isValidData()) { 
-                $model = new \Model\Login();
+                $model = new \Model\admin\Login();
                 $login = $model->login($this->form->getValue('username'), 
                         $this->form->getValue('password'), 
                         $this->form->getValue('remember'));
                 
                 if($login) {
-                    \inc\Router::redirect('User:Main');
+                    $GLOBALS['router']->redirect('User:Main');
                 } else {
-                    \inc\Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste zle meno alebo heslo...'));
+                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste zle meno alebo heslo...'));
                 }
             } else {
-                \inc\Ajax::sendJSON($this->form->validateData());
+                Ajax::sendJSON($this->form->validateData());
             }
         }
         
         
         public function logout() {
             $this->forLogged();
-            $model = new \Model\Login();
+            $model = new \Model\admin\Login();
             $model->logout();
-            \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('Login')));
+            Ajax::sendJSON(array('redirect' => $GLOBALS['router']->traceRoute('Login')));
         }
     }
