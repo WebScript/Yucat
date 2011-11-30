@@ -43,6 +43,7 @@
             $parse = new Parse();
             $templete = $parse->parseTemplate($template, $parse->getMacros());
             
+            d(self::$translate);
             
             if(Ajax::isAjax() && Ajax::getMode() || !Ajax::isAjax()) {
                 foreach(self::$translate as $key => $val) {

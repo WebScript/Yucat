@@ -6,6 +6,6 @@
         
         public final function __construct() {
             parent::__construct();
-            echo 'hello world';
+            \inc\Router::redirect('admin:Login');
         }
     }

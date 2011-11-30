@@ -108,23 +108,22 @@
          */
         public final function traceRoute($input) {
             if(!is_array($input)) {
-                //Parse to call and arguments
-                $input = explode(' ', $input, 2);
-                //Parse to simple called method, class and dir
-                $path = explode(':', $input[0]);
-
-                if(isset($input[1])) {
-                    $p = explode(',', $input[1]);
-                    $path = array_merge($path, $p);
-                }
-                $vals = '/' . implode('/', array_filter($path));
-            } else {
-                $vals = '/' . implode('/', $input);
+                $input = explode(':', $input);
             }
             
-            return $GLOBALS['conf']['protocol']
-                 . DOMAIN
-                 . $vals;
+            if($input[0] == 'www' || is_dir(ROOT . PRESENTER . $input)) {
+                $subDomain = $input[0];
+                unset($input[0]);
+                
+                return $GLOBALS['conf']['protocol']
+                . $subDomain
+                . DOMAIN
+                . implode('/', $input);
+            } else {
+                return $GLOBALS['conf']['protocol']
+                . DOMAIN
+                . implode('/', $input);
+            }
         }
 
         
@@ -132,14 +131,14 @@
          * Redirect to web by special syntax for traceRoute
          * @param string $input 
          */
-        public final function redirect($input, $inURL = FALSE) {
-            $search = self::traceRoute($input);
+        public static function redirect($input, $inURL = FALSE) {
+            $search = $GLOBALS['router']->traceRoute($input);
             
             if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI']) && $inURL || !$inURL) {
                 if(Ajax::isAjax()) {
-                    exit('{"redirect" : "' . $this->traceRoute($input) . '"}');
+                    exit('{"redirect" : "' . $GLOBALS['router']->traceRoute($input) . '"}');
                 } else {
-                    header('location: ' . $this->traceRoute($input));
+                    header('location: ' . $GLOBALS['router']->traceRoute($input));
                 }    
             }
         }

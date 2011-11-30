@@ -5,7 +5,8 @@
     class Index  extends \Presenter\BasePresenter {
 
         public final function __construct() {
-
-            echo 'index';
+            parent::__construct();
+            
+            $this->template->cau = "ahoj";
         }
     }

@@ -65,11 +65,13 @@
         
         
         
-        public final function macroInclude($name, $method = NULL) {
+        public final function macroInclude($name, $method = NULL) { 
             Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($name));
             
-            $styleDir = STYLE_DIR . STYLE 
-                   . '/template/' . $name 
+            list($subdomain, $other) = explode('/', $name);
+            
+            $styleDir = STYLE_DIR . STYLE . '/' . $subdomain
+                   . '/template/' . $other 
                    . ($method ? '_' . $method : '') 
                    . '.html';
             
