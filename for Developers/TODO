@@ -2,9 +2,7 @@ TASKS 1:
     dorobit language system, skoncil som v profile
     Dorobit posielanie hesla mailom
     Pridat niekam kontrolu ci je spravne nastaveny permissions
-    Dokoncit BasePresentr
     nastavit v primarnom htacces presmerovanie subdomen a deny na prislusne zlozky
-    nevracia $tranplate pre premenne
 
 TASKS 2:
     ExceptionHandler

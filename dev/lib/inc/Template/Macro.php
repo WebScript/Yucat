@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.8
+     * @version    Release: 0.4.0
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      */
@@ -77,16 +77,10 @@
             
             $parse = new Parse();
             $presenter = str_replace('/', '\\', PRESENTER . $name);
+            
+            Core::$presenter = array_merge(Core::$presenter, array($presenter));
+            Core::$method = array_merge(Core::$method, array(array_search($presenter, Core::$presenter), $method));
 
-            if(class_exists($presenter)) {
-                $presenter = new $presenter;             
-                
-                if(method_exists($presenter, $method)) {
-                    call_user_func(array($presenter, $method));
-                } elseif($method !== NULL) ErrorHandler::error404();
-                
-                Core::$translate = array_merge(Core::$translate, get_object_vars($presenter->getTemplate()));
-                
                 if(file_exists($styleDir)) {
                     $f = fopen($styleDir, 'r');
                     $template = fread($f, filesize($styleDir));
@@ -95,7 +89,6 @@
 
                 $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
                 return $template;
-            } else ErrorHandler::error404();
         }
         
         
