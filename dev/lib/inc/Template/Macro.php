@@ -75,11 +75,15 @@
                    . ($method ? '_' . $method : '') 
                    . '.html';
             
+            d($styleDir);
+            
             $parse = new Parse();
             $presenter = str_replace('/', '\\', PRESENTER . $name);
             
             Core::$presenter = array_merge(Core::$presenter, array($presenter));
-            Core::$method = array_merge(Core::$method, array(array_search($presenter, Core::$presenter), $method));
+            if($method) {
+                Core::$method = array_merge(Core::$method, array(array_search($presenter, Core::$presenter), $method));
+            }
 
                 if(file_exists($styleDir)) {
                     $f = fopen($styleDir, 'r');

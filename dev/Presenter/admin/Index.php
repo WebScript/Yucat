@@ -6,6 +6,6 @@
         
         public final function __construct() {
             parent::__construct();
-            \inc\Router::redirect('admin:Login');
+            //\inc\Router::redirect('admin:Login');
         }
     }
