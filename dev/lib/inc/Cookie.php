@@ -17,11 +17,14 @@
 
     class Cookie {
         
+        public $myCid;
+        
         public final function __construct() {     
-            $cid = $this->getCid($this->getMyCookie());
+            $this->myCid = $this->getCid($this->getMyHash());
+            
             $uid = $GLOBALS['db']->tables('cookie_params')
                     ->select('value')
-                    ->where('CID', $cid)
+                    ->where('CID', $this->myCid)
                     ->where('param', 'UID')
                     ->fetch();
             
@@ -45,7 +48,7 @@
         
         
         
-        public final function getMyCookie() {
+        public final function getMyHash() {
             return isset($_COOKIE['HASH']) ? $_COOKIE['HASH'] : NULL;
         }
         
@@ -55,7 +58,7 @@
             GLOBAL $db;
             
             if(!$cid) {
-                $cid = $this->getCid($this->getMyCookie());
+                $cid = $this->myCid;
             }
             $value = $db->tables('cookie_params')
                     ->select('value')
@@ -71,7 +74,7 @@
         public final function addHash($time = 1353044444) { 
             GLOBAL $db;
             
-            if(!$db->tables('cookie')->select('id')->where('hash', $this->getCid($this->getMyCookie()))->fetch()) {
+            if(!$db->tables('cookie')->select('id')->where('hash', $this->myCid)->fetch()) {
                 while(1) {
                     $hash = '';
                     $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
@@ -108,9 +111,9 @@
         public final function addParam($cid, $name, $value) {
             GLOBAL $db;
 
-            if(!$cid) {
+            if(!$cid) {d('b');
                 $cid = $this->addHash();
-            }
+            } else d('a');
             
             $get = $db->tables('cookie_params')
                     ->select('id')
@@ -166,6 +169,7 @@
 
         
         public final function setCookie($hash, $time) {
+            $this->myCid = $this->getCid($hash);
             setcookie('HASH', $hash, $time, '/', DOMAIN);
         }
     }

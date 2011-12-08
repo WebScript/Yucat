@@ -61,7 +61,7 @@
     require_once(ROOT . 'config.conf');
     /** Load _autoload for autload classes */
     require_once(ROOT . 'lib/init.php');
-
+    Debug::timer();
     /** Call a error handler */
     Debug::enable();
     /** Set developer mode */
@@ -86,7 +86,7 @@
     /** Set time zone */
     date_default_timezone_set($conf['time_zone']);
     /** Set style by config */
-    if(!$cookie->getParam('style')) $cookie->addParam($cookie->getCid($cookie->getMyCookie()), 'style', $conf['default_style']);
+    if(!$cookie->getParam('style')) $cookie->addParam($cookie->myCid, 'style', $conf['default_style']);
     /** Define style */
     define('STYLE', $cookie->getParam('style'));
     //Check if exists defined style
@@ -107,3 +107,5 @@
             exit;
         }
     }
+
+    Debug::timer('true');

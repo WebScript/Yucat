@@ -38,11 +38,11 @@
                 list($lang, $null) = explode('-', $_SERVER['HTTP_ACCEPT_LANGUAGE'], 2);
 
                 if($userLang !== NULL && array_key_exists($userLang, $this->avaiable_languages)) {
-                    $cookie->addParam($cookie->getCid($cookie->getMyCookie()), 'lang', $userLang);
+                    $cookie->addParam($cookie->myCid, 'lang', $userLang);
                 } elseif(array_key_exists($lang, $this->avaiable_languages)) {
-                    $cookie->addParam($cookie->getCid($cookie->getMyCookie()), 'lang', $lang);
-                } elseif(empty($_SESSION['lang']) || $_SESSION['lang'] !== $GLOBALS['conf']['default_language']) {
-                    $cookie->addParam($cookie->getCid($cookie->getMyCookie()), 'lang', $GLOBALS['conf']['default_language']);
+                    $cookie->addParam($cookie->myCid, 'lang', $lang); 
+                } elseif(empty($_SESSION['lang']) || $_SESSION['lang'] !== $GLOBALS['conf']['default_language']) {//@todo opravit
+                    $cookie->addParam($cookie->myCid, 'lang', $GLOBALS['conf']['default_language']);
                 }
             }
             

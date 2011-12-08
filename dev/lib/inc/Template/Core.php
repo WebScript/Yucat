@@ -53,6 +53,8 @@
                 self::$presenter = array('Presenter\\website\\Index');
             }
             
+            d(self::$presenter);
+            
             foreach(self::$presenter as $key => $val) {
                 if(class_exists($val)) {
                     $presenter = new $val;

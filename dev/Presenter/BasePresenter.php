@@ -58,7 +58,7 @@
         protected function isLogged() {
            GLOBAL $cookie;
            
-           $n = $cookie->getCid($cookie->getMyCookie());
+           $n = $cookie->myCid;
             
             $uid = $this->db()->tables('cookie_params')
                     ->where('CID', $n)
