@@ -41,11 +41,6 @@
                 ErrorHandler::error404();
             }
             
-            
-            if(Ajax::isAjax()) {
-                echo Ajax::getContent();
-            }
-            
             $parse = new Parse();
             $template = $parse->parseTemplate($template, $parse->getMacros());
             
@@ -56,7 +51,7 @@
             foreach(self::$presenter as $key => $val) {
                 if(class_exists($val)) {
                     $presenter = new $val;
-                    
+
                     if(isset(self::$method[$key])) {
                         if(method_exists($presenter, self::$method[$key])) {
                             call_user_func(array($presenter, self::$method[$key]));
@@ -66,6 +61,10 @@
                 } else ErrorHandler::error404();
             }
             
+            
+            if(Ajax::isAjax()) { 
+                echo Ajax::getContent();
+            }
            
             
             if(Ajax::isAjax() && Ajax::getMode() || !Ajax::isAjax()) {

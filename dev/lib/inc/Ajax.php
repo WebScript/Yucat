@@ -48,6 +48,6 @@
         
         
         public static function getMode() {
-            return self::$send;
+            return self::$isJSON;
         }        
     }

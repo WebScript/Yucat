@@ -8,14 +8,15 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.4.0
+     * @version    Release: 0.4.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.3
      */
 
     namespace inc\Template;
     
-    use inc\Router;
+    use inc\Ajax;
+    use inc\Router;    
     use inc\Diagnostics\ErrorHandler;
     
     class Macro {
@@ -79,15 +80,16 @@
             $presenter = str_replace('/', '\\', PRESENTER . $name);
             
             Core::$presenter = array_merge(Core::$presenter, array($presenter));
+
             if($method) {
-                Core::$method = array_merge(Core::$method, array(array_search($presenter, Core::$presenter), $method));
+                Core::$method[array_search($presenter, Core::$presenter)] = $method;
             }
 
             if(file_exists($styleDir)) {
                 $f = fopen($styleDir, 'r');
                 $template = fread($f, filesize($styleDir));
                 fclose($f);
-            } else ErrorHandler::error404();
+            } elseif(!Ajax::isAjax()) ErrorHandler::error404();
 
             $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
             return $template;
