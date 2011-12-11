@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
+<!-- Active URL: http://sql.yucat.net/ -->
+<sql>
+<datatypes db="mysql">
+	<group label="Numeric" color="rgb(238,238,170)">
+		<type label="Integer" length="0" sql="INTEGER" re="INT" quote=""/>
+		<type label="Decimal" length="1" sql="DECIMAL" re="DEC" quote=""/>
+		<type label="Single precision" length="0" sql="FLOAT" quote=""/>
+		<type label="Double precision" length="0" sql="DOUBLE" re="DOUBLE" quote=""/>
+	</group>
+
+	<group label="Character" color="rgb(255,200,200)">
+		<type label="Char" length="1" sql="CHAR" quote="'"/>
+		<type label="Varchar" length="1" sql="VARCHAR" quote="'"/>
+		<type label="Text" length="0" sql="MEDIUMTEXT" re="TEXT" quote="'"/>
+		<type label="Binary" length="1" sql="BINARY" quote="'"/>
+		<type label="Varbinary" length="1" sql="VARBINARY" quote="'"/>
+		<type label="BLOB" length="0" sql="BLOB" re="BLOB" quote="'"/>
+	</group>
+
+	<group label="Date &amp; Time" color="rgb(200,255,200)">
+		<type label="Date" length="0" sql="DATE" quote="'"/>
+		<type label="Time" length="0" sql="TIME" quote="'"/>
+		<type label="Datetime" length="0" sql="DATETIME" quote="'"/>
+		<type label="Year" length="0" sql="YEAR" quote=""/>
+		<type label="Timestamp" length="0" sql="TIMESTAMP" quote="'"/>
+	</group>
+	
+	<group label="Miscellaneous" color="rgb(200,200,255)">
+		<type label="ENUM" length="1" sql="ENUM" quote=""/>
+		<type label="SET" length="1" sql="SET" quote=""/>
+		<type label="Bit" length="0" sql="bit" quote=""/>
+	</group>
+</datatypes><table x="39" y="29" name="access">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="type" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="action" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="ip" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="35" y="203" name="banners">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="time" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<row name="size" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="website" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="ip" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="lock" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="413" y="159" name="users">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="user" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="passwd" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="firstname" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="lastname" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="address" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="city" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="postcode" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="telephone" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="credit" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="language" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="style" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="avatar" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="permissions" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="rank" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="email" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="website" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="ip" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="ll1" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<row name="ll2" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="15" y="424" name="premium_code">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="used_by" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="c1" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="c2" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="c3" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="lock" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="cost" null="0" autoincrement="0">
+<datatype>DECIMAL</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="38" y="652" name="news">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="position" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="type" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="time" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<row name="title" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="text" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="608" y="382" name="tickets">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="category" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="text" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="phase" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="755" y="288" name="tickets_response">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="TID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tickets" row="id" />
+</row>
+<row name="text" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="714" y="31" name="servers">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="type" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="MID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="machines" row="id" />
+</row>
+<row name="port" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="slots" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="lock" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="stopped" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="autorun" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="931" y="17" name="server_params">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="SID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="servers" row="id" />
+</row>
+<row name="param" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="value" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="981" y="150" name="machines">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="hostname" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="ssh_ip" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="ssh_port" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>22</default></row>
+<row name="ssh_login" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="ssh_password" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1171" y="162" name="machines_servers">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="MID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="machines" row="id" />
+</row>
+<row name="type" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="cost" null="0" autoincrement="0">
+<datatype>DECIMAL</datatype>
+</row>
+<row name="rank" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1382" y="21" name="banned">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="ip" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="time" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<row name="reason" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1530" y="29" name="config">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="param" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="value" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="803" y="501" name="cookie">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="hash" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1012" y="512" name="cookie_params">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="CID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="cookie" row="id" />
+</row>
+<row name="param" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="value" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="401" y="724" name="forum_reply">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="FTID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="forum_thread" row="id" />
+</row>
+<row name="text" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="600" y="736" name="forum_thread">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="FCID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="forum_category" row="id" />
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="806" y="739" name="forum_category">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+</sql>
