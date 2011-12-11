@@ -15,7 +15,7 @@
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.tiptip.css" />
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.wysiwyg.css" />
         <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.uniform.css" />
-        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.apprise.css" />
+        <link type="text/css" rel="stylesheet" href="{$__THEME_DIR}css/jquery.apprise.css" />        
     </head>
     <body>
         <!--[if lte IE 8]><script src="{$__THEME_DIR}js/excanvas.min.js"></script><![endif]-->
@@ -37,7 +37,7 @@
     </div>
     
     {ifset $isLogged :}
-         {macroInclude admin/logged}
+         {macroInclude admin/Logged}
     {else}
         {macroContent}
     {/if}

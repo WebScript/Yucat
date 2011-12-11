@@ -52,7 +52,7 @@
                                     $content = self::$called[$val];
                                 }
                             $haystack = preg_replace('/\{' . $key2 . '\}/', $content, $haystack);
-                        } else {
+                        } else { 
                             $haystack = preg_replace('/\{' . $key2 . '\}/', '<?php ' . $val2 . ' ?>', $haystack);
                         }
                     }

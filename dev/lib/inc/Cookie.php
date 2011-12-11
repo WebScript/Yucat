@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.7
+     * @version    Release: 0.1.8
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -111,9 +111,9 @@
         public final function addParam($cid, $name, $value) {
             GLOBAL $db;
 
-            if(!$cid) {d('b');
+            if(!$cid) {
                 $cid = $this->addHash();
-            } else d('a');
+            }
             
             $get = $db->tables('cookie_params')
                     ->select('id')

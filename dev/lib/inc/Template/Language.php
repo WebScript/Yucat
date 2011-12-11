@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.4
+     * @version    Release: 0.1.6
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
@@ -41,7 +41,7 @@
                     $cookie->addParam($cookie->myCid, 'lang', $userLang);
                 } elseif(array_key_exists($lang, $this->avaiable_languages)) {
                     $cookie->addParam($cookie->myCid, 'lang', $lang); 
-                } elseif(empty($_SESSION['lang']) || $_SESSION['lang'] !== $GLOBALS['conf']['default_language']) {//@todo opravit
+                } elseif(!$cookie->getParam('lang') || $cookie->getParam('lang') !== $GLOBALS['conf']['default_language']) {
                     $cookie->addParam($cookie->myCid, 'lang', $GLOBALS['conf']['default_language']);
                 }
             }

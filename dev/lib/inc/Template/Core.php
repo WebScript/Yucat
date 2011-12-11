@@ -47,13 +47,11 @@
             }
             
             $parse = new Parse();
-            $templete = $parse->parseTemplate($template, $parse->getMacros());
+            $template = $parse->parseTemplate($template, $parse->getMacros());
             
             if(empty(self::$presenter)) {
                 self::$presenter = array('Presenter\\website\\Index');
             }
-            
-            d(self::$presenter);
             
             foreach(self::$presenter as $key => $val) {
                 if(class_exists($val)) {
@@ -67,6 +65,8 @@
                     self::$translate = array_merge(self::$translate, get_object_vars($presenter->getTemplate()));
                 } else ErrorHandler::error404();
             }
+            
+           
             
             if(Ajax::isAjax() && Ajax::getMode() || !Ajax::isAjax()) {
                 foreach(self::$translate as $key => $val) {

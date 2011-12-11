@@ -65,7 +65,7 @@
         
         
         
-        public final function macroInclude($name, $method = NULL) { 
+        public final function macroInclude($name, $method = NULL) {
             Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($name));
             
             list($subdomain, $other) = explode('/', $name);
@@ -75,8 +75,6 @@
                    . ($method ? '_' . $method : '') 
                    . '.html';
             
-            d($styleDir);
-            
             $parse = new Parse();
             $presenter = str_replace('/', '\\', PRESENTER . $name);
             
@@ -85,14 +83,14 @@
                 Core::$method = array_merge(Core::$method, array(array_search($presenter, Core::$presenter), $method));
             }
 
-                if(file_exists($styleDir)) {
-                    $f = fopen($styleDir, 'r');
-                    $template = fread($f, filesize($styleDir));
-                    fclose($f);
-                } else ErrorHandler::error404();
+            if(file_exists($styleDir)) {
+                $f = fopen($styleDir, 'r');
+                $template = fread($f, filesize($styleDir));
+                fclose($f);
+            } else ErrorHandler::error404();
 
-                $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
-                return $template;
+            $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
+            return $template;
         }
         
         
