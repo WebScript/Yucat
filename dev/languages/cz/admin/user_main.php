@@ -1,6 +1,7 @@
 <?php
 
     $translate = array(
+        '_TITLE'                => 'Adminsitrace servera',
         'WELCOME'               => 'Vitaj',
         'WELCOME_DESC'          => 'Vitaj v Admin panely, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong>! ktorý prezentuje Bloodman Arun pod OpenSource licencí GNU GPL v2!',
         'NEWS'                  => 'Novinky',

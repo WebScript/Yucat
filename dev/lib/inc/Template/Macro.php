@@ -67,23 +67,22 @@
         
         
         public final function macroInclude($name, $method = NULL) {
-            Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($name));
-            
             list($subdomain, $other) = explode('/', $name);
 
-            if(substr_count($name, '/') >= 2) {d($name);
+            if(substr_count($name, '/') >= 2) {
                 $other = substr($name, strpos($name, '/') + 1);
                 $other = str_replace('/', '_', $other);
             }
-            
+
             $styleDir = STYLE_DIR . STYLE . '/' . $subdomain
                    . '/template/' . $other 
                    . ($method ? '_' . ucfirst($method) : '') 
                    . '.html';
-             
+
             $parse = new Parse();
             $presenter = str_replace('/', '\\', PRESENTER . $name);
             
+            Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($subdomain . '/' . $other));
             Core::$presenter = array_merge(Core::$presenter, array($presenter));
 
             if($method) {
@@ -104,7 +103,7 @@
         
         public final function macroContent() {
             GLOBAL $router;
-            $link = $router->getParam('subdomain') . implode('/', $router->getParam('dir')) . '/' . $router->getParam('class');
+            $link = $router->getParam('subdomain') . ($router->getParam('dir') ? '/' . implode('/', $router->getParam('dir')) : '') . '/' . $router->getParam('class');
             return $this->macroInclude($link, $router->getParam('method'));
         }
         

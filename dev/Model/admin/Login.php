@@ -45,18 +45,17 @@
                                 'loggedNumber' => $cookie->getParam('loggedNumber') + 1
                             ));
 
-                    d($cid->id);
                     $hash = $this->db()->tables('cookie')
                             ->select('hash')
                             ->where('id', $cid->id)
-                            ->fetch()
-                            ->hash;
-                    $cookie->setCookie($hash, $time);
+                            ->fetch();
+                    $cookie->setCookie($hash->hash, $time);
                 } else {
                     $cookie->addParam($cookie->myCid, 'UID', $result->id);
                     $cookie->addParam($cookie->myCid, 'loggedNumber', '1');                
                 }
-            }           
+                return 1;
+            }
         }
         
         public function logout() {

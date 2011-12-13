@@ -74,7 +74,6 @@
     /** Load secundary configuration from db */
     $conf = $config->getConfig();
     /** Create instance of Cookie class */
-    $db->tables('banned')->insert(array('ip' => 'omg'));
     $cookie = new inc\Cookie();
     /** Call setters */
     Security::protectInput();

@@ -59,23 +59,20 @@
         
         
         
-        
-        
         public final function getTranslate($name) {
             $filename = LANG_DIR . LANG . '/' . $name . '.php';
             if(file_exists($filename)) {
                 include_once(LANG_DIR . LANG . '/' . $name . '.php');
                 if(!isset($translate) || !is_array($translate)) { 
-                    $translate = array();
+                    return array();
                 } else {
                     foreach($translate as $key => $val) {
                         $trsl['_' . $key] = $val;
                     }
-                    $translate = $trsl;
+                    return $trsl;
                 }
             } else {
-                $translate = array();
+                return array();
             }
-            return $translate;
         }
     }
