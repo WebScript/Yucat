@@ -15,7 +15,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.1
+     * @version    Release: 0.2.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.1
      */
@@ -64,7 +64,7 @@
         public static function timer($input = FALSE) {
             if(!$input) self::$startTime = self::getTime();
             else {
-                echo self::getTime() - self::$startTime;
+                d(self::getTime() - self::$startTime);
             }
         }
         

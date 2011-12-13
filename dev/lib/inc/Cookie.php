@@ -19,9 +19,9 @@
         
         public $myCid;
         
-        public final function __construct() {     
+        public final function __construct() {
             $this->myCid = $this->getCid($this->getMyHash());
-            
+
             $uid = $GLOBALS['db']->tables('cookie_params')
                     ->select('value')
                     ->where('CID', $this->myCid)

@@ -55,10 +55,10 @@
                     if(isset(self::$method[$key])) {
                         if(method_exists($presenter, self::$method[$key])) {
                             call_user_func(array($presenter, self::$method[$key]));
-                        } else ErrorHandler::error404();
+                        } else ErrorHandler::error404('Core -> method doesn\'t exists!');
                     }
                     self::$translate = array_merge(self::$translate, get_object_vars($presenter->getTemplate()));
-                } else ErrorHandler::error404();
+                } else ErrorHandler::error404('Core -> presenter doesn\'t exists!');
             }
             
             

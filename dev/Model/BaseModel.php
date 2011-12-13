@@ -32,12 +32,10 @@
         
         
         protected function isLogged() {
-           GLOBAL $cookie;
+            GLOBAL $cookie;
            
-           $n = $cookie->getCid($cookie->getMyCookie());
-            
             $uid = $this->db()->tables('cookie_params')
-                    ->where('CID', $n)
+                    ->where('CID', $cookie->myCid)
                     ->where('param', 'UID')
                     ->fetch();
 

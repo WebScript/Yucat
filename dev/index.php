@@ -1,4 +1,4 @@
-<?php
+<?php if($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) exit;
 
     use inc\db;
     use inc\Security;
@@ -66,7 +66,7 @@
     Debug::enable();
     /** Set developer mode */
     Debug::setMode(Debug::MODE_DEV);
-    
+
     /** Create a connection with database */
     $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
     /** Create a instance of configuration class */
@@ -74,6 +74,7 @@
     /** Load secundary configuration from db */
     $conf = $config->getConfig();
     /** Create instance of Cookie class */
+    $db->tables('banned')->insert(array('ip' => 'omg'));
     $cookie = new inc\Cookie();
     /** Call setters */
     Security::protectInput();
