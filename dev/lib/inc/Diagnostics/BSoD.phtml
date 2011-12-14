@@ -50,12 +50,12 @@
                 top: .5em;
                 z-index: 23179;
                 text-decoration: none;
-                background: #CD1818;
+                background: #0067CF;
                 padding: 3px;
             }
             
             #yucatBluescreenError{
-                background: #CD1818;
+                background: #0067CF;
                 color: white;
                 font: 13pt/1.5 Verdana,sans-serif!important;
                 display: block;
@@ -173,7 +173,7 @@
             }
             
             #yucatBluescreen .highlight {
-                background: #CD1818;
+                background: #0067CF;
                 color: white;
                 font-weight: bold;
                 font-style: normal;
@@ -330,20 +330,6 @@
                                     echo '<div class="outer"><table><tbody>';
                                     
                                     foreach($_COOKIE as $param => $value) {
-                                        echo '<tr><th>'.$param.'</th><td><pre class="yucat-dump">"'.$value.'" ('.strlen($value).')</pre></td></tr>';
-                                    }
-                                    echo '</tbody></table></div>';
-                                } else {
-                                    echo '<p><i>empty</i></p>';
-                                }
-                            ?>
-                            
-                            <h3>$_SESSION</h3>
-                            <?php
-                                if($_SESSION) {
-                                    echo '<div class="outer"><table><tbody>';
-                                    
-                                    foreach($_SESSION as $param => $value) {
                                         echo '<tr><th>'.$param.'</th><td><pre class="yucat-dump">"'.$value.'" ('.strlen($value).')</pre></td></tr>';
                                     }
                                     echo '</tbody></table></div>';

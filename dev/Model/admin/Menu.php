@@ -15,24 +15,27 @@
 
     namespace Model\admin;
     
+    use inc\Router;
+    
     class Menu extends \Model\BaseModel {
         
         public static function createMenu(array $array, $translate) {
-            $url = implode(':', array_slice(\inc\Router::getAddress(), 0, 3)); //@todo prerobit...
+            //$url = implode(':', array_slice(\inc\Router::getAddress(), 0, 3)); //@todo prerobit...
+            $url = Router::getDomain();
             $menu = '<ul id="main-menu" class="radius-top clearfix">';
 
-             foreach($array AS $key => $value) {
-                  $menu .= '<li><a href="javascript:changePage(\''.\inc\Router::traceRoute(is_array($value) ? $value[key($value)] : $value).'\');"'
-                        . (is_array($value) && in_array($url, $value) || $url == $value ? 'class="active submenu-active"' : '')
+             foreach($array AS $key => $val) {
+                  $menu .= '<li><a href="javascript:changePage(\'' . Router::traceRoute(is_array($val) ? $val[key($val)] : $val) . '\');"'
+                        . (is_array($val) && in_array($url, $val) ? 'class="active submenu-active"' : '')
                         . '><img src="/styles/' . STYLE . '/theme/img/' . $key . '.png" alt="' . $translate[$key]
                         . '" /><span>' . $translate[$key] . '</span>' 
-                        . (is_Array($value) && in_array($url, $value) || $url == $value ? '<span class="submenu-arrow"></span>' : '')
+                        . (is_Array($val) && in_array($url, $val) ? '<span class="submenu-arrow"></span>' : '')
                         . '</a></li>';
-                  if(is_Array($value) && in_array($url, $value)) {
+                  if(is_Array($val) && in_array($url, $val)) {
                       $sub_menu = '<ul id="sub-menu" class="clearfix">';
 
-                      foreach($value AS $param => $val) {
-                          $sub_menu .= '<li><a href="javascript:changePage(\'' . \inc\Router::traceRoute($val) . '\');"' . ($url == $val ? 'class="active"' : '')
+                      foreach($val AS $param => $val2) {
+                          $sub_menu .= '<li><a href="javascript:changePage(\'' . \inc\Router::traceRoute($val2) . '\');"' . ($url == $val2 ? 'class="active"' : '')
                                     . '>' . $translate[$param] . '</a></li>';
                       }
                       $sub_menu .= '</ul>';

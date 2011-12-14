@@ -268,8 +268,13 @@
            $out = array();
            $result = $this->exec($this->make());
            
-           while($row = mysql_fetch_object($result)) {
-               $out[] = $row;
+           if(!$result) {
+               //d($this->query);
+               Diagnostics\ExceptionHandler::Error($this->query);
+           } else {
+               while($row = mysql_fetch_object($result)) {
+                   $out[] = $row;
+               }
            }
            
            return $out;

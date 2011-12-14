@@ -8,6 +8,6 @@
         'EMAIL'         => 'E-mail',
         'ENTER'         => 'Enter',
         'SEND_PASS'     => 'Poslat heslo',
-        'FORGOT_PASS'   => 'Zapomněly jste heslo?',
-        'SUDDENDLY_PASS'=> 'Spomenuly ste si?',
+        'FORGOT_PASS'   => 'Zapoměli jste heslo?',
+        'SUDDENDLY_PASS'=> 'Spomenuli ste si?',
     );

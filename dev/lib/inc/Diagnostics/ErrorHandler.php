@@ -52,7 +52,7 @@
                 ini_set('highlight.default', '#000');
                 ini_set('highlight.comment', '#998; font-style: italic');
                 ini_set('highlight.string', '#080');
-                ini_set('highlight.keyword', '#D24; font-weight: bold');
+                ini_set('highlight.keyword', '#0067CF; font-weight: bold');
                 }
                 
             $source = highlight_string(file_get_contents($file), TRUE);
@@ -99,6 +99,7 @@
                 E_STRICT => 'Strict',
                 E_DEPRECATED => 'Deprecated',
                 E_USER_DEPRECATED => 'User Deprecated',
+                'E_HANDLER' => 'Exception Handler'
             );
             
             if(!$date) $date = Date('Y/m/d H:i:s', Time());
@@ -144,23 +145,5 @@
                 }
             }
             exit;
-        }
-        
-        
-        
-        
-        public static final function Error($error) {
-            if(Debug::$mode == Debug::MODE_PROD) {
-                $error = array('ErrorHandler', '0', '0', $error);
-                self::addLog($error);
-                if(\inc\Ajax::isAjax()) {
-                    echo '{"alert" : "Error: Internal server error :("}';
-                } else {
-                    include_once(dirname(__FILE__) . '/500.html');
-                }
-                exit;
-            } elseif(Debug::$mode == Debug::MODE_DEV) {
-                exit($error);
-            }
         }
      }
