@@ -27,7 +27,7 @@
                     ->where('password', $password)
                     ->fetch();
 
-            if($result) { 
+            if($result) {
                 $time = $remember ? time() + 31104000 : 0;
                 
                 //Get cookie with exists UID exists
@@ -49,7 +49,7 @@
                             ->select('hash')
                             ->where('id', $cid->id)
                             ->fetch();
-                    $cookie->setCookie($hash->hash, $time);
+                    $cookie->setCookie($hash->hash, $time); // @todo hlasi ze $cookie neni objekt
                 } else {
                     $cookie->addParam($cookie->myCid, 'UID', $result->id);
                     $cookie->addParam($cookie->myCid, 'loggedNumber', '1');                

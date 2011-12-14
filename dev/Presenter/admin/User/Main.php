@@ -138,7 +138,7 @@
         public function news() {
             $this->template->updates        = $this->db()->tables('news')->where('position', '2')->limit(10)->order('id DESC')->fetchAll();
             $this->template->notifications  = $this->db()->tables('news')->where('position', '1')->limit(10)->order('id DESC')->fetchAll();
-            $this->template->news           = $this->db()->tables('news')->where('positiont', '0')->limit(10)->order('id DESC')->fetchAll();
+            $this->template->news           = $this->db()->tables('news')->where('position', '0')->limit(10)->order('id DESC')->fetchAll();
             $this->template->db             = $this->db();
             $this->template->date           = new Date();
         }

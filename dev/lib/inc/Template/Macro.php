@@ -66,7 +66,7 @@
         
         
         
-        public final function macroInclude($name, $method = NULL) {
+        public final function macroInclude($name, $method = NULL) { d($name);
             list($subdomain, $other) = explode('/', $name);
 
             if(substr_count($name, '/') >= 2) {

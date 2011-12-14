@@ -21,7 +21,7 @@
         private static $called = array();
 
         public function __construct() {
-            $this->regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> -.,?!()\'"$%@!^&|:.*') . ']+)';
+            $this->regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> -.,?!()\'"$%/!^&|:.*') . ']+)';
             parent::__construct();
         }
        
@@ -29,14 +29,14 @@
         
         public function parseTemplate($haystack, array $search, $delimiter = '%key') {
             /** List of finded variables */
-            preg_match_all('/\{' . $this->regular . '\}/', $haystack, $finded);
+            preg_match_all('@\{' . $this->regular . '\}@', $haystack, $finded);
             /** Protect $search var */
             $search = \inc\Arr::arrayKeyReplace($delimiter, $this->regular, $search);
             $macro = new Macro();
             
             foreach($finded[1] as $key => $val) {
                 foreach($search as $key2 => $val2) {
-                    if(preg_match('/' . $key2 . '/', $val)) {
+                    if(preg_match('@' . $key2 . '@', $val)) {
                         if(strpos($val, 'macro') !== FALSE) {
                             $str = explode(' ', $val, 2);
                                 if(!key_exists($val, self::$called)) {
@@ -51,9 +51,9 @@
                                 } else {
                                     $content = self::$called[$val];
                                 }
-                            $haystack = preg_replace('/\{' . $key2 . '\}/', $content, $haystack);
+                            $haystack = preg_replace('@\{' . $key2 . '\}@', $content, $haystack);
                         } else { 
-                            $haystack = preg_replace('/\{' . $key2 . '\}/', '<?php ' . $val2 . ' ?>', $haystack);
+                            $haystack = preg_replace('@\{' . $key2 . '\}@', '<?php ' . $val2 . ' ?>', $haystack);
                         }
                     }
                 }
@@ -64,6 +64,6 @@
         
         
         public function setVariable($template) {
-            return preg_replace('/\{\$' . $this->regular . '\}/','<?php echo $\\1; ?>', $template);
+            return preg_replace('@\{\$' . $this->regular . '\}@','<?php echo $\\1; ?>', $template);
         }
     }
