@@ -77,7 +77,7 @@
                 $cache = new Cache('cache');
                 $cache->createCache($name, $template);
                 include TEMP . 'cache/' . $name;
-                $cache->deleteCache($name);
+                //$cache->deleteCache($name);
             }
         }
     }

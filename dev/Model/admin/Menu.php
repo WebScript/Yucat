@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
@@ -20,17 +20,19 @@
     class Menu extends \Model\BaseModel {
         
         public static function createMenu(array $array, $translate) {
-            //$url = implode(':', array_slice(\inc\Router::getAddress(), 0, 3)); //@todo prerobit...
-            $url = Router::getDomain();
+            GLOBAL $router;
+            
+            $url = implode(':', $router->getParam('dir')) . ':' . $router->getParam('class') . ($router->getParam('method') ? ':' . $router->getParam('method') : '');
             $menu = '<ul id="main-menu" class="radius-top clearfix">';
 
              foreach($array AS $key => $val) {
                   $menu .= '<li><a href="javascript:changePage(\'' . Router::traceRoute(is_array($val) ? $val[key($val)] : $val) . '\');"'
                         . (is_array($val) && in_array($url, $val) ? 'class="active submenu-active"' : '')
-                        . '><img src="/styles/' . STYLE . '/theme/img/' . $key . '.png" alt="' . $translate[$key]
+                        . '><img src="' . $GLOBALS['conf']['protocol'] . Router::getDomain() . '/styles/' . STYLE . '/' . $GLOBALS['router']->getParam('subdomain') . '/theme/img/' . $key . '.png" alt="' . $translate[$key]
                         . '" /><span>' . $translate[$key] . '</span>' 
                         . (is_Array($val) && in_array($url, $val) ? '<span class="submenu-arrow"></span>' : '')
                         . '</a></li>';
+                  d($val);
                   if(is_Array($val) && in_array($url, $val)) {
                       $sub_menu = '<ul id="sub-menu" class="clearfix">';
 
