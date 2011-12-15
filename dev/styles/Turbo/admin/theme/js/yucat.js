@@ -59,15 +59,15 @@ $(function() {
     function changePage(page) {
         $('#loading').show();
         last = page;
-        $.post(page, function(response) {
-            if($(response).find('redirect').length) { //omg nefunguje to!! :((
-                window.location = $.parseJSON(response).redirect;
-            } else {// console.log('oggk');
-             //   $('div.ajaxContent').html(msg);
-              //  loadComponents();
-            }
-            $('#loading').hide();
+        var resp = $.getJSON(page, function(response) {
+            window.location = response.redirect;
         });
+        
+        resp.error(function(msg) { 
+            $('div.ajaxContent').html(msg.responseText);
+            loadComponents();
+        });    
+        $('#loading').hide();
     }
     
     
