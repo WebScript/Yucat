@@ -59,10 +59,18 @@
         }
         
         public function logout() {
-            $cookie = new \inc\Cookie();
-            $cookie->logout($_COOKIE['HASH']);
-                
-            setcookie('id', NULL, 0, '/', DOMAIN);
-            setcookie('password', NULL, 0, '/', DOMAIN);
+            GLOBAL $cookie;
+                        
+            $cid = $cookie->myCid;
+            $n = $cookie->getParam('loggedNumber');
+            
+            if($n <= 1) {
+                $cookie->deleteParam($cid, 'loggedNumber');
+                $cookie->deleteParam($cid, 'UID');
+            } else {
+                $db->tables('cookie_params')
+                        ->where('CID', $cid)
+                        ->update(array('loggedNumber' => $n - 1));
+            }
         }
     }

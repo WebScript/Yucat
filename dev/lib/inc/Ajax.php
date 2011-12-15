@@ -32,7 +32,7 @@
         
         
         public static function sendJSON(array $json) {
-            self::$content = json_encode($json);
+            self::$content = self::drawJSON($json); //@todo use from json_encode($json, JSON_UNESCAPED_UNICODE);
             self::$isJSON = TRUE;
         }
         
@@ -49,5 +49,20 @@
         
         public static function getMode() {
             return self::$isJSON;
-        }        
+        }     
+        
+        
+        private static function drawJSON(array $array) {
+            $out = array();
+            
+            foreach($array as $key => $val) {
+                if(is_array($val)) {
+                    $out[] = '"' . $key . '" : ' . self::drawJSON($val);
+                } else {
+                    $out[] = '"' . $key . '" : "' . $val . '"';
+                }
+            }
+            
+            return '{' . implode(', ', $out) . '}';
+        }
     }

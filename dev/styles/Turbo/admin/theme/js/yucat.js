@@ -59,13 +59,13 @@ $(function() {
     function changePage(page) {
         $('#loading').show();
         last = page;
-        $.post(page, function(msg) {
-            if($(msg).find('div').length) {
-                $('div.ajaxContent').html(msg);
-                loadComponents();
-            } else { 
-                window.location = $.parseJSON(msg).redirect;
-           }
+        $.post(page, function(response) {
+            if($(response).find('redirect').length) { //omg nefunguje to!! :((
+                window.location = $.parseJSON(response).redirect;
+            } else {// console.log('oggk');
+             //   $('div.ajaxContent').html(msg);
+              //  loadComponents();
+            }
             $('#loading').hide();
         });
     }

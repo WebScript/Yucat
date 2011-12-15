@@ -32,7 +32,7 @@
                         . '" /><span>' . $translate[$key] . '</span>' 
                         . (is_Array($val) && in_array($url, $val) ? '<span class="submenu-arrow"></span>' : '')
                         . '</a></li>';
-                  d($val);
+                  //d($val);
                   if(is_Array($val) && in_array($url, $val)) {
                       $sub_menu = '<ul id="sub-menu" class="clearfix">';
 

@@ -126,7 +126,7 @@
         
         
         public function profile() {
-            $rank = new \Model\User\admin\Main();
+            $rank = new \Model\admin\User\Main();
             $this->template->rank       = $rank->getUserRank($this->isLogged()->rank, $this->template);
             $this->template->peer_day   = $rank->getCreditPeerDay(UID);
             $this->template->form       = $this->form->sendForm();
@@ -141,6 +141,7 @@
             $this->template->news           = $this->db()->tables('news')->where('position', '0')->limit(10)->order('id DESC')->fetchAll();
             $this->template->db             = $this->db();
             $this->template->date           = new Date();
+            $this->template->main           = new \Model\admin\User\Main();
         }
         
         
@@ -155,7 +156,7 @@
         
         
         public function dataSend() {
-            $main = new \Model\User\admin\Main();
+            $main = new \Model\admin\User\Main();
             if(!$this->form->isValidData()) {
                 Ajax::sendJSON(array_merge($this->form->validateData(), 
                         array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));
@@ -168,7 +169,7 @@
         
         
         public function passSend() {
-            $main = new \Model\User\admin\Main();
+            $main = new \Model\admin\User\Main();
             if(!$this->pass->isValidData()) {
                 Ajax::sendJSON(array_merge($this->pass->validateData(), 
                         array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));

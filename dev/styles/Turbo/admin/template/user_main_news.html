@@ -14,12 +14,12 @@
         <div class="body-con">
             <div id="s-updates">
                 {foreach $updates as $val :}
-                    <div class="msg-{$val->type} enable-close"><h6>{$date->getDate($val->time)} {$date->getTime($val->time)}</h6>{$val->text}</div>
+                    <div class="{$main->getNewType($val->type)} enable-close"><h6>{$date->getDate($val->time)} {$date->getTime($val->time)}</h6>{$val->text}</div>
                 {/foreach}
             </div>
             <div id="s-notifications"> 
                 {foreach $notifications as $val :}
-                    <div class="msg-{$val->type} enable-close"><h6>{$date->getDate($val->time)} {$date->getTime($val->time)}</h6>{$val->text}</div>
+                    <div class="{$main->getNewType($val->type)} enable-close"><h6>{$date->getDate($val->time)} {$date->getTime($val->time)}</h6>{$val->text}</div>
                 {/foreach}
             </div>
         </div>
@@ -84,7 +84,7 @@
         <div class="body-con">
             {foreach $news as $val :}
                 <fieldset>
-                    <legend>{$val->title}</legend>
+                    <h4>{$val->title}</h4>
                     <p>{$val->text}</p>
                     <h6>{$_AUTHOR} {$db->tables('users')->where('id', $val->UID)->fetch()->username} | {$_DAY} {$date::getDate($val->time)} | {$_TIME} {$date::getTime($val->time)}</h6>
                 </fieldset>

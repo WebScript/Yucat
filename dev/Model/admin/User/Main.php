@@ -41,6 +41,29 @@
         }
         
         
+        
+        public function getNewType($id) {
+            switch($id) {
+                case 0:
+                    return 'msg-error';
+                    break;
+                case 1:
+                    return 'msg-ok';
+                    break;
+                case 2:
+                    return 'msg-info';
+                    break;
+                case 3:
+                    return 'msg-alert';
+                    break;
+                case 4:
+                    return 'msg-loading';
+                    break;
+            }
+        }
+        
+        
+        
         public function getCreditPeerDay($uid) {
             $peer_day = 0;
             $srvs = $this->db()->tables('servers')->where('UID', $uid)->fetchAll();

@@ -98,11 +98,11 @@
         
         
         
-        public final function deleteHash($hash) {
+        public final function deleteHash($cid) {
             GLOBAL $db;
                        
-            $db->tables('cookie_params')->where('CID', $this->getCid($hash))->delete();
-            $db->tables('cookie')->where('hash', $hash)->delete();
+            $db->tables('cookie_params')->where('CID', $cid)->delete();
+            $db->tables('cookie')->where('id', $cid)->delete();
             $this->setCookie(NULL, 0);
         }
         
@@ -135,36 +135,8 @@
         
         
         public final function deleteParam($cid, $name) {
-            $GLOBALS['db']->tables('cookie')->where('CID', $cid)->where('param', $name)->delete();
+            $GLOBALS['db']->tables('cookie_params')->where('CID', $cid)->where('param', $name)->delete();
         }
-
-        
-        
-        /*
-        public final function logout($hash) {
-            GLOBAL $db;
-            
-            $cid = $this->getCid($hash);
-            $n = $db->tables('cookie_params')
-                    ->select('loggedNumber')
-                    ->where('CID', $cid)
-                    ->fetch()
-                    ->loggedNumber;
-            
-            if($n <= 1) {
-                $db->tables('cookie_params')
-                        ->where('CID', $cid)
-                        ->delete();
-                
-                $db->tables('cookie')
-                        ->where('id', $cid)
-                        ->delete();
-            } else {
-                $db->tables('cookie_params')
-                        ->where('CID', $cid)
-                        ->update(array('loggedNumber' => $n - 1));
-            }            
-        }*/
 
 
         
