@@ -39,15 +39,14 @@
                 ),
                 '_MENU_CREDIT' => Array(
                     '_MENU_BUY_CREDIT' => 'User:Credit:buy',
-                    '_MENU_SEND_CREDIT' => 'User:Credit:Send',
-                    '_MENU_CODE_CREDIT' => 'User:Credit:Code',
-                    '_MENU_VIEW_BNS' => 'User:Credit:Collected'
+                    '_MENU_SEND_CREDIT' => 'User:Credit:send',
+                    '_MENU_CODE_CREDIT' => 'User:Credit:code',
+                    '_MENU_VIEW_BNS' => 'User:Credit:collected'
                     ),
-              //  '_MENU_ORDER_M' => Array(
-               //     '_MENU_ORDER_SERVER' => 'order_server',
-               //     '_MENU_DELETE_SERVER' => 'delete_server'
-               //     ),
-                //'_MENU_SERVERS' => 'servers'
+                '_MENU_SERVERS' => Array(
+                    '_MENU_VIEW_SERVER' => 'User:Server:view',
+                    '_MENU_ORDER_SERVER' => 'User:Server:order'
+                    )
                 );
                 
             

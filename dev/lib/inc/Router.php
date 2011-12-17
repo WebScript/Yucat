@@ -70,7 +70,7 @@
                 if(class_exists($cDir . 'Index')) {
                     $this->address['class'] = 'Index';
                 } else {
-                    ErrorHandler::error404();
+                    ErrorHandler::error404('Router -> Class doesn\'t exit');
                 }
             }
             $i++;
