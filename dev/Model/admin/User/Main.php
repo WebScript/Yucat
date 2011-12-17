@@ -97,10 +97,10 @@
         public function changePassword() {
             if($_POST['newpass'] != $_POST['retrypass']) {
                 return 2;
-            } else if($this->db()->tables('users')->where('id', UID)->fetch()->password != $_POST['oldpass']) {
+            } else if($this->db()->tables('users')->where('id', UID)->fetch()->passwd != $_POST['oldpass']) {
                 return 3;
             } else {
-                return $this->db()->tables('users')->where('id', UID)->update(array('password' => $_POST['newpass']));
+                return $this->db()->tables('users')->where('id', UID)->update(array('passwd' => $_POST['newpass']));
             }
         }
     }

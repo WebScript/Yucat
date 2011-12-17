@@ -22,9 +22,9 @@
             
             $result = $this->db()
                     ->tables('users')
-                    ->select('id, password')
-                    ->where('username', $username)
-                    ->where('password', $password)
+                    ->select('id')
+                    ->where('user', $username)
+                    ->where('passwd', $password)
                     ->fetch();
 
             if($result) {

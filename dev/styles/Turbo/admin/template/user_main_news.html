@@ -78,7 +78,7 @@
     </div>
     
     <div id="main-content-left">
-        <h2>{$_WELCOME} {$user->username}</h2>                            
+        <h2>{$_WELCOME} {$user->user}</h2>                            
         <div class="body-con tcenter">{$_WELCOME_DESC}</div>
         <h2>{$_NEWS}</h2>
         <div class="body-con">
@@ -86,7 +86,7 @@
                 <fieldset>
                     <h4>{$val->title}</h4>
                     <p>{$val->text}</p>
-                    <h6>{$_AUTHOR} {$db->tables('users')->where('id', $val->UID)->fetch()->username} | {$_DAY} {$date::getDate($val->time)} | {$_TIME} {$date::getTime($val->time)}</h6>
+                    <h6>{$_AUTHOR} {$db->tables('users')->where('id', $val->UID)->fetch()->user} | {$_DAY} {$date::getDate($val->time)} | {$_TIME} {$date::getTime($val->time)}</h6>
                 </fieldset>
             {/foreach}
         </div>                      

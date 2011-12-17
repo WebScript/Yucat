@@ -290,13 +290,14 @@
          */
         public function fetch() {
             $result = $this->exec($this->make());
-
-            try {
-                $query = @mysql_fetch_object($result);
-            } catch(Exception $e) {
+            
+            if(!$result) {
                 Diagnostics\ExceptionHandler::Error($this->query);
+            } else {
+                $result = mysql_fetch_object($result);
             }
-            return $query;
+            
+            return $result;
         }
        
        
