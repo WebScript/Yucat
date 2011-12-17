@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td class="backcolor tleft">Last login:</td>
-                    <td>{$date->getDate($user->last_login)} {$date->getTime($user->last_login)}</td>
+                    <td>{$date->getTime($user->ll1)}<br />{$date->getDate($user->ll1)}</td>
                 </tr>
             </tbody>
         </table>
@@ -70,8 +70,8 @@
                         <td>{$val->type}</td>
                         <td>{$val->action}</td>
                         <td>{$val->ip}</td>
-                        <td>{$date->getDate($val->date)}</td>
-                        <td>{$date->getTime($val->date)}</td>
+                        <td>{$date->getDate($val->time)}</td>
+                        <td>{$date->getTime($val->time)}</td>
                     </tr>
                 {/foreach}
             </tbody>

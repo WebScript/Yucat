@@ -11,7 +11,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license   GNU GPL License
-     * @version    Release: 0.2.2
+     * @version    Release: 0.2.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.0
      */
@@ -29,12 +29,14 @@
                 if($mode == Debug::MODE_PROD) {
                     self::addLog(error_get_last());
                     if(\inc\Ajax::isAjax()) {
-                        echo '{"alert" : "Error: Internal server error :("}';
+                        echo '{"alert" : "Internal Server Error 500"}';
                     } else {
                         include_once(__DIR__ . '/500.html');
                     }
                 } elseif($mode == Debug::MODE_DEV) {
-                    self::drawTable(error_get_last());
+                    if(!ExceptionHandler::$exception){
+                        self::drawTable(error_get_last());
+                    }
                 }
             }
         }

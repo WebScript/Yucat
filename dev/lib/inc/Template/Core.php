@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.3
+     * @version    Release: 0.3.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -67,7 +67,7 @@
             }
            
             
-            if(Ajax::isAjax() && Ajax::getMode() || !Ajax::isAjax()) {
+            if(Ajax::isAjax() && Ajax::isHTML() || !Ajax::isAjax()) {
                 foreach(self::$translate as $key => $val) {
                     $$key = $val;
                 }

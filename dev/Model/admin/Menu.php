@@ -51,18 +51,19 @@
         
         
         public static function pager($countPages) {
+            GLOBAL $router;
             $listPeerPage = isset($_GET['peerPage']) && is_numeric($_GET['peerPage']) ? $_GET['peerPage'] : 20;
             $thisPage = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
             
             $out = array(); 
-            $thisAddress = \inc\Router::getAddress();
+            $thisAddress = $router->traceRoute($router->getLink());
             $count = ceil($countPages / $listPeerPage);
             
             if(!$count) $count = 1;
-            if($thisPage < 1) \inc\Router::redirect($thisAddress);
-            elseif($thisPage > $count) \inc\Router::redirect($thisAddress);
+            if($thisPage < 1) $router->redirect($thisAddress);
+            elseif($thisPage > $count) $router->redirect($thisAddress);
             
-            $out[] = '<form name="pager" method="GET" action="' . \inc\Router::traceRoute(\inc\Router::getAddress()) . '">';
+            $out[] = '<form name="pager" method="GET" action="' . $thisAddress . '">';
             $out[] = '<input type="hidden" name="page" value="' . $thisPage . '" />';
             $out[] = '<input type="hidden" name="peerPage" value="' . $listPeerPage . '" />';
 
@@ -107,10 +108,11 @@
         
         
         public function selectPeerPage() {
+            GLOBAL $router;
             $p = $_GET['peerPage'];
             
             return '
-            <form name="peerPageSelector" action="' . \inc\Router::traceRoute(\inc\Router::getAddress()) . '" method="GET">
+            <form name="peerPageSelector" action="' . $router->traceRoute($router->getLink()) . '" method="GET">
                 <select id="select-view" name="select-view">
                     <option value="5" ' . ($p == 5 ? 'selected' : '') . '>Show 5</option>
                     <option value="10" ' . ($p == 10 ? 'selected' : '') . '>Show 10</option>

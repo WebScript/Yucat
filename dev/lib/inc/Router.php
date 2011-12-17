@@ -9,7 +9,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.1
+     * @version    Release: 0.3.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -172,5 +172,11 @@
             $domain = array_reverse(explode('.', DOMAIN));
             return $domain[1] . '.' . $domain[0];
                     
+        }
+        
+        
+        
+        public final function getLink() {
+            return $this->address['subdomain'] . ':' . implode(':', $this->address['dir']) . ':' . $this->address['class'] . (isset($this->address['method']) ? ':' . $this->address['method'] : '');
         }
     }

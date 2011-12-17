@@ -18,7 +18,7 @@
 
     namespace inc;
     
-    use inc\Diagnostics\ErrorHandler;
+    use inc\Diagnostics\ExceptionHandler;
 
     class Config {
         
@@ -30,7 +30,7 @@
                 $out[$val->param] = $val->value;
             }
             if(!$out) {
-                ErrorHandler::Error('Error: cannot load configuration table!');
+                ExceptionHandler::Error('Error: cannot load configuration table!');
                 exit;
             }
             return $out;

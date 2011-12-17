@@ -27,12 +27,12 @@
         
         
         public function banners() {
-            $rank = new \Model\User\admin\Main();
-            $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
+            $rank = new \Model\admin\User\Main();
+            $this->template->rank = $rank->getUserRank($this->template->user->rank, $this->template);
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
             $this->template->date = new Date();
 
-            $statistic = new \Model\admin\Statistic();
+            $statistic = new \Model\admin\User\Statistic();
             $banners = $this->db()->tables('banners')->where('UID', UID)->fetchAll();
             $this->template->graph = $statistic->createGraph($banners, 'date');
 
@@ -44,12 +44,12 @@
         
         
         public function access() {
-            $rank = new \Model\User\admin\Main();
-            $this->template->rank = $rank->getUserRank($this->isLogged()->rank, $this->template);
+            $rank = new \Model\admin\User\Main();
+            $this->template->rank = $rank->getUserRank($this->template->user->rank, $this->template);
             $this->template->peer_day = $rank->getCreditPeerDay(UID);
             $this->template->date = new Date();
 
-            $statistic = new \Model\admin\Statistic();
+            $statistic = new \Model\admin\User\Statistic();
             $access = $this->db()->tables('access')->where('UID', UID)->fetchAll();
             $this->template->graph = $statistic->createGraph($access, 'date');
 

@@ -35,7 +35,7 @@
             $this->template->__THEME_DIR    = $GLOBALS['conf']['protocol'] . Router::getDomain() . '/styles/' . STYLE . '/' . $GLOBALS['router']->getParam('subdomain') . '/theme/';
             $this->template->__KEYWORDS     = $GLOBALS['conf']['template_keywords'];
             $this->template->__DESCRIPTION  = $GLOBALS['conf']['template_description'];
-            $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> GNU GPL v2 by <strong>Bloodman Arun</strong>';
+            $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> OpenSource by <strong>Bloodman Arun</strong>';
             
             if($this->isLogged()) {
                 $this->template->user       = $this->db->tables('users')->where('id', UID)->fetch();

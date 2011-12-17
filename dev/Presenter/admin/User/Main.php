@@ -127,7 +127,7 @@
         
         public function profile() {
             $rank = new \Model\admin\User\Main();
-            $this->template->rank       = $rank->getUserRank($this->isLogged()->rank, $this->template);
+            $this->template->rank       = $rank->getUserRank($this->template->user->rank, $this->template);
             $this->template->peer_day   = $rank->getCreditPeerDay(UID);
             $this->template->form       = $this->form->sendForm();
             $this->template->pass       = $this->pass->sendForm();

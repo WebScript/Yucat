@@ -42,9 +42,10 @@
 </row>
 <row name="type" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="games" row="id" />
 </row>
 <row name="action" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ip" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -68,14 +69,14 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="website" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ip" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="lock" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -85,22 +86,22 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="user" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="passwd" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="firstname" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="lastname" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="address" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="city" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="postcode" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -110,13 +111,13 @@
 </row>
 <row name="credit" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <row name="language" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
-</row>
+<datatype>VARCHAR(256)</datatype>
+<default>'cz'</default></row>
 <row name="style" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
-</row>
+<datatype>VARCHAR(256)</datatype>
+<default>'Turbo'</default></row>
 <row name="avatar" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
@@ -127,13 +128,13 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="email" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="website" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ip" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ll1" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
@@ -154,17 +155,17 @@
 <relation table="users" row="id" />
 </row>
 <row name="c1" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="c2" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="c3" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="lock" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <row name="cost" null="0" autoincrement="0">
 <datatype>DECIMAL</datatype>
 </row>
@@ -182,18 +183,18 @@
 </row>
 <row name="position" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <row name="type" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <row name="time" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 </row>
 <row name="title" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="text" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -211,11 +212,11 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="text" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="phase" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -233,7 +234,7 @@
 <relation table="tickets" row="id" />
 </row>
 <row name="text" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -249,6 +250,7 @@
 </row>
 <row name="type" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="games" row="id" />
 </row>
 <row name="MID" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -259,16 +261,16 @@
 </row>
 <row name="slots" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>1</default></row>
 <row name="lock" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <row name="stopped" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
 <row name="autorun" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>0</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -282,10 +284,10 @@
 <relation table="servers" row="id" />
 </row>
 <row name="param" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="value" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -296,22 +298,22 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="hostname" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ssh_ip" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ssh_port" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>22</default></row>
 <row name="ssh_login" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ssh_password" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -343,13 +345,13 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="ip" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="time" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 </row>
 <row name="reason" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -360,10 +362,10 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="param" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="value" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -374,7 +376,7 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="hash" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -389,10 +391,10 @@
 <relation table="cookie" row="id" />
 </row>
 <row name="param" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <row name="value" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -411,7 +413,7 @@
 <relation table="forum_thread" row="id" />
 </row>
 <row name="text" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -426,7 +428,7 @@
 <relation table="forum_category" row="id" />
 </row>
 <row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -437,7 +439,18 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
+<datatype>VARCHAR(256)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="407" y="42" name="games">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

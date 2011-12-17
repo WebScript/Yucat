@@ -61,13 +61,14 @@ $(function() {
         last = page;
         var resp = $.getJSON(page, function(response) {
             window.location = response.redirect;
+            $('#loading').hide();
         });
         
         resp.error(function(msg) { 
             $('div.ajaxContent').html(msg.responseText);
             loadComponents();
+            $('#loading').hide();
         });    
-        $('#loading').hide();
     }
     
     

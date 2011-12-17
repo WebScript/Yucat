@@ -14,6 +14,8 @@
      */
 
     namespace inc;
+    
+    use inc\Diagnostics\ExceptionHandler;
 
     class db {
         /** @var ressource of connection to DB */
@@ -46,8 +48,10 @@
          * @param string $db 
          */
         public function __construct($host, $login, $password, $db) {
-            $this->connection = mysql_connect($host, $login, $password);            
-            mysql_select_db($db, $this->connection);
+            $this->connection = mysql_connect($host, $login, $password);
+            if(!$this->connection) ExceptionHandler::Error('Internal Server Error 500: Cannot connect to database!');
+            $resp = mysql_select_db($db, $this->connection);
+            if(!$resp) ExceptionHandler::Error('Internal Server Error 500: Cannot connect to database!');
         }
        
        
@@ -269,7 +273,6 @@
            $result = $this->exec($this->make());
            
            if(!$result) {
-               //d($this->query);
                Diagnostics\ExceptionHandler::Error($this->query);
            } else {
                while($row = mysql_fetch_object($result)) {
@@ -286,9 +289,15 @@
          * @return object
          */
         public function fetch() {
-           $result = $this->exec($this->make());
-           return /*$result === FALSE ? FALSE :*/ mysql_fetch_object($result);
-       }
+            $result = $this->exec($this->make());
+
+            try {
+                $query = @mysql_fetch_object($result);
+            } catch(Exception $e) {
+                Diagnostics\ExceptionHandler::Error($this->query);
+            }
+            return $query;
+        }
        
        
        public function numRows() {

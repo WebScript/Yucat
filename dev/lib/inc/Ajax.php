@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.3
+     * @version    Release: 0.1.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -18,7 +18,7 @@
     class Ajax {
         private static $content;
         /** Sending template content? */
-        private static $isJSON = FALSE;
+        private static $isHTML = FALSE;
 
 
         public static function isAjax() {
@@ -33,12 +33,12 @@
         
         public static function sendJSON(array $json) {
             self::$content = self::drawJSON($json); //@todo use from json_encode($json, JSON_UNESCAPED_UNICODE);
-            self::$isJSON = TRUE;
         }
         
         
         public static function sendHTML($html) {
             self::$content .= $html;
+            self::$isHTML = TRUE;
         }
                 
         
@@ -47,8 +47,8 @@
         }
         
         
-        public static function getMode() {
-            return self::$isJSON;
+        public static function isHTML() {
+            return self::$isHTML;
         }     
         
         
