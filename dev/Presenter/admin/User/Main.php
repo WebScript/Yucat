@@ -159,11 +159,11 @@
             $main = new \Model\admin\User\Main();
             if(!$this->form->isValidData()) {
                 Ajax::sendJSON(array_merge($this->form->validateData(), 
-                        array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));
+                        array('dialogValue' => 'Chybne vyplnene udaje!')));
             } else if($main->saveProfile()) {
-                Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Profil bol uspesne ulozeny!'));
+                Ajax::sendJSON(array('dialogValue' => 'Profil bol uspesne ulozeny!'));
             } else {
-                Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit profil!'));
+                Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit profil!'));
             }
         }
         
@@ -172,22 +172,22 @@
             $main = new \Model\admin\User\Main();
             if(!$this->pass->isValidData()) {
                 Ajax::sendJSON(array_merge($this->pass->validateData(), 
-                        array('dialogName' => 'Error', 'dialogValue' => 'Chybne vyplnene udaje!')));
+                        array('dialogValue' => 'Chybne vyplnene udaje!')));
                 return;
             }
             
             switch($main->changePassword()) {
                 case 1:
-                    Ajax::sendJSON(array('dialogName' => 'Ulozene', 'dialogValue' => 'Heslo bolo ulozene!'));
+                    Ajax::sendJSON(array('dialogValue' => 'Heslo bolo ulozene!'));
                     break;
                 case 2:
-                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadane hesla sa nerovnaju!'));
+                    Ajax::sendJSON(array('dialogValue' => 'Zadane hesla sa nerovnaju!'));
                     break;
                 case 3:
-                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste nespravne heslo!'));
+                    Ajax::sendJSON(array('dialogValue' => 'Zadali ste nespravne heslo!'));
                     break;
                 default :
-                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Nepodarilo sa ulozit heslo!'));
+                    Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit heslo!'));
                     break;
             }
         }

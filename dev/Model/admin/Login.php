@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.4
+     * @version    Release: 0.0.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
@@ -32,6 +32,7 @@
                 
                 //Get cookie with exists UID exists
                 $cid = $this->db()->tables('cookie_params')
+                        ->select('CID')
                         ->where('param', 'UID')
                         ->where('value', $result->id)
                         ->fetch();
@@ -40,16 +41,13 @@
                     //Set +1 to loggedNumber
                     $this->db()
                             ->tables('cookie_params')
-                            ->where('CID', $cid->id)
+                            ->where('CID', $cid->CID)
+                            ->where('param', 'loggedNumber')
                             ->update(array(
-                                'loggedNumber' => $cookie->getParam('loggedNumber') + 1
+                                'value' => $cookie->getParam('loggedNumber', $cid->CID) + 1
                             ));
-
-                    $hash = $this->db()->tables('cookie')
-                            ->select('hash')
-                            ->where('id', $cid->id)
-                            ->fetch();
-                    $cookie->setCookie($hash->hash, $time); // @todo hlasi ze $cookie neni objekt
+                    
+                    $cookie->setCookie($cookie->getHash($cid->CID), $time);
                 } else {
                     $cookie->addParam($cookie->myCid, 'UID', $result->id);
                     $cookie->addParam($cookie->myCid, 'loggedNumber', '1');                
@@ -68,9 +66,11 @@
                 $cookie->deleteParam($cid, 'loggedNumber');
                 $cookie->deleteParam($cid, 'UID');
             } else {
-                $db->tables('cookie_params')
+                $this->db()->tables('cookie_params')
                         ->where('CID', $cid)
-                        ->update(array('loggedNumber' => $n - 1));
+                        ->where('param', 'loggedNumber')
+                        ->update(array('value' => $n - 1));
+                $cookie->setCookie('', 0);
             }
         }
     }

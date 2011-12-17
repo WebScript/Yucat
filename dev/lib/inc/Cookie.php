@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.8
+     * @version    Release: 0.1.9
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -50,6 +50,16 @@
         
         public final function getMyHash() {
             return isset($_COOKIE['HASH']) ? $_COOKIE['HASH'] : NULL;
+        }
+        
+        
+        
+        public final function getHash($id) {
+            $hash = $GLOBALS['db']->tables('cookie')
+                    ->select('hash')
+                    ->where('id', $id)
+                    ->fetch();
+            return isset($hash->hash) ? $hash->hash : NULL;
         }
         
         

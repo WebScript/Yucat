@@ -7,9 +7,6 @@ $(function() {
             autoOpen: false,
             width: 400,
             buttons: {
-                   /* "LOL??": function() {
-                            $(this).dialog("close"); 
-                    }, */
                     "Close": function() { 
                             $(this).dialog("close"); 
                     } 
@@ -19,18 +16,9 @@ $(function() {
     
     $('form').live('submit', function() {
         $.post(this.action + 'Send', $(this.elements).serialize(), function(msg) {
-            $.each($.parseJSON(msg), function(id, v) { 
-                if(id == 'redirect') {
-                    window.location = v;
-                } else if(id == 'dialogName') { 
-                    $('div[role=dialog] #ui-dialog-title-dialog').html(v);
-                } else if(id == 'dialogValue') {
-                    $('#dialog').html(v);
-                    $('#dialog').dialog('open');
-                } else {
-                    changeStats($(':input[name=' + id + ']'), v);
-                }
-            });
+            if(!manageRespJSON($.parseJSON(msg))) {
+                changeStats($(':input[name=' + id + ']'), val);
+            }
         });
         return false;
     });
@@ -45,10 +33,9 @@ $(function() {
             
             if(action) {
                 $.post(action + 'Check', name + '=' + $(this).val(), function(msg) {
-                    if($.parseJSON(msg).alert) {
-                        $('#dialog').html($.parseJSON(msg).alert);
-                        $('#dialog').dialog('open');
-                    } else changeStats(ths, $($.parseJSON(msg)).attr(name));
+                    if(!manageRespJSON($.parseJSON(msg))) {
+                        changeStats(ths, $($.parseJSON(msg)).attr(name));
+                    }
                 });
             }
         }
@@ -60,7 +47,7 @@ $(function() {
         $('#loading').show();
         last = page;
         var resp = $.getJSON(page, function(response) {
-            window.location = response.redirect;
+            manageRespJSON(response);
             $('#loading').hide();
         });
         
@@ -100,6 +87,28 @@ $(function() {
         });
         return false;
     }
+    
+    
+    function manageRespJSON(input) {
+        var out = 1;
+        $.each(input, function(id, val) { 
+            switch(id) {
+                case 'redirect' :
+                    window.location = val;
+                    break;
+                case 'alert' :
+                    apprise(val, {'animate':true});
+                    break;
+                case 'dialogValue' :
+                    apprise(val, {'animate':true});
+                    break;
+                default :  
+                    out = 0;
+                    break;
+            }
+        });
+        return out;
+    }
 
     
     
@@ -131,5 +140,4 @@ $(function() {
         $('.tiptip-right').tipTip({maxWidth:"auto",edgeOffset:1,delay:100,fadeIn:200,fadeOut:200,defaultPosition:"right"});
         $('.tiptip-bottom').tipTip({maxWidth:"auto",edgeOffset:1,delay:100,fadeIn:200,fadeOut:200,defaultPosition:"bottom"});
         $('.tiptip-left').tipTip({maxWidth:"auto",edgeOffset:1,delay:100,fadeIn:200,fadeOut:200,defaultPosition:"left"});
-
     }

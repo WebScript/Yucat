@@ -70,3 +70,15 @@ DOROBIT:
 
     Profile;
         Search
+
+
+
+
+<div class="body-con tcenter">
+    <button class="grey" onclick="apprise('Hi there!');">Simple message</button>
+    <button onclick="apprise('Continue?', {'confirm':true});">Confirm message</button>
+    <button onclick="apprise('Are you sure?', {'verify':true});">Yes or no?</button>
+    <button class="red" onclick="apprise('I am an animated message!', {'animate':true});">Animated message?</button>
+
+    <button class="green" onclick="apprise('What\'s your name?', {'input':true});">Message with input</button>
+</div>

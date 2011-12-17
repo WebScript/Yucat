@@ -109,5 +109,5 @@
     }
 
     if(!inc\Ajax::isAjax()) {
-        Debug::timer('true');
+    //    Debug::timer('true');
     }

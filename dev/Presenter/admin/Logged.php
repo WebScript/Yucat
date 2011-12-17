@@ -38,16 +38,16 @@
                     '_MENU_ACCESS_LOG' => 'User:Statistic:access'
                 ),
                 '_MENU_CREDIT' => Array(
-                    '_MENU_BUY_CREDIT' => 'credit_buy',
-                    '_MENU_CODE_CREDIT' => 'credit_code',
-                    '_MENU_SEND_CREDIT' => 'credit_send',
-                    '_MENU_VIEW_BNS' => 'banners_view'
+                    '_MENU_BUY_CREDIT' => 'User:Credit:buy',
+                    '_MENU_SEND_CREDIT' => 'User:Credit:Send',
+                    '_MENU_CODE_CREDIT' => 'User:Credit:Code',
+                    '_MENU_VIEW_BNS' => 'User:Credit:Collected'
                     ),
-                '_MENU_ORDER_M' => Array(
-                    '_MENU_ORDER_SERVER' => 'order_server',
-                    '_MENU_DELETE_SERVER' => 'delete_server'
-                    ),
-                '_MENU_SERVERS' => 'servers'
+              //  '_MENU_ORDER_M' => Array(
+               //     '_MENU_ORDER_SERVER' => 'order_server',
+               //     '_MENU_DELETE_SERVER' => 'delete_server'
+               //     ),
+                //'_MENU_SERVERS' => 'servers'
                 );
                 
             
