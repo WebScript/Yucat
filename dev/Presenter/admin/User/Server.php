@@ -36,4 +36,11 @@
             
         }
         
+        public function deleteSend() {
+            GLOBAL $router;
+            if(!isset($_POST['deleteId'])) return 0;
+            $this->db()->tables('servers')->where('id', $_POST['deleteId'])->where('UID', UID)->delete();
+            \inc\Ajax::sendJSON(array('redirect' => $router->traceroute('User:Server:view')));
+        }
+        
     }

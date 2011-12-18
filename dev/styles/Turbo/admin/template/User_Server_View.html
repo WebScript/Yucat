@@ -46,8 +46,18 @@
     </div>
 </div>
 
+<form id="delForm" action="{macroLink User:Server:delete}" method="POST">
+    <input type="hidden" name="deleteId" value="0" />
+</form>
+
 <script>
-    function deleteSrv(id) {
-        apprise(id, {'animate':true});
+    function deleteServer(id) {
+        $('input[name=deleteId]').val(id);
+        apprise("Chcete zmazat server?", {'animate' : true, 'verify' : true}, function(resp) {
+            if(resp == true) {
+                $('#delForm').submit();
+            }
+            console.log(id);
+        });
     }
 </script>

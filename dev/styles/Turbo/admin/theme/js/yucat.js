@@ -83,7 +83,7 @@ $(function() {
         $.each(input, function(id, val) { 
             switch(id) {
                 case 'redirect' :
-                    window.location = val;
+                    changePage(val);
                     break;
                 case 'alert' :
                     apprise(val, {'animate':true});

@@ -32,7 +32,9 @@ $(document).keydown(function(e)
 {if(e.keyCode==13)
 {$('.aButtons > button[value="ok"]').click();}
 if(e.keyCode==27)
-{$('.aButtons > button[value="cancel"]').click();}}});var aText=$('.aTextbox').val();if(!aText){aText=false;}
+{$('.aButtons > button[value="cancel"]').click();}}
+});
+var aText=$('.aTextbox').val();if(!aText){aText=false;}
 $('.aTextbox').keyup(function()
 {aText=$(this).val();});$('.aButtons > button').click(function()
 {$('.appriseOverlay').remove();$('.appriseOuter').remove();if(callback)

@@ -42,7 +42,7 @@
 </row>
 <row name="type" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="games" row="id" />
+<relation table="server_types" row="id" />
 </row>
 <row name="action" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
@@ -97,7 +97,7 @@
 <row name="lastname" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
 </row>
-<row name="address" null="0" autoincrement="0">
+<row name="street" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
 </row>
 <row name="city" null="0" autoincrement="0">
@@ -250,7 +250,7 @@
 </row>
 <row name="type" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="games" row="id" />
+<relation table="server_types" row="id" />
 </row>
 <row name="MID" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -266,7 +266,7 @@
 <datatype>INTEGER</datatype>
 <default>0</default></row>
 <row name="stopped" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TIMESTAMP</datatype>
 </row>
 <row name="autorun" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -293,7 +293,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="981" y="150" name="machines">
+<table x="949" y="161" name="machines">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -311,7 +311,7 @@
 <default>22</default></row>
 <row name="ssh_login" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
-</row>
+<default>'root'</default></row>
 <row name="ssh_password" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
 </row>
@@ -319,7 +319,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1171" y="162" name="machines_servers">
+<table x="1136" y="198" name="machines_servers">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -329,12 +329,7 @@
 </row>
 <row name="type" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
-<row name="cost" null="0" autoincrement="0">
-<datatype>DECIMAL</datatype>
-</row>
-<row name="rank" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<relation table="server_types" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -445,12 +440,15 @@
 <part>id</part>
 </key>
 </table>
-<table x="407" y="42" name="games">
+<table x="379" y="21" name="server_types">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
+</row>
+<row name="cost" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
