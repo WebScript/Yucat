@@ -5,10 +5,10 @@
      * @category   Yucat
      * @package    Includes\Template
      * @name       Core
-     * @author     René Činčura (Bloodman Arun)
+     * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.4
+     * @version    Release: 0.3.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -54,7 +54,7 @@
 
                     if(isset(self::$method[$key])) {
                         if(method_exists($presenter, self::$method[$key])) {
-                            call_user_func(array($presenter, self::$method[$key]));
+                            call_user_func_array(array($presenter, self::$method[$key]), ($router->getParam('params') ? $router->getParam('params') : array()));
                         } else ErrorHandler::error404('Core -> method doesn\'t exists!');
                     }
                     self::$translate = array_merge(self::$translate, get_object_vars($presenter->getTemplate()));

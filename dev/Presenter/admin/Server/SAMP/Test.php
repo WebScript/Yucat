@@ -5,7 +5,7 @@
     
     class Test extends \Presenter\BasePresenter {
         
-        public function lol() {
-            
+        public function lol($wtf) {
+            echo $wtf;
         }
     }

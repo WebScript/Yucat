@@ -5,7 +5,7 @@
      * @category   Yucat
      * @package    Includes\Template
      * @name       Parse
-     * @author     René Činčura (Bloodman Arun)
+     * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
      * @version    Release: 0.3.4

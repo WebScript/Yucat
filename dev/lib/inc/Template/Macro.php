@@ -5,7 +5,7 @@
      * @category   Yucat
      * @package    Includes\Template
      * @name       Macro
-     * @author     René Činčura (Bloodman Arun)
+     * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
      * @version    Release: 0.4.2
@@ -88,7 +88,7 @@
             if($method) {
                 Core::$method[array_search($presenter, Core::$presenter)] = $method;
             }
-            
+
             if(file_exists($styleDir)) {
                 $f = fopen($styleDir, 'r');
                 $template = fread($f, filesize($styleDir));

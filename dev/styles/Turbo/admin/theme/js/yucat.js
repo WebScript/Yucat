@@ -1,18 +1,7 @@
 $(function() { 
     $('#loading').hide();
     
-    var last;
-
-    $('#dialog').dialog({
-            autoOpen: false,
-            width: 400,
-            buttons: {
-                    "Close": function() { 
-                            $(this).dialog("close"); 
-                    } 
-            }
-    });
-    
+    var last;   
     
     $('form').live('submit', function() {
         $.post(this.action + 'Send', $(this.elements).serialize(), function(msg) {

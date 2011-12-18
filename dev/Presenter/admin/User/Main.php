@@ -5,7 +5,7 @@
      * @category   Yucat
      * @package    Presenter\User
      * @name       Main
-     * @author     René Činčura (Bloodman Arun)
+     * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
      * @version    Release: 0.0.7
@@ -53,10 +53,10 @@
                     ->setErrorType('EMAIL')
                     ->setErrorMessage('error');
             
-            $this->form->addElement('address', 'address', 'text')
+            $this->form->addElement('street', 'street', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
-                    ->setValue($this->template->user->address)
+                    ->setValue($this->template->user->street)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
             

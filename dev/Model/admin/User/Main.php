@@ -5,7 +5,7 @@
      * @category   Yucat
      * @package    Model
      * @name       Main
-     * @author     René Činčura (Bloodman Arun)
+     * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
      6* @version    Release: 0.0.5
@@ -83,7 +83,7 @@
             return $this->db()->tables('users')->where('id', UID)->update(array(
                 'firstname' => $_POST['firstname'],
                 'lastname' => $_POST['lastname'],
-                'address' => $_POST['address'],
+                'street' => $_POST['street'],
                 'language' => $_POST['language'],
                 'city' => $_POST['city'],
                 'postcode' => $_POST['postcode'],

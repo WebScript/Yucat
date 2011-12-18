@@ -6,10 +6,10 @@
      * @category   Yucat
      * @package    Includes
      * @name       Router
-     * @author     René Činčura (Bloodman Arun)
+     * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.2
+     * @version    Release: 0.3.4
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -78,6 +78,11 @@
             /** Set method */
             if(count($this->route) > $i && method_exists($cDir . $this->address['class'], $this->route[$i])) {
                 $this->address['method'] = $this->route[$i];
+                $i++;
+            }
+            
+            if(count($this->route) > $i) {
+                $this->address['params'] = array_slice($this->route, $i);
             }
         }
        
@@ -160,8 +165,8 @@
             
             $search = substr($input, 0, strrpos($input, ':'));
             $search = $GLOBALS['router']->traceRoute($search);
-            
-            if(!preg_match('@' . $search . '/(.*)@', $_SERVER['SCRIPT_URI'])) {
+
+            if(!$GLOBALS['router']->getParam('method')) {
                 $GLOBALS['router']->redirect($input);
             }
         }
