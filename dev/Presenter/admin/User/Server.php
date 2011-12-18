@@ -17,7 +17,16 @@
     
     class Server extends \Presenter\BasePresenter {
         
+        
         public function view() {
+            $this->template->servers = $this->db()
+                    ->tables('servers, server_types, machines')
+                    ->select('servers.port, server_types.name, servers.id, servers.type, machines.ssh_ip')
+                    ->where('servers.UID', UID)
+                    ->where('servers.type', 'server_types.id', TRUE)
+                    ->where('servers.MID', 'machines.id', TRUE)
+                    ->fetchAll();
+            $this->template->checkStatus = new \inc\Servers\Status();
             
         }
         

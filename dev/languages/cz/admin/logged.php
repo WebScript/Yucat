@@ -13,7 +13,7 @@
         'MENU_BANNERS'          => 'Bannery',
         'MENU_CREDIT'           => 'Kredit',
         'MENU_BUY_CREDIT'       => 'Koupit kredit',
-        'MENU_CODE_CREDIT'      => 'Dobit kredit',
+        'MENU_CODE_CREDIT'      => 'Pouzit gif kod',
         'MENU_SEND_CREDIT'      => 'Poslat kredit',
         'MENU_VIEW_BNS'         => 'Zobrazit bannery',
         'MENU_SERVERS'          => 'Servery',

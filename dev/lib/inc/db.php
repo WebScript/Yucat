@@ -8,7 +8,7 @@
      * @author     René Činčura (Bloodman Arun)
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.8.6
+     * @version    Release: 0.8.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.3.2
      */
@@ -66,8 +66,13 @@
             $out = array();
             
             foreach($input AS $key => $val) {
-                $val = \inc\Security::protect($val, TRUE);
-                $input[$key] = "'" . $val . "'";
+                if(is_array($val)) {
+                    $val[0] = \inc\Security::protect($val[0], TRUE);
+                    $input[$key] = $val[0];
+                } else {
+                    $val = \inc\Security::protect($val, TRUE);
+                    $input[$key] = "'" . $val . "'";
+                }
             }
 
             if($delimiter === 'INSERT') {
@@ -174,8 +179,12 @@
          * @param string $by
          * @return db 
          */
-        public function where($what, $by) {
-            $this->where = array_merge($this->where, array($what => $by));
+        public function where($what, $by, $sql = FALSE) {
+            if($sql) {
+                $this->where = array_merge($this->where, array($what => array($by)));
+            } else {
+                $this->where = array_merge($this->where, array($what => $by));
+            }
             return $this;
         }
         

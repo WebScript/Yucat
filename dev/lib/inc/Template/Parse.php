@@ -21,7 +21,7 @@
         private static $called = array();
 
         public function __construct() {
-            $this->regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> -.,?!()\'"$%/!^&|:.*') . ']+)';
+            $this->regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> -.,?!()\'";$%/!^&|:.*') . ']+)';
             parent::__construct();
         }
        
