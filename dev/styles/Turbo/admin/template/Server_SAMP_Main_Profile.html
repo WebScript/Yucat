@@ -1,0 +1,99 @@
+<div id="content" class="clearfix">
+    <div id="side-content-left">
+        <h3>Nejaky nadpis</h3>
+        <div class="body-con">Nejaky text</div>
+    </div>
+    
+    
+    <div id="main-content-right">
+        <h2>{$_PROFILE}</h2>
+        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>{$_USER_INFO}</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="firstname">{$_FIRSTNAME}</label>
+
+                        <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="{$form['firstname']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="lastname">Priezvisko</label>
+
+                        <input type="{$form['lastname']['type']}" id="lastname" name="{$form['lastname']['name']}" value="{$form['lastname']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="email">E-mail</label>
+                        <input type="{$form['email']['type']}" id="email" name="{$form['email']['name']}" value="{$form['email']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="street">Ulica</label>
+                        <input type="{$form['street']['type']}" id="street" name="{$form['street']['name']}" value="{$form['street']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="language">Jazyk/Stat</label>
+                        <select id="language" name="{$form['language']['name']}">{$form['language']['value']}</select>
+                    </li>
+                    <li>
+                        <label for="city">Mesto</label>
+                        <input type="{$form['city']['type']}" id="city" name="{$form['city']['name']}" value="{$form['city']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="postcode">PSC</label>
+                        <input type="{$form['postcode']['type']}" id="postcode" name="{$form['postcode']['name']}" value="{$form['postcode']['value']}"/>
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="telephone">Telefonne cislo</label>
+                        <input type="{$form['telephone']['type']}" id="telephone" name="{$form['telephone']['name']}" value="{$form['telephone']['value']}" />
+                        <span class="msg-form-error"></span>
+                    </li>
+                    <li>
+                        <label for="website">Web</label>
+                        <input type="{$form['website']['type']}" id="website" name="{$form['website']['name']}" value="{$form['website']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label></label>
+                        <input type="{$form['save']['type']}" name="{$form['save']['name']}" value="{$form['save']['value']}"/>
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+        
+        <form action="{$pass['action']}" method="{$pass['method']}" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>Zmena hesla</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="old_pass">Stare heslo</label>
+                        <input type="{$pass['oldpass']['type']}" id="old_pass" name="{$pass['oldpass']['name']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="password">Nove heslo</label>
+                        <input type="{$pass['newpass']['type']}" id="password" name="{$pass['newpass']['name']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="retry_pass">Nove heslo (znovu)</label>
+                        <input type="{$pass['retrypass']['type']}" id="retry_pass" name="{$pass['retrypass']['name']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label></label>
+                        <input type="{$pass['change']['type']}" name="{$pass['change']['name']}" value="{$pass['change']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+        
+        
+    </div>
+</div>

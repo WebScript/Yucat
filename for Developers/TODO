@@ -1,4 +1,6 @@
 TASKS 1:
+    raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
+    Pridat do DB tabilky games min a max pocet slotov
     dorobit language system, skoncil som v profile
     Dorobit posielanie hesla mailom
     Pridat niekam kontrolu ci je spravne nastaveny permissions

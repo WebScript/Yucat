@@ -66,6 +66,11 @@
             return $uid ? $uid->value : NULL;
         }
         
+        public function hasServer() {
+            $val = $this->db->tables('servers, machines')
+                    ->select('servers.id, machines.ip,...'); @todo dorobit
+        }
+        
         
         protected function forNotLogged($url = 'User:Main') {
             if($this->isLogged()) {
