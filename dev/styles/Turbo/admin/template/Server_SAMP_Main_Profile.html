@@ -6,13 +6,13 @@
     
     
     <div id="main-content-right">
-        <h2>{$_PROFILE}</h2>
+        <h2>omg</h2>
         <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
             <fieldset>
-                <legend>{$_USER_INFO}</legend>
+                <legend>test</legend>
                 <ul class="align-list">
                     <li>
-                        <label for="firstname">{$_FIRSTNAME}</label>
+                        <label for="firstname">lol</label>
 
                         <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="{$form['firstname']['value']}" />
                         <span class="msg-form-error" id="AJAXMessage"></span>
@@ -65,35 +65,6 @@
                 </ul>
             </fieldset>
         </form>
-        
-        <form action="{$pass['action']}" method="{$pass['method']}" enctype="multipart/form-data">                                
-            <fieldset>
-                <legend>Zmena hesla</legend>
-                <ul class="align-list">
-                    <li>
-                        <label for="old_pass">Stare heslo</label>
-                        <input type="{$pass['oldpass']['type']}" id="old_pass" name="{$pass['oldpass']['name']}" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="password">Nove heslo</label>
-                        <input type="{$pass['newpass']['type']}" id="password" name="{$pass['newpass']['name']}" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="retry_pass">Nove heslo (znovu)</label>
-                        <input type="{$pass['retrypass']['type']}" id="retry_pass" name="{$pass['retrypass']['name']}" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label></label>
-                        <input type="{$pass['change']['type']}" name="{$pass['change']['name']}" value="{$pass['change']['value']}" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                </ul>
-            </fieldset>
-        </form>
-        
         
     </div>
 </div>

@@ -66,9 +66,9 @@
                         $this->form->getValue('remember'));
                 
                 if($login) {
-                    $GLOBALS['router']->redirect('User:Main');
+                    Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('User:Main')));
                 } else {
-                    Ajax::sendJSON(array('dialogName' => 'Error', 'dialogValue' => 'Zadali ste zle meno alebo heslo...'));
+                    Ajax::sendJSON(array('dialogValue' => 'Zadali ste zle meno alebo heslo...'));
                 }
             } else {
                 Ajax::sendJSON($this->form->validateData());
@@ -80,6 +80,6 @@
             $this->forLogged();
             $model = new \Model\admin\Login();
             $model->logout();
-            Ajax::sendJSON(array('redirect' => $GLOBALS['router']->traceRoute('Login')));
+            Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('Login')));
         }
     }

@@ -66,9 +66,14 @@
             return $uid ? $uid->value : NULL;
         }
         
-        public function hasServer() {
+        
+        protected function hasServer($sid) {
             $val = $this->db->tables('servers, machines')
-                    ->select('servers.id, machines.ip,...'); @todo dorobit
+                    ->select('server.id, machines.ssh_ip, machines.ssh_machines.ssh_port, machines.ssh_login, machines.ssh_password')
+                    ->where('servers.UID', UID)
+                    ->where('servers.id', $sid)
+                    ->fetch();
+            return $val ? $val : NULL;
         }
         
         
@@ -80,7 +85,7 @@
         
         protected function forLogged($url = 'Login') {
             if(!$this->isLogged()) {
-                Router::like($url, TRUE);
+                Router::redirect($url);
             }
         }
     }

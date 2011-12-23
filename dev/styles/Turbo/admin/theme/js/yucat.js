@@ -78,10 +78,13 @@ $(function() {
     }
     
     
-    function manageRespJSON(input) {
+    function manageRespJSON(input) { console.log(input);
         var out = 1;
-        $.each(input, function(id, val) { 
+        $.each(input, function(id, val) {
             switch(id) {
+                case 'redirectHead' :
+                    window.location = val;
+                    break;
                 case 'redirect' :
                     changePage(val);
                     break;

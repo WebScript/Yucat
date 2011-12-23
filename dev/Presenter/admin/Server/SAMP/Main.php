@@ -16,6 +16,7 @@
     namespace Presenter\admin\Server\SAMP;
     
     class Main extends \Presenter\BasePresenter {
+        private $form;
         
         public function __construct() {
             parent::__construct();
@@ -93,6 +94,7 @@
         }
         
         public function profile($id) {
+            $this->template->form = $this->form->sendForm();
             echo $id;
         }
     }
