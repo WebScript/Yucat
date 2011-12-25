@@ -4,7 +4,7 @@ $(function() {
     var last;   
     
     $('form').live('submit', function() {
-        $.post(this.action + 'Send', $(this.elements).serialize(), function(msg) {
+        $.post(this.action + '/send', $(this.elements).serialize(), function(msg) {
             if(!manageRespJSON($.parseJSON(msg))) {
                 changeStats($(':input[name=' + id + ']'), val);
             }
@@ -21,7 +21,7 @@ $(function() {
             var action = $(this).closest("form").attr('action');
             
             if(action) {
-                $.post(action + 'Check', name + '=' + $(this).val(), function(msg) {
+                $.post(action + '/check', name + '=' + $(this).val(), function(msg) {
                     if(!manageRespJSON($.parseJSON(msg))) {
                         changeStats(ths, $($.parseJSON(msg)).attr(name));
                     }

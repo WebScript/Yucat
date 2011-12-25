@@ -86,11 +86,7 @@
             
             if(!$db->tables('cookie')->select('id')->where('hash', $this->myCid)->fetch()) {
                 while(1) {
-                    $hash = '';
-                    $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
-                    for($i=0;$i<256;$i++) {
-                        $hash .= $chars[rand(0, strlen($chars)-1)];
-                    }
+                    $hash = String::keyGen(256);
 
                     if($db->tables('cookie')->select('id')->where('hash', $hash)->fetch()) {
                         continue;

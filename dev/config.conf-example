@@ -4,21 +4,3 @@
     define("DB_LOGIN",     "");                   //Username to connect to database
     define("DB_PASSWORD",  "");                   //Password to connect to database
     define("DB_DB",        "");                   //Database
-
-        //Other
-    //define('CFG_PROTOCOL','http://');             //Protocol
-    //define("CFG_WEBSITE",      "");               //without http://www.
-    //define("CFG_VERSION",  "0.0.0");              //Actual version of this administration
-    //define("CFG_MAX_SRVS", "1");                  //Max servers for free user
-    //define("CFG_CAN_ORD",  "1");                  //If free user can order server. 1 = yes, 0 = no
-    //define("CFG_DEF_LANG", "cz");                 // Default set language
-    //define('CFG_DEF_STYLE','Turbo');              //Defualt set style
-    //define('CFG_TIME_ZONE', 'Europe/Bratislava'); //Time zone
-    
-        //Text
-    //define('CFG_TMLP_KEYWORDS', 'Hosting, Host, Server Hosting, Server Host, Game Server Hosting, Game Server Host');
-    //define('CFG_TMLP_DESCRIPTION', 'Game Server Hosting');
-
-        //Cost
-    //define("COST_SAMP", "1.667");                 //1.667 credit peer 50 slots peer 30 day
-    //define("COST_BANNER", "10");                   // point of banners / COST_BANNER

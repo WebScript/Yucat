@@ -15,86 +15,92 @@
 
     namespace Presenter\admin\Server\SAMP;
     
+    use inc\Ajax;
+    
     class Main extends \Presenter\BasePresenter {
-        private $form;
         
         public function __construct() {
             parent::__construct();
             $this->forLogged();
             \inc\Router::like('Server:SAMP:profile');
-            
-            
-            $this->form = new \inc\Form();
-            $this->form->setAction('Server:SAMP:profile');
-            $this->form->setMethod('POST');
-           
-            $this->form->addElement('firstname', 'firstname', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->firstname)
-                    ->setErrorType('TEXT')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('lastname', 'lastname', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->lastname)
-                    ->setErrorType('TEXT')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('email', 'email', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->email)
-                    ->setErrorType('EMAIL')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('street', 'street', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->street)
-                    ->setErrorType('TEXT')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('language', 'language', 'select', $GLOBALS['lang']->getAvaiableLang())
-                    //->setValue(array('bb' => 'BBBBf'))
-                    ->setErrorType('TEXT')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('city', 'city', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->city)
-                    ->setErrorType('TEXT')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('postcode', 'postcode', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->postcode)
-                    ->setErrorType('NUMBER')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('telephone', 'telephone', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->telephone)
-                    ->setErrorType('TELEPHONE')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('website', 'website', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->website)
-                    ->setErrorType('WEBSITE')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('save', 'save', 'submit')
-                    ->setValue('Odoslat');
         }
         
-        public function profile($id) {
-            $this->template->form = $this->form->sendForm();
-            echo $id;
+        
+        
+        public function profile($id, $type = NULL, $act = NULL) {
+            $ssh = $this->callServer($id);
+            //@todo podmienka = vyriesene v basepresentery
+            
+            $data = $this->db()
+                    ->tables('servers, server_params, server_types, machines')
+                    ->select('servers.id, servers.port, servers.slots, servers.stopped, servers.autorun, server_types.name, server_types.cost, machines.name AS mname')
+                    ->where('servers.UID', UID)
+                    ->where('servers.id', 'server_params.SID', TRUE)
+                    ->where('machines.id', 'servers.MID', TRUE)
+                    ->fetchAll();
+            
+            $form = new \inc\Form();
+            $form->setAction('Server:SAMP:Main:profile:' . SID . ':data');
+            $form->setMethod('POST');
+           
+            $form->addElement('id', 'id', 'text')
+                    ->setValue($data[0]->id);
+            
+            $form->addElement('name', 'name', 'text')
+                    ->setValue($data[0]->name);
+            
+            $form->addElement('port', 'port', 'text')
+                    ->setValue($data[0]->port);
+            
+            $form->addElement('slots', 'slots', 'text')
+                    ->setValue($data[0]->slots);
+            
+            $form->addElement('stopped', 'stopped', 'text')
+                    ->setValue($data[0]->stopped ? : 'No');
+            
+            $form->addElement('autorun', 'autorun', 'text')
+                    ->setValue($data[0]->autorun ? 'Yes' : 'No');
+            
+            $form->addElement('cost', 'cost', 'text')
+                    ->setValue($data[0]->cost * $data[0]->slots);
+            
+            $form->addElement('mname', 'mname', 'text')
+                    ->setValue($data[0]->mname);
+            
+            $form->addElement('stop', 'stop', 'checkbox')
+                    ->setValue($data[0]->stopped ? 'checked' : '')
+                    ->setErrorType('CHECKBOX')
+                    ->setErrorMessage('error');
+
+            $form->addElement('save', 'save', 'submit')
+                    ->setValue('Odoslat');
+            
+            
+            $control = new \inc\Form();
+            $control->setAction('Server:SAMP:Main:profile:' . SID . ':control');
+            $control->setMethod('POST');
+            
+            $control->addElement('on', 'on', 'submit')
+                    ->setValue('Zapnut');
+            
+            $control->addElement('restart', 'restart', 'submit')
+                    ->setValue('Restartovat');
+            
+            $control->addElement('off', 'off', 'submit')
+                    ->setValue('Vypnut');
+            
+            
+            if($type == 'data' && $act == 'check') {
+                Ajax::sendJSON($form->validateData());
+            } elseif($type == 'data' && $act == 'send') {
+                Ajax::sendJSON($form->validateData());
+            } elseif($type == 'control' && $act == 'check') {
+                Ajax::sendJSON($form->validateData());
+            } elseif($type == 'control' && $act == 'send') {
+                Ajax::sendJSON($form->validateData());
+            } else {
+                $this->template->form       = $form->sendForm();
+                $this->template->control    = $control->sendForm();
+            }
         }
     }

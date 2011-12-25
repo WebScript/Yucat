@@ -1291,7 +1291,7 @@ div.image-gallery-con, div.file-gallery-con {
 div.loading {
     position: fixed;
     right: 50%;
-    top: 50%;
+    top: 30%;
     width: 8em;
   
 }

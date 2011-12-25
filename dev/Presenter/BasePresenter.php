@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.4
+     * @version    Release: 0.1.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -27,8 +27,9 @@
         private $db;
         
         public function __construct() {
+            GLOBAL $db, $router;
             $this->template = Arr::array2Object(Core::$translate);
-            $this->db = $GLOBALS['db'];
+            $this->db = $db;
 
             $this->template->isLogged       = $this->isLogged() ? TRUE : NULL;
             $this->template->isAjax         = Ajax::isAjax();
@@ -39,6 +40,13 @@
             
             if($this->isLogged()) {
                 $this->template->user       = $this->db->tables('users')->where('id', UID)->fetch();
+                
+                /** Set SID const */
+                $params = $router->getParam('params');
+                if(isset($params[0])) {
+                    $sid = $this->db()->tables('servers')->where('UID', UID)->where('id', $params[0])->fetch();
+                    if($sid && !defined('SID')) define('SID', $sid->id ? : NULL);
+                }
             }
         }
         
@@ -67,13 +75,24 @@
         }
         
         
-        protected function hasServer($sid) {
+        protected function callServer($sid, $connect = FALSE) {
             $val = $this->db->tables('servers, machines')
-                    ->select('server.id, machines.ssh_ip, machines.ssh_machines.ssh_port, machines.ssh_login, machines.ssh_password')
+                    ->select('servers.id, machines.ssh_ip, machines.ssh_port, machines.ssh_login, machines.ssh_password')
                     ->where('servers.UID', UID)
                     ->where('servers.id', $sid)
+                    ->where('servers.MID', 'machines.id', TRUE)
                     ->fetch();
-            return $val ? $val : NULL;
+            
+            //@todo pridat kontrolu ci nema zamknuty server!
+            if($val && $connect) {
+                $ssh = new \inc\Servers\SecureShell($val->ssh_ip, $val->ssh_port, $val->ssh_login, $val->ssh_password);
+            } elseif($val) {
+                $ssh = TRUE;
+            } else {
+                $ssh = FALSE;
+                \inc\Diagnostics\ExceptionHandler::Error('Server doesn\'t exists!');
+            }
+            return $ssh;
         }
         
         
@@ -88,4 +107,5 @@
                 Router::redirect($url);
             }
         }
+        
     }

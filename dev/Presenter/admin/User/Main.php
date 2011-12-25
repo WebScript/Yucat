@@ -19,120 +19,150 @@
     use inc\Date;
     
     class Main extends \Presenter\BasePresenter {
-        private $form;
-        private $pass;
-        
+
         public function __construct() {
             parent::__construct();
             $this->forLogged();
             \inc\Router::like('User:Main:news');
-            
-            
-            $this->form = new \inc\Form();
-            $this->form->setAction('User:Main:data');
-            $this->form->setMethod('POST');
-           
-            $this->form->addElement('firstname', 'firstname', 'text')
+        }
+        
+        
+        public function profile($type = NULL, $act = NULL) {
+            $form = new \inc\Form();
+            $form->setAction('User:Main:profile:data');
+            $form->setMethod('POST');
+
+            $form->addElement('firstname', 'firstname', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setValue($this->template->user->firstname)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('lastname', 'lastname', 'text')
+
+            $form->addElement('lastname', 'lastname', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setValue($this->template->user->lastname)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('email', 'email', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setValue($this->template->user->email)
-                    ->setErrorType('EMAIL')
-                    ->setErrorMessage('error');
-            
-            $this->form->addElement('street', 'street', 'text')
+
+            $form->addElement('email', 'email', 'text')
+                    ->setValue($this->template->user->email);
+
+            $form->addElement('street', 'street', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setValue($this->template->user->street)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('language', 'language', 'select', $GLOBALS['lang']->getAvaiableLang())
+
+            $form->addElement('language', 'language', 'select', $GLOBALS['lang']->getAvaiableLang())
                     //->setValue(array('bb' => 'BBBBf'))
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('city', 'city', 'text')
+
+            $form->addElement('city', 'city', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setValue($this->template->user->city)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('postcode', 'postcode', 'text')
+
+            $form->addElement('postcode', 'postcode', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setValue($this->template->user->postcode)
                     ->setErrorType('NUMBER')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('telephone', 'telephone', 'text')
+
+            $form->addElement('telephone', 'telephone', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setValue($this->template->user->telephone)
                     ->setErrorType('TELEPHONE')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('website', 'website', 'text')
+
+            $form->addElement('website', 'website', 'text')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setValue($this->template->user->website)
                     ->setErrorType('WEBSITE')
                     ->setErrorMessage('error');
-            
-            $this->form->addElement('save', 'save', 'submit')
+
+            $form->addElement('save', 'save', 'submit')
                     ->setValue('Odoslat');
             
-            
-            
-            $this->pass = new \inc\Form();
-            $this->pass->setAction('User:Main:pass');
-            $this->pass->setMethod('POST');
-            
-            $this->pass->addElement('oldpass', 'oldpass', 'password')
+
+            $pass = new \inc\Form();
+            $pass->setAction('User:Main:profile:pass');
+            $pass->setMethod('POST');
+
+            $pass->addElement('oldpass', 'oldpass', 'password')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->pass->addElement('newpass', 'newpass', 'password')
+
+            $pass->addElement('newpass', 'newpass', 'password')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->pass->addElement('retrypass', 'retrypass', 'password')
+
+            $pass->addElement('retrypass', 'retrypass', 'password')
                     ->setMinLenght(4)
                     ->setMaxLenght(30)
                     ->setErrorType('TEXT')
                     ->setErrorMessage('error');
-            
-            $this->pass->addElement('change', 'change', 'submit')
+
+            $pass->addElement('change', 'change', 'submit')
                     ->setValue('Zmenit');
+                
+                
+            if($type == 'data' && $act == 'check') Ajax::sendJSON($form->validateData());
+            elseif($type == 'pass' && $act == 'check') Ajax::sendJSON($pass->validateData());
+            elseif($type == 'data' && $act == 'send') {
+                $main = new \Model\admin\User\Main();
+                if(!$form->isValidData()) {
+                    Ajax::sendJSON(array_merge($form->validateData(), 
+                            array('dialogValue' => 'Chybne vyplnene udaje!')));
+                } else if($main->saveProfile()) {
+                    Ajax::sendJSON(array('dialogValue' => 'Profil bol uspesne ulozeny!'));
+                } else {
+                    Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit profil!'));
+                }
+            } elseif($type == 'pass' && $act == 'send') {
+                $main = new \Model\admin\User\Main();
+                if(!$pass->isValidData()) {
+                    Ajax::sendJSON(array_merge($pass->validateData(), 
+                            array('dialogValue' => 'Chybne vyplnene udaje!')));
+                    return;
+                }
+
+                switch($main->changePassword()) {
+                    case 1:
+                        Ajax::sendJSON(array('dialogValue' => 'Heslo bolo ulozene!'));
+                        break;
+                    case 2:
+                        Ajax::sendJSON(array('dialogValue' => 'Zadane hesla sa nerovnaju!'));
+                        break;
+                    case 3:
+                        Ajax::sendJSON(array('dialogValue' => 'Zadali ste nespravne heslo!'));
+                        break;
+                    default :
+                        Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit heslo!'));
+                        break;
+                }
+            } else {  
+                $rank = new \Model\admin\User\Main();
+                $this->template->rank       = $rank->getUserRank($this->template->user->rank, $this->template);
+                $this->template->peer_day   = $rank->getCreditPeerDay(UID);
+                $this->template->form       = $form->sendForm();
+                $this->template->pass       = $pass->sendForm();
+                $this->template->date       = new Date();
+            }
         }
         
-        
-        public function profile() {
-            $rank = new \Model\admin\User\Main();
-            $this->template->rank       = $rank->getUserRank($this->template->user->rank, $this->template);
-            $this->template->peer_day   = $rank->getCreditPeerDay(UID);
-            $this->template->form       = $this->form->sendForm();
-            $this->template->pass       = $this->pass->sendForm();
-            $this->template->date       = new Date();
-        }
         
         
         public function news() {
@@ -142,53 +172,5 @@
             $this->template->db             = $this->db();
             $this->template->date           = new Date();
             $this->template->main           = new \Model\admin\User\Main();
-        }
-        
-        
-        public function passCheck() {
-            Ajax::sendJSON($this->pass->validateData());
-        }
-        
-        
-        public function dataCheck() {
-            Ajax::sendJSON($this->form->validateData());
-        }
-        
-        
-        public function dataSend() {
-            $main = new \Model\admin\User\Main();
-            if(!$this->form->isValidData()) {
-                Ajax::sendJSON(array_merge($this->form->validateData(), 
-                        array('dialogValue' => 'Chybne vyplnene udaje!')));
-            } else if($main->saveProfile()) {
-                Ajax::sendJSON(array('dialogValue' => 'Profil bol uspesne ulozeny!'));
-            } else {
-                Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit profil!'));
-            }
-        }
-        
-        
-        public function passSend() {
-            $main = new \Model\admin\User\Main();
-            if(!$this->pass->isValidData()) {
-                Ajax::sendJSON(array_merge($this->pass->validateData(), 
-                        array('dialogValue' => 'Chybne vyplnene udaje!')));
-                return;
-            }
-            
-            switch($main->changePassword()) {
-                case 1:
-                    Ajax::sendJSON(array('dialogValue' => 'Heslo bolo ulozene!'));
-                    break;
-                case 2:
-                    Ajax::sendJSON(array('dialogValue' => 'Zadane hesla sa nerovnaju!'));
-                    break;
-                case 3:
-                    Ajax::sendJSON(array('dialogValue' => 'Zadali ste nespravne heslo!'));
-                    break;
-                default :
-                    Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit heslo!'));
-                    break;
-            }
         }
     }

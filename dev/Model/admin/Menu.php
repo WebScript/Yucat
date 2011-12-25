@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.4
+     * @version    Release: 0.1.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
@@ -22,7 +22,7 @@
         public static function createMenu(array $array, $translate) {
             GLOBAL $router;
             
-            $url = implode(':', $router->getParam('dir')) . ':' . $router->getParam('class') . ($router->getParam('method') ? ':' . $router->getParam('method') : '');
+            $url = implode(':', $router->getParam('dir')) . ':' . $router->getParam('class') . ($router->getParam('method') ? ':' . $router->getParam('method') . ($router->getParam('params') ? ':' . implode(':', $router->getParam('params')) : '') : '');
             $menu = '<ul id="main-menu" class="radius-top clearfix">';
 
              foreach($array AS $key => $val) {
@@ -32,7 +32,7 @@
                         . '" /><span>' . $translate[$key] . '</span>' 
                         . (is_Array($val) && in_array($url, $val) ? '<span class="submenu-arrow"></span>' : '')
                         . '</a></li>';
-                  //d($val);
+
                   if(is_Array($val) && in_array($url, $val)) {
                       $sub_menu = '<ul id="sub-menu" class="clearfix">';
 

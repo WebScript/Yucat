@@ -6,55 +6,71 @@
     
     
     <div id="main-content-right">
-        <h2>omg</h2>
+        <h2>Server info</h2>
         <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
             <fieldset>
-                <legend>test</legend>
+                <legend>Ovladanie servera</legend>
                 <ul class="align-list">
                     <li>
-                        <label for="firstname">lol</label>
+                        <label></label>
+                        <input type="{$control['on']['type']}" name="{$control['on']['name']}" value="{$control['on']['value']}" />
+                        <input type="{$control['restart']['type']}" name="{$control['restart']['name']}" value="{$control['restart']['value']}" />
+                        <input type="{$control['off']['type']}" name="{$control['off']['name']}" value="{$control['off']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+        
+        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>Informace</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="id">ID</label>
 
-                        <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="{$form['firstname']['value']}" />
+                        <input type="{$form['id']['type']}" id="id" name="{$form['id']['name']}" value="{$form['id']['value']}" disabled />
                         <span class="msg-form-error" id="AJAXMessage"></span>
                     </li>
                     <li>
-                        <label for="lastname">Priezvisko</label>
-
-                        <input type="{$form['lastname']['type']}" id="lastname" name="{$form['lastname']['name']}" value="{$form['lastname']['value']}" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="email">E-mail</label>
-                        <input type="{$form['email']['type']}" id="email" name="{$form['email']['name']}" value="{$form['email']['value']}" disabled />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="street">Ulica</label>
-                        <input type="{$form['street']['type']}" id="street" name="{$form['street']['name']}" value="{$form['street']['value']}" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="language">Jazyk/Stat</label>
-                        <select id="language" name="{$form['language']['name']}">{$form['language']['value']}</select>
-                    </li>
-                    <li>
-                        <label for="city">Mesto</label>
-                        <input type="{$form['city']['type']}" id="city" name="{$form['city']['name']}" value="{$form['city']['value']}" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="postcode">PSC</label>
-                        <input type="{$form['postcode']['type']}" id="postcode" name="{$form['postcode']['name']}" value="{$form['postcode']['value']}"/>
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="telephone">Telefonne cislo</label>
-                        <input type="{$form['telephone']['type']}" id="telephone" name="{$form['telephone']['name']}" value="{$form['telephone']['value']}" />
+                        <label for="mname">Stroj</label>
+                        <input type="{$form['mname']['type']}" id="mname" name="{$form['mname']['name']}" value="{$form['mname']['value']}" disabled />
                         <span class="msg-form-error"></span>
                     </li>
                     <li>
-                        <label for="website">Web</label>
-                        <input type="{$form['website']['type']}" id="website" name="{$form['website']['name']}" value="{$form['website']['value']}" />
+                        <label for="name">Typ servera</label>
+                        <input type="{$form['name']['type']}" id="name" name="{$form['name']['name']}" value="{$form['name']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="port">Port</label>
+
+                        <input type="{$form['port']['type']}" id="port" name="{$form['port']['name']}" value="{$form['port']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="slots">Pocet slotov</label>
+                        <input type="{$form['slots']['type']}" id="slots" name="{$form['slots']['name']}" value="{$form['slots']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="stopped">Pozastavenie</label>
+                        <input type="{$form['stopped']['type']}" id="stopped" name="{$form['stopped']['name']}" value="{$form['stopped']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="autorun">Auto nahadzovac</label>
+                        <input type="{$form['autorun']['type']}" id="autorun" name="{$form['autorun']['name']}" value="{$form['autorun']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="cost">Cena za mesic</label>
+                        <input type="{$form['cost']['type']}" id="cost" name="{$form['cost']['name']}" value="{$form['cost']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="stop">Pozastavit server?</label>
+                        <input type="{$form['stop']['type']}" id="stop" name="{$form['stop']['name']}" checked="{$form['stop']['value']}" />
                         <span class="msg-form-error" id="AJAXMessage"></span>
                     </li>
                     <li>

@@ -32,11 +32,17 @@
                 ErrorHandler::addLog($error);
                 if(\inc\Ajax::isAjax()) {
                     echo '{"alert" : "Error: Internal server error :("}';
+                    exit;
                 } else {
                     include_once(__DIR__ . '/500.html');
                 }
             } elseif(Debug::$mode == Debug::MODE_DEV) {
-                ErrorHandler::drawTable($error);
+                if(\inc\Ajax::isAjax()) {
+                    echo '{"alert" : "' . $error['message'] . '"}';
+                    exit;
+                } else {
+                    ErrorHandler::drawTable($error);
+                }
             }
             exit;
         }

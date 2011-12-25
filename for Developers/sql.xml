@@ -81,7 +81,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="413" y="159" name="users">
+<table x="418" y="191" name="users">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -319,7 +319,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1136" y="198" name="machines_servers">
+<table x="1136" y="198" name="machine_servers">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -440,7 +440,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="379" y="21" name="server_types">
+<table x="393" y="22" name="server_types">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -449,6 +449,30 @@
 </row>
 <row name="cost" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+</row>
+<row name="min_slots" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="max_slots" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1151" y="30" name="lost_passwords">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="UID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="users" row="id" />
+</row>
+<row name="hash" null="0" autoincrement="0">
+<datatype>VARCHAR(256)</datatype>
+</row>
+<row name="passwd" null="0" autoincrement="0">
+<datatype>VARCHAR(256)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

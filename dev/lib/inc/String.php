@@ -35,4 +35,14 @@
             }
             return $string;
         }
+        
+        
+        public static function keyGen($len) {
+            $hash = '';
+            $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
+            for($i=0;$i<$len;$i++) {
+                $hash .= $chars[rand(0, strlen($chars)-1)];
+            }
+            return $hash;
+        }
     }

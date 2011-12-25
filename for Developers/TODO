@@ -2,8 +2,10 @@ TASKS 1:
     raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
     Pridat do DB tabilky games min a max pocet slotov
     dorobit language system, skoncil som v profile
-    Dorobit posielanie hesla mailom
-    Pridat niekam kontrolu ci je spravne nastaveny permissions
+    Dorobit posielanie hesla mailom, Uz iba classu ktora bude menit heslo
+    Miesto pouzivana "Ajax::sendJSON(array_merge($this->form->validateData(), 
+                            array('dialogValue' => 'Chybne vyplnene udaje!')));" pridat do metody validateData nepovinny parameter ktory ak bude zadany automaticky mergne ten dialog do JSONU...
+    
 
 TASKS 2:
     Spravit registraciu
@@ -12,12 +14,12 @@ TASKS 2:
 TASKS 3:
 -    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
 -    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
-    tzv. autologinovacie URL, nieco ako index.php?login=mike&hash=password
 
 TASKS 4:
     Spravit to tak ze kredity budu dostavat iba ked je clovek na tej istej stranke co maju v profile a kredity budu asi 1 ku 100
     asi pridat moznost aj javascript reklamy na wweb a za klik na reklamu budu extra kredity
-    Moznost kupit kredit cez sms
+    Dorobit scripty na SMS branu, paypal, internet banking atd.
+    Pridat niekam kontrolu ci je spravne nastaveny permissions
 
 TASKS 5:
     vizitku
@@ -41,7 +43,6 @@ TASKS 7:
 TASKS 8:
     Posielanie kreditu + do logu transakcie
     Verejny profil v takom tom mini okienku (pre admina ban/lock, pre uzivatelov send credits)
-    Do profilu si moyu ludia dat MotD
 
 TASKS 9:
     Friends/Unfriends
@@ -65,14 +66,6 @@ Updater:
 
     Spravit aj taky ban system, ze ked admin pojde do adminky adminky (:D) tak sa posle request na moj server a ak tam ma ban tak 
         mu to proste zmaze adminku
-
-
-DOROBIT:
-    Horne menu!
-
-    Profile;
-        Search
-
 
 
 

@@ -56,6 +56,34 @@
             }
         }
         
+        
+        public function resetPassword($mail) {
+            $data = $this->db()
+                    ->table('users')
+                    ->where('mail', $mail)
+                    ->fetch();
+            
+            if($data) {
+                $hash = \inc\String::keyGen(256);
+                $pass = \inc\String::keyGen(8);
+                
+                $this->db()
+                        ->table('lost_passwords')
+                        ->where('UID', $data->id)
+                        ->delete();
+                
+                $this->db()
+                        ->table('lost_passwords')
+                        ->insert(array('UID' => $data->id, 'hash' => $hash, 'passwd' => $pass));
+                //@todo este pridat funkciu na poslatie mailu....
+                return 1;
+            } else {
+                return 0;
+            }
+            
+        }
+        
+        
         public function logout() {
             GLOBAL $cookie;
                         
