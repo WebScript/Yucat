@@ -1,0 +1,124 @@
+<div id="content" class="clearfix">
+            <div id="side-content-right">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Udaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="backcolor tleft" width="100">ID:</td>
+                    <td>{$user->id}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Login:</td>
+                    <td>{$user->user}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Rank:</td>
+                    <td>{$rank}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Kredit:</td>
+                    <td>{$user->credit}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Denna spotreba:</td>
+                    <td>{$peer_day}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">IP:</td>
+                    <td>{$user->ip}</td>
+                </tr>
+                <tr>
+                    <td class="backcolor tleft">Last login:</td>
+                    <td>{$date->getTime($user->ll1)}<br />{$date->getDate($user->ll1)}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Informacie</h3>
+        <div class="body-con">
+            <p><strong>Vas ucet</strong> nejake blbosti o ucte</p>
+            <p>The <strong>Twitter widget</strong> is ready for work. Enter your Twitter's app credentials and update your status right away.</p>
+        </div>
+    </div>
+    
+    <div id="main-content-left">
+        
+        <h2>Statistiky, kdo videl vas banner</h2>
+        <div class="simple-con tleft">
+            {$selector}
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>p.c.</th>
+                    <th>Velkost</th>
+                    <th>URL</th>
+                    <th>Datum</th>
+                    <th>Cas</th>
+                    <th>IP</th>
+                </tr>
+
+            </thead>
+            
+            <tbody>
+                {foreach $table_content as $val :}
+                    <tr>
+                        <td>{$val->id}</td>
+                        <td>{$val->size}</td>
+                        <td>{$val->website}</td>
+                        <td>{$date->getDate($val->date)}</td>
+                        <td>{$date->getTime($val->date)}</td>
+                        <td>{$val->ip}</td>
+                    </tr>
+                {/foreach}
+            </tbody>
+            
+            </table>
+            <ul class="pagination tcenter">
+                {$map}
+            </ul>
+        <h2>Graf</h2>
+        <div class="body-con">
+            <div id="stats" class="flot-con"></div>
+
+        </div>                  
+    </div>
+</div>
+
+
+<script>
+    {$graph}
+</script>
+
+<script>
+    $(function() {
+        $.plot($("#stats"), [{
+                data: d1,
+                lines: {
+                    show: true, 
+                    fillColor: '#FFFFFF', 
+                    fill: 1
+                },
+                points: {
+                    show: true
+                }
+            }], {
+            xaxis: {
+            ticks: [[01, "Jan"], [02, "Feb"], [03, "Mar"], [04, "Apr"], [05, "May"], [06, "Jun"], [07, "Jul"],
+                   [08, "Aug"], [09, "Sep"], [10, "Oct"], [11, "Nov"], [12, "Dec"]]
+            },
+            yaxis: {
+            ticks: 10,
+            min: 0
+            },
+            grid: {
+                backgroundColor: {
+                    colors: ["#FFFFFF", "#EEEEEE"]
+                }
+            }
+        });
+    })
+</script>

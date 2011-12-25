@@ -1,0 +1,63 @@
+<div id="content" class="clearfix">
+    <div id="side-content-left">
+        <h3>Info</h3>
+        <div class="body-con">Dake keci</div>
+    </div>
+    
+    
+    <div id="main-content-right">
+        <h2>Moje servery</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>SID</th>
+                    <th>Master Server</th>
+                    <th>Produkt</th>
+                    <th>IP:Port</th>
+                    <th>Hraci</th>
+                    <th>Status</th>
+                    <th>Nastavenie</th>
+                </tr>
+            </thead>
+
+            {foreach $servers as $val :}
+                <tr>
+                    <td class="tbold">{$val->id}</td>
+                    <td>{$val->mname}</td>
+                    <td>{$val->name}</td>
+                    <td class="tbold">{$val->ssh_ip}:{$val->port}</td>
+                    <td>{$a=''; $e=$checkStatus->checkStatus($val->type, $val->ssh_ip, $val->port); echo $e['players']}/{$e['maxPlayers']}</td>
+                    <td>
+                        {if $e['maxPlayers'] > 0 :}<a href="javascript: void(0)" class="tiptip-top" title="Zapnuty"><img src="{$__THEME_DIR}img/accept.png" alt="up" /></a>{elseif $val->stopped :}<a href="javascript: void(0)" class="tiptip-top" title="Pozastaveny"><img src="{$__THEME_DIR}img/exclamation.png" alt="stopped" /></a>{else}<a href="javascript: void(0)" class="tiptip-top" title="Vypnuty"><img src="{$__THEME_DIR}img/cross.png" alt="down" /></a>{/if}
+                        {if $val->autorun :}<a href="javascript: void(0)" class="tiptip-top" title="Autorun je zapnuty"><img src="{$__THEME_DIR}img/arrow_up.png" alt="autorun" /></a>{else}<a href="javascript: void(0)" class="tiptip-top" title="Autorun je vypnuty"><img src="{$__THEME_DIR}img/arrow_down.png" alt="autorun" /></a>{/if}
+                    </td>
+                    
+                    <td>
+                        <a href="javascript:changePage('{$router->traceRoute('Server:SAMP:Main:profile:' . $val->id)}');" class="tiptip-top" title=""><img src="{$__THEME_DIR}img/wrench.png" alt="edit" /></a>
+                        <a href="javascript:deleteServer({$val->id});" class="tiptip-top" title="Delete"><img src="{$__THEME_DIR}img/icon_bad.png" alt="delete" /></a>
+                    </td>
+                </tr>
+            {/foreach}
+            </a>
+            </tbody>
+        </table>
+                
+    </div>
+</div>
+
+<form id="delForm" action="{macroLink User:Server:delete}" method="POST">
+    <input type="hidden" name="deleteId" value="0" />
+</form>
+
+<script>
+    function deleteServer(id) {
+        $('input[name=deleteId]').val(id);
+        apprise("Chcete zmazat server?", {'animate' : true, 'verify' : true}, function(resp) {
+            if(resp == true) {
+                $('#delForm').submit();
+            }
+            console.log(id);
+        });
+    }
+</script>

@@ -1,0 +1,58 @@
+        <div id="login-container-outer" class="radius">
+            <div id="login-container" class="radius">
+                <div id="login-header" class="radius-top">
+                    <a href="login">
+                        <img src="{$__THEME_DIR}img/login_logo.png" alt="login logo" />
+                    </a>                    
+                </div>
+                <div id="login-content">
+                    <form action="{$form['action']}" method="{$form['method']}" id="wl-form" name="wl-form">
+                        <label for="wl-username">{$_LOGIN}</label>
+                        <input type="{$form['username']['type']}" id="wl-username" name="{$form['username']['name']}" />
+                        <label for="wl-password">{$_PASSWORD}</label>
+                        <input type="{$form['password']['type']}" id="wl-password" name="{$form['password']['name']}" />
+                        <label for="wl-remember">{$_REMEMBER}</label>
+                        <input type="{$form['remember']['type']}" id="wl-remember" name="{$form['remember']['name']}" />
+                        <input type="{$form['login']['type']}" value="{$form['login']['value']}" id="wl-btn" name="{$form['login']['name']}" class="fright" />
+                    </form>
+                    <form action="{$pass['action']}" method="{$pass['method']}" id="wr-form" name="wr-form" class="dis-none">
+                        <label for="wr-email">{$_EMAIL}</label>
+                        <input type="{$pass['mail']['type']}" id="wr-email" name="{$pass['mail']['name']}" />
+                        <p class="tright">
+                            <input type="{$pass['send']['type']}" value="{$pass['send']['value']}" id="wr-btn" name="{$pass['send']['name']}" />
+                        </p>
+                    </form>
+                </div>
+                <div id="login-extra" class="radius-bottom">
+                    <a id="a-reminder" href="javascript: void(0)" class="afooter-link">{$_FORGOT_PASS}</a>
+                    <a id="a-login" href="javascript: void(0)" class="afooter-link dis-none">{$_SUDDENDLY_PASS}</a>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function(){
+                $("select").uniform();
+                $("input:checkbox").uniform();
+                $("input:radio").uniform();
+                $("input:file").uniform();
+                $('#a-reminder').click(function(){
+                    $('#wl-form').slideUp( 300, function(){
+                        $('#wr-form').slideDown( 300, function(){
+                            $('#a-reminder').hide( 1, function(){
+                                $('#a-login').show();
+                                $('#wr-email').focus();
+                            });
+                        });
+                    });
+                });
+                $('#a-login').click(function(){
+                    $('#wr-form').slideUp( 300, function(){
+                        $('#wl-form').slideDown( 300, function(){
+                            $('#a-login').hide( 1, function(){
+                                $('#a-reminder').show();
+                            });
+                        });
+                    });
+                });
+            });
+        </script>
