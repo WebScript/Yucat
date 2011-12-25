@@ -1,11 +1,7 @@
 TASKS 1:
     raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
-    Pridat do DB tabilky games min a max pocet slotov
     dorobit language system, skoncil som v profile
-    Dorobit posielanie hesla mailom, Uz iba classu ktora bude menit heslo
-    Miesto pouzivana "Ajax::sendJSON(array_merge($this->form->validateData(), 
-                            array('dialogValue' => 'Chybne vyplnene udaje!')));" pridat do metody validateData nepovinny parameter ktory ak bude zadany automaticky mergne ten dialog do JSONU...
-    
+    Dorobit posielanie hesla mailom, Posielanie mailu    
 
 TASKS 2:
     Spravit registraciu

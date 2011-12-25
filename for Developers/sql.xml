@@ -32,7 +32,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="39" y="29" name="access">
+</datatypes><table x="39" y="23" name="access">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -48,7 +48,10 @@
 <datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ip" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>VARCHAR(256)</datatype>
+</row>
+<row name="time" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

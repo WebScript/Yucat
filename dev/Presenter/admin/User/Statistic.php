@@ -34,7 +34,7 @@
 
             $statistic = new \Model\admin\User\Statistic();
             $banners = $this->db()->tables('banners')->where('UID', UID)->fetchAll();
-            $this->template->graph = $statistic->createGraph($banners, 'date');
+            $this->template->graph = $statistic->createGraph($banners, 'time');
 
             $menu = new \Model\admin\Menu();
             $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->numRows());
@@ -51,7 +51,7 @@
 
             $statistic = new \Model\admin\User\Statistic();
             $access = $this->db()->tables('access')->where('UID', UID)->fetchAll();
-            $this->template->graph = $statistic->createGraph($access, 'date');
+            $this->template->graph = $statistic->createGraph($access, 'time');
 
             $menu = new \Model\admin\Menu();
             $this->template->map = $menu->pager($this->db()->tables('access')->where('UID', UID)->numRows());

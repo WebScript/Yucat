@@ -74,13 +74,15 @@
             elseif($type == 'mail' && $act == 'send') {
                 if($this->pass->isValidData()) { 
                     $model = new \Model\admin\Login();
-                    $model->resetPassword($_POST['mail']);
+                    if($model->resetPassword($_POST['mail'])) {
+                         Ajax::sendJSON(array('dialogValue' => 'Na E-mail Vam bolo zaslane nove heslo'));
+                    } else {
+                        Ajax::sendJSON(array('dialogValue' => 'Chybne zadany E-mail!!'));
+                    }
                 } else {
-                    Ajax::sendJSON(array_merge($this->pass->validateData(), 
-                            array('dialogValue' => 'Chybne vyplnene udaje!')));
+                    Ajax::sendJSON($this->pass->validateData('Chybne vyplnene udaje!'));
                 }
-            }
-            elseif($type == 'login' && $act == 'send') {
+            } elseif($type == 'login' && $act == 'send') { 
                 if($this->form->isValidData()) { 
                     $model = new \Model\admin\Login();
                     $login = $model->login($this->form->getValue('username'), 
@@ -88,13 +90,13 @@
                             $this->form->getValue('remember'));
 
                     if($login) {
+                        \Model\admin\Access::add(0, 'Login', $login);
                         Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('User:Main')));
                     } else {
                         Ajax::sendJSON(array('dialogValue' => 'Zadali ste zle meno alebo heslo...'));
                     }
                 } else {
-                    Ajax::sendJSON(array_merge($this->form->validateData(), 
-                            array('dialogValue' => 'Chybne vyplnene udaje!')));
+                    Ajax::sendJSON($this->form->validateData('Chybne vyplnene udaje!'));
                 }
             }
         }  
@@ -104,6 +106,7 @@
             $this->forLogged();
             $model = new \Model\admin\Login();
             $model->logout();
+            \Model\admin\Access::add(0, 'logout');
             Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('Login')));
         }
     }

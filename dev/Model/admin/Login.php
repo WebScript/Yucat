@@ -52,15 +52,15 @@
                     $cookie->addParam($cookie->myCid, 'UID', $result->id);
                     $cookie->addParam($cookie->myCid, 'loggedNumber', '1');                
                 }
-                return 1;
+                return $result->id;
             }
         }
         
         
         public function resetPassword($mail) {
             $data = $this->db()
-                    ->table('users')
-                    ->where('mail', $mail)
+                    ->tables('users')
+                    ->where('email', $mail)
                     ->fetch();
             
             if($data) {
@@ -68,14 +68,15 @@
                 $pass = \inc\String::keyGen(8);
                 
                 $this->db()
-                        ->table('lost_passwords')
+                        ->tables('lost_passwords')
                         ->where('UID', $data->id)
                         ->delete();
                 
                 $this->db()
-                        ->table('lost_passwords')
+                        ->tables('lost_passwords')
                         ->insert(array('UID' => $data->id, 'hash' => $hash, 'passwd' => $pass));
                 //@todo este pridat funkciu na poslatie mailu....
+                //\inc\Mail::send('Support@gshost.eu', 'Bloodman@gshost.eu', 'Password recovery', 'Ak chcete zmenit vase heslo tak kliknite na <a href="' . DOMAIN . '/' . $hash . '">TENTO</a> link.');
                 return 1;
             } else {
                 return 0;

@@ -124,9 +124,9 @@
             elseif($type == 'data' && $act == 'send') {
                 $main = new \Model\admin\User\Main();
                 if(!$form->isValidData()) {
-                    Ajax::sendJSON(array_merge($form->validateData(), 
-                            array('dialogValue' => 'Chybne vyplnene udaje!')));
+                    Ajax::sendJSON($form->validateData('Chybne vyplnene udaje!'));
                 } else if($main->saveProfile()) {
+                    \Model\admin\Access::add(0, 'save profil');
                     Ajax::sendJSON(array('dialogValue' => 'Profil bol uspesne ulozeny!'));
                 } else {
                     Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit profil!'));
@@ -134,13 +134,13 @@
             } elseif($type == 'pass' && $act == 'send') {
                 $main = new \Model\admin\User\Main();
                 if(!$pass->isValidData()) {
-                    Ajax::sendJSON(array_merge($pass->validateData(), 
-                            array('dialogValue' => 'Chybne vyplnene udaje!')));
+                    Ajax::sendJSON($pass->validateData('Chybne vyplnene udaje!'));
                     return;
                 }
 
                 switch($main->changePassword()) {
                     case 1:
+                        \Model\admin\Access::add(0, 'save password');
                         Ajax::sendJSON(array('dialogValue' => 'Heslo bolo ulozene!'));
                         break;
                     case 2:

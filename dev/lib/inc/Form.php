@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.4
+     * @version    Release: 0.1.5
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -118,12 +118,12 @@
         }
         
         
-        public function validateData($input = NULL) {
-            $input = $input === NULL ? $_POST : $input;
+        public function validateData($errorMessage = NULL) {
+            $input = $_POST;
             $return = array();
 
             if(!Arr::isInArray($input, $this->form)) {
-                return array('error');
+                return $errorMessage ? array('dialogValue' => $errorMessage) : array('dialogValue' => 'Error');
             }
             
             foreach($this->form as $key => $val) {
@@ -154,12 +154,16 @@
                     $return = array_merge($return, $out);
                 }
             }
+
+            if($errorMessage && !$this->isValidData()) {
+                $return = array_merge($return, array('dialogValue' => $errorMessage));
+            }
             return $return;
         }
         
         
-        public function isValidData($input = NULL) {
-            $input = $this->validateData($input === NULL ? $_POST : $input);
+        public function isValidData() {
+            $input = $this->validateData();
             
             if(\inc\Arr::isInExtendedArray($input, 'error') === FALSE) {
                 return TRUE;

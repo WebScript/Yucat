@@ -32,13 +32,16 @@
             
         }
         
+        
         public function order() {
             
         }
         
+        
         public function deleteSend() {
             $delete = new \Model\admin\User\Server();
             $delete->deleteServer($_POST['deleteId']);
+            \Model\admin\Access::add(0, 'delete server');
             \inc\Ajax::sendJSON(array('redirect' => $router->traceroute('User:Server:view')));
         }
         

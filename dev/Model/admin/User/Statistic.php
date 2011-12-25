@@ -37,7 +37,7 @@
             }
             
             foreach($input as $val) {
-                $out[date('m', $val->$what)]++;
+                $out[\date('m', strtotime($val->$what))]++;
             }
 
             $str[] = 'var d1 = [ ';
