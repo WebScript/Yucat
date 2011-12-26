@@ -39,7 +39,7 @@
             $menu = new \Model\admin\Menu();
             $this->template->map = $menu->pager($this->db()->tables('banners')->where('UID', UID)->numRows());
             $this->template->selector = $menu->selectPeerPage();
-            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->fetchAll();
+            $this->template->table_content = $this->db()->tables('banners')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->order('id DESC')->fetchAll();
         }
         
         
@@ -56,6 +56,6 @@
             $menu = new \Model\admin\Menu();
             $this->template->map = $menu->pager($this->db()->tables('access')->where('UID', UID)->numRows());
             $this->template->selector = $menu->selectPeerPage();
-            $this->template->table_content = $this->db()->tables('access')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->fetchAll();
+            $this->template->table_content = $this->db()->tables('access')->where('UID', UID)->limit(($_GET['page'] - 1) * $_GET['peerPage'], $_GET['peerPage'])->order('id DESC')->fetchAll();
         }
     }

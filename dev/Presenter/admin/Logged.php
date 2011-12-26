@@ -34,8 +34,11 @@
             if($dirs == 'SAMP') {
                 $menu = Array(
                     '_MENU_MAIN' => Array(
-                        '_MENU_NEWS' => 'Server:SAMP:Main:profile:' . SID,
-                        '_MENU_PROFILE' => 'User:Main:profile'
+                        '_MENU_PROFILE' => 'Server:SAMP:Main:profile:' . SID,
+                        ),
+                    '_MENU_SAMP' => Array(
+                        '_MENU_PROFILE' => 'Server:SAMP:Main:profile:' . SID,
+                        '_MENU_PROFILE' => 'Server:SAMP:Main:profile:' . SID,
                         ),
                     '_MENU_CREDIT' => 'User:Server:view'
                     
@@ -63,7 +66,7 @@
                     );
             }
 
-                
+                d($this->template);
             if(Ajax::isAjax()) {
                 Ajax::sendHTML(\Model\admin\Menu::createMenu($menu, Core::$translate));
             } else {
