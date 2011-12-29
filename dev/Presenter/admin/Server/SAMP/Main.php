@@ -29,8 +29,7 @@
         
         public function profile($id, $type = NULL, $act = NULL) {
             $ssh = $this->callServer($id);
-            //@todo podmienka = vyriesene v basepresentery
-            
+
             $data = $this->db()
                     ->tables('servers, server_params, server_types, machines')
                     ->select('servers.id, servers.port, servers.slots, servers.stopped, servers.autorun, server_types.name, server_types.cost, machines.name AS mname')
@@ -76,17 +75,40 @@
                     ->setValue('Odoslat');
             
             
+            $ftp = new \inc\Form();
+            $ftp->setAction('Server:SAMP:Main:profile:' . SID . ':ftp');
+            $ftp->setMethod('POST');
+           
+            $ftp->addElement('id', 'id', 'text')
+                    ->setValue($data[0]->id);
+            
+            $ftp->addElement('host', 'host', 'text')
+                    ->setValue($data[0]->name);
+            
+            $ftp->addElement('port', 'port', 'text')
+                    ->setValue($data[0]->port);
+            
+            $ftp->addElement('login', 'login', 'text')
+                    ->setValue($data[0]->slots);
+            
+            $ftp->addElement('password', 'password', 'text')
+                    ->setValue($data[0]->stopped ? : 'No');
+
+            $ftp->addElement('save', 'save', 'submit')
+                    ->setValue('Odoslat');
+            
+            
             $control = new \inc\Form();
             $control->setAction('Server:SAMP:Main:profile:' . SID . ':control');
             $control->setMethod('POST');
             
-            $control->addElement('on', 'on', 'submit')
+            $control->addElement('start', 'start', 'submit')
                     ->setValue('Zapnut');
             
             $control->addElement('restart', 'restart', 'submit')
-                    ->setValue('Restartovat');
+                    ->setValue('Force restart');
             
-            $control->addElement('off', 'off', 'submit')
+            $control->addElement('stop', 'stop', 'submit')
                     ->setValue('Vypnut');
             
             
@@ -95,12 +117,35 @@
             } elseif($type == 'data' && $act == 'send') {
                 Ajax::sendJSON($form->validateData());
             } elseif($type == 'control' && $act == 'check') {
-                Ajax::sendJSON($form->validateData());
+                Ajax::sendJSON($control->validateData());
             } elseif($type == 'control' && $act == 'send') {
-                Ajax::sendJSON($form->validateData());
+                if($control->isValidData()) {            
+                    //$ssh = $this->callServer($id, TRUE);
+                    //$samp = new \Model\admin\Server\Samp();
+                    
+                    d($_POST);
+                    exit;
+                    
+                    //$re = $samp->control($ssh, $this->db()->tables('servers')->select('port')->where('id', SID)->fetch()->port, );
+                    /*if($re) {
+                        Ajax::sendJSON(array('dialogValue' => 'Server bol zapnuty'));
+                    } elseif($re === 2) {
+                        Ajax::sendJSON(array('dialogValue' => 'Server uz bezi'));
+                    } else {
+                        Ajax::sendJSON(array('dialogValue' => 'Server sa nepodarilo zapnut'));
+                    }*/
+                } else {
+                    Ajax::sendJSON($control->validateData('Chybne vyplnene udaje!'));
+                }
+                
+            } elseif($type == 'ftp' && $act == 'check') {
+                Ajax::sendJSON($ftp->validateData());
+            } elseif($type == 'ftp' && $act == 'send') {
+                Ajax::sendJSON($ftp->validateData());
             } else {
                 $this->template->form       = $form->sendForm();
                 $this->template->control    = $control->sendForm();
+                $this->template->ftp        = $ftp->sendForm();
             }
         }
     }

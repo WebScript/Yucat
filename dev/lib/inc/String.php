@@ -26,7 +26,7 @@
             $string = $args[0];
             unset($args[0]);
             
-            if(count($args) != substr_count($string, '?')) return FALSE;
+            if(count($args) != substr_count($string, '?')) return $args[0];
                        
             foreach($args as $val) {
                 $first = substr($string, 0, strpos($string, '?'));

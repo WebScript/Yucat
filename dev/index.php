@@ -39,6 +39,8 @@
      */
     define('STYLE_DIR', ROOT . 'styles/');
     
+    define('SRV_DIR', '/srv/');
+    
     /** 
      * Define full language path 
      * e.g. /var/www/yucat/developer/languages

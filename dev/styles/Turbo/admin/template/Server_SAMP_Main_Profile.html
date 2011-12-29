@@ -7,15 +7,15 @@
     
     <div id="main-content-right">
         <h2>Server info</h2>
-        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
+        <form action="{$control['action']}" method="{$control['method']}" enctype="multipart/form-data">                                
             <fieldset>
                 <legend>Ovladanie servera</legend>
                 <ul class="align-list">
                     <li>
                         <label></label>
-                        <input type="{$control['on']['type']}" name="{$control['on']['name']}" value="{$control['on']['value']}" />
-                        <input type="{$control['restart']['type']}" name="{$control['restart']['name']}" value="{$control['restart']['value']}" />
-                        <input type="{$control['off']['type']}" name="{$control['off']['name']}" value="{$control['off']['value']}" />
+                        <input type="{$control['start']['type']}" name="{$control['start']['name']}" value="{$control['start']['value']}" class="green" />
+                        <input type="{$control['restart']['type']}" name="{$control['restart']['name']}" value="{$control['restart']['value']}" class="" />
+                        <input type="{$control['stop']['type']}" name="{$control['stop']['name']}" value="{$control['stop']['value']}" class="red" />
                         <span class="msg-form-error" id="AJAXMessage"></span>
                     </li>
                 </ul>
@@ -82,5 +82,44 @@
             </fieldset>
         </form>
         
+        
+        
+        <form action="{$ftp['action']}" method="{$ftp['method']}" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>FTP udaje</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="id">ID</label>
+                        <input type="{$ftp['id']['type']}" id="id" name="{$ftp['id']['name']}" value="{$ftp['id']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="host">Host</label>
+                        <input type="{$ftp['host']['type']}" id="host" name="{$ftp['host']['name']}" value="{$ftp['host']['value']}" disabled />
+                        <span class="msg-form-error"></span>
+                    </li>
+                    <li>
+                        <label for="port">Port</label>
+                        <input type="{$ftp['port']['type']}" id="port" name="{$ftp['port']['name']}" value="{$ftp['port']['value']}" disabled />
+                        <span class="msg-form-error"></span>
+                    </li>
+                    <li>
+                        <label for="login">Login</label>
+                        <input type="{$ftp['login']['type']}" id="login" name="{$ftp['login']['name']}" value="{$ftp['login']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="password">Heslo</label>
+                        <input type="{$ftp['password']['type']}" id="password" name="{$ftp['password']['name']}" value="{$ftp['password']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label></label>
+                        <input type="{$ftp['save']['type']}" name="{$ftp['save']['name']}" value="{$ftp['save']['value']}"/>
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>             
     </div>
 </div>

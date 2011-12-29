@@ -4,10 +4,12 @@ $(function() {
     var last;   
     
     $('form').live('submit', function() {
+        $('#loading').show();
         $.post(this.action + '/send', $(this.elements).serialize(), function(msg) {
             if(!manageRespJSON($.parseJSON(msg))) {
                 changeStats($(':input[name=' + id + ']'), val);
             }
+            $('#loading').hide();
         });
         return false;
     });
@@ -78,7 +80,7 @@ $(function() {
     }
     
     
-    function manageRespJSON(input) { console.log(input);
+    function manageRespJSON(input) {
         var out = 1;
         $.each(input, function(id, val) {
             switch(id) {

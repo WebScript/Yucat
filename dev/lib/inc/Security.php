@@ -65,10 +65,6 @@
                 $link = 'http://'.$link;
             }
             
-            if(SubStr($link, -1) != '/') {
-                $link .= '/';
-            }
-            
             return $link;
         }
         

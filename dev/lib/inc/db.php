@@ -260,7 +260,7 @@
          * @return mixed 
          */
         public function exec($input) {
-            $input = String::paramsReplace(func_get_args());
+            //$input = String::paramsReplace(func_get_args()); //@todo opravit
             return mysql_query($input);
         }
         

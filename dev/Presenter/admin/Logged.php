@@ -36,9 +36,17 @@
                     '_MENU_MAIN' => Array(
                         '_MENU_PROFILE' => 'Server:SAMP:Main:profile:' . SID,
                         ),
-                    '_MENU_SAMP' => Array(
-                        '_MENU_PROFILE' => 'Server:SAMP:Main:profile:' . SID,
-                        '_MENU_PROFILE' => 'Server:SAMP:Main:profile:' . SID,
+                    '_MENU_SAMP_CONFIG' => Array(
+                        '_MENU_SAMP_CONFIG' => 'Server:SAMP:Config:config' . SID,
+                        '_MENU_CHECK' => 'Server:SAMP:Config:check' . SID,
+                        '_MENU_REINSTALL' => 'Server:SAMP:Config:reinstall' . SID,
+                        ),
+                    '_MENU_SAMP_FILES' => Array(
+                        '_MENU_SAMP_GM' => 'Server:SAMP:Config:gamemodes' . SID,
+                        '_MENU_SAMP_FS' => 'Server:SAMP:Config:filterscripts' . SID,
+                        '_MENU_SAMP_SC' => 'Server:SAMP:Config:scriptfiles' . SID,
+                        '_MENU_SAMP_NPC' => 'Server:SAMP:Config:npcmodes' . SID,
+                        '_MENU_SAMP_PLUGINS' => 'Server:SAMP:Config:plugins' . SID,
                         ),
                     '_MENU_CREDIT' => 'User:Server:view'
                     
@@ -66,7 +74,6 @@
                     );
             }
 
-                d($this->template);
             if(Ajax::isAjax()) {
                 Ajax::sendHTML(\Model\admin\Menu::createMenu($menu, Core::$translate));
             } else {

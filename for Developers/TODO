@@ -1,4 +1,5 @@
 TASKS 1:
+    Spravit FTP!!!
     raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
     dorobit language system, skoncil som v profile
     Dorobit posielanie hesla mailom, Posielanie mailu    

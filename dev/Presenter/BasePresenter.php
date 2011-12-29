@@ -44,7 +44,7 @@
                 /** Set SID const */
                 $params = $router->getParam('params');
                 if(isset($params[0])) {
-                    $sid = $this->db()->tables('servers')->where('UID', UID)->where('id', $params[0])->fetch();
+                    $sid = $this->db()->tables('servers')->select('id')->where('UID', UID)->where('id', $params[0])->fetch();
                     if($sid && !defined('SID')) define('SID', $sid->id ? : NULL);
                 }
             }

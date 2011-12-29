@@ -35,10 +35,14 @@
         }
         
         
-        public final function exec($command) {
+        public final function exec($command, &$error = NULL) {
             $result = ssh2_exec($this->connection, $command);
+            $error = ssh2_fetch_stream($result, SSH2_STREAM_STDERR);
+            
             if($result === FALSE) ExceptionHandler::Error('Internal Server Error 500: Cannot send command to remote server!');
             stream_set_blocking($result, TRUE);
+            stream_set_blocking($error, TRUE);
+            $error = stream_get_contents($error);
             return stream_get_contents($result);
         }
         
