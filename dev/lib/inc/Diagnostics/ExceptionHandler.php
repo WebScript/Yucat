@@ -10,6 +10,8 @@
      * @version    Release: 0.1.7
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.2.0
+     * 
+     * @todo exception habdler sa vola dynamicky a v constructe mu je predavana sprava!
      */
 
     namespace inc\Diagnostics;

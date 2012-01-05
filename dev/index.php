@@ -1,4 +1,5 @@
 <?php if($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) exit;
+exit('Under reconstruction!');
 
     use inc\db;
     use inc\Security;
