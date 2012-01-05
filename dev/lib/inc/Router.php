@@ -7,11 +7,10 @@
      * @package    Includes
      * @name       Router
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.3.4
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
     namespace inc;
@@ -20,15 +19,17 @@
     
     class Router {
         private $subDomain  = NULL;
+        private $route      = array();
         private $address    = array(
             'subdomain' => '', 
             'dir' => array(),
             'class' => ''
             );
-        private $route      = array();
         
         
-        
+        /**
+         * Parse URL and create varialble with all important data
+         */
         public final function __construct() {
             /** Get domain, e.g. admin, mobile, etc. */
             list($this->subDomain, $null) = explode('.', DOMAIN);
@@ -70,7 +71,7 @@
                 if(class_exists($cDir . 'Index')) {
                     $this->address['class'] = 'Index';
                 } else {
-                    ErrorHandler::error404('Router -> Class doesn\'t exit');
+                    new ErrorHandler('Router -> Class doesn\'t exit');
                 }
             }
             $i++;
@@ -87,13 +88,22 @@
         }
        
        
-        
+        /**
+         * Return all parsed data
+         * 
+         * @return array All data
+         */
         public final function getAddress() {
             return $this->address;
         }
         
         
-        
+        /**
+         * Return parameter by $param
+         * 
+         * @param string $param parameter
+         * @return string
+         */
         public final function getParam($param) {
             if(array_key_exists($param, $this->address)) {
                 return $this->address[$param];
@@ -102,16 +112,16 @@
             }
         }
         
-
        
         /**
          * This function is for create a real URL
          * You can use e.g. 'User:Profile:ajaxGetForm password,auth_key' and his call class Profile
          * in dir User and method ajaxGetForm with arguments password and auth_key as array
-         * @param string $input
-         * @return string
+         * 
+         * @param string $input string with address
+         * @return string URL
          */
-        public static function traceRoute($input) {
+        public static function traceRoute($input) { //@todo Dokoncit!!
             if(!is_array($input)) {
                 $input = explode(':', $input);
             }
