@@ -1,33 +1,31 @@
 <?php
     /**
-     * Main class for auto load all classes, models, includes, etc.
-     * In new version is used namespace and is deleted suffix e.g. .inc.php,
-     * class.php, etc.
+     * This class manage all classes.
      *
      * @category   Yucat
      * @package    Library
      * @name       init
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.0
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.2.1
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.0
-     * 
      */
 
 
     function __autoload($class) {
+        /** Replace \ to / and check dir */
         $class = str_replace('\\', '/', $class);
 
-        /* Check if class is in inc add lib */
+        /** Check if class is in inc  so add lib to path */
         list($check) = explode('/', $class, 2);
         if($check == 'inc') {
             $class = 'lib/' . $class;
         }
-        
+        /** Create path to class file */
         $dir = ROOT . $class . '.php';
         
+        /** if class exist so include it. */
         if(file_exists($dir)) {
             require_once($dir);
         }

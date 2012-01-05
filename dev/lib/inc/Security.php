@@ -6,9 +6,9 @@
      * @package    Includes
      * @name       Security
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
+     * @copyright  Copyright (c) 2011 - 2012 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.1
+     * @version    Release: 0.1.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -77,6 +77,7 @@
          */
         public static final function protect($string, $isInput = FALSE) {
             $out = FALSE;
+            $string = trim($string);
             
             if($isInput) {
                 $out = mysql_real_escape_string($string);

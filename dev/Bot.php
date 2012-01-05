@@ -54,17 +54,41 @@
         $val = $db->tables('websites')
                 ->select('url')
                 ->where('botted', 0)
+                ->order('id')
                 ->limit(1)
                 ->fetch();
         
-        if(!$val) {echo 'Konec!!'; exit;}
+        if(!$val) {echo "Konec!!\n"; exit;}
 
         $content = parseContent($val->url);
         if($content === FALSE) {$botted = 2;}
          else {
             $botted = 1;
+            $postfix = array(
+                '.html',
+                '.htm',
+                '.php',
+                '.phps',
+                '.asp',
+                '.aspx',
+                '.phtml',
+                '.xhtml',
+                
+                '.cz',
+                '.sk',
+                '.com',
+                '.net',
+                '.org',
+                '.info',
+                '.biz',
+                '.eu'
+            );
+            //d($content['url']);
+            $content['url'] = parseUrl($content['url'], $postfix);
+            //d($content['url']);
             foreach($content['url'] AS $val2) {
                 $get = $db->tables('websites')
+                        ->select('id')
                         ->where('url', $val2)
                         ->fetch();
                 if(!$get) {
@@ -110,17 +134,40 @@
 
         $textA              = isset($textMatch[2]) ? $textMatch[2] : array();
         $url                = array_merge($url[1], $url2[1]);
-        $out['title']       = isset($titleMatch[1][0]) ? $titleMatch[1][0] : '';
-        $out['desc']        = isset($descMatch[1][0]) ? $descMatch[1][0] : '';
+        $out['title']       = trim(isset($titleMatch[1][0]) ? $titleMatch[1][0] : '');
+        $out['desc']        = trim(isset($descMatch[1][0]) ? $descMatch[1][0] : '');
         $out['keywords']    = isset($keyMatch[1][0]) ? $keyMatch[1][0] : '';
         $out['count']       = $a + $b;
-        $out['text']        = '';
         
+        /** 
+         * Bud odstrani / z http://www.yucat.net/ => http://www.yucat.net 
+         * alebo odstrani posledny subor z URL napr http://www.yucat.net/neco/index.php => http://www.yucat.net/neco
+         */
+
+        if(substr($domain, -1) == '/') {
+            $domain = $dws = $dwp = substr($domain, 0, -1);
+        } else {
+            $dwp = substr($domain, 0, strrpos($domain, '/'));
+            $dws = substr($dwp, 0, strrpos($dwp, '/'));
+        }
+        
+        $dom = parse_url($domain);
+        $dom = $dom['scheme'] . '://' . $dom['host'] . '/';
+        //$dws = substr_count($dws, $dom) ? $dws : substr($dom, 0, -1);
+        //$dwp = substr_count($dwp, $dom) ? $dwp : substr($dom, 0, -1);
+        
+
+                
         foreach($url AS $key => $val) {
             if(!substr_count($val, 'http://') && !substr_count($val, 'https://')) {
-                $url[$key] = $domain . (substr($val, 0, 1) == '/' && substr($domain, -1) == '/' ? substr($val, 1) : $val);
+                if(substr($val, 0, 2) == './') $val = $dwp . '/' . substr($val, 2);
+                elseif(substr($val, 0, 1) == '/') $val = $dom . substr($val, 1);
+                elseif(substr($val, 0, 3) == '../') $val = $dws . substr($val, 3);
+                else $val = $dwp . '/' . $val;
+
+                $url[$key] = $val;
             }
-            
+
             if(substr_count($url[$key], '?')) {
                 $url[$key] = substr($url[$key], 0, strpos($url[$key], '?'));
             }
@@ -128,6 +175,38 @@
         
         $out['url'] = $url;
         unset($url);
-        foreach($textA AS $val) {$out['text'] .= $val . '<///>';}
+        
+        $textA = array_filter($textA);
+        $textA = array_unique($textA);
+                 
+        foreach($textA AS $key => $val2) {
+            if(strlen($val2) < 5) {
+                unset($textA[$key]); 
+            } else {
+                $textA[$key] = trim(preg_replace("/&#?[a-z0-9]{2,8};/i", '', $val2));
+            }
+        }
+        
+        $out['text'] = implode('<///>', $textA);
         return $out;
+    }
+                
+    
+    
+    function parseUrl(array $haystackArray, array $needleArray) {
+        foreach($haystackArray AS $key => $val) {
+            $n = 0;
+            foreach($needleArray AS $not) {
+                if(strtolower(substr($val, -strlen($not))) === $not) {
+                    $n = 1;
+                    break;
+                }
+            }
+            
+            if($n != 1) {
+                unset($haystackArray[$key]);
+            }
+        }
+        
+        return $haystackArray;
     }

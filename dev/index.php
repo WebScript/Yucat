@@ -6,9 +6,6 @@
     use inc\Diagnostics\Debug;
     use inc\Diagnostics\ErrorHandler;
     
-    /** Create a sesion */
-    //session_start();
-
     /** 
      * Define ROOT path 
      * e.g. /var/www/yucat/developer/
@@ -39,6 +36,10 @@
      */
     define('STYLE_DIR', ROOT . 'styles/');
     
+    /**
+     * Define server's directory at remote server
+     * e.g. /srv/
+     */
     define('SRV_DIR', '/srv/');
     
     /** 
@@ -70,7 +71,7 @@
     Debug::setMode(Debug::MODE_DEV);
 
     /** Create a connection with database */
-    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
+    $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
     /** Create a instance of configuration class */
     $config = new \inc\Config();
     /** Load secundary configuration from db */

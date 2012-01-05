@@ -1,5 +1,5 @@
 <?php session_start(); ob_start();
-
+/** this script doesn't work! */
     //Configuration file
     require_once(dirname(__FILE__).'/config.conf');
 

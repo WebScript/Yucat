@@ -1,5 +1,5 @@
 <?php header("Content-type: image/png");
-
+/** this script doesn't work! */ exit;
 require(dirname(__FILE__)."/config.conf");
 
 require(dirname(__FILE__)."/include/MySQL.inc.php");

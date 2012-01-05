@@ -1,5 +1,5 @@
 <?php header('Content-type: image/png');
-
+/** this script doesn't work! */
     if(!$_GET['port'] || !$_GET['ip'] || !$_GET['type']) Die();
     require('./include/Status.inc.php');
 

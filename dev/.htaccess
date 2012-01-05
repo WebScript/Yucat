@@ -8,3 +8,4 @@ RewriteRule ^([a-zA-Z0-9\-\_\/]+)$ %{DOCUMENT_ROOT}/index.php?route=$1 [L,QSA]
 <Files config.conf>
 deny from all
 </Files>
+ #Add deny to /lib

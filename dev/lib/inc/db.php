@@ -1,10 +1,10 @@
 <?php
     /**
-     * This is class for connect, manage and database.
+     * This class manage all work with database
      *
      * @category   Yucat
-     * @package    Includes
-     * @name       db
+     * @package    Library
+     * @name       db (Database)
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
