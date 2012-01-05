@@ -31,6 +31,9 @@
         public function _construct($error, $type = NULL, $id = NULL) {
             
         }
+        // OR for static class
+        private function __construst() {}
+        
         
         
         

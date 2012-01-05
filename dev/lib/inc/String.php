@@ -15,6 +15,8 @@
     namespace inc;
 
     class String {
+        private function __construct() {}
+        
         
         /**
          * Replace a '?' in $args[0] by array of $args
@@ -22,7 +24,7 @@
          * @param array $args input array
          * @return string replaced string
          */
-        public static function paramsReplace(array $args) {
+        public static final function paramsReplace(array $args) {
             $string = $args[0];
             unset($args[0]);
             
@@ -43,7 +45,7 @@
          * @param integer $len Length of out key
          * @return string key
          */
-        public static function keyGen($len) {
+        public static final function keyGen($len) {
             $hash = '';
             $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
             for($i=0;$i<$len;$i++) {

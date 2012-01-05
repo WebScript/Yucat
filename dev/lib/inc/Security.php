@@ -3,25 +3,24 @@
      * This is main class for securing and hashing.
      *
      * @category   Yucat
-     * @package    Includes
+     * @package    Library
      * @name       Security
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 - 2012 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.2
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
     namespace inc;
 
     class Security {
-       
         private function __construct() {}
         
         
         /**
          * Check if E-mail already exists and if is correct
+         * 
          * @param string $email E-mail
          * @return BOOL
          */
@@ -38,9 +37,10 @@
 
         
         /**
-         * Convert file size from B to KB/MB/GB
+         * Convert file size from B to KiB/MiB/GiB
+         * 
          * @param integer $size size in B
-         * @return string 
+         * @return string size
          */
         public static final function getFileSize($size) {
             if(is_numeric($size)) {
@@ -55,14 +55,13 @@
 
         /**
          * Replace URL and add http://
-         * @param string $link
-         * @return string 
          * 
-         * @deprecated
+         * @param string $link url
+         * @return string replaced url
          */
         public static final function replaceWWW($link) {
             if(SubStr($link, 0, 7) != 'http://' && SubStr($link, 0, 7) != 'https://') {
-                $link = 'http://'.$link;
+                $link = 'http://' . $link;
             }
             
             return $link;
@@ -71,28 +70,35 @@
         
         /**
          * Protect string, mysql escape or special chars
-         * @param string $string
-         * @param BOOL $isInput
-         * @return string 
+         * 
+         * @param string $string input string
+         * @param BOOL $isInput is input
+         * @return string output string
          */
         public static final function protect($string, $isInput = FALSE) {
-            $out = FALSE;
             $string = trim($string);
             
             if($isInput) {
-                $out = mysql_real_escape_string($string);
+                $string = mysql_real_escape_string($string);
             } else {
-                $out = str_replace(
+                $string = str_replace(
                         array('<', '>', '\\\'', '\\\"'), 
                         array('&gt;', '&lt;', '\'', '"'), 
                         $string);
             }
             
-            return $out;
+            return $string;
         }
         
         
-        
+        /**
+         * protectArray is method for protect array (alias for protect + foreach
+         * array)
+         * 
+         * @param array $array input array
+         * @param type $isInput is input
+         * @return type output array
+         */
         public static final function protectArray(array $array, $isInput = FALSE) {
             foreach($array as $key => $val) {
                 $array[$val] = self::protect($val, $isInput);
@@ -102,18 +108,22 @@
         
         
         /**
-         * Create a hash of password
-         * @param string $password
-         * @return string
+         *  This is special function for hash password
+         * 
+         * @param string $password input password
+         * @return string output hash
          */
-        public static final function createHash($password) {
+        public static final function hashPassword($password) {
             $passhHash = $GLOBALS['conf']['password_hash'];
             return md5($passhHash . md5($password . $passhHash) . md5($passhHash));
         }
         
         
-        
-        public static function protectInput() {
+        /**
+         * Special method for protect all input ($_GET & $_POST)
+         * and set other GET variables
+         */
+        public static final function protectInput() {
             /** Protect all input variables */
             self::protectArray($_POST, TRUE);
             self::protectArray($_GET, TRUE);

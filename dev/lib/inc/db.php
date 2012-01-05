@@ -99,7 +99,7 @@
          * 
          * @return string SQL query
          */
-        public function make() {           
+        public final function make() {           
             if($this->action === 'SELECT') {
                 $query = 'SELECT ';
                 $query .= $this->select;
@@ -163,7 +163,7 @@
          * @param string $table users, servers, machines, etc.
          * @return db resource of this class
          */
-        public function tables($table) {
+        public final function tables($table) {
             $this->clean();
             $this->tables = \inc\Security::protect($table, TRUE);
             return $this;
@@ -178,7 +178,7 @@
          * @param BOOL determine is second parameter is column or any data
          * @return db resource of this class
          */
-        public function where($what, $by, $sql = FALSE) {
+        public final function where($what, $by, $sql = FALSE) {
             if($sql) {
                 $this->where = array_merge($this->where, array($what => array($by)));
             } else {
@@ -194,7 +194,7 @@
          * @param array $input all insert values name => value
          * @return result
          */
-        public function insert(array $input) {
+        public final function insert(array $input) {
             $this->action = 'INSERT';
             $this->values = array_merge($this->values, $input);
             return $this->exec($this->make());
@@ -206,7 +206,7 @@
          * 
          * @return db result
          */
-        public function delete() {
+        public final function delete() {
             $this->action = 'DELETE';
             return $this->exec($this->make());
         }
@@ -218,7 +218,7 @@
          * @param array $what update by name => value
          * @return result
          */
-        public function update(array $what) {
+        public final function update(array $what) {
             $this->action = 'UPDATE';
             $this->values = $what;
             return $this->exec($this->make());
@@ -231,7 +231,7 @@
          * @param string $input select
          * @return db resource of this class
          */
-        public function select($input) {
+        public final function select($input) {
             $this->select = \inc\Security::protect($input);
             return $this;
         }
@@ -243,7 +243,7 @@
          * @param string $by order e.g. id DESC
          * @return db reource of this class
          */
-        public function order($by) {
+        public final function order($by) {
             $this->order = \inc\Security::protect($by);
             return $this;
         }
@@ -256,7 +256,7 @@
          * @param integer $offset Offset
          * @return db resource of this class
          */
-        public function limit($limit, $offset = NULL) {
+        public final function limit($limit, $offset = NULL) {
             $this->limit = $limit;
             $this->offset = $offset;
             return $this;
@@ -271,7 +271,7 @@
          * @param string $input SQL command
          * @return mysql result
          */
-        public function exec($input) {
+        public final function exec($input) {
             //$input = String::paramsReplace(func_get_args());
             return mysql_query($input);
         }
@@ -289,7 +289,7 @@
          * 
          * @return array all mysql result
          */
-        public function fetchAll() {
+        public final function fetchAll() {
            $out = array();
            $result = $this->exec($this->make());
            
@@ -310,7 +310,7 @@
         * 
          * @return object mysql result
          */
-        public function fetch() {
+        public final function fetch() {
             $result = $this->exec($this->make());
             
             if(!$result) {
@@ -328,7 +328,7 @@
          * 
          * @return integer count of rows
          */
-        public function numRows() {
+        public final function numRows() {
             $result = $this->exec($this->make());
             return mysql_num_rows($result);
         }
