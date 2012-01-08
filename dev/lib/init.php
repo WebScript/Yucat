@@ -13,6 +13,19 @@
      */
 
 
+
+    function init() {
+        /** Set error handler */
+        set_error_handler("errorHandler");
+        /** Set exception handler */
+        set_exception_handler('exceptionHandler');
+        /** Set error hndler for E_ERROR, etc. */
+        register_shutdown_function('shutdownHandler');
+        /** Turn off display errors */
+        ini_set('display_errors','Off'); 
+    }
+     
+
     function __autoload($class) {
         /** Replace \ to / and check dir */
         $class = str_replace('\\', '/', $class);
@@ -28,5 +41,58 @@
         /** if class exist so include it. */
         if(file_exists($dir)) {
             require_once($dir);
+        }
+    }
+    
+    
+    /**
+     * test function
+     * @param type $code
+     * @param type $message
+     * @param type $file
+     * @param type $line
+     * @param type $context 
+     */
+    function errorHandler($code, $message, $file, $line, $context) {
+        new inc\Diagnostics\ErrorHandler($code, $message, $file, $line, $context);
+    }
+    
+    
+    /**
+     *
+     * @param type $message
+     * @param type $code
+     * @param \Exception $previous 
+     */
+    function exceptionHandler($message, $code = 0, \Exception $previous = NULL) {
+        throw new inc\Diagnostics\ExceptionHandler($message, $code, $previous);
+    }
+    
+    
+    /**
+     * 
+     */
+    function shutdownHandler() {
+        if($e = error_get_last()) {
+            if($e['type'] == E_ERROR || 
+                    $e['type'] == E_CORE_ERROR || 
+                    $e['type'] == E_COMPILE_ERROR || 
+                    $e['type'] == E_USER_ERROR) {
+                throw new inc\Diagnostics\ErrorHandler($e['type'], $e['message'], $e['file'], $e['line']);
+            }
+        }
+            
+    }
+    
+    
+    /**
+     *
+     * @param type $p
+     * @param type $exit 
+     */
+    function d($p = 'Error: Not set input!', $exit = NULL) {
+        \inc\Diagnostics\Debug::dump($p);
+        if($exit) {
+            exit;
         }
     }

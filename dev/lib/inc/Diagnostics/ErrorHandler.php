@@ -11,80 +11,32 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license   GNU GPL License
-     * @version    Release: 0.2.4
+     * @version    Release: 0.5.0
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.2.0
      */
 
     namespace inc\Diagnostics;
 
     class ErrorHandler {
-
-        /**
-         * Catch and create handler
-         * @param string $mode Running mode Developer/Production
-         */
-        public static function createHandler($mode) { 
-            if(error_get_last()) {
-                if($mode == Debug::MODE_PROD) {
-                    self::addLog(error_get_last());
-                    if(\inc\Ajax::isAjax()) {
-                        echo '{"alert" : "Internal Server Error 500"}';
-                    } else {
-                        include_once(__DIR__ . '/500.html');
-                    }
-                } elseif($mode == Debug::MODE_DEV) {
-                    if(!ExceptionHandler::$exception){
-                        self::drawTable(error_get_last());
-                    }
-                }
-            }
-        }
-        
-        
-        /**
-         * Write and formate source code for Developer version of ErrorHandler
-         * @param string $file link to file 
-         * @param integer number of line
-         */
-        public static function highlightSource($file, $line) {
-            if($line < 7) return FALSE;
-            if(function_exists('ini_set')) {
-                ini_set('highlight.html', '#06B');
-                ini_set('highlight.default', '#000');
-                ini_set('highlight.comment', '#998; font-style: italic');
-                ini_set('highlight.string', '#080');
-                ini_set('highlight.keyword', '#0067CF; font-weight: bold');
-                }
-                
-            $source = highlight_string(file_get_contents($file), TRUE);
-            $source = str_replace("\n", '', $source);
-            $source = explode('<br />', $source);
-            $source = array_slice($source, ($line - 7), 14);
+        public function __construct($code, $message, $file, $line, $context = NULL) {           
+            if(Debug::getMode() == Debug::MODE_DEV) {
+                $this->drawTable($code, $message, $file, $line);
+            } else {
+                $log = implode('@#$', array(time(), $code, $line, $file, $message));
+                $cache = new \inc\Cache('logs');
             
-            $i = $line - 6;
-            $output = '';
-            foreach($source as $value) {
-               
-                if($i == $line) {
-                    $output .= '<span class="highlight">Line ' . $i
-                             . ': ' . strip_tags($value) . "</span>";
-                } else {
-                    $output .= '<span class="line">Line ' . $i 
-                             . ':</span>' . $value . "\n";
+                if($cache->findInLog('Errors.log', $log) === FALSE) {
+                    $cache->addToLog('Errors.log', $log);
                 }
                 
-                $i++;
+                if(\inc\Ajax::isAjax())  echo '{"alert" : "Internal Server Error 500"}';
+                else include_once(__DIR__ . '/500.html');
             }
-            return $output;
+            exit;
         }
         
-        
-        /**
-         * Draw a HTML table with handled error 
-         * @param array $error array of error getted error_get_last() function
-         */
-        public static function drawTable(array $error, $date = FALSE) {
+
+        private function drawTable($code, $message, $file, $line) {
             $errorTypes = array(
                 E_ERROR => 'Fatal Error',
                 E_USER_ERROR => 'User Error',
@@ -104,39 +56,22 @@
                 'E_HANDLER' => 'Exception Handler'
             );
             
-            if(!$date) $date = Date('Y/m/d H:i:s', Time());
+            $date = Date('Y/m/d H:i:s', Time());
             
-            $errorName = $errorTypes[$error['type']];
-            $errorMessage = $error['message'];
-            $errorLine = $error['line'];
-            $errorFile = $error['file'];
+            $errorName = &$errorTypes[$code];
+            $errorMessage = &$message;
+            $errorLine = &$line;
+            $errorFile = &$file;
             $errorParsedFile[0] = substr($errorFile, 0, strrpos($errorFile, '/') + 1);
             $errorParsedFile[1] = substr($errorFile, strrpos($errorFile, '/') + 1);
             
             if($error['type'] != E_DEPRECATED) {
-                include(dirname(__FILE__) . '/BSoD.phtml');
+                include(__DIR__ . '/BSoD.phtml');
             }
         } 
         
         
-        /**
-         * With this function you can add to log error messages in production mode
-         * @param array $error 
-         */
-        public static function addLog(array $error) {
-            $date = Date('U');
-            $log = $date . ' @#$ ' . $error['type'] . ' @#$ ' . $error['line']
-                 . ' @#$ ' . $error['file'] . ' @#$ ' . $error['message'];
-            
-            $cache = new \inc\Cache('logs');
-            
-            if($cache->findInLog('Errors.log', $log) === FALSE) {
-                $cache->addToLog('Errors.log', $log);
-            }
-        }
-        
-        
-        
+        /** @todo nahradit s Exception!! */
         public static function error404($message = '') {
             if(\inc\Ajax::isAjax()) {
                 echo '{"alert" : "Error: 404 Page not found!"}';
@@ -148,4 +83,4 @@
             }
             exit;
         }
-     }
+    }

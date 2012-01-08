@@ -248,7 +248,7 @@
                                         <?php echo $errorParsedFile[0]; ?><b><?php echo $errorParsedFile[1]; ?></b></a> (<?php echo $errorLine; ?>)
                                     <a href="#" onclick="return !yucatToggle(this, 'error')">source <abbr>►</abbr></a>
                                 </p>
-                                <pre id="error"><code><?php echo self::highlightSource($errorFile, $errorLine); ?></code></pre>
+                                <pre id="error"><code><?php echo \inc\String::highlightSource($errorFile, $errorLine); ?></code></pre>
                             </li>
                         </ol>
                     </div>

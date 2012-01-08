@@ -16,10 +16,17 @@
 
     namespace inc\Diagnostics;
 
-    class ExceptionHandler {
-        public static $exception = FALSE;
+    class ExceptionHandler extends \Exception {
+        //public static $exception = FALSE;
+        
+        public function __construct($message, $code = 0, \Exception $previous = NULL) {
+            parent::__construct($message, $code, $previous);
+            echo 'exceptionHandler was called.<br />';
+        }
+        
+        
 
-
+/*
         public static final function Error($error) {
             self::$exception = TRUE;
 
@@ -47,5 +54,5 @@
                 }
             }
             exit;
-        }
+        }*/
     }

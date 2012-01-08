@@ -18,7 +18,7 @@
     
     use inc\Diagnostics\ExceptionHandler;
 
-    class db {
+    class Db {
         /** @var ressource of connection to DB */
         private $connection;
         /** @var SQL query */

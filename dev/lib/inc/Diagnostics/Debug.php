@@ -22,29 +22,20 @@
 
     namespace inc\Diagnostics;
 
-    class Debug extends ErrorHandler {
-        
+    class Debug {
         /** @var Start time for timer() */
         private static $startTime;
         /** @var Mode of debug Production/Development */
-        public static $mode = self::MODE_PROD;
+        private static $mode = self::MODE_PROD;
         
         /** Development mode*/
-        const MODE_DEV = 'developmentMode';
+        const MODE_DEV = 1;
         /** Production mode */
-        const MODE_PROD = 'productionMode';
+        const MODE_PROD = 2;
         
         /** You can't call dynamicly this class */
         private function __construct() {}
         
-        
-        /**
-         * Enable Debugging
-         */
-        public static function enable() {
-            error_reporting(0);
-            register_shutdown_function('inc\Diagnostics\Debug::debugHandler');
-        }
         
 
         /**
@@ -72,6 +63,8 @@
         /**
          * Dump input to formated text
          * @param mixed $input
+         * 
+         * @todo dokoncit
          */
         public static function dump($input) {
             $out = array();
@@ -107,6 +100,7 @@
         }
         
         
+        
         public static function getArray(array $array, $space = '') {
             $out = array();
             $out[] = 'Array (<br />';
@@ -140,14 +134,12 @@
          * @param string $mode 
          */
         public static function setMode($mode) {
-            self::$mode = $mode;
+            if($mode === self::MODE_DEV || $mode === self::MODE_PROD) {
+                self::$mode = $mode;
+            }
         }
-
         
-        /**
-         * This function is called in __construct for handling errors
-         */
-        public static function debugHandler() {
-            parent::createHandler(self::$mode);
+        public static function getMode() {
+            return self::$mode;
         }
     }

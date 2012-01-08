@@ -1,2 +1,11 @@
 You can donate me 
 Paypal: Bloodman@gshost.eu
+
+Requirements
+------------
+
+- PHP 5.3.8+
+- MySQL 5+ 
+- PHP with SSH2, SFTP
+- CRON
+- Mod_Rewrite

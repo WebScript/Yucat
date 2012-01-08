@@ -1,6 +1,6 @@
 <?php if($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) exit;
 
-    use inc\db;
+    use inc\Db;
     use inc\Security;
     use inc\Diagnostics\Debug;
     use inc\Diagnostics\ErrorHandler;
@@ -37,7 +37,7 @@
     Debug::setMode(Debug::MODE_DEV);
 
     /** Create a connection with database */
-    $db = new db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
+    $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
     /** Call setters */
     Security::protectInput();
     /** Set time zone */

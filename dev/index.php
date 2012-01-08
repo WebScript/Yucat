@@ -1,7 +1,8 @@
 <?php if($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) exit;
-exit('Under reconstruction!');
+//exit('Under reconstruction!');
 
-    use inc\db;
+
+    use inc\Db;
     use inc\Security;
     use inc\Template;
     use inc\Diagnostics\Debug;
@@ -59,13 +60,20 @@ exit('Under reconstruction!');
      * Define User IP address 
      * e.g. 92.52.33.68
      */
-    define('UIP', $_SERVER['REMOTE_ADDR']);
+    define('UIP', $_SERVER['REMOTE_ADDR']);    
     
     /** Load primary configuration file */
     require_once(ROOT . 'config.conf');
     /** Load _autoload for autload classes */
     require_once(ROOT . 'lib/init.php');
-    Debug::timer();
+    /** Call init */
+    init();
+    
+    lol;
+    echo 'ok';
+    //Debug::timer();
+    
+    exit;
     /** Call a error handler */
     Debug::enable();
     /** Set developer mode */
@@ -105,13 +113,12 @@ exit('Under reconstruction!');
     $core = new Template\Core();
 
     
-    function d($p = 'Error: Not set input!', $exit = NULL) {
-        Debug::dump($p);
-        if($exit) {
-            exit;
-        }
-    }
+    
 
     if(!inc\Ajax::isAjax()) {
     //    Debug::timer('true');
     }
+    
+    
+    
+    
