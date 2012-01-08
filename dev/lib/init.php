@@ -15,6 +15,10 @@
 
 
     function init() {
+        /** Send header with sign */
+        header('X-Powered-By: Yucat');
+        /** Send charset UTF-8 */
+        header('Content-Type: text/html; charset=utf-8');
         /** Set error handler */
         set_error_handler("errorHandler");
         /** Set exception handler */

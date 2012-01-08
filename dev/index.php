@@ -1,6 +1,4 @@
 <?php if($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) exit;
-//exit('Under reconstruction!');
-
 
     use inc\Db;
     use inc\Security;
@@ -55,6 +53,8 @@
      * e.g. developer.yucat.net
      */
     define('DOMAIN', $_SERVER['HTTP_HOST']);
+    
+    define('DOMAIN_URI', (preg_match('#^http://#i', $_SERVER['SCRIPT_URI']) ? 'http://'  : 'https://') . DOMAIN . '/');
 
     /** 
      * Define User IP address 
@@ -68,16 +68,16 @@
     require_once(ROOT . 'lib/init.php');
     /** Call init */
     init();
-    
-    lol;
-    echo 'ok';
-    //Debug::timer();
-    
-    exit;
-    /** Call a error handler */
-    Debug::enable();
     /** Set developer mode */
     Debug::setMode(Debug::MODE_DEV);
+    
+    //@todo vysrat sa na error404(); a config['protocol']
+   
+ 
+    
+    fflol;
+    exit;
+    echo 'ok';
 
     /** Create a connection with database */
     $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 

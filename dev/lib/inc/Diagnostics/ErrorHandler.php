@@ -20,7 +20,8 @@
     class ErrorHandler {
         public function __construct($code, $message, $file, $line, $context = NULL) {           
             if(Debug::getMode() == Debug::MODE_DEV) {
-                $this->drawTable($code, $message, $file, $line);
+                if(\inc\Ajax::isAjax())  echo '{"alert" : "Error: ' . $message . '"}';
+                else $this->drawTable($code, $message, $file, $line);
             } else {
                 $log = implode('@#$', array(time(), $code, $line, $file, $message));
                 $cache = new \inc\Cache('logs');
@@ -29,15 +30,15 @@
                     $cache->addToLog('Errors.log', $log);
                 }
                 
-                if(\inc\Ajax::isAjax())  echo '{"alert" : "Internal Server Error 500"}';
+                if(\inc\Ajax::isAjax()) echo '{"alert" : "Internal Server Error 500"}';
                 else include_once(__DIR__ . '/500.html');
             }
             exit;
         }
         
 
-        private function drawTable($code, $message, $file, $line) {
-            $errorTypes = array(
+        private function drawTable($code, $errorMessage, $errorFile, $errorLine) {
+            static $errorTypes = array(
                 E_ERROR => 'Fatal Error',
                 E_USER_ERROR => 'User Error',
                 E_RECOVERABLE_ERROR => 'Recoverable Error',
@@ -55,17 +56,12 @@
                 E_USER_DEPRECATED => 'User Deprecated',
                 'E_HANDLER' => 'Exception Handler'
             );
-            
-            $date = Date('Y/m/d H:i:s', Time());
-            
+                        
             $errorName = &$errorTypes[$code];
-            $errorMessage = &$message;
-            $errorLine = &$line;
-            $errorFile = &$file;
             $errorParsedFile[0] = substr($errorFile, 0, strrpos($errorFile, '/') + 1);
             $errorParsedFile[1] = substr($errorFile, strrpos($errorFile, '/') + 1);
-            
-            if($error['type'] != E_DEPRECATED) {
+
+            if($error['type'] != E_DEPRECATED) { echo 'okk';
                 include(__DIR__ . '/BSoD.phtml');
             }
         } 
