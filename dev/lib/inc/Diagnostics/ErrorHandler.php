@@ -61,14 +61,14 @@
             $errorParsedFile[0] = substr($errorFile, 0, strrpos($errorFile, '/') + 1);
             $errorParsedFile[1] = substr($errorFile, strrpos($errorFile, '/') + 1);
 
-            if($error['type'] != E_DEPRECATED) { echo 'okk';
+            if($errorName != E_DEPRECATED) {
                 include(__DIR__ . '/BSoD.phtml');
             }
         } 
         
         
         /** @todo nahradit s Exception!! */
-        public static function error404($message = '') {
+        public static function error404f($message = '') {
             if(\inc\Ajax::isAjax()) {
                 echo '{"alert" : "Error: 404 Page not found!"}';
             } else {

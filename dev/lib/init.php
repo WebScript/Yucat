@@ -21,8 +21,6 @@
         header('Content-Type: text/html; charset=utf-8');
         /** Set error handler */
         set_error_handler("errorHandler");
-        /** Set exception handler */
-        set_exception_handler('exceptionHandler');
         /** Set error hndler for E_ERROR, etc. */
         register_shutdown_function('shutdownHandler');
         /** Turn off display errors */

@@ -72,10 +72,11 @@
     Debug::setMode(Debug::MODE_DEV);
     
     //@todo vysrat sa na error404(); a config['protocol']
+    //@dorobit Debug
    
- 
-    
-    fflol;
+
+
+    //fflol;
     exit;
     echo 'ok';
 

@@ -10,6 +10,8 @@
      * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
+     * 
+     * @todo write documentation for protect
      */
 
     namespace inc;
@@ -68,42 +70,17 @@
         }
         
         
-        /**
-         * Protect string, mysql escape or special chars
-         * 
-         * @param string $string input string
-         * @param BOOL $isInput is input
-         * @return string output string
-         */
-        public static final function protect($string, $isInput = FALSE) {
-            $string = trim($string);
-            
-            if($isInput) {
-                $string = mysql_real_escape_string($string);
+        public static final function protect($input, $isInput = FALSE) {
+            if(is_array($input)) {
+                foreach($input as $key => $val) {
+                    $input[$key] = trim($val);
+                    $input[$key] = $isInput ? mysql_real_escape_string($val) : htmlspecialchars($val);
+                }
             } else {
-                $string = str_replace(
-                        array('<', '>', '\\\'', '\\\"'), 
-                        array('&gt;', '&lt;', '\'', '"'), 
-                        $string);
+                $input = trim($input);
+                $input = $isInput ? mysql_real_escape_string($input) : htmlspecialchars($input);
             }
-            
-            return $string;
-        }
-        
-        
-        /**
-         * protectArray is method for protect array (alias for protect + foreach
-         * array)
-         * 
-         * @param array $array input array
-         * @param type $isInput is input
-         * @return type output array
-         */
-        public static final function protectArray(array $array, $isInput = FALSE) {
-            foreach($array as $key => $val) {
-                $array[$val] = self::protect($val, $isInput);
-            }
-            return $array;
+            return $input;
         }
         
         
@@ -125,8 +102,8 @@
          */
         public static final function protectInput() {
             /** Protect all input variables */
-            self::protectArray($_POST, TRUE);
-            self::protectArray($_GET, TRUE);
+            self::protect($_POST, TRUE);
+            self::protect($_GET, TRUE);
 
             /** Set variables for pager */
             if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {

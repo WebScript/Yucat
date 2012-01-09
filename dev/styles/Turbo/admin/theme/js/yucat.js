@@ -90,10 +90,7 @@ $(function() {
                 case 'redirect' :
                     changePage(val);
                     break;
-                case 'alert' :
-                    apprise(val, {'animate':true});
-                    break;
-                case 'dialogValue' :
+                case 'dialogBase' :
                     apprise(val, {'animate':true});
                     break;
                 default :  

@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.8.8
+     * @version    Release: 0.8.9
      * @link       http://www.yucat.net/documentation
      * 
      * @todo fix paramsReplace in exec()
@@ -16,7 +16,7 @@
 
     namespace inc;
     
-    use inc\Diagnostics\ExceptionHandler;
+    use inc\Diagnostics\Excp;
 
     class Db {
         /** @var ressource of connection to DB */
@@ -51,9 +51,9 @@
          */
         public function __construct($host, $login, $password, $db) {
             $this->connection = mysql_connect($host, $login, $password);
-            if(!$this->connection) new ExceptionHandler('Internal Server Error 500: Cannot connect to database!');
+            if(!$this->connection) new Excp('Cannot connect to database!');
             $resp = mysql_select_db($db, $this->connection);
-            if(!$resp) new ExceptionHandler('Internal Server Error 500: Cannot connect to database!');
+            if(!$resp) new Excp('Cannot connect to database!');
         }
        
        
@@ -69,7 +69,7 @@
             foreach($input AS $key => $val) {
                 if(is_array($val)) {
                     if(!isset($val[0])) {
-                        new ExceptionHandler('Internal Server Error 500: Cannot write array to database!');
+                        new Excp('Cannot write array to database!');
                     } else {
                         $input[$key] = \inc\Security::protect($val[0], TRUE);
                     }
@@ -294,7 +294,7 @@
            $result = $this->exec($this->make());
            
            if(!$result) {
-               new Diagnostics\ExceptionHandler($this->query);
+               new Excp('Cannot fetch database rows!', $this->query);
            } else {
                while($row = mysql_fetch_object($result)) {
                    $out[] = $row;
@@ -314,7 +314,7 @@
             $result = $this->exec($this->make());
             
             if(!$result) {
-                new Diagnostics\ExceptionHandler($this->query);
+                new Excp('Cannot fetch database rows!' ,$this->query);
             } else {
                 $result = mysql_fetch_object($result);
             }
