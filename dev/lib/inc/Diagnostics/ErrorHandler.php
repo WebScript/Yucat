@@ -65,18 +65,4 @@
                 include(__DIR__ . '/BSoD.phtml');
             }
         } 
-        
-        
-        /** @todo nahradit s Exception!! */
-        public static function error404f($message = '') {
-            if(\inc\Ajax::isAjax()) {
-                echo '{"alert" : "Error: 404 Page not found!"}';
-            } else {
-                include_once(dirname(__FILE__) . '/404.html');
-                if(Debug::$mode == Debug::MODE_DEV) {
-                    echo $message;
-                }
-            }
-            exit;
-        }
     }

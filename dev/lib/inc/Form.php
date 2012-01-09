@@ -3,14 +3,13 @@
      * Form
      *
      * @category   Yucat
-     * @package    Includes
+     * @package    Library
      * @name       Form
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.5
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.1.6
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
     namespace inc;
@@ -32,18 +31,25 @@
         }
         
         
-        
-        public function addElement($id, $name, $type, array $array = NULL) {
-            $this->last = $id;
+        /**
+         *
+         * 
+         * @param type $name
+         * @param type $type
+         * @param array $array
+         * @return Form 
+         */
+        public function addElement($name, $type, array $array = NULL) {
+            $this->last = $name;
             
             if($type === 'select') {
                 $option = '';
                 foreach($array as $key => $val) {
                     $option .= '<option value="' . $key . '">' . $val . '</option>';
                 }
-                $out = array($id => array('name' => $name, 'value' => $option));
+                $out = array($name => array('name' => $name, 'value' => $option));
             } else {
-                $out = array($id => array('name' => $name, 'type' => $type));
+                $out = array($name => array('name' => $name, 'type' => $type));
             }
             
             $this->form = array_merge($this->form, $out);

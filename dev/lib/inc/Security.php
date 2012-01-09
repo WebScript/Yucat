@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.3
+     * @version    Release: 0.1.5
      * @link       http://www.yucat.net/documentation
      * 
      * @todo write documentation for protect
@@ -17,7 +17,7 @@
     namespace inc;
 
     class Security {
-        private function __construct() {}
+        private function __construct();
         
         
         /**
@@ -26,7 +26,7 @@
          * @param string $email E-mail
          * @return BOOL
          */
-        public static final function checkEmail($email) {
+        public static function checkEmail($email) {
             $reg = '/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@'
                  . '([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/';
             
@@ -44,7 +44,7 @@
          * @param integer $size size in B
          * @return string size
          */
-        public static final function getFileSize($size) {
+        public static function getFileSize($size) {
             if(is_numeric($size)) {
                 if($size >= 1073741824) $size = round($size/1073741824*100)/100 . ' GB';
                 elseif($size >= 1048576) $size = round($size/1048576*100)/100 . ' MB';
@@ -61,7 +61,7 @@
          * @param string $link url
          * @return string replaced url
          */
-        public static final function replaceWWW($link) {
+        public static function replaceWWW($link) {
             if(SubStr($link, 0, 7) != 'http://' && SubStr($link, 0, 7) != 'https://') {
                 $link = 'http://' . $link;
             }
@@ -70,7 +70,14 @@
         }
         
         
-        public static final function protect($input, $isInput = FALSE) {
+        /**
+         * Protect all data before SQL injection AND html special chars
+         * 
+         * @param mixed $input input data
+         * @param BOOL $isInput TRUE = SQL injection / FALSE = HTML special chars
+         * @return mixed output data 
+         */
+        public static function protect($input, $isInput = FALSE) {
             if(is_array($input)) {
                 foreach($input as $key => $val) {
                     $input[$key] = trim($val);
@@ -90,7 +97,7 @@
          * @param string $password input password
          * @return string output hash
          */
-        public static final function hashPassword($password) {
+        public static function hashPassword($password) {
             $passhHash = $GLOBALS['conf']['password_hash'];
             return md5($passhHash . md5($password . $passhHash) . md5($passhHash));
         }
@@ -100,7 +107,7 @@
          * Special method for protect all input ($_GET & $_POST)
          * and set other GET variables
          */
-        public static final function protectInput() {
+        public static function protectInput() {
             /** Protect all input variables */
             self::protect($_POST, TRUE);
             self::protect($_GET, TRUE);

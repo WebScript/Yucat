@@ -17,7 +17,7 @@
     
     use inc\Ajax;
     use inc\Router;    
-    use inc\Diagnostics\ErrorHandler;
+    use inc\Diagnostics\Excp;
     
     class Macro {
         /** @var array of macros */
@@ -93,7 +93,7 @@
                 $f = fopen($styleDir, 'r');
                 $template = fread($f, filesize($styleDir));
                 fclose($f);
-            } elseif(!Ajax::isAjax()) ErrorHandler::error404('Macro -> template doesn\'t exists!');
+            } elseif(!Ajax::isAjax()) new Excp('template doesn\'t exists!', 'Macro');
 
             $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
             return $template;

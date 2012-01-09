@@ -4,7 +4,7 @@
      * This class getting and parsing URL and call the relevant method and class
      *
      * @category   Yucat
-     * @package    Includes
+     * @package    Library
      * @name       Router
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
@@ -134,13 +134,13 @@
                     $subDomain = '';
                 }
                 
-                return $GLOBALS['conf']['protocol']
+                return PROTOCOL
                 . $subDomain
                 . DOMAIN 
                 . '/'
                 . implode('/', $input);
             } else {
-                return $GLOBALS['conf']['protocol']
+                return PROTOCOL
                 . DOMAIN
                 . '/'
                 . implode('/', $input);

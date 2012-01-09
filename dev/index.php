@@ -55,6 +55,8 @@
     define('DOMAIN', $_SERVER['HTTP_HOST']);
     
     define('DOMAIN_URI', (preg_match('#^http://#i', $_SERVER['SCRIPT_URI']) ? 'http://'  : 'https://') . DOMAIN . '/');
+    
+    define('PROTOCOL', (preg_match('#^http://#i', DOMAIN_URI) ? 'http://'  : 'https://'));
 
     /** 
      * Define User IP address 
@@ -71,12 +73,8 @@
     /** Set developer mode */
     Debug::setMode(Debug::MODE_DEV);
     
-    //@todo vysrat sa na error404(); a config['protocol']
-    //@dorobit Debug
-   
 
 
-    //fflol;
     exit;
     echo 'ok';
 
@@ -122,4 +120,15 @@
     
     
     
-    
+    /**
+     * 
+     * Router este treba prekontrolovat
+     * 
+     * skoncil som pri form ale zostala tam este nejaka praca :D
+     * form bol prerobeny z add(id, name, type) na 
+     * add(name, type)
+     * 
+     * 
+     * 
+     * 
+     */

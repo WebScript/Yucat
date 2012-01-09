@@ -33,7 +33,7 @@
 
             $this->template->isLogged       = $this->isLogged() ? TRUE : NULL;
             $this->template->isAjax         = Ajax::isAjax();
-            $this->template->__THEME_DIR    = $GLOBALS['conf']['protocol'] . Router::getDomain() . '/styles/' . STYLE . '/' . $GLOBALS['router']->getParam('subdomain') . '/theme/';
+            $this->template->__THEME_DIR    = PROTOCOL . Router::getDomain() . '/styles/' . STYLE . '/' . $GLOBALS['router']->getParam('subdomain') . '/theme/';
             $this->template->__KEYWORDS     = $GLOBALS['conf']['template_keywords'];
             $this->template->__DESCRIPTION  = $GLOBALS['conf']['template_description'];
             $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> OpenSource by <strong>Bloodman Arun</strong>';

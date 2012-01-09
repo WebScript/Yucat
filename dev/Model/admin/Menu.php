@@ -28,7 +28,7 @@
              foreach($array AS $key => $val) {
                   $menu .= '<li><a href="javascript:changePage(\'' . Router::traceRoute(is_array($val) ? $val[key($val)] : $val) . '\');"'
                         . (is_array($val) && in_array($url, $val) ? 'class="active submenu-active"' : '')
-                        . '><img src="' . $GLOBALS['conf']['protocol'] . Router::getDomain() . '/styles/' . STYLE . '/' . $GLOBALS['router']->getParam('subdomain') . '/theme/img/' . $key . '.png" alt="' . $translate[$key]
+                        . '><img src="' . PROTOCOL . Router::getDomain() . '/styles/' . STYLE . '/' . $GLOBALS['router']->getParam('subdomain') . '/theme/img/' . $key . '.png" alt="' . $translate[$key]
                         . '" /><span>' . $translate[$key] . '</span>' 
                         . (is_Array($val) && in_array($url, $val) ? '<span class="submenu-arrow"></span>' : '')
                         . '</a></li>';

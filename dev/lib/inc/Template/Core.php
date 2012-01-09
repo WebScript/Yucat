@@ -17,7 +17,7 @@
     
     use inc\Ajax;
     use inc\Cache;
-    use inc\Diagnostics\ErrorHandler;
+    use inc\Diagnostics\Excp;
     
     class Core {
             
@@ -38,7 +38,7 @@
                 $template = fread($f, filesize($template));
                 fclose($f);
             } else {
-                ErrorHandler::error404();
+                new Excp('Layer not exists!', 'Core');
             }
             
             $parse = new Parse();
@@ -55,10 +55,10 @@
                     if(isset(self::$method[$key])) {
                         if(method_exists($presenter, self::$method[$key])) {
                             call_user_func_array(array($presenter, self::$method[$key]), ($router->getParam('params') ? $router->getParam('params') : array()));
-                        } else ErrorHandler::error404('Core -> method doesn\'t exists!');
+                        } else new Excp('Method not exists!', 'Core');
                     }
                     self::$translate = array_merge(self::$translate, get_object_vars($presenter->getTemplate()));
-                } else ErrorHandler::error404('Core -> presenter doesn\'t exists!');
+                } else new Excp('Presenter doesn\'t exists!', 'Core');
             }
             
             
@@ -77,7 +77,7 @@
                 $cache = new Cache('cache');
                 $cache->createCache($name, $template);
                 include TEMP . 'cache/' . $name;
-                //$cache->deleteCache($name);
+                $cache->deleteCache($name);
             }
         }
     }
