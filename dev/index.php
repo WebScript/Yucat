@@ -123,6 +123,7 @@
     /**
      * 
      * Router este treba prekontrolovat
+     * Router odstraneny like();
      * 
      * skoncil som pri form ale zostala tam este nejaka praca :D
      * form bol prerobeny z add(id, name, type) na 

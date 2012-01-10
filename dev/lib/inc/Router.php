@@ -9,7 +9,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.3.4
+     * @version    Release: 0.3.5
      * @link       http://www.yucat.net/documentation
      */
 
@@ -121,7 +121,7 @@
          * @param string $input string with address
          * @return string URL
          */
-        public static function traceRoute($input) { //@todo Dokoncit!!
+        public static function traceRoute($input) {
             if(!is_array($input)) {
                 $input = explode(':', $input);
             }
@@ -129,22 +129,18 @@
             if($input[0] == 'www' || is_dir(ROOT . PRESENTER . $input[0])) {
                 $subDomain = $input[0];
                 unset($input[0]);
+                $out = PROTOCOL;
                 
                 if(strpos(DOMAIN, $subDomain) !== FALSE) {
                     $subDomain = '';
                 }
                 
-                return PROTOCOL
-                . $subDomain
-                . DOMAIN 
-                . '/'
-                . implode('/', $input);
-            } else {
-                return PROTOCOL
+                $out .= $subDomain;
+            }
+                return $out
                 . DOMAIN
                 . '/'
                 . implode('/', $input);
-            }
         }
 
         
@@ -155,7 +151,7 @@
         public static function redirect($input, $inURL = FALSE) {
             $search = $GLOBALS['router']->traceRoute($input);
             
-            if(!preg_match('@' . $search . '@', $_SERVER['SCRIPT_URI']) && $inURL || !$inURL) {
+            if(preg_match('@' . $search . '@i', $_SERVER['SCRIPT_URI']) && $inURL || !$inURL) {
                 if(Ajax::isAjax()) {
                     exit('{"redirect" : "' . $GLOBALS['router']->traceRoute($input) . '"}');
                 } else {
@@ -164,31 +160,12 @@
             }
         }
         
-        
-        /*
-         * Vnutorny redirect, pouziva sa ked je zadana napr URL User/Statistic a chcete to presmerovat na User/Statistic/statistic
-         */
-        public static function like($input) {
-            if(is_array($input)) { 
-                $input = implode(':', $input);
-            }
-            
-            $search = substr($input, 0, strrpos($input, ':'));
-            $search = $GLOBALS['router']->traceRoute($search);
-
-            if(!$GLOBALS['router']->getParam('method')) {
-                $GLOBALS['router']->redirect($input);
-            }
-        }
-        
-        
-        
+             
         public static function getDomain() {
             $domain = array_reverse(explode('.', DOMAIN));
             return $domain[1] . '.' . $domain[0];
                     
         }
-        
         
         
         public final function getLink() {
