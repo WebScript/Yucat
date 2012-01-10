@@ -58,20 +58,20 @@
         
         
         
-        public function setMinLenght($lenght) {
+        public function setMinLength($length) {
             $this->form[$this->last] = array_merge(
                     $this->form[$this->last],
-                    array('minLenght' => $lenght)
+                    array('minLength' => $length)
                     );
             return $this;
         }
         
         
         
-        public function setMaxLenght($lenght) {
+        public function setMaxLength($length) {
             $this->form[$this->last] = array_merge(
                     $this->form[$this->last],
-                    array('maxLenght' => $lenght)
+                    array('maxLength' => $length)
                     );
             return $this;
         }
@@ -135,11 +135,11 @@
             foreach($this->form as $key => $val) {
                 $name = $val['name'];
                 if(array_key_exists($name, $input)) {
-                    if(isset($val['minLenght']) && is_numeric($val['minLenght']) 
-                            && strlen($input[$name]) < $val['minLenght']) {
+                    if(isset($val['minLength']) && is_numeric($val['minLength']) 
+                            && strlen($input[$name]) < $val['minLength']) {
                         $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['maxLenght']) && is_numeric($val['maxLenght']) 
-                            && strlen($input[$name]) > $val['maxLenght']) {
+                    } elseif(isset($val['maxLength']) && is_numeric($val['maxLength']) 
+                            && strlen($input[$name]) > $val['maxLength']) {
                         $out = array($name => array('status' => 'error'));
                     } 
                    /** I don't known what do these condition...

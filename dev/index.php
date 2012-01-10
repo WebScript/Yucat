@@ -123,7 +123,7 @@
     /**
      * 
      * Router este treba prekontrolovat
-     * Router odstraneny like();
+     * Router odstraneny like(), staci nahradit s redirect($link, TRUE);
      * 
      * skoncil som pri form ale zostala tam este nejaka praca :D
      * form bol prerobeny z add(id, name, type) na 
