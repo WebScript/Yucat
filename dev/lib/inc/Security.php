@@ -18,7 +18,7 @@
 
     class Security {
 
-        /** This is static clas */
+        /** This is static class */
         private function __construct();
         
         

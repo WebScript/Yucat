@@ -17,6 +17,8 @@
     namespace inc;
     
     class Mail {
+        
+        /** This is static class */
         private function __costruct();
         
         /**

@@ -3,25 +3,28 @@
      * Arr is class for work with array
      *
      * @category   Yucat
-     * @package    Includes
+     * @package    Library
      * @name       Arr
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.6
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.1
      */
 
     namespace inc;
 
     class Arr {
          
-        /** Lock dynamic call */
+        /** This is static class */
         private function __construct() {}
          
          
-
+        /**
+         * @param array $needle
+         * @param array $haystack
+         * @return BOOL 
+         */
         public static function isInArray(array $needle, array $haystack) {
             $needle = array_keys($needle);
             $haystack = array_keys($haystack);
@@ -36,8 +39,9 @@
         
         /**
          * Implode array keys by delimiter
-         * @param array $array
-         * @param string $delimiter
+         * 
+         * @param array $array Array
+         * @param string $delimiter Delimiter
          * @return string
          */
         public static function implodeArrayKeys(array $array, $delimiter) {
@@ -46,6 +50,14 @@
         }
         
        
+        /**
+         * Replace array keys
+         * 
+         * @param string $what What
+         * @param strign $input With
+         * @param array $array
+         * @return array Replaced
+         */
         public static function arrayKeyReplace($what, $input, array $array) {
             $out = array();
 
@@ -56,6 +68,12 @@
         }
         
         
+        /**
+         * Determine whether is in extended array
+         * @param array $array
+         * @param type $search
+         * @return type 
+         */
         public static function isInExtendedArray(array $array, $search) {
             foreach($array as $key => $val) {
                 if(is_array($val)) {
@@ -69,6 +87,13 @@
             return FALSE;
         }
         
+        
+        /**
+         * Convert array to object
+         * 
+         * @param array $array Array to convert
+         * @return object Converted object
+         */
         public static function array2Object(array $array) {
             $obj = new \StdClass();
 

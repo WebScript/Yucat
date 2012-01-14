@@ -15,9 +15,9 @@
     namespace inc;
 
     class Date {
-        /** Default format of date */
+        /** @var string Default format of date */
         public static $date_format = 'd. M. Y';
-        /** Default format of time */
+        /** @var string Default format of time */
         public static $time_format = 'H:i';
         
         /** This is static class */

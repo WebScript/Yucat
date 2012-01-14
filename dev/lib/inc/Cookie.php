@@ -15,7 +15,7 @@
     namespace inc;
 
     class Cookie {
-        /** my cookie ID */
+        /** @var integer My cookie ID */
         public $myCid;
         
         

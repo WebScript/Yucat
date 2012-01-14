@@ -17,9 +17,9 @@
     namespace inc;
     
     class Form {
-        /** all forms data */
+        /** @var array All forms data */
         private $form = array();
-        /** Last created form */
+        /** @var string Last created form */
         private $last;
         
         

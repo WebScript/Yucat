@@ -3,20 +3,19 @@
      * Caching files and logs
      *
      * @category   Yucat
-     * @package    Includes
+     * @package    Library
      * @name       Cache
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.2.1
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.2.2
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
      namespace inc;
 
      class Cache {
-         /** @var Cache folder */
+         /** @var string cache folder */
          private $folder;
          
          
@@ -27,6 +26,7 @@
          
          /**
           * Check if log exists
+          * 
           * @param string $logname
           * @return mixed 
           */
@@ -43,6 +43,7 @@
          
          /**
           * Find if $what is in log $logname
+          * 
           * @param string $logname
           * @param atring $what
           * @return mixed 
@@ -54,7 +55,8 @@
          
          
          /**
-          * Addd $what to log $logname
+          * Add $what to log $logname
+          * 
           * @param string $logname
           * @param string $what 
           */
@@ -69,6 +71,7 @@
          
          /**
           * Create a cache file
+          * 
           * @param string $name
           * @param string $content 
           */
@@ -81,6 +84,7 @@
 
          /**
           * Delete cache
+          * 
           * @param string $name 
           */
          public function deleteCache($name) {

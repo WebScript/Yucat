@@ -18,8 +18,11 @@
     use inc\Diagnostics\Excp;
     
     class Router {
+        /** @var string subdomain */
         private $subDomain  = NULL;
+        /** @var array parsed full route to array */
         private $route      = array();
+        /** @var array Addrees */
         private $address    = array(
             'subdomain' => '', 
             'dir' => array(),

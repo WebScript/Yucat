@@ -19,25 +19,25 @@
     use inc\Diagnostics\Excp;
 
     class Db {
-        /** @var ressource of connection to DB */
+        /** @var resource ressource of connection to DB */
         private $connection;
-        /** @var SQL query */
+        /** @var string SQL query */
         public $query;
-        /** @var name tables with is used */
+        /** @var string name tables with is used */
         private $tables;
-        /** @var main action, INSERT, UPDATE, DELETE, SELECT */
+        /** @var string main action, INSERT, UPDATE, DELETE, SELECT */
         private $action = 'SELECT'; 
-        /** @var select in table by this e.g. SELECT * FROM ... WHERE (var) */
+        /** @var array select in table by this e.g. SELECT * FROM ... WHERE (var) */
         private $where = array();
-        /** @var array of update or insert values */
+        /** @var array Array of update or insert values */
         private $values = array();
-        /** @var select in SELECT (var) FROM */
+        /** @var string Select in SELECT (var) FROM */
         private $select = '*';
-        /** @var limit of rows */
+        /** @var integer limit of rows */
         private $limit;
-        /** @var offset */
+        /** @var integer offset */
         private $offset;
-        /** @var SELECT * FROM ... WHERE 1 ORDER BY (var) */
+        /** @var string SELECT * FROM ... WHERE 1 ORDER BY (var) */
         private $order;
         
                
