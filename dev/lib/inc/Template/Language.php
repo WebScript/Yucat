@@ -8,11 +8,13 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.7
+     * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
      */
 
     namespace inc\Template;
+    
+    use \inc\Diagnostics\Excp;
     
     class Language {
         /** @var array all avaiable languages */
@@ -73,18 +75,45 @@
          */
         public final function getTranslate($name) {
             $filename = LANG_DIR . LANG . '/' . $name . '.php';
+            
             if(file_exists($filename)) {
-                include_once(LANG_DIR . LANG . '/' . $name . '.php');
-                if(!isset($translate) || !is_array($translate)) { 
-                    return array();
-                } else {
+                include_once($filename);
+                if(isset($translate) && is_array($translate)) { 
                     foreach($translate as $key => $val) {
                         $trsl['_' . $key] = $val;
                     }
                     return $trsl;
+                } else {
+                    new Excp('E_ISE', 'E_MISSING_TRANSLATE');
+                    return array();
                 }
             } else {
+                new Excp('E_ISE', 'E_MISSING_TRANSLATE');
                 return array();
             }
+        }
+        
+        
+        /**
+         * Translate all errors in Exception Handler
+         * 
+         * @return array
+         */
+        public final function errorTranslate() {
+            $filename = LANG_DIR . LANG . '/Errors.php';
+            
+            if(file_exists($filename)) {
+                include_once($filename);
+                if(isset($translate) && is_array($translate)) { 
+                    return $trsl;
+                } else {
+                    new Excp('E_ISE', 'E_MISSING_TRANSLATE');
+                    return array();
+                }
+            } else {
+                new Excp('E_ISE', 'E_MISSING_TRANSLATE');
+                return array();
+            }
+            
         }
     }

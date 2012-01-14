@@ -9,18 +9,28 @@
      * @package    Includes\Diagnostics
      * @name       ErrorHandler
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license   GNU GPL License
-     * @version    Release: 0.5.0
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.5.1
      * @link       http://www.yucat.net/documentation
      */
 
     namespace inc\Diagnostics;
 
     class ErrorHandler {
+        
+        /**
+         * Parse and write error
+         * 
+         * @param integer $code
+         * @param string $message
+         * @param string $file
+         * @param integer $line
+         * @param type $context 
+         */
         public function __construct($code, $message, $file, $line, $context = NULL) {           
             if(Debug::getMode() == Debug::MODE_DEV) {
-                if(\inc\Ajax::isAjax())  echo '{"alert" : "Error: ' . $message . '"}';
+                if(\inc\Ajax::isAjax())  new \inc\Dialog('Error: ' . $message);
                 else $this->drawTable($code, $message, $file, $line);
             } else {
                 $log = implode('@#$', array(time(), $code, $line, $file, $message));
@@ -30,13 +40,22 @@
                     $cache->addToLog('Errors.log', $log);
                 }
                 
-                if(\inc\Ajax::isAjax()) echo '{"alert" : "Internal Server Error 500"}';
+                if(\inc\Ajax::isAjax()) new \inc\Dialog('E_ISE');
                 else include_once(__DIR__ . '/500.html');
             }
             exit;
         }
         
 
+        /**
+         * Draw Blue Screen of Death
+         * 
+         * @staticvar array $errorTypes types of errors
+         * @param integer $code Type of error
+         * @param string $errorMessage Error message
+         * @param string $errorFile Error file
+         * @param integer $errorLine Error line
+         */
         private function drawTable($code, $errorMessage, $errorFile, $errorLine) {
             static $errorTypes = array(
                 E_ERROR => 'Fatal Error',

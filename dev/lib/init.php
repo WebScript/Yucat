@@ -48,7 +48,7 @@
     
     
     /**
-     * test function
+     * Alias for ErrorHandler from Diagnostics
      * @param type $code
      * @param type $message
      * @param type $file
@@ -61,18 +61,7 @@
     
     
     /**
-     *
-     * @param type $message
-     * @param type $code
-     * @param \Exception $previous 
-     */
-    function exceptionHandler($message, $code = 0, \Exception $previous = NULL) {
-        throw new inc\Diagnostics\ExceptionHandler($message, $code, $previous);
-    }
-    
-    
-    /**
-     * 
+     * Shutdown Handler is specia function for except core, compile or user errors
      */
     function shutdownHandler() {
         if($e = error_get_last()) {
@@ -80,7 +69,7 @@
                     $e['type'] == E_CORE_ERROR || 
                     $e['type'] == E_COMPILE_ERROR || 
                     $e['type'] == E_USER_ERROR) {
-                throw new inc\Diagnostics\ErrorHandler($e['type'], $e['message'], $e['file'], $e['line']);
+                new inc\Diagnostics\ErrorHandler($e['type'], $e['message'], $e['file'], $e['line']);
             }
         }
             
@@ -88,9 +77,10 @@
     
     
     /**
-     *
-     * @param type $p
-     * @param type $exit 
+     * Alias for dump from Debug
+     * 
+     * @param string $p error message
+     * @param BOOL $exit exit?
      */
     function d($p = 'Error: Not set input!', $exit = NULL) {
         \inc\Diagnostics\Debug::dump($p);

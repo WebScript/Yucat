@@ -6,47 +6,80 @@
      * @package    inc\Servers
      * @name       SecureShell
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.1
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
+     * 
+     * @todo add authentificate by cert.
      */
 
     namespace inc\Servers;
     
-    use inc\Diagnostics\ExceptionHandler;
+    use inc\Diagnostics\Excp;
     
     class SecureShell {
+        /** @var resource Resource of connection */
         private $connection;
+        /** @var resource Resource of sftp connection */
         private $sftp;
+        /** @var string IP address of remote server */
+        private $ip;
         
-        
+        /**
+         * Connect to remote server
+         * 
+         * @param string $ip IP address of remote server
+         * @param integer $port Port of remote server
+         * @param string $login Login of remote server
+         * @param string $password Password of remote server
+         */
         public final function __construct($ip, $port, $login, $password) {
+            $this->ip = $ip;
             $this->connection = ssh2_connect($ip, $port);
-            if(!$this->connection) ExceptionHandler::Error('Internal Server Error 500: Cannot connect to remote server!');
+            if(!$this->connection) new Excp('E_ISE', 'E_CANNOT_CONNECT_TO_SERVER');
             
             if(!ssh2_auth_password($this->connection, $login, $password)) {
-                ExceptionHandler::Error('Internal Server Error 500: Cannot connect to remote server 2!');
+                new Excp('E_ISE', 'E_CANNOT_CONNECT_TO_SERVER');
             }
             
             $this->sftp = ssh2_sftp($this->connection);
-            if(!$this->sftp) ExceptionHandler::Error('Internal Server Error 500: Cannot connect to remote server 3!');
+            if(!$this->sftp) new Excp('E_ISE', 'E_CANNOT_CONNECT_TO_SERVER');
         }
         
         
+        /**
+         * Exectute command on remote server
+         * 
+         * @param string $command Command
+         * @param string $error Returned error from remote server
+         * @return string Returned message from remove server (Error is not returned here!) 
+         */
         public final function exec($command, &$error = NULL) {
             $result = ssh2_exec($this->connection, $command);
             $error = ssh2_fetch_stream($result, SSH2_STREAM_STDERR);
             
-            if($result === FALSE) ExceptionHandler::Error('Internal Server Error 500: Cannot send command to remote server!');
+            if($result === FALSE) new Excp('E_ISE', 'E_CANNOT_CONNECT_TO_SERVER');
             stream_set_blocking($result, TRUE);
             stream_set_blocking($error, TRUE);
             $error = stream_get_contents($error);
+            
+            /* Log returned error */
+            $log = implode('@#$', array(time(), $ip, $error));
+            $cache = new \inc\Cache('logs');
+            if($cache->findInLog('ExecErrors.log', $log) === FALSE) {
+                $cache->addToLog('ExecErrors.log', $log);
+            }
+            
             return stream_get_contents($result);
         }
         
         
+        /**
+         * Return SFTP resource
+         * 
+         * @return resource Resource of SFTP
+         */
         public final function getSftpLink() {
             return 'ssh2.sftp://' . $this->sftp;
         }

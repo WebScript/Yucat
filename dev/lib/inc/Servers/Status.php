@@ -6,18 +6,24 @@
      * @package    inc\Servers
      * @name       Status
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.0.7
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace inc\Servers;
     
     class Status {
         
-        
+        /**
+         * Check status of server
+         * @param integer $type Type of server e.g. 1 = SA:MP, etc.
+         * @param string $ip IP of server
+         * @param integer $port Port of server
+         * @param BOOL $playersInfo has return player information?
+         * @return array 
+         */
         public final function checkStatus($type, $ip, $port, $playersInfo = FALSE) {
             switch($type) {
                 case 1 : // SA:MP
@@ -103,6 +109,13 @@
         }
         
         
+        /**
+         * Convert binary to integer
+         * 
+         * @param resource $f Resource of fopen()
+         * @param integer $len Length
+         * @return integer Returned integer
+         */
         private final function Bin2Int($f, $len) {
             $int = 0;
             $bin = fread($f, $len);
@@ -114,6 +127,12 @@
         }
         
         
+        /**
+         * Convert binary to string
+         * @param resource $f Resource of fopen()
+         * @param integer $len Length 
+         * @return string Returned string
+         */
         private final function Bin2String($f, $len) {
             $rLen = ord(fread($f, $len));
             if($rLen > 0) {
