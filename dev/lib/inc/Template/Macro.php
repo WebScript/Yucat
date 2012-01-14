@@ -6,11 +6,10 @@
      * @package    Includes\Template
      * @name       Macro
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.4.2
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.4.3
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.2.3
      */
 
     namespace inc\Template;
@@ -20,7 +19,7 @@
     use inc\Diagnostics\Excp;
     
     class Macro {
-        /** @var array of macros */
+        /** @var array Array of macros */
         private $macros = array();
         
         
@@ -45,6 +44,7 @@
         
         /**
          * Add macro for template system
+         * 
          * @param string $macro
          * @param string $function 
          */
@@ -55,9 +55,9 @@
         }
         
         
-        
         /**
-         * Get macros
+         * Get all macros
+         * 
          * @return array macros
          */
         public final function getMacros() {
@@ -65,7 +65,13 @@
         }
         
         
-        
+        /**
+         * Include command in Viewer's template
+         * 
+         * @param string $name
+         * @param string $method
+         * @return string
+         */
         public final function macroInclude($name, $method = NULL) {
             list($subdomain, $other) = explode('/', $name);
 
@@ -100,7 +106,11 @@
         }
         
         
-        
+        /**
+         * Content command in Viewer's template
+         * 
+         * @return string 
+         */
         public final function macroContent() {
             GLOBAL $router;
             $link = $router->getParam('subdomain') . ($router->getParam('dir') ? '/' . implode('/', $router->getParam('dir')) : '') . '/' . $router->getParam('class');
@@ -108,9 +118,13 @@
         }
         
         
-        
+        /**
+         * Link command in Viewer's template
+         * 
+         * @param string $val
+         * @return string 
+         */
         public final function macroLink($val) {
-            GLOBAL $router;
-            return $router->traceRoute($val);
+            return $GLOBALS['router']->traceRoute($val);
         }
     }

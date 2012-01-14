@@ -6,11 +6,10 @@
      * @package    Includes\Template
      * @name       Core
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.3.5
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.3.6
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
     namespace inc\Template;
@@ -20,14 +19,17 @@
     use inc\Diagnostics\Excp;
     
     class Core {
-            
+        /** @var array All translate packs */
         public static $translate = array();
-        
+        /** @var array All called presenters */
         public static $presenter = array();
+        /** @var array All called methods */
         public static $method    = array();
         
         
-        
+        /**
+         * This is primary method for load and manage Viewer in MVP scheme
+         */
         public final function __construct() {
             GLOBAL $router;
             
@@ -38,7 +40,7 @@
                 $template = fread($f, filesize($template));
                 fclose($f);
             } else {
-                new Excp('Layer not exists!', 'Core');
+                new Excp('E_ISE', 'E_LAYER_NO_EXISTS');
             }
             
             $parse = new Parse();
@@ -55,10 +57,10 @@
                     if(isset(self::$method[$key])) {
                         if(method_exists($presenter, self::$method[$key])) {
                             call_user_func_array(array($presenter, self::$method[$key]), ($router->getParam('params') ? $router->getParam('params') : array()));
-                        } else new Excp('Method not exists!', 'Core');
+                        } else new Excp('E_ISE', 'E_METHOD_NO_EXISTS');
                     }
                     self::$translate = array_merge(self::$translate, get_object_vars($presenter->getTemplate()));
-                } else new Excp('Presenter doesn\'t exists!', 'Core');
+                } else new Excp('E_ISE', 'E_PRESENTER_NO_EXISTS');
             }
             
             

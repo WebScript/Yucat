@@ -6,31 +6,42 @@
      * @package    Includes\Template
      * @name       Parse
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.3.4
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
     namespace inc\Template;
     
     class Parse extends Macro {
-        
+        /** @var string Regular exxpresions */
         private $regular;
+        /** @var array Last called viewer */
         private static $called = array();
 
+        
+        /**
+         * Set regular expression
+         */
         public function __construct() {
             $this->regular = '(\/?[a-zA-z0-9' . preg_quote('_-=<> -.,?!()\'";$%/!^&|:.*') . ']+)';
             parent::__construct();
         }
        
         
-        
+        /**
+         * Parse template
+         * 
+         * @param string $haystack HTML template
+         * @param array $search Marcos
+         * @param string $delimiter Delimiter
+         * @return string Parsed templates
+         */
         public function parseTemplate($haystack, array $search, $delimiter = '%key') {
-            /** List of finded variables */
+            /* List of finded variables */
             preg_match_all('@\{' . $this->regular . '\}@', $haystack, $finded);
-            /** Protect $search var */
+            /* Protect $search var */
             $search = \inc\Arr::arrayKeyReplace($delimiter, $this->regular, $search);
             $macro = new Macro();
             
@@ -62,7 +73,12 @@
         }
         
         
-        
+        /**
+         * Set all variables in Template
+         * 
+         * @param string $template Template
+         * @return string Parsed template
+         */
         public function setVariable($template) {
             return preg_replace('@\{\$' . $this->regular . '\}@','<?php echo $\\1; ?>', $template);
         }

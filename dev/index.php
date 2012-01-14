@@ -107,7 +107,7 @@
     /** Call router */
     $router = new \inc\Router();
     /** Call a language system */
-    $lang = new Template\Language(UID ? $db->tables('users')->where('id', UID)->fetch()->language : NULL);
+    $lang = new Template\Language();
     /** Call a template system */
     $core = new Template\Core();
 

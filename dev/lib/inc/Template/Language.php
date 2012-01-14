@@ -6,23 +6,24 @@
      * @package    Includes\Template
      * @name       Language
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.6
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.1.7
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace inc\Template;
     
     class Language {
-        
+        /** @var array all avaiable languages */
         private $avaiable_languages = array();
 
 
-        public final function __construct($userLang = NULL) {
+        /** 
+         * Load all languages from files
+         */
+        public final function __construct() {
             GLOBAL $cookie;
-            
             $dir = opendir(LANG_DIR);
             
             while($langs = readdir($dir)) {
@@ -32,33 +33,44 @@
                 $this->avaiable_languages = array_merge($this->avaiable_languages, array($langs => $thisLang));
             }
             
-            
-            /** Find and set default language */
+            /* Find and set default language */
             if(!$cookie->getParam('lang')) {
+                /* Parse default language from browser */
                 list($lang, $null) = explode('-', $_SERVER['HTTP_ACCEPT_LANGUAGE'], 2);
-
-                if($userLang !== NULL && array_key_exists($userLang, $this->avaiable_languages)) {
+                /* Get default language from DB */
+                $userLang = $db->tables('users')->where('id', UID)->fetch()->language;
+                
+                if(UID && array_key_exists($userLang, $this->avaiable_languages)) {
                     $cookie->addParam($cookie->myCid, 'lang', $userLang);
                 } elseif(array_key_exists($lang, $this->avaiable_languages)) {
                     $cookie->addParam($cookie->myCid, 'lang', $lang); 
                 } elseif(!$cookie->getParam('lang') || $cookie->getParam('lang') !== $GLOBALS['conf']['default_language']) {
                     $cookie->addParam($cookie->myCid, 'lang', $GLOBALS['conf']['default_language']);
+                } else {
+                    Excp('E_ISE', 'E_NO_LANG');
                 }
             }
             
-            /** Define language */
+            /* Define language */
             define('LANG', $cookie->getParam('lang'));
         }
         
         
-        
-        
+        /*
+         * Return all avaiable languages
+         * @return array Avaiable Languages
+         */
         public final function getAvaiableLang() {
             return $this->avaiable_languages;
         }
         
         
-        
+        /**
+         * Translate all variables to text
+         * 
+         * @param string $name Name of file
+         * @return array all translate
+         */
         public final function getTranslate($name) {
             $filename = LANG_DIR . LANG . '/' . $name . '.php';
             if(file_exists($filename)) {

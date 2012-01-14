@@ -74,7 +74,7 @@
                 if(class_exists($cDir . 'Index')) {
                     $this->address['class'] = 'Index';
                 } else {
-                    new Excp('E_CLASS_NO_EXISTS');
+                    new Excp('EISE', 'E_CLASS_NO_EXISTS');
                 }
             }
             $i++;
