@@ -36,16 +36,14 @@
                 $this->form->setAction('Login:login:login');
                 $this->form->setMethod('POST');
 
-                $this->form->addElement('username', 'username', 'text')
-                        ->setMinLenght(4)
-                        ->setMaxLenght(20);
+                $this->form->addElement('username', 'text')
+                        ->setLength(4, 20);
 
-                $this->form->addElement('password', 'password', 'password')
-                        ->setMinLenght(4)
-                        ->setMaxLenght(20);
+                $this->form->addElement('password', 'password')
+                        ->setLength(4, 20);
 
-                $this->form->addElement('remember', 'remember', 'checkbox');
-                $this->form->addElement('login', 'login', 'submit')
+                $this->form->addElement('remember', 'checkbox');
+                $this->form->addElement('login', 'submit')
                         ->setValue($this->template->_ENTER);
                 
                 
@@ -53,11 +51,10 @@
                 $this->pass->setAction('Login:login:mail');
                 $this->pass->setMethod('POST');
 
-                $this->pass->addElement('mail', 'mail', 'text')
-                        ->setMinLenght(4)
-                        ->setMaxLenght(30);
+                $this->pass->addElement('mail', 'text')
+                        ->setLength(4, 30);
 
-                $this->pass->addElement('send', 'send', 'submit')
+                $this->pass->addElement('send', 'submit')
                         ->setValue($this->template->_SEND_PASS);
                 
 

@@ -32,64 +32,57 @@
             $form->setAction('User:Main:profile:data');
             $form->setMethod('POST');
 
-            $form->addElement('firstname', 'firstname', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
+            $form->addElement('firstname', 'text')
+                    ->setLength(4, 30)
+                    ->setType('TEXT')
                     ->setValue($this->template->user->firstname)
-                    ->setErrorType('TEXT')
                     ->setErrorMessage('error');
 
-            $form->addElement('lastname', 'lastname', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
+            $form->addElement('lastname', 'text')
+                    ->setLength(4, 30)
+                    ->setType('TEXT')
                     ->setValue($this->template->user->lastname)
-                    ->setErrorType('TEXT')
                     ->setErrorMessage('error');
 
-            $form->addElement('email', 'email', 'text')
+            $form->addElement('email', 'text')
                     ->setValue($this->template->user->email);
 
-            $form->addElement('street', 'street', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
+            $form->addElement('street', 'text')
+                    ->setLength(4, 30)
+                    ->setType('TEXT')
                     ->setValue($this->template->user->street)
-                    ->setErrorType('TEXT')
                     ->setErrorMessage('error');
 
-            $form->addElement('language', 'language', 'select', $GLOBALS['lang']->getAvaiableLang())
+            $form->addElement('language', 'select', $GLOBALS['lang']->getAvaiableLang())
                     //->setValue(array('bb' => 'BBBBf'))
-                    ->setErrorType('TEXT')
+                    ->setType('TEXT')
                     ->setErrorMessage('error');
 
-            $form->addElement('city', 'city', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
+            $form->addElement('city', 'text')
+                    ->setLength(4, 30)
+                    ->setType('TEXT')
                     ->setValue($this->template->user->city)
-                    ->setErrorType('TEXT')
                     ->setErrorMessage('error');
 
-            $form->addElement('postcode', 'postcode', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
+            $form->addElement('postcode', 'text')
+                    ->setLength(4, 15)
+                    ->setType('NUMBER')
                     ->setValue($this->template->user->postcode)
-                    ->setErrorType('NUMBER')
                     ->setErrorMessage('error');
 
-            $form->addElement('telephone', 'telephone', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
+            $form->addElement('telephone', 'text')
+                    ->setLength(4, 30)
+                    ->setType('TELEPHONE')
                     ->setValue($this->template->user->telephone)
-                    ->setErrorType('TELEPHONE')
                     ->setErrorMessage('error');
 
-            $form->addElement('website', 'website', 'text')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
+            $form->addElement('website', 'text')
+                    ->setLength(4, 30)
+                    ->setType('WEBSITE')
                     ->setValue($this->template->user->website)
-                    ->setErrorType('WEBSITE')
                     ->setErrorMessage('error');
 
-            $form->addElement('save', 'save', 'submit')
+            $form->addElement('save', 'submit')
                     ->setValue('Odoslat');
             
 
@@ -97,25 +90,22 @@
             $pass->setAction('User:Main:profile:pass');
             $pass->setMethod('POST');
 
-            $pass->addElement('oldpass', 'oldpass', 'password')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setErrorType('TEXT')
+            $pass->addElement('oldpass', 'password')
+                    ->setLength(4, 30)
+                    ->setType('TEXT')
                     ->setErrorMessage('error');
 
-            $pass->addElement('newpass', 'newpass', 'password')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setErrorType('TEXT')
+            $pass->addElement('newpass', 'password')
+                    ->setLength(4, 30)
+                    ->setType('TEXT')
                     ->setErrorMessage('error');
 
-            $pass->addElement('retrypass', 'retrypass', 'password')
-                    ->setMinLenght(4)
-                    ->setMaxLenght(30)
-                    ->setErrorType('TEXT')
+            $pass->addElement('retrypass', 'password')
+                    ->setLength(4, 30)
+                    ->setType('TEXT')
                     ->setErrorMessage('error');
 
-            $pass->addElement('change', 'change', 'submit')
+            $pass->addElement('change', 'submit')
                     ->setValue('Zmenit');
                 
                 

@@ -12,6 +12,7 @@
      * @link       http://www.yucat.net/documentation
      * 
      * @todo to validateData() add check for telephone number and website
+     * @todo Pridat kontrolu do validateData() ci je v selecte iba povolena hodnota
      */
 
     namespace inc;
