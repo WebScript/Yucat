@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.5
+     * @version    Release: 0.1.6
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.1.0
      */
@@ -59,7 +59,7 @@
                 if(is_array($val)) {
                     $out[] = '"' . $key . '" : ' . self::drawJSON($val);
                 } else {
-                    $out[] = '"' . $key . '" : "' . $val . '"';
+                    $out[] = '"' . $key . '" : "' . htmlspecialchars($val) . '"';
                 }
             }
             

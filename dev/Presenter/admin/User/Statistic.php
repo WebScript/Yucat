@@ -22,7 +22,7 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::like('User:Statistic:banners');
+            \inc\Router::redirect('User:Statistic:banners', TRUE);
         }
         
         

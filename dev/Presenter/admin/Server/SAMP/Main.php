@@ -22,7 +22,7 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::like('Server:SAMP:profile');
+            \inc\Router::redirect('Server:SAMP:profile', TRUE);
         }
         
         

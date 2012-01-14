@@ -19,7 +19,7 @@
         
         public function __construct() {
             parent::__construct();
-            \inc\Router::like('User:Main:login');
+            //\inc\Router::redirect('User:Main:login', TRUE);
         }
         
         public function recovery($hash = '') {

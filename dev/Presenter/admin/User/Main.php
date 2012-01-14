@@ -23,7 +23,7 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::like('User:Main:news');
+            \inc\Router::redirect('User:Main:news', TRUE);
         }
         
         

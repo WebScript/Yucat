@@ -121,14 +121,26 @@
     
     
     /**
+     * mail neni dokonceny
      * 
-     * Router este treba prekontrolovat
-     * Router odstraneny like(), staci nahradit s redirect($link, TRUE);
      * 
      * skoncil som pri form ale zostala tam este nejaka praca :D
      * form bol prerobeny z add(id, name, type) na 
      * add(name, type)
      * 
+     * Odstramene minLength() a maxLength() a miesto toho pridane length(min, max)
+     * setErrorType() -> setType()
+     * 
+     * 
+     * 
+     * Pridat do Dialog a do JS dialog ako ta zelena, oranzvoa alebo cervena sprava jak je nad formami vetsinou...
+     * 
+     * Cannot set ilegal method
+     * Cannot set char as int
+     * Cannot set default value for select in class Form
+     * 
+     * 
+     * translate v dialogu
      * 
      * 
      * 

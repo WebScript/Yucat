@@ -98,7 +98,7 @@
         
         protected function forNotLogged($url = 'User:Main') {
             if($this->isLogged()) {
-                Router::like($url);
+                Router::redirect($url);
             }
         }
         

@@ -15,7 +15,7 @@
 
     namespace inc;
     
-    use inc\Diagnostics\ErrorHandler;
+    use inc\Diagnostics\Excp;
     
     class Router {
         private $subDomain  = NULL;
@@ -71,7 +71,7 @@
                 if(class_exists($cDir . 'Index')) {
                     $this->address['class'] = 'Index';
                 } else {
-                    new ErrorHandler('Router -> Class doesn\'t exit');
+                    new Excp('E_CLASS_NO_EXISTS');
                 }
             }
             $i++;
@@ -149,9 +149,9 @@
          * @param string $input 
          */
         public static function redirect($input, $inURL = FALSE) {
-            $search = $GLOBALS['router']->traceRoute($input);
+            $search = $GLOBALS['router']->traceRoute(substr($input, strrpos($input, ':')));
             
-            if(preg_match('@' . $search . '@i', $_SERVER['SCRIPT_URI']) && $inURL || !$inURL) {
+            if($inURL && preg_match('@' . $search . '@i', $_SERVER['SCRIPT_URI']) || !$inURL) {
                 if(Ajax::isAjax()) {
                     exit('{"redirect" : "' . $GLOBALS['router']->traceRoute($input) . '"}');
                 } else {
