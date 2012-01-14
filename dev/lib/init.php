@@ -84,6 +84,8 @@
      */
     function d($p = 'Error: Not set input!', $exit = NULL) {
         \inc\Diagnostics\Debug::dump($p);
+//        \inc\Diagnostics\Debug::dump(debug_backtrace());
+
         if($exit) {
             exit;
         }

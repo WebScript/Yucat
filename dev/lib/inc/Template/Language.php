@@ -25,7 +25,7 @@
          * Load all languages from files
          */
         public final function __construct() {
-            GLOBAL $cookie;
+            GLOBAL $cookie, $db;
             $dir = opendir(LANG_DIR);
             
             while($langs = readdir($dir)) {
@@ -49,7 +49,7 @@
                 } elseif(!$cookie->getParam('lang') || $cookie->getParam('lang') !== $GLOBALS['conf']['default_language']) {
                     $cookie->addParam($cookie->myCid, 'lang', $GLOBALS['conf']['default_language']);
                 } else {
-                    Excp('E_ISE', 'E_NO_LANG');
+                    new Excp('E_ISE', 'E_NO_LANG');
                 }
             }
             

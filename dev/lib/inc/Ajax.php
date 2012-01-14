@@ -21,7 +21,7 @@
         private static $isHTML = TRUE;
 
         /** This is static class */
-        private function __construct();
+        private function __construct() {}
         
         
         /**

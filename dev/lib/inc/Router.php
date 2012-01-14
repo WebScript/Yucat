@@ -125,25 +125,27 @@
          * @return string URL
          */
         public static function traceRoute($input) {
+            $out = PROTOCOL;
+            
             if(!is_array($input)) {
                 $input = explode(':', $input);
             }
             
-            if($input[0] == 'www' || is_dir(ROOT . PRESENTER . $input[0])) {
+            if($input[0] && $input[0] == 'www' || $input[0] && is_dir(ROOT . PRESENTER . $input[0])) {
                 $subDomain = $input[0];
                 unset($input[0]);
-                $out = PROTOCOL;
                 
-                if(strpos(DOMAIN, $subDomain) !== FALSE) {
+                if(strpos(DOMAIN, $subDomain) !== FALSE) { 
                     $subDomain = '';
                 }
                 
                 $out .= $subDomain;
             }
-                return $out
-                . DOMAIN
-                . '/'
-                . implode('/', $input);
+            
+            return $out
+            . DOMAIN
+            . '/'
+            . implode('/', $input);
         }
 
         
@@ -152,7 +154,7 @@
          * @param string $input 
          */
         public static function redirect($input, $inURL = FALSE) {
-            $search = $GLOBALS['router']->traceRoute(substr($input, strrpos($input, ':')));
+            $search = $GLOBALS['router']->traceRoute(substr($input, strrpos($input, ':')+1));
             
             if($inURL && preg_match('@' . $search . '@i', $_SERVER['SCRIPT_URI']) || !$inURL) {
                 if(Ajax::isAjax()) {

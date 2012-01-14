@@ -54,8 +54,16 @@
      */
     define('DOMAIN', $_SERVER['HTTP_HOST']);
     
+    /**
+     * Define domain URI
+     * e.g. http://developer.yucat.net/
+     */
     define('DOMAIN_URI', (preg_match('#^http://#i', $_SERVER['SCRIPT_URI']) ? 'http://'  : 'https://') . DOMAIN . '/');
     
+    /**
+     * Define protocol
+     * e.g. http://
+     */
     define('PROTOCOL', (preg_match('#^http://#i', DOMAIN_URI) ? 'http://'  : 'https://'));
 
     /** 
@@ -72,14 +80,8 @@
     init();
     /** Set developer mode */
     Debug::setMode(Debug::MODE_DEV);
-    
-
-
-    exit;
-    echo 'ok';
-
     /** Create a connection with database */
-    $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB); 
+    $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     /** Create a instance of configuration class */
     $config = new \inc\Config();
     /** Load secundary configuration from db */

@@ -77,7 +77,7 @@
 
                 $name = rand(11111, 99999) . '.phtml';
                 $cache = new Cache('cache');
-                $cache->createCache($name, $template);
+                $cache->createCache($name, $template); 
                 include TEMP . 'cache/' . $name;
                 $cache->deleteCache($name);
             }

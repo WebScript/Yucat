@@ -21,7 +21,7 @@
         public static $time_format = 'H:i';
         
         /** This is static class */
-        private function __construct();
+        private function __construct() {}
         
         
         /**

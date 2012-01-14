@@ -51,9 +51,9 @@
          */
         public function __construct($host, $login, $password, $db) {
             $this->connection = mysql_connect($host, $login, $password);
-            if(!$this->connection) new Excp('Cannot connect to database!');
+            if(!$this->connection) new Excp('E_CANNOST_CONNECT_TO_DB');
             $resp = mysql_select_db($db, $this->connection);
-            if(!$resp) new Excp('Cannot connect to database!');
+            if(!$resp) new Excp('E_CANNOST_CONNECT_TO_DB');
         }
        
        
@@ -69,7 +69,7 @@
             foreach($input AS $key => $val) {
                 if(is_array($val)) {
                     if(!isset($val[0])) {
-                        new Excp('Cannot write array to database!');
+                        new Excp('E_CANNOT_WRITE_ARRAY');
                     } else {
                         $input[$key] = \inc\Security::protect($val[0], TRUE);
                     }
@@ -85,10 +85,11 @@
                 $return .= implode(',', $input) . ')';
                 $delimiter = '';
             } else {
-                $return = '';
+                $return = array();
                 foreach($input AS $param => $value) {
-                    $return .= $setter ? $param . ' = ' . $value : $value;
+                    $return[] = $setter ? $param . ' = ' . $value : $value;
                 }
+                $return = implode($delimiter, $return);
             }
             return $return;
         }
@@ -294,7 +295,7 @@
            $result = $this->exec($this->make());
            
            if(!$result) {
-               new Excp('Cannot fetch database rows!', $this->query);
+               new Excp('E_CANNOT_FETCH_DB_ROWS', $this->query);
            } else {
                while($row = mysql_fetch_object($result)) {
                    $out[] = $row;
@@ -314,7 +315,7 @@
             $result = $this->exec($this->make());
             
             if(!$result) {
-                new Excp('Cannot fetch database rows!' ,$this->query);
+                new Excp('E_CANNOT_FETCH_DB_ROWS' ,$this->query);
             } else {
                 $result = mysql_fetch_object($result);
             }

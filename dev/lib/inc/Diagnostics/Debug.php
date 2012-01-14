@@ -33,7 +33,7 @@
         const MODE_PROD = 2;
         
         /** This is static class */
-        private function __construct();
+        private function __construct() {}
         
 
         /**
