@@ -4,7 +4,7 @@
      *
      * @category   Yucat
      * @package    Library
-     * @name       Main
+     * @name       Mail
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License

@@ -17,6 +17,8 @@
     namespace inc;
 
     class Security {
+
+        /** This is static clas */
         private function __construct();
         
         

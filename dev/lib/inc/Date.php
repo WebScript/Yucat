@@ -1,28 +1,34 @@
 <?php
     /**
-     * Date and time for view. To database is write stamp time()
+     * Date and time for view. To database is write time() stamp of full date
      *
      * @category   Yucat
-     * @package    Includes
+     * @package    Library
      * @name       Date
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.1.1
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.1.2
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
     namespace inc;
 
     class Date {
+        /** Default format of date */
         public static $date_format = 'd. M. Y';
+        /** Default format of time */
         public static $time_format = 'H:i';
         
+        /** This is static class */
+        private function __construct();
+        
+        
         /**
-         * Transfer date in seconds to date 
-         * @param integer $date date in seconds
-         * @return string date
+         * Transfer time() stamp or full date to date only
+         * 
+         * @param integer $date time() stamp or full date
+         * @return string date only
          */
         public static function getDate($date) { 
             if(!is_numeric($date)) {
@@ -33,9 +39,10 @@
         
         
         /**
-         * Transfer date in seconds to time 
-         * @param integer $date date in seconds
-         * @return string date
+         * Transfer time() stamp or full date to time only
+         * 
+         * @param integer $date time() stamp or full date
+         * @return string time only
          */
         public static function getTime($time) {
             if(!is_numeric($time)) {

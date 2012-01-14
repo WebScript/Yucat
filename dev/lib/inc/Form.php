@@ -231,10 +231,10 @@
         
         
         /**
+         * Get value by $name
          * 
-         * 
-         * @param type $name
-         * @return type 
+         * @param string $name Name of value
+         * @return string value
          */
         public function getValue($name) {
             return isset($_POST[$this->form[$name]['name']]) ? $_POST[$this->form[$name]['name']] : NULL;
