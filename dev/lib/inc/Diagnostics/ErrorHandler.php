@@ -30,7 +30,7 @@
          */
         public function __construct($code, $message, $file, $line, $context = NULL) {           
             if(Debug::getMode() == Debug::MODE_DEV) {
-                if(\inc\Ajax::isAjax())  new \inc\Dialog('Error: ' . $message);
+                if(\inc\Ajax::isAjax())  new \inc\Dialog('Error: ' . $message . ', File: ' . $file . ', Line: ' . $line);
                 else $this->drawTable($code, $message, $file, $line);
             } else {
                 $log = implode('@#$', array(time(), $code, $line, $file, $message));

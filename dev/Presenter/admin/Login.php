@@ -66,6 +66,10 @@
         public function login($type = NULL, $act = NULL) {
             $this->forNotLogged();
             
+            if(!Ajax::isAjax()) {
+                \inc\Router::redirect('Login');
+            }
+            
             if($type == 'login' && $act == 'check') Ajax::sendJSON($this->form->validateData());
             if($type == 'mail' && $act == 'check') Ajax::sendJSON($this->pass->validateData());
             elseif($type == 'mail' && $act == 'send') {

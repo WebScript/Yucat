@@ -43,7 +43,7 @@
          * @return Form resource of this class 
          */
         public function setMethod($method) {
-            if(strtolower($method) == 'post' && strtolower($method) == 'get') {
+            if(strtolower($method) == 'post' || strtolower($method) == 'get') {
                 $this->form['method'] = $method;
             } else {
                 new Diagnostics\Excp('E_ISE', 'E_ILEGAL_METHOD');
@@ -180,6 +180,7 @@
             if(Arr::isInArray($_POST, $this->form)) {
                 foreach($this->form as $key => $val) {
                     $name = $val['name'];
+                    if($key == 'action' || $key == 'method' || !isset($_POST[$name])) continue;
                     
                     if(isset($val['minLength']) && strlen($_POST[$name]) < $val['minLength']) {
                         $out = array($name => array('status' => 'error'));
@@ -205,7 +206,7 @@
                     $return = array_merge($return, $out);
                 }
 
-                if($errorMessage && !$this->isValidData()) {
+                if($errorMessage && \inc\Arr::isInExtendedArray($return, 'error')) {
                     $return = array_merge($return, array('dialogValue' => $errorMessage));
                 }
             } else {
