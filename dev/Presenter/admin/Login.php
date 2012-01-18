@@ -76,9 +76,9 @@
                 if($this->pass->isValidData()) { 
                     $model = new \Model\admin\Login();
                     if($model->resetPassword($_POST['mail'])) {
-                         Ajax::sendJSON(array('dialogValue' => 'Na E-mail Vam bolo zaslane nove heslo'));
+                         new \inc\Dialog('Na E-mail Vam bolo zaslane nove heslo');
                     } else {
-                        Ajax::sendJSON(array('dialogValue' => 'Chybne zadany E-mail!!'));
+                        new \inc\Dialog('Chybne zadany E-mail!!');
                     }
                 } else {
                     Ajax::sendJSON($this->pass->validateData('Chybne vyplnene udaje!'));
@@ -94,10 +94,10 @@
                         \Model\admin\Access::add(0, 'Login', $login);
                         Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('User:Main')));
                     } else {
-                        Ajax::sendJSON(array('dialogValue' => 'Zadali ste zle meno alebo heslo...'));
+                        new \inc\Dialog('Zadali ste zle meno alebo heslo...');
                     }
                 } else {
-                    Ajax::sendJSON($this->form->validateData('Chybne vyplnene udaje!'));
+                    new \inc\Dialog('Chybne vyplnene udaje!');
                 }
             }
         }  
@@ -107,7 +107,7 @@
             $this->forLogged();
             $model = new \Model\admin\Login();
             $model->logout();
-            \Model\admin\Access::add(0, 'logout');
+            \Model\admin\Access::add(0, 'Logout');
             Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('Login')));
         }
     }

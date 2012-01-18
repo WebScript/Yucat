@@ -154,9 +154,11 @@
          * @param string $input 
          */
         public static function redirect($input, $inURL = FALSE) {
-            $search = $GLOBALS['router']->traceRoute(substr($input, strrpos($input, ':')+1));
-            
-            if($inURL && preg_match('@' . $search . '@i', $_SERVER['SCRIPT_URI']) || !$inURL) {
+            $search = $GLOBALS['router']->traceRoute(substr($input, 0, strrpos($input, ':')));
+            $search2 = $GLOBALS['router']->traceRoute($input);
+
+            if($inURL && preg_match('@' . $search . '@i', $_SERVER['SCRIPT_URI']) 
+                    && !preg_match('@' . $search2 . '@i', $_SERVER['SCRIPT_URI']) || !$inURL) {
                 if(Ajax::isAjax()) {
                     exit('{"redirect" : "' . $GLOBALS['router']->traceRoute($input) . '"}');
                 } else {

@@ -20,8 +20,7 @@
         /** @var string Default format of time */
         public static $time_format = 'H:i';
         
-        /** This is static class */
-        private function __construct() {}
+        public function __construct() {}
         
         
         /**

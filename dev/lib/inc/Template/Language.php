@@ -40,7 +40,10 @@
                 /* Parse default language from browser */
                 list($lang, $null) = explode('-', $_SERVER['HTTP_ACCEPT_LANGUAGE'], 2);
                 /* Get default language from DB */
-                $userLang = $db->tables('users')->where('id', UID)->fetch()->language;
+                if(UID) {
+                	$userLang = $db->tables('users')->where('id', UID)->fetch();
+                	$userLang = $userLang ? $userLang->language : NULL;
+                }
                 
                 if(UID && array_key_exists($userLang, $this->avaiable_languages)) {
                     $cookie->addParam($cookie->myCid, 'lang', $userLang);

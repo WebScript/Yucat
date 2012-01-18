@@ -108,7 +108,7 @@
             $pass->addElement('change', 'submit')
                     ->setValue('Zmenit');
                 
-                
+            
             if($type == 'data' && $act == 'check') Ajax::sendJSON($form->validateData());
             elseif($type == 'pass' && $act == 'check') Ajax::sendJSON($pass->validateData());
             elseif($type == 'data' && $act == 'send') {
