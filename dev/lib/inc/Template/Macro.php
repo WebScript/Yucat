@@ -3,7 +3,7 @@
      * Macros for template system
      *
      * @category   Yucat
-     * @package    Includes\Template
+     * @package    Library\Template
      * @name       Macro
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat

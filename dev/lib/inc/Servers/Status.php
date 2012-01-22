@@ -3,7 +3,7 @@
      * Status
      *
      * @category   Yucat
-     * @package    inc\Servers
+     * @package    Library\Servers
      * @name       Status
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat

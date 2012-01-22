@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.2.2
+     * @version    Release: 0.2.3
      * @link       http://www.yucat.net/documentation
      */
 
@@ -34,9 +34,9 @@
              $file = TEMP . $this->folder . '/' . $logname;
              
              if(file_exists($file)) {
-                 return $file;
+                 return file($file);
              } else {
-                 return FALSE;
+                 return array();
              }
          }
          

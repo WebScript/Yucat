@@ -8,10 +8,8 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.0.2
+     * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
-     * 
-     * @todo Dokoncit
      */
 
     namespace inc;
@@ -29,11 +27,10 @@
          */
         public function __construct($message, $type = self::DIALOG_BASE) {
             if(Ajax::isAjax()) {
-                echo '{"' . $type . '" : "' . Security::protect($message) . '"}';
+                echo '{"' . $type . '" : "' . $message . '"}';
+                exit;
             } else {
-                //echo '<script>apprise(' . Security::protect($message) . ', {"animate":true});</script>';
-                d($message);
-                //@todo dokoncit
+                echo '<script>alert(\'' . $message . '\');</script>';
             }
         }
     }

@@ -6,7 +6,7 @@
      * HTML template for hander is from Nette Framework
      *
      * @category   Yucat
-     * @package    Includes\Diagnostics
+     * @package    Library\Diagnostics
      * @name       ErrorHandler
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat

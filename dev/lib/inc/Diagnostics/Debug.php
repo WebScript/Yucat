@@ -10,7 +10,7 @@
      * message (Server error 500)
      *
      * @category   Yucat
-     * @package    Includes\Diagnostics
+     * @package    Library\Diagnostics
      * @name       Debug
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat

@@ -83,18 +83,16 @@
     Debug::setMode(Debug::MODE_DEV);
     /** Create a connection with database */
     $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
-    /** Create configuration class */
-    //new \inc\Config();
     /** Create instance of Cookie class */
     $cookie = new inc\Cookie();
     /** Call setters */
     Security::protectInput();
-    
+
     /** 
      * Define 'ROUTE'. route is domain path
      */
     define('ROUTE', isset($_GET['route']) ? $_GET['route'] : '');
-    
+
     /** Set time zone */
     date_default_timezone_set(Config::_init()->getValue('time_zone'));
     /** Set style by config */
@@ -141,6 +139,6 @@
      * 
      * translate v dialogu
      * 
-     * 
+     * Pouzivat singleton pre Db, router, config, Cookie
      * 
      */

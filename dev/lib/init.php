@@ -49,6 +49,7 @@
     
     /**
      * Alias for ErrorHandler from Diagnostics
+     * 
      * @param type $code
      * @param type $message
      * @param type $file

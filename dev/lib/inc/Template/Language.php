@@ -3,7 +3,7 @@
      * Language system
      *
      * @category   Yucat
-     * @package    Includes\Template
+     * @package    Library\Template
      * @name       Language
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat

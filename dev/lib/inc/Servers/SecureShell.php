@@ -3,7 +3,7 @@
      * SecureShell
      *
      * @category   Yucat
-     * @package    inc\Servers
+     * @package    Library\Servers
      * @name       SecureShell
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat

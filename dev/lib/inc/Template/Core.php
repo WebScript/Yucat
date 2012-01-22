@@ -3,7 +3,7 @@
      * Core of work woth templates
      *
      * @category   Yucat
-     * @package    Includes\Template
+     * @package    Library\Template
      * @name       Core
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
