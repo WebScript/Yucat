@@ -31,6 +31,8 @@
             if(Ajax::isAjax()) {
                 echo '{"' . $type . '" : "' . Security::protect($message) . '"}';
             } else {
+                //echo '<script>apprise(' . Security::protect($message) . ', {"animate":true});</script>';
+                d($message);
                 //@todo dokoncit
             }
         }

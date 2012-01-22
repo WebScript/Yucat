@@ -94,7 +94,7 @@
     /** 
      * Define 'ROUTE'. route is domain path
      */
-    define('ROUTE', isset($_GET['route']) ? $_GET['route'] : NULL);
+    define('ROUTE', isset($_GET['route']) ? $_GET['route'] : '');
     
     /** Set time zone */
     date_default_timezone_set($conf['time_zone']);
@@ -113,8 +113,6 @@
     /** Call a template system */
     $core = new Template\Core();
 
-    
-    
 
     if(!inc\Ajax::isAjax()) {
     //    Debug::timer('true');
