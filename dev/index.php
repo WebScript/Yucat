@@ -1,6 +1,7 @@
 <?php if($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) exit;
 
     use inc\Db;
+    use inc\Config;
     use inc\Security;
     use inc\Template;
     use inc\Diagnostics\Debug;
@@ -82,10 +83,8 @@
     Debug::setMode(Debug::MODE_DEV);
     /** Create a connection with database */
     $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
-    /** Create a instance of configuration class */
-    $config = new \inc\Config();
-    /** Load secundary configuration from db */
-    $conf = $config->getConfig();
+    /** Create configuration class */
+    //new \inc\Config();
     /** Create instance of Cookie class */
     $cookie = new inc\Cookie();
     /** Call setters */
@@ -97,14 +96,14 @@
     define('ROUTE', isset($_GET['route']) ? $_GET['route'] : '');
     
     /** Set time zone */
-    date_default_timezone_set($conf['time_zone']);
+    date_default_timezone_set(Config::_init()->getValue('time_zone'));
     /** Set style by config */
-    if(!$cookie->getParam('style')) $cookie->addParam($cookie->myCid, 'style', $conf['default_style']);
+    if(!$cookie->getParam('style')) $cookie->addParam($cookie->myCid, 'style', Config::_init()->getValue('default_style'));
     /** Define style */
     define('STYLE', $cookie->getParam('style'));
-    //Check if exists defined style
+    /* Check style */
     if(!is_dir(STYLE_DIR . STYLE)) {
-        ErrorHandler::Error('Error: can\'t find default style!');
+        new \inc\Diagnostics\Excp('E_MISSING_STYLE');
     }
     /** Call router */
     $router = new \inc\Router();
@@ -112,7 +111,7 @@
     $lang = new Template\Language();
     /** Call a template system */
     $core = new Template\Core();
-
+    
 
     if(!inc\Ajax::isAjax()) {
     //    Debug::timer('true');

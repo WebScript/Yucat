@@ -15,6 +15,8 @@
     namespace inc;
 
     class Cookie {
+        /** @var Cookie instance of this class */
+        private static $singleton;
         /** @var integer My cookie ID */
         public $myCid;
         
@@ -23,15 +25,30 @@
          * Set $myCid to my cookie ID and set UID if is set
          */
         public final function __construct() {
-            $this->myCid = $this->getCid($this->getMyHash());
+            /* Use singleton */
+            if(!self::$singleton) {
+                $this->myCid = $this->getCid($this->getMyHash());
 
-            $uid = $GLOBALS['db']->tables('cookie_params')
-                    ->select('value')
-                    ->where('CID', $this->myCid)
-                    ->where('param', 'UID')
-                    ->fetch();
-            
-            define('UID', $uid ? $uid->value : NULL);
+                $uid = Db::_init()->tables('cookie_params')
+                        ->select('value')
+                        ->where('CID', $this->myCid)
+                        ->where('param', 'UID')
+                        ->fetch();
+
+                define('UID', $uid ? $uid->value : NULL);
+                self::$singleton = $this;
+            }
+        }
+        
+        
+        /**
+         * Singleton
+         * 
+         * @return Config isntance
+         */
+        public static function _init() {
+            if(!self::$singleton) return new Cookie();
+            return self::$singleton;
         }
         
         
@@ -43,7 +60,7 @@
          */
         public final function getCid($hash) {
             if($hash) {
-                $id = $GLOBALS['db']->tables('cookie')
+                $id = Db::_init()->tables('cookie')
                         ->select('id')
                         ->where('hash', $hash)
                         ->fetch();
@@ -71,7 +88,7 @@
          * @return string HASH
          */
         public final function getHash($id) {
-            $hash = $GLOBALS['db']->tables('cookie')
+            $hash = Db::_init()->tables('cookie')
                     ->select('hash')
                     ->where('id', $id)
                     ->fetch();
@@ -91,7 +108,7 @@
             if(!$cid) {
                 $cid = $this->myCid;
             }
-            $value = $GLOBALS['db']->tables('cookie_params')
+            $value = Db::_init()->tables('cookie_params')
                     ->select('value')
                     ->where('CID', $cid)
                     ->where('param', $name)
@@ -107,22 +124,20 @@
          * @param integer $time time() stamp of time. If isn't specified no time so is uset time for 365 days
          * @return 
          */
-        public final function addHash($time = 1353044444) { 
-            GLOBAL $db;
-            
-            if(!$db->tables('cookie')->select('id')->where('hash', $this->myCid)->fetch()) {
+        public final function addHash($time = 1353044444) {
+            if(!Db::_init()->tables('cookie')->select('id')->where('hash', $this->myCid)->fetch()) {
                 while(1) {
                     $hash = String::keyGen(256);
 
-                    if($db->tables('cookie')->select('id')->where('hash', $hash)->fetch()) {
+                    if(Db::_init()->tables('cookie')->select('id')->where('hash', $hash)->fetch()) {
                         continue;
                     } else {
-                        $db->tables('cookie')->insert(array('hash' => $hash));
+                        Db::_init()->tables('cookie')->insert(array('hash' => $hash));
                         $this->setCookie($hash, $time);
                         break;
                     }
                 }
-                return $db->tables('cookie')->select('id')->where('hash', $hash)->fetch()->id;
+                return Db::_init()->tables('cookie')->select('id')->where('hash', $hash)->fetch()->id;
             } else {
                 return NULL;
             }
@@ -135,10 +150,8 @@
          * @param integer $cid Cookie ID
          */
         public final function deleteHash($cid) {
-            GLOBAL $db;
-                       
-            $db->tables('cookie_params')->where('CID', $cid)->delete();
-            $db->tables('cookie')->where('id', $cid)->delete();
+            Db::_init()->tables('cookie_params')->where('CID', $cid)->delete();
+            Db::_init()->tables('cookie')->where('id', $cid)->delete();
             $this->setCookie(NULL, 0);
         }
         
@@ -151,25 +164,23 @@
          * @param string $value Value of param
          */
         public final function addParam($cid, $name, $value) {
-            GLOBAL $db;
-
             if(!$cid) {
                 $cid = $this->addHash();
             }
             
-            $get = $db->tables('cookie_params')
+            $get = Db::_init()->tables('cookie_params')
                     ->select('id')
                     ->where('CID', $cid)
                     ->where('param', $name)
                     ->fetch();
             
             if($get) {
-                $db->tables('cookie_params')
+                Db::_init()->tables('cookie_params')
                         ->where('CID', $cid)
                         ->where('param', $name)
                         ->update(array('value' => $value));
             } else {
-                $db->tables('cookie_params')
+                Db::_init()->tables('cookie_params')
                         ->insert(array('CID' => $cid, 'param' => $name, 'value' => $value));
             }
         }
@@ -182,7 +193,7 @@
          * @param string $name Name of param
          */
         public final function deleteParam($cid, $name) {
-            $GLOBALS['db']->tables('cookie_params')->where('CID', $cid)->where('param', $name)->delete();
+            Db::_init()->tables('cookie_params')->where('CID', $cid)->where('param', $name)->delete();
         }
 
 

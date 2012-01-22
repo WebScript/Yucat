@@ -19,6 +19,8 @@
     use inc\Diagnostics\Excp;
 
     class Db {
+        /** @var DB instance of thos class */
+        private static $singleton;
         /** @var resource ressource of connection to DB */
         private $connection;
         /** @var string SQL query */
@@ -50,10 +52,27 @@
          * @param string $db Database with tables
          */
         public function __construct($host, $login, $password, $db) {
-            $this->connection = mysql_connect($host, $login, $password);
-            if(!$this->connection) new Excp('E_CANNOST_CONNECT_TO_DB');
-            $resp = mysql_select_db($db, $this->connection);
-            if(!$resp) new Excp('E_CANNOST_CONNECT_TO_DB');
+            /* Singleton */
+            if(!self::$singleton) {
+                $this->connection = mysql_connect($host, $login, $password);
+                if(!$this->connection) new Excp('E_CANNOST_CONNECT_TO_DB');
+                
+                $resp = mysql_select_db($db, $this->connection);
+                if(!$resp) new Excp('E_CANNOST_CONNECT_TO_DB');
+                
+                self::$singleton = $this;
+            } else new Excp('E_ISE', 'E_SINGLETON_ERROR');
+        }
+        
+        
+        /**
+         * Get instance of DBs
+         * 
+         * @return DB intstnce
+         */
+        public static function _init() {
+            if(!self::$singleton) new Excp('E_ISE', 'E_SINGLETON_ERROR');
+            return self::$singleton;
         }
        
        
@@ -354,6 +373,6 @@
          * Close mysql connection
          */
         public function __destruct() {
-            @mysql_close($this->connection);
+           // @mysql_close($this->connection);
         }
     }

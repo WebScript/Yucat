@@ -24,10 +24,9 @@
             parent::__construct();
             GLOBAL $router;
 
-            if(!$this->isLogged()){
+            if(!UID){
                 return;
             }
-            $this->template->user = $this->isLogged();
             
             $dirs = $router->getParam('dir');
             $dirs = isset($dirs['d1']) ? $dirs['d1'] : NULL;

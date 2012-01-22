@@ -14,6 +14,8 @@
 
     namespace inc\Template;
     
+    use inc\Cookie;
+    use inc\Config;
     use \inc\Diagnostics\Excp;
     
     class Language {
@@ -25,7 +27,7 @@
          * Load all languages from files
          */
         public final function __construct() {
-            GLOBAL $cookie, $db;
+            $cookie = Cookie::_init();
             $dir = opendir(LANG_DIR);
             
             while($langs = readdir($dir)) {
@@ -41,16 +43,16 @@
                 list($lang, $null) = explode('-', $_SERVER['HTTP_ACCEPT_LANGUAGE'], 2);
                 /* Get default language from DB */
                 if(UID) {
-                	$userLang = $db->tables('users')->where('id', UID)->fetch();
+                	$userLang = \inc\Db::_init()->tables('users')->where('id', UID)->fetch();
                 	$userLang = $userLang ? $userLang->language : NULL;
                 }
                 
                 if(UID && array_key_exists($userLang, $this->avaiable_languages)) {
-                    $cookie->addParam($cookie->myCid, 'lang', $userLang);
+                    $cookie->addParam(\inc\Cookie::_init()->myCid, 'lang', $userLang);
                 } elseif(array_key_exists($lang, $this->avaiable_languages)) {
                     $cookie->addParam($cookie->myCid, 'lang', $lang); 
-                } elseif(!$cookie->getParam('lang') || $cookie->getParam('lang') !== $GLOBALS['conf']['default_language']) {
-                    $cookie->addParam($cookie->myCid, 'lang', $GLOBALS['conf']['default_language']);
+                } elseif(!$cookie->getParam('lang') || $cookie->getParam('lang') !== Config::_init()->getValue('default_language')) {
+                    $cookie->addParam($cookie->myCid, 'lang', Config::_init()->getValue('default_language'));
                 } else {
                     new Excp('E_ISE', 'E_NO_LANG');
                 }

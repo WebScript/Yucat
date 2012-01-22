@@ -27,7 +27,7 @@
     
     
     if(isset($_GET['search'])) {
-        $s = htmlspecialchars($_GET['search']);
+        $s = preg_quote($_GET['search']);
         $out = array();
         
         foreach($o as $val) {

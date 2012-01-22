@@ -15,34 +15,33 @@
 
     namespace Presenter;
     
+    use inc\Db;
     use inc\Arr;
     use inc\Ajax;
+    use inc\Config;
     use inc\Router;
     use inc\Template\Core;
     
     class BasePresenter {
         //Object of variables for translate
         protected $template;
-        //Resource of DB connection
-        private $db;
         
         public function __construct() {
-            GLOBAL $db, $router;
+            GLOBAL $router;
             $this->template = Arr::array2Object(Core::$translate);
-            $this->db = $db;
 
-            $this->template->isLogged       = $this->isLogged() ? TRUE : NULL;
+            $this->template->isLogged       = UID ? TRUE : NULL;
             $this->template->isAjax         = Ajax::isAjax();
-            $this->template->__THEME_DIR    = PROTOCOL . Router::getDomain() . '/styles/' . STYLE . '/' . $GLOBALS['router']->getParam('subdomain') . '/theme/';
-            $this->template->__KEYWORDS     = $GLOBALS['conf']['template_keywords'];
-            $this->template->__DESCRIPTION  = $GLOBALS['conf']['template_description'];
-            $this->template->__COPYRIGHT    = 'Copyright &copy; 2011, <strong>Yucat ' . $GLOBALS['conf']['version'] . '</strong> OpenSource by <strong>Bloodman Arun</strong>';
+            $this->template->__THEME_DIR    = PROTOCOL . Router::getDomain() . '/styles/' . STYLE . '/' . Router::_init()->getParam('subdomain') . '/theme/';
+            $this->template->__KEYWORDS     = Config::_init()->getValue('template_keywords');
+            $this->template->__DESCRIPTION  = Config::_init()->getValue('template_description');
+            $this->template->__COPYRIGHT    = 'Copyright &copy; 2011 - 2012, <strong>Yucat ' . Config::_init()->getValue('version') . '</strong> OpenSource by <strong>Bloodman Arun</strong>';
             
-            if($this->isLogged()) {
-                $this->template->user       = $this->db->tables('users')->where('id', UID)->fetch();
+            if(UID) {
+                $this->template->user       = Db::_init()->tables('users')->where('id', UID)->fetch();
                 
                 /** Set SID const */
-                $params = $router->getParam('params');
+                $params = Router::_init()->getParam('params');
                 if(isset($params[0])) {
                     $sid = $this->db()->tables('servers')->select('id')->where('UID', UID)->where('id', $params[0])->fetch();
                     if($sid && !defined('SID')) define('SID', $sid->id ? : NULL);
@@ -51,27 +50,11 @@
         }
         
         protected function db() {
-            return $this->db;
-        }
-        
-        public function getVar() {
-            return $this->template;
+            return Db::_init();
         }
         
         public function getTemplate() {
             return $this->template;
-        }
-        
-        
-        protected function isLogged() {
-            GLOBAL $cookie;
-
-            $uid = $this->db()->tables('cookie_params')
-                    ->where('CID', $cookie->myCid)
-                    ->where('param', 'UID')
-                    ->fetch();
-
-            return $uid ? $uid->value : NULL;
         }
         
         
@@ -90,20 +73,20 @@
                 $ssh = TRUE;
             } else {
                 $ssh = FALSE;
-                \inc\Diagnostics\ExceptionHandler::Error('Server doesn\'t exists!');
+                new \inc\Diagnostics\Excp('E_SERVER_NO_EXISTS');
             }
             return $ssh;
         }
         
         
         protected function forNotLogged($url = 'User:Main') {
-            if($this->isLogged()) {
+            if(UID) {
                 Router::redirect($url);
             }
         }
         
         protected function forLogged($url = 'Login') {
-            if(!$this->isLogged()) {
+            if(!UID) {
                 Router::redirect($url);
             }
         }

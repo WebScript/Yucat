@@ -112,7 +112,7 @@
          * @return string 
          */
         public final function macroContent() {
-            GLOBAL $router;
+            $router = Router::_init();
             $link = $router->getParam('subdomain') . ($router->getParam('dir') ? '/' . implode('/', $router->getParam('dir')) : '') . '/' . $router->getParam('class');
             return $this->macroInclude($link, $router->getParam('method'));
         }
@@ -125,6 +125,6 @@
          * @return string 
          */
         public final function macroLink($val) {
-            return $GLOBALS['router']->traceRoute($val);
+            return Router::traceRoute($val);
         }
     }

@@ -16,6 +16,7 @@
     namespace Presenter\admin;
     
     use inc\Ajax;
+    use inc\Router;
     
     class Login extends \Presenter\BasePresenter {
         private $form;
@@ -24,11 +25,8 @@
         
         public function __construct() {
             parent::__construct();
-            $method = $GLOBALS['router']->getParam('method');
 
-            if(!isset($method) || 
-                    isset($method) && 
-                    $method !== 'logout') {
+            if(Router::_init()->getParam('method') != 'logout') {
                 $this->forNotLogged();
             }
 
@@ -67,7 +65,7 @@
             $this->forNotLogged();
             
             if(!Ajax::isAjax()) {
-                \inc\Router::redirect('Login');
+                Router::redirect('Login');
             }
             
             if($type == 'login' && $act == 'check') Ajax::sendJSON($this->form->validateData());
@@ -92,7 +90,7 @@
 
                     if($login) {
                         \Model\admin\Access::add(0, 'Login', $login);
-                        Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('User:Main')));
+                        Ajax::sendJSON(array('redirectHead' => Router::traceRoute('User:Main')));
                     } else {
                         new \inc\Dialog('Zadali ste zle meno alebo heslo...');
                     }
@@ -108,6 +106,6 @@
             $model = new \Model\admin\Login();
             $model->logout();
             \Model\admin\Access::add(0, 'Logout');
-            Ajax::sendJSON(array('redirectHead' => $GLOBALS['router']->traceRoute('Login')));
+            Ajax::sendJSON(array('redirectHead' => Router::traceRoute('Login')));
         }
     }

@@ -9,7 +9,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.4.0
+     * @version    Release: 0.4.1
      * @link       http://www.yucat.net/documentation
      */
 
@@ -18,6 +18,8 @@
     use inc\Diagnostics\Excp;
     
     class Router {
+        /** @var Router instance of this class */
+        private static $singleton;
         /** @var array Addrees */
         private $address    = array(
             'subdomain' => '', 
@@ -32,51 +34,67 @@
          * Parse URL and create varialble with all important data
          */
         public final function __construct() {
-            /* Get domain, e.g. admin, mobile, etc. */
-            list($subDomain) = explode('.', DOMAIN);
-            /* parse domain path to array */
-            $route = explode('/', ROUTE);
-            /* set subdomain to variable address */
-            $this->address['subdomain'] = is_dir(ROOT . PRESENTER . $subDomain) ? $subDomain : 'website';
-            /* Set dir to presenter */
-            $dir = PRESENTER . $this->address['subdomain'] . '/';
-            /* counter */
-            $i = 0;
+            /* Use singleton */
+            if(!self::$singleton) {
+                /* Get domain, e.g. admin, mobile, etc. */
+                list($subDomain) = explode('.', DOMAIN);
+                /* parse domain path to array */
+                $route = explode('/', ROUTE);
+                /* set subdomain to variable address */
+                $this->address['subdomain'] = is_dir(ROOT . PRESENTER . $subDomain) ? $subDomain : 'website';
+                /* Set dir to presenter */
+                $dir = PRESENTER . $this->address['subdomain'] . '/';
+                /* counter */
+                $i = 0;
 
-            /* Set dir names */
-            while(1) {
-               if(count($route) > $i && !empty($route[$i]) && is_dir(ROOT . $dir . $route[$i])) {
-                    $this->address['dir']['d' . $i] = $route[$i];
-                    $dir .= $route[$i] . '/';
-                    $i++;
-                } else {
-                    break;
+                /* Set dir names */
+                while(1) {
+                   if(count($route) > $i && !empty($route[$i]) && is_dir(ROOT . $dir . $route[$i])) {
+                        $this->address['dir']['d' . $i] = $route[$i];
+                        $dir .= $route[$i] . '/';
+                        $i++;
+                    } else {
+                        break;
+                    }
                 }
-            }
-            
-            $cDir = str_replace('/', '\\', $dir);
 
-            /** Set class */
-            if(count($route) > $i && class_exists($cDir . $route[$i])) {
-                $this->address['class'] = $route[$i];
-            } else {
-                if(class_exists($cDir . 'Index')) {
-                    $this->address['class'] = 'Index';
+                $cDir = str_replace('/', '\\', $dir);
+
+                /** Set class */
+                if(count($route) > $i && class_exists($cDir . $route[$i])) {
+                    $this->address['class'] = $route[$i];
                 } else {
-                    new Excp('E_ISE', 'E_CLASS_NO_EXISTS');
+                    if(class_exists($cDir . 'Index')) {
+                        $this->address['class'] = 'Index';
+                    } else {
+                        new Excp('E_ISE', 'E_CLASS_NO_EXISTS');
+                    }
                 }
-            }
-            $i++;
-
-            /** Set method */
-            if(count($route) > $i && method_exists($cDir . $this->address['class'], $route[$i])) {
-                $this->address['method'] = $route[$i];
                 $i++;
+
+                /** Set method */
+                if(count($route) > $i && method_exists($cDir . $this->address['class'], $route[$i])) {
+                    $this->address['method'] = $route[$i];
+                    $i++;
+                }
+
+                if(count($route) > $i) {
+                    $this->address['params'] = array_slice($route, $i);
+                } 
             }
             
-            if(count($route) > $i) {
-                $this->address['params'] = array_slice($route, $i);
-            } 
+            self::$singleton = $this;
+        }
+        
+        
+        /**
+         * Singleton
+         * 
+         * @return Config isntance
+         */
+        public static function _init() {
+            if(!self::$singleton) return new Router();
+            return self::$singleton;
         }
 
        
@@ -207,14 +225,14 @@
         public static function redirect($input, $inURL = FALSE) {
             $parse = self::parseRoute($input);
             $parse = $parse['subdomain'] . ':' . implode(':', $parse['dir']) . ':' . $parse['class'];
-            $parse = $GLOBALS['router']->traceRoute($parse);
-            $search = $GLOBALS['router']->traceRoute($input);
+            $parse = self::traceRoute($parse);
+            $search = self::traceRoute($input);
 
             if($inURL && preg_match('@' . $parse . '$@i', $_SERVER['SCRIPT_URI']) || !$inURL) {
                 if(Ajax::isAjax()) {
-                    exit('{"redirect" : "' . $GLOBALS['router']->traceRoute($input) . '"}');
+                    exit('{"redirect" : "' . self::traceRoute($input) . '"}');
                 } else {
-                    header('location: ' . $GLOBALS['router']->traceRoute($input));
+                    header('location: ' . self::traceRoute($input));
                 }    
             }
         }

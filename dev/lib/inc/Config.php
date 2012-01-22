@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.2
      * @link       http://www.yucat.net/documentation
      */
 
@@ -17,6 +17,46 @@
     use inc\Diagnostics\Excp;
 
     class Config {
+        /** @var Config instance of this class */
+        private static $singleton;
+        /** var array config */
+        private $config = array();
+        
+        
+        public function __construct() {
+            /* Use singleton */
+            if(!self::$singleton) {            
+                /* load config */
+                $this->load();
+             
+                self::$singleton = $this;
+            }
+        }
+        
+        
+        /**
+         * Singleton
+         * 
+         * @return Config isntance
+         */
+        public static function _init() {
+            if(!self::$singleton) return new Config();
+            return self::$singleton;
+        }
+        
+        
+        /**
+         * Load config to variable
+         */
+        private function load() {
+            $config = Db::_init()->tables('config')->fetchAll();
+            
+            foreach($config as $val) {
+                $this->config[$val->param] = $val->value;
+            }
+            
+            if(!$this->config) new Excp('E_CANNOT_LOAD_CONFIG');
+        }
         
         
         /**
@@ -25,15 +65,7 @@
          * @return array Array of data
          */
         public function getConfig() {
-            $out = array();
-            $config = $GLOBALS['db']->tables('config')->fetchAll();
-            
-            foreach($config as $val) {
-                $out[$val->param] = $val->value;
-            }
-            
-            if(!$out) new Excp('E_CANNOT_LOAD_CONFIG');
-            return $out;
+            return $this->config;
         }
         
         
@@ -44,8 +76,7 @@
          * @return string Value 
          */
         public function getValue($param) {
-            $config = $this->getConfig();
-            return $config[$param];
+            return isset($this->config[$param]) ? $this->config[$param] : NULL;
         }
         
         
@@ -58,9 +89,9 @@
          */
         public function addToConfig($param, $value) {
             if(!$this->inConfig($param)) {
-                $GLOBALS['db']
-                        ->tables('config')
+                Db::_init()->tables('config')
                         ->insert(array('param' => $param, 'value' => $value));
+                $this->load();
                 return TRUE;
             } else {
                 return FALSE;
@@ -75,8 +106,7 @@
          * @return BOOL 
          */
         public function inConfig($param) {
-            $get = $GLOBALS['db']
-                    ->tables('config')
+            $get = Db::_init()->tables('config')
                     ->select('value')
                     ->where('param', $param)
                     ->fetch();
@@ -91,15 +121,16 @@
         
         /**
          * Delete form config by param
+         * 
          * @param string $param Name of param
          * @return BOOL
          */
         public function deleteFromConfig($param) {
             if($this->inConfig($param)) {
-                $GLOBALS['db']
-                        ->tables('config')
+                Db::_init()->tables('config')
                         ->where('param', $param)
                         ->delete();
+                $this->load();
                 return TRUE;
             } else {
                 return FALSE;
@@ -109,16 +140,17 @@
         
         /**
          * Change value in config by param
+         * 
          * @param string $param Name of param
          * @param string $value Value
          * @return BOOL
          */
         public function changeInConfig($param, $value) {
             if($this->inConfig($param)) {
-                $GLOBALS['db']
-                        ->tables('config')
+                Db::_init()->tables('config')
                         ->where('param', $param)
                         ->update(array('value' => $value));
+                $this->load();
                 return TRUE;
             } else {
                 return FALSE;

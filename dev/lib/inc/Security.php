@@ -100,7 +100,7 @@
          * @return string output hash
          */
         public static function hashPassword($password) {
-            $passhHash = $GLOBALS['conf']['password_hash'];
+            $passhHash = Config::_init()->getValue('password_hash');
             return md5($passhHash . md5($password . $passhHash) . md5($passhHash));
         }
         
