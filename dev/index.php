@@ -111,9 +111,9 @@
     $core = new Template\Core();
     
 
-    if(!inc\Ajax::isAjax()) {
+   // if(!inc\Ajax::isAjax()) {
     //    Debug::timer('true');
-    }
+   // }
     
     
     
@@ -121,10 +121,8 @@
      * mail neni dokonceny
      * 
      * 
-     * skoncil som pri form ale zostala tam este nejaka praca :D
      * form bol prerobeny z add(id, name, type) na 
      * add(name, type)
-     * 
      * Odstramene minLength() a maxLength() a miesto toho pridane length(min, max)
      * setErrorType() -> setType()
      * 
