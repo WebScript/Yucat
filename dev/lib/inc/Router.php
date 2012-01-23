@@ -9,7 +9,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.4.1
+     * @version    Release: 0.4.2
      * @link       http://www.yucat.net/documentation
      */
 
@@ -164,7 +164,11 @@
          */
         private static function parseRoute($link) {
             /* initialize output */
-            $out = array();
+            $out = array(
+                'subdomain' => '', 
+                'dir' => array(),
+                'class' => ''
+            );
             /* Parse link path to array */
             $link = explode(self::DELIMITER, $link);
             /* set subdomain to variable address */
