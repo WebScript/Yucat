@@ -174,7 +174,7 @@
          * @param string $errorMessage Error message for dialog if is sent form
          * @return array 
          */
-        public function validateData($errorMessage = 'Error') {
+        public function validateData($errorMessage = NULL) {
             $return = array();
 
             if(Arr::isInArray($_POST, $this->form)) {
@@ -207,10 +207,10 @@
                 }
 
                 if($errorMessage && \inc\Arr::isInExtendedArray($return, 'error')) {
-                    $return = array_merge($return, array('dialogValue' => $errorMessage));
+                    $return = array_merge($return, array('dialogBase' => $errorMessage));
                 }
             } else {
-                new Dialog($errorMessage);
+                new Dialog($errorMessage ? : 'Error');
             }
             return $return;
         }

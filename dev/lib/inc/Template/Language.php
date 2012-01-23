@@ -84,6 +84,7 @@
             if(file_exists($filename)) {
                 include_once($filename);
                 if(isset($translate) && is_array($translate)) { 
+                    $trsl = array();
                     foreach($translate as $key => $val) {
                         $trsl['_' . $key] = $val;
                     }

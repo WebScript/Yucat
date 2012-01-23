@@ -8,12 +8,14 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
      * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.1
+     * @version    Release: 0.0.2
      * @link       http://www.yucat.net/documentation
      * @since      Class available since Release 0.0.1
      */
 
     namespace Model\admin\User;
+    
+    use inc\Date;
     
     class Statistic extends \Model\BaseModel {
         
@@ -37,7 +39,9 @@
             }
             
             foreach($input as $val) {
-                $out[\date('m', strtotime($val->$what))]++;
+                if(Date::getParam($val->$what, 'Y') == date('Y')) {
+                    $out[Date::getParam($val->$what, 'm')]++;
+                }
             }
 
             $str[] = 'var d1 = [ ';

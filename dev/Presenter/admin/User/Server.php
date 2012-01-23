@@ -19,7 +19,6 @@
         
         
         public function view() {
-            GLOBAL $router;
             $this->template->servers = $this->db()
                     ->tables('servers, server_types, machines')
                     ->select('servers.port, server_types.name, servers.id, servers.type, machines.ssh_ip, machines.name as mname, servers.stopped, servers.autorun')
@@ -28,7 +27,7 @@
                     ->where('servers.MID', 'machines.id', TRUE)
                     ->fetchAll();
             $this->template->checkStatus = new \inc\Servers\Status();
-            $this->template->router = $router;
+            $this->template->router = \inc\Router::_init();
             
         }
         
@@ -42,7 +41,7 @@
             $delete = new \Model\admin\User\Server();
             $delete->deleteServer($_POST['deleteId']);
             \Model\admin\Access::add(0, 'delete server');
-            \inc\Ajax::sendJSON(array('redirect' => $router->traceroute('User:Server:view')));
+            \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('User:Server:view')));
         }
         
     }

@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.2
+     * @version    Release: 0.1.4
      * @link       http://www.yucat.net/documentation
      */
 
@@ -26,27 +26,42 @@
         /**
          * Transfer time() stamp or full date to date only
          * 
-         * @param integer $date time() stamp or full date
+         * @param mixed $date time() stamp or full date
          * @return string date only
          */
         public static function getDate($date) { 
             if(!is_numeric($date)) {
                 $date = strtotime($date);
             }
-            return Date(self::$date_format, $date);
+            return date(self::$date_format, $date);
         }
         
         
         /**
          * Transfer time() stamp or full date to time only
          * 
-         * @param integer $date time() stamp or full date
+         * @param mixed $date time() stamp or full date
          * @return string time only
          */
         public static function getTime($time) {
             if(!is_numeric($time)) {
                 $time = strtotime($time);
             }
-            return Date(self::$time_format, $time);
+            return date(self::$time_format, $time);
+        }
+        
+        
+        /**
+         * Get date from $date by $param format
+         * 
+         * @param mixed $date input date
+         * @param string $param type of output
+         * @return mixed output date
+         */
+        public static function getParam($date, $param) {
+            if(!is_numeric($date)) {
+                $date = strtotime($date);
+            }
+            return date($param, $date);
         }
     }

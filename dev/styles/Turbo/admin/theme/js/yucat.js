@@ -7,7 +7,9 @@ $(function() {
         $('#loading').show();
         $.post(this.action + '/send', $(this.elements).serialize(), function(msg) {
             if(!manageRespJSON($.parseJSON(msg))) {
-                changeStats($(':input[name=' + id + ']'), val);
+                $.each($.parseJSON(msg), function(id, val) {
+                    changeStats($(':input[name=' + id + ']'), val);
+                });
             }
             $('#loading').hide();
         });

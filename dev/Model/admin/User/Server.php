@@ -18,8 +18,6 @@
     class Server extends \Model\BaseModel {
 
         public function deleteServer($id) {
-            GLOBAL $router;
-            
             if(!isset($id)) return 0;
             $this->db()->tables('servers')->where('id', $_POST['deleteId'])->where('UID', UID)->delete();
             return 1;            

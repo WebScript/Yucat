@@ -17,6 +17,7 @@
     
     use inc\Ajax;
     use inc\Date;
+    use inc\Dialog;
     
     class Main extends \Presenter\BasePresenter {
 
@@ -117,9 +118,9 @@
                     Ajax::sendJSON($form->validateData('Chybne vyplnene udaje!'));
                 } else if($main->saveProfile()) {
                     \Model\admin\Access::add(0, 'save profil');
-                    Ajax::sendJSON(array('dialogValue' => 'Profil bol uspesne ulozeny!'));
+                    new Dialog('Profil bol uspesne ulozeny!');
                 } else {
-                    Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit profil!'));
+                    new Dialog('Nepodarilo sa ulozit profil!');
                 }
             } elseif($type == 'pass' && $act == 'send') {
                 $main = new \Model\admin\User\Main();
@@ -131,16 +132,16 @@
                 switch($main->changePassword()) {
                     case 1:
                         \Model\admin\Access::add(0, 'save password');
-                        Ajax::sendJSON(array('dialogValue' => 'Heslo bolo ulozene!'));
+                        new Dialog('Heslo bolo ulozene!');
                         break;
                     case 2:
-                        Ajax::sendJSON(array('dialogValue' => 'Zadane hesla sa nerovnaju!'));
+                        new Dialog('Zadane hesla sa nerovnaju!');
                         break;
                     case 3:
-                        Ajax::sendJSON(array('dialogValue' => 'Zadali ste nespravne heslo!'));
+                        new Dialog('Zadali ste nespravne heslo!');
                         break;
                     default :
-                        Ajax::sendJSON(array('dialogValue' => 'Nepodarilo sa ulozit heslo!'));
+                        new Dialog('Nepodarilo sa ulozit heslo!');
                         break;
                 }
             } else {  

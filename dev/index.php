@@ -139,4 +139,6 @@
      * 
      * Pouzivat singleton pre Db, router, config, Cookie
      * 
+     * 
+     * 	{"dialogBase" : "Error: Undefined variable: rank, File: /var/www/net/yucat/www/temp/cache/28418.phtml, Line: 664"}
      */

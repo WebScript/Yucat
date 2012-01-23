@@ -86,7 +86,7 @@
          * @param array $array Array of JSON's params and values
          * @return string
          */
-        private static function drawJSON(array $array) {
+        public static function drawJSON(array $array) {
             $out = array();
             
             foreach($array as $key => $val) {
