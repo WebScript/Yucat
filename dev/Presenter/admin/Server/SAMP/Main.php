@@ -22,7 +22,7 @@
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::redirect('Server:SAMP:profile', TRUE);
+            \inc\Router::redirect('Server:SAMP:Main:profile', TRUE);
         }
         
         
@@ -42,36 +42,36 @@
             $form->setAction('Server:SAMP:Main:profile:' . SID . ':data');
             $form->setMethod('POST');
            
-            $form->addElement('id', 'id', 'text')
+            $form->addElement('id', 'text')
                     ->setValue($data[0]->id);
             
-            $form->addElement('name', 'name', 'text')
+            $form->addElement('name', 'text')
                     ->setValue($data[0]->name);
             
-            $form->addElement('port', 'port', 'text')
+            $form->addElement('port', 'text')
                     ->setValue($data[0]->port);
             
-            $form->addElement('slots', 'slots', 'text')
+            $form->addElement('slots', 'text')
                     ->setValue($data[0]->slots);
             
-            $form->addElement('stopped', 'stopped', 'text')
+            $form->addElement('stopped', 'text')
                     ->setValue($data[0]->stopped ? : 'No');
             
-            $form->addElement('autorun', 'autorun', 'text')
+            $form->addElement('autorun', 'text')
                     ->setValue($data[0]->autorun ? 'Yes' : 'No');
             
-            $form->addElement('cost', 'cost', 'text')
+            $form->addElement('cost', 'text')
                     ->setValue($data[0]->cost * $data[0]->slots);
             
-            $form->addElement('mname', 'mname', 'text')
+            $form->addElement('mname', 'text')
                     ->setValue($data[0]->mname);
             
-            $form->addElement('stop', 'stop', 'checkbox')
+            $form->addElement('stop', 'checkbox')
                     ->setValue($data[0]->stopped ? 'checked' : '')
-                    ->setErrorType('CHECKBOX')
+                    ->setType('CHECKBOX')
                     ->setErrorMessage('error');
 
-            $form->addElement('save', 'save', 'submit')
+            $form->addElement('save', 'submit')
                     ->setValue('Odoslat');
             
             
@@ -79,22 +79,22 @@
             $ftp->setAction('Server:SAMP:Main:profile:' . SID . ':ftp');
             $ftp->setMethod('POST');
            
-            $ftp->addElement('id', 'id', 'text')
+            $ftp->addElement('id', 'text')
                     ->setValue($data[0]->id);
             
-            $ftp->addElement('host', 'host', 'text')
+            $ftp->addElement('host', 'text')
                     ->setValue($data[0]->name);
             
-            $ftp->addElement('port', 'port', 'text')
+            $ftp->addElement('port', 'text')
                     ->setValue($data[0]->port);
             
-            $ftp->addElement('login', 'login', 'text')
+            $ftp->addElement('login', 'text')
                     ->setValue($data[0]->slots);
             
-            $ftp->addElement('password', 'password', 'text')
+            $ftp->addElement('password', 'text')
                     ->setValue($data[0]->stopped ? : 'No');
 
-            $ftp->addElement('save', 'save', 'submit')
+            $ftp->addElement('save', 'submit')
                     ->setValue('Odoslat');
             
             
@@ -102,13 +102,13 @@
             $control->setAction('Server:SAMP:Main:profile:' . SID . ':control');
             $control->setMethod('POST');
             
-            $control->addElement('start', 'start', 'submit')
+            $control->addElement('start', 'submit')
                     ->setValue('Zapnut');
             
-            $control->addElement('restart', 'restart', 'submit')
+            $control->addElement('restart', 'submit')
                     ->setValue('Force restart');
             
-            $control->addElement('stop', 'stop', 'submit')
+            $control->addElement('stop', 'submit')
                     ->setValue('Vypnut');
             
             

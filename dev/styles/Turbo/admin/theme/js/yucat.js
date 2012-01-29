@@ -50,8 +50,8 @@ $(function() {
             $('#loading').hide();
         });    
     }
-    
-    
+
+
     function changeStats(input, object) {
         if(object.status == 'error') {
             input.removeClass('input-ok');

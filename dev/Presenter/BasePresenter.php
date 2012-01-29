@@ -59,7 +59,7 @@
         
         
         protected function callServer($sid, $connect = FALSE) {
-            $val = $this->db->tables('servers, machines')
+            $val = $this->db()->tables('servers, machines')
                     ->select('servers.id, machines.ssh_ip, machines.ssh_port, machines.ssh_login, machines.ssh_password')
                     ->where('servers.UID', UID)
                     ->where('servers.id', $sid)

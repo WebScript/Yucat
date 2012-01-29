@@ -121,13 +121,6 @@
      * mail neni dokonceny
      * 
      * 
-     * form bol prerobeny z add(id, name, type) na 
-     * add(name, type)
-     * Odstramene minLength() a maxLength() a miesto toho pridane length(min, max)
-     * setErrorType() -> setType()
-     * 
-     * 
-     * 
      * Pridat do Dialog a do JS dialog ako ta zelena, oranzvoa alebo cervena sprava jak je nad formami vetsinou...
      * 
      * Cannot set ilegal method
@@ -138,7 +131,4 @@
      * translate v dialogu
      * 
      * Pouzivat singleton pre Db, router, config, Cookie
-     * 
-     * 
-     * 	{"dialogBase" : "Error: Undefined variable: rank, File: /var/www/net/yucat/www/temp/cache/28418.phtml, Line: 664"}
      */
