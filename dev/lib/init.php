@@ -13,7 +13,6 @@
      */
 
 
-
     function init() {
         /** Send header with sign */
         header('X-Powered-By: Yucat');

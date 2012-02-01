@@ -1,34 +1,32 @@
 <?php
     /**
-    * Authentification - Logged
-    *
-    * @category Yucat
-    * @package Presenter
-    * @name Logged
-    * @author Bloodman Arun
-    * @copyright Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-    * @license http://www.yucat.net/license GNU GPL License
-    * @version Release: 0.0.2
-    * @link http://www.yucat.net/documentation
-    * @since Class available since Release 0.0.1
-    */
+     * Authentification - Logged
+     *
+     * @category   Yucat
+     * @package    Admin
+     * @name       Logged
+     * @author     Bloodman Arun
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.0.3
+     * @link       http://www.yucat.net/documentation
+     */
 
     namespace Presenter\admin;
     
     use inc\Ajax;
+    use inc\Router;
     use inc\Template\Core;
     
     class Logged extends \Presenter\BasePresenter {
-        
         public function __construct() {
             parent::__construct();
-            GLOBAL $router;
 
             if(!UID){
                 return;
             }
             
-            $dirs = $router->getParam('dir');
+            $dirs = Router::_init()->getParam('dir');
             $dirs = isset($dirs['d1']) ? $dirs['d1'] : NULL;
             if($dirs == 'SAMP') {
                 $menu = Array(

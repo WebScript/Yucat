@@ -3,14 +3,13 @@
      * Authentification - login
      *
      * @category   Yucat
-     * @package    Presenter
+     * @package    Admin
      * @name       Login
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.4
      */
 
     namespace Presenter\admin;
@@ -19,7 +18,9 @@
     use inc\Router;
     
     class Login extends \Presenter\BasePresenter {
+        /** @var Form Login form */
         private $form;
+        /** @var Form Lost passeword form */
         private $pass;
         
         

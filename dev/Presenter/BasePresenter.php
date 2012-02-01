@@ -6,11 +6,10 @@
      * @package    Presenter
      * @name       BasePresenter
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.1.5
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.1.0
      */
 
     namespace Presenter;
@@ -23,11 +22,11 @@
     use inc\Template\Core;
     
     class BasePresenter {
-        //Object of variables for translate
+        /** @var object Object of variables for translate */
         protected $template;
         
+        
         public function __construct() {
-            GLOBAL $router;
             $this->template = Arr::array2Object(Core::$translate);
 
             $this->template->isLogged       = UID ? TRUE : NULL;
@@ -40,7 +39,7 @@
             if(UID) {
                 $this->template->user       = Db::_init()->tables('users')->where('id', UID)->fetch();
                 
-                /** Set SID const */
+                /* Set SID const */
                 $params = Router::_init()->getParam('params');
                 if(isset($params[0])) {
                     $sid = $this->db()->tables('servers')->select('id')->where('UID', UID)->where('id', $params[0])->fetch();
@@ -49,9 +48,11 @@
             }
         }
         
+        
         protected function db() {
             return Db::_init();
         }
+        
         
         public function getTemplate() {
             return $this->template;
@@ -84,6 +85,7 @@
                 Router::redirect($url);
             }
         }
+        
         
         protected function forLogged($url = 'Login') {
             if(!UID) {
