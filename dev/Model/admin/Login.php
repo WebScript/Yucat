@@ -1,25 +1,23 @@
 <?php
     /**
-     * Authentification - login
+     *
      *
      * @category   Yucat
-     * @package    Model
+     * @package    Admin
      * @name       Login
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.5
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.0.7
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Model\admin;
     
+    use inc\Cookie;
+    
     class Login extends \Model\BaseModel {
-        
         public function login($username, $password, $remember = FALSE) {
-            GLOBAL $cookie;
-            
             $result = $this->db()
                     ->tables('users')
                     ->select('id')
@@ -44,13 +42,13 @@
                             ->where('CID', $cid->CID)
                             ->where('param', 'loggedNumber')
                             ->update(array(
-                                'value' => $cookie->getParam('loggedNumber', $cid->CID) + 1
+                                'value' => Cookie::_init()->getParam('loggedNumber', $cid->CID) + 1
                             ));
                     
-                    $cookie->setCookie($cookie->getHash($cid->CID), $time);
+                    Cookie::_init()->setCookie(Cookie::_init()->getHash($cid->CID), $time);
                 } else {
-                    $cookie->addParam($cookie->myCid, 'UID', $result->id);
-                    $cookie->addParam($cookie->myCid, 'loggedNumber', '1');                
+                    Cookie::_init()->addParam(Cookie::_init()->myCid, 'UID', $result->id);
+                    Cookie::_init()->addParam(Cookie::_init()->myCid, 'loggedNumber', '1');                
                 }
                 return $result->id;
             }
@@ -86,7 +84,7 @@
         
         
         public function logout() {
-            GLOBAL $cookie;
+            $cookie = Cookie::_init();
                         
             $cid = $cookie->myCid;
             $n = $cookie->getParam('loggedNumber');

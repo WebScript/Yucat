@@ -3,7 +3,7 @@
      * Recovery lost password
      *
      * @category   Yucat
-     * @package    Presenter
+     * @package    Admin
      * @name       Password
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat

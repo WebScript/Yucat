@@ -1,16 +1,15 @@
 <?php
     /**
-     * Logged - Menu
+     * 
      *
      * @category   Yucat
-     * @package    Model
+     * @package    Admin
      * @name       Menu
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.1.5
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Model\admin;
@@ -18,9 +17,8 @@
     use inc\Router;
     
     class Menu extends \Model\BaseModel {
-        
         public static function createMenu(array $array, $translate) {
-            GLOBAL $router;
+            $router = Router::_init();
             
             $url = implode(':', $router->getParam('dir')) . ':' . $router->getParam('class') . ($router->getParam('method') ? ':' . $router->getParam('method') . ($router->getParam('params') ? ':' . implode(':', $router->getParam('params')) : '') : '');
             $menu = '<ul id="main-menu" class="radius-top clearfix">';
@@ -49,9 +47,8 @@
         }
         
         
-        
         public static function pager($countPages) {
-            GLOBAL $router;
+            $router = Router::_init();
             $listPeerPage = isset($_GET['peerPage']) && is_numeric($_GET['peerPage']) ? $_GET['peerPage'] : 20;
             $thisPage = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
             
@@ -108,11 +105,10 @@
         
         
         public function selectPeerPage() {
-            GLOBAL $router;
             $p = $_GET['peerPage'];
             
             return '
-            <form name="peerPageSelector" action="' . $router->traceRoute($router->getLink()) . '" method="GET">
+            <form name="peerPageSelector" action="' . Router::traceRoute(Router::_init()->getLink()) . '" method="GET">
                 <select id="select-view" name="select-view">
                     <option value="5" ' . ($p == 5 ? 'selected' : '') . '>Show 5</option>
                     <option value="10" ' . ($p == 10 ? 'selected' : '') . '>Show 10</option>

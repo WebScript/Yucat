@@ -6,8 +6,8 @@
      * @package    Model
      * @name       BaseModel
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
      */

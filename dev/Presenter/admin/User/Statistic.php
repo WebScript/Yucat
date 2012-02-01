@@ -1,16 +1,15 @@
 <?php
     /**
-     * User - News
+     *
      *
      * @category   Yucat
-     * @package    Presenter\User
+     * @package    Admin\User
      * @name       Statistic
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.1.7
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Presenter\admin\User;
@@ -18,7 +17,6 @@
     use inc\Date;
     
     class Statistic extends \Presenter\BasePresenter {
-        
         public function __construct() {
             parent::__construct();
             $this->forLogged();

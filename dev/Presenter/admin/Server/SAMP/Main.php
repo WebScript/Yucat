@@ -1,30 +1,29 @@
 <?php
     /**
-     * Server - SAMP - Main
+     *
      *
      * @category   Yucat
-     * @package    Presenter\Server\SAMP
+     * @package    Admin\Server\SAMP
      * @name       Main
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.0.1
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Presenter\admin\Server\SAMP;
     
     use inc\Ajax;
+    use inc\Form;
+    use inc\Router;
     
     class Main extends \Presenter\BasePresenter {
-        
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::redirect('Server:SAMP:Main:profile', TRUE);
+            Router::redirect('Server:SAMP:Main:profile', TRUE);
         }
-        
         
         
         public function profile($id, $type = NULL, $act = NULL) {
@@ -38,7 +37,7 @@
                     ->where('machines.id', 'servers.MID', TRUE)
                     ->fetchAll();
             
-            $form = new \inc\Form();
+            $form = new Form();
             $form->setAction('Server:SAMP:Main:profile:' . SID . ':data');
             $form->setMethod('POST');
            
@@ -75,7 +74,7 @@
                     ->setValue('Odoslat');
             
             
-            $ftp = new \inc\Form();
+            $ftp = new Form();
             $ftp->setAction('Server:SAMP:Main:profile:' . SID . ':ftp');
             $ftp->setMethod('POST');
            
@@ -98,7 +97,7 @@
                     ->setValue('Odoslat');
             
             
-            $control = new \inc\Form();
+            $control = new Form();
             $control->setAction('Server:SAMP:Main:profile:' . SID . ':control');
             $control->setMethod('POST');
             

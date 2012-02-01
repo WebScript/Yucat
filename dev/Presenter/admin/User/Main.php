@@ -1,35 +1,35 @@
 <?php
     /**
-     * User - Profile
+     * 
      *
      * @category   Yucat
-     * @package    Presenter\User
+     * @package    Admin\User
      * @name       Main
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.0.7
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Presenter\admin\User;
     
     use inc\Ajax;
     use inc\Date;
+    use inc\Form;
     use inc\Dialog;
+    use inc\Router;
     
     class Main extends \Presenter\BasePresenter {
-
         public function __construct() {
             parent::__construct();
             $this->forLogged();
-            \inc\Router::redirect('User:Main:news', TRUE);
+            Router::redirect('User:Main:news', TRUE);
         }
         
         
         public function profile($type = NULL, $act = NULL) {
-            $form = new \inc\Form();
+            $form = new Form();
             $form->setAction('User:Main:profile:data');
             $form->setMethod('POST');
 
@@ -87,7 +87,7 @@
                     ->setValue('Odoslat');
             
 
-            $pass = new \inc\Form();
+            $pass = new Form();
             $pass->setAction('User:Main:profile:pass');
             $pass->setMethod('POST');
 

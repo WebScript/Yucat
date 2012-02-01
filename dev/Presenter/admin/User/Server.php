@@ -1,19 +1,22 @@
 <?php
     /**
-     * User - Server
+     * 
      *
      * @category   Yucat
-     * @package    Presenter\User
+     * @package    Admin\User
      * @name       Server
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     * @version    Release: 0.0.1
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.0.5
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Presenter\admin\User;
+    
+    use inc\Ajax;
+    use inc\Router;
+    use inc\Servers\Status;
     
     class Server extends \Presenter\BasePresenter {
         
@@ -26,8 +29,8 @@
                     ->where('servers.type', 'server_types.id', TRUE)
                     ->where('servers.MID', 'machines.id', TRUE)
                     ->fetchAll();
-            $this->template->checkStatus = new \inc\Servers\Status();
-            $this->template->router = \inc\Router::_init();
+            $this->template->checkStatus = new Status();
+            $this->template->router = Router::_init();
             
         }
         
@@ -41,7 +44,7 @@
             $delete = new \Model\admin\User\Server();
             $delete->deleteServer($_POST['deleteId']);
             \Model\admin\Access::add(0, 'delete server');
-            \inc\Ajax::sendJSON(array('redirect' => \inc\Router::traceRoute('User:Server:view')));
+            Ajax::sendJSON(array('redirect' => Router::traceRoute('User:Server:view')));
         }
         
     }
