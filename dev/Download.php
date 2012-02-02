@@ -1,17 +1,7 @@
 <?php session_start(); ob_start();
 /** this script doesn't work! */
     //Configuration file
-    require_once(dirname(__FILE__).'/config.conf');
-
-    //Includes
-    require_once(dirname(__FILE__).'/lib/inc/db.inc.php');
-    require_once(dirname(__FILE__).'/lib/inc/Authentification.inc.php');
-    require_once(dirname(__FILE__).'/lib/inc/Date.inc.php');
-    require_once(dirname(__FILE__).'/lib/inc/SSH.inc.php');
-    require_once(dirname(__FILE__).'/lib/inc/Security.inc.php');
-
-    require_once(dirname(__FILE__).'/lib/Top.php');
-    require_once(dirname(__FILE__).'/languages/Lang.class.php');
+   
 
     if(!$_GET['what'] && !$_GET['sid']) return 0;
 

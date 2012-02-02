@@ -1,4 +1,17 @@
 <?php
+    /**
+     * Search script
+     *
+     * @category   Yucat
+     * @package    Main
+     * @name       Search
+     * @author     Bloodman Arun
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 1.0.0
+     * @link       http://www.yucat.net/documentation
+     */
+
     require 'lib/init.php';
     define('ROOT', __DIR__ . '/');
     

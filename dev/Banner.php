@@ -1,11 +1,5 @@
 <?php header("Content-type: image/png");
 /** this script doesn't work! */ exit;
-require(dirname(__FILE__)."/config.conf");
-
-require(dirname(__FILE__)."/include/MySQL.inc.php");
-require(dirname(__FILE__)."/include/Make.inc.php");
-require(dirname(__FILE__)."/include/Security.inc.php");
-require(dirname(__FILE__)."/languages/Lang.class.php");
 
 
     if(!empty($_GET["id"]) &&

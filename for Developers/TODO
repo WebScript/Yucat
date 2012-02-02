@@ -2,7 +2,6 @@ TASKS 1:
     Spravit FTP!!!
     raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
     dorobit language system, skoncil som v profile
-    Dorobit posielanie hesla mailom, Posielanie mailu    
 
 TASKS 2:
     Spravit registraciu
@@ -60,10 +59,6 @@ Updater:
     Adminka posle na server request ze chce updatovat a potom jej server posle array kde kluc bude cesta a meno suboru 
         a hodnota bode verzia scriptu a adminka si porovna svoju verziju scriptu ktora bude v '@version Release: x.x.x' a ak je nizsia verzia tak odosle request
         na poslanie novej verzie a potom ju nahradi...
-
-    Spravit aj taky ban system, ze ked admin pojde do adminky adminky (:D) tak sa posle request na moj server a ak tam ma ban tak 
-        mu to proste zmaze adminku
-
 
 
 <div class="body-con tcenter">
