@@ -35,7 +35,7 @@
                       $sub_menu = '<ul id="sub-menu" class="clearfix">';
 
                       foreach($val AS $param => $val2) {
-                          $sub_menu .= '<li><a href="javascript:changePage(\'' . \inc\Router::traceRoute($val2) . '\');"' . ($url == $val2 ? 'class="active"' : '')
+                          $sub_menu .= '<li><a href="javascript:changePage(\'' . Router::traceRoute($val2) . '\');"' . ($url == $val2 ? 'class="active"' : '')
                                     . '>' . $translate[$param] . '</a></li>';
                       }
                       $sub_menu .= '</ul>';

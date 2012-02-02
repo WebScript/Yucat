@@ -1,16 +1,15 @@
 <?php
     /**
-     * User - Server
+     * 
      *
      * @category   Yucat
-     * @package    Presenter\User
+     * @package    Admin\User
      * @name       Server
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
      * @version    Release: 0.0.1
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Model\admin\User;

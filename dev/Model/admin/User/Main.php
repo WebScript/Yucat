@@ -1,22 +1,20 @@
 <?php
     /**
-     * Profile
+     *
      *
      * @category   Yucat
-     * @package    Model
+     * @package    Admin\User
      * @name       Main
      * @author     Bloodman Arun
-     * @copyright  Copyright (c) 2011 Bloodman Arun (http://www.yucat.net/)
-     * @license    http://www.yucat.net/license GNU GPL License
-     6* @version    Release: 0.0.5
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.0.5
      * @link       http://www.yucat.net/documentation
-     * @since      Class available since Release 0.0.1
      */
 
     namespace Model\admin\User;
     
     class Main extends \Model\BaseModel {
-        
         public function getUserRank($rank, $translate) { 
             switch($rank) {
                 case 0: 
@@ -41,7 +39,6 @@
         }
         
         
-        
         public function getNewType($id) {
             switch($id) {
                 case 0:
@@ -63,7 +60,6 @@
         }
         
         
-        
         public function getCreditPeerDay($uid) {
             $peer_day = 0;
             $srvs = $this->db()->tables('servers')->where('UID', $uid)->fetchAll();
@@ -78,7 +74,6 @@
         }
         
         
-        
         public function saveProfile() {
             return $this->db()->tables('users')->where('id', UID)->update(array(
                 'firstname' => $_POST['firstname'],
@@ -91,7 +86,6 @@
                 'website' => $_POST['website']
                 ));
         }
-        
         
         
         public function changePassword() {
