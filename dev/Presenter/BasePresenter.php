@@ -42,11 +42,11 @@
                 
                 /* Set SID const */
                 $params = Router::_init()->getParam('params');
-                if(isset($params[0])) {
+                if(isset($params[0]) && is_numeric($params[0])) {
                     $sid = $this->db()->tables('servers')->select('id')->where('UID', UID)->where('id', $params[0])->fetch();
                     if(!defined('SID')) {
                         if($sid && $sid->id) define('SID', $sid->id);
-                        else new Excp ('E_ISE', 'E_WRONG_SID');
+                        else new Excp('E_ISE', 'E_WRONG_SID');
                     }
                 }
             }

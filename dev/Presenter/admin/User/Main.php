@@ -34,13 +34,13 @@
             $form->setMethod('POST');
 
             $form->addElement('firstname', 'text')
-                    ->setLength(4, 30)
+                    ->setLength(3, 30)
                     ->setType('TEXT')
                     ->setValue($this->template->user->firstname)
                     ->setErrorMessage('error');
 
             $form->addElement('lastname', 'text')
-                    ->setLength(4, 30)
+                    ->setLength(3, 30)
                     ->setType('TEXT')
                     ->setValue($this->template->user->lastname)
                     ->setErrorMessage('error');
