@@ -20,6 +20,7 @@
     use inc\Config;
     use inc\Router;
     use inc\Template\Core;
+    use inc\Diagnostics\Excp;
     
     class BasePresenter {
         /** @var object Object of variables for translate */
@@ -43,7 +44,10 @@
                 $params = Router::_init()->getParam('params');
                 if(isset($params[0])) {
                     $sid = $this->db()->tables('servers')->select('id')->where('UID', UID)->where('id', $params[0])->fetch();
-                    if($sid && !defined('SID')) define('SID', $sid->id ? : NULL);
+                    if(!defined('SID')) {
+                        if($sid && $sid->id) define('SID', $sid->id);
+                        else new Excp ('E_ISE', 'E_WRONG_SID');
+                    }
                 }
             }
         }

@@ -99,7 +99,7 @@
                 $f = fopen($styleDir, 'r');
                 $template = fread($f, filesize($styleDir));
                 fclose($f);
-            } elseif(!Ajax::isAjax()) new Excp('E_ISE', 'E_TEMPLATE_NO_EXISTS');
+            } else new Excp('E_ISE', 'E_TEMPLATE_NO_EXISTS');
 
             $template = isset($template) ? $parse->parseTemplate($template, $this->getMacros()) : '';
             return $template;

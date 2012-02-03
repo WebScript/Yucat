@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.0.3
+     * @version    Release: 0.0.5
      * @link       http://www.yucat.net/documentation
      */
 
@@ -34,18 +34,18 @@
                         '_MENU_PROFILE' => 'Server:SAMP:Main:profile:' . SID,
                         ),
                     '_MENU_SAMP_CONFIG' => Array(
-                        '_MENU_SAMP_CONFIG' => 'Server:SAMP:Config:config' . SID,
-                        '_MENU_CHECK' => 'Server:SAMP:Config:check' . SID,
-                        '_MENU_REINSTALL' => 'Server:SAMP:Config:reinstall' . SID,
+                        '_MENU_SAMP_CONFIG' => 'Server:SAMP:Config:config:' . SID,
+                        '_MENU_SAMP_CHECK' => 'Server:SAMP:Config:check:' . SID,
+                        '_MENU_SAMP_REINSTALL' => 'Server:SAMP:Config:reinstall:' . SID,
                         ),
                     '_MENU_SAMP_FILES' => Array(
-                        '_MENU_SAMP_GM' => 'Server:SAMP:Config:gamemodes' . SID,
-                        '_MENU_SAMP_FS' => 'Server:SAMP:Config:filterscripts' . SID,
-                        '_MENU_SAMP_SC' => 'Server:SAMP:Config:scriptfiles' . SID,
-                        '_MENU_SAMP_NPC' => 'Server:SAMP:Config:npcmodes' . SID,
-                        '_MENU_SAMP_PLUGINS' => 'Server:SAMP:Config:plugins' . SID,
+                        '_MENU_SAMP_GM' => 'Server:SAMP:Files:gamemodes:' . SID,
+                        '_MENU_SAMP_FS' => 'Server:SAMP:Files:filterscripts:' . SID,
+                        '_MENU_SAMP_SC' => 'Server:SAMP:Files:scriptfiles:' . SID,
+                        '_MENU_SAMP_NPC' => 'Server:SAMP:Files:npcmodes:' . SID,
+                        '_MENU_SAMP_PLUGINS' => 'Server:SAMP:Files:plugins:' . SID,
                         ),
-                    '_MENU_CREDIT' => 'User:Server:view'
+                    '_MENU_BACK' => 'User:Server:view'
                     
                     );
             } else {

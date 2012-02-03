@@ -15,6 +15,7 @@
     namespace Model\admin;
     
     use inc\Router;
+    use inc\Diagnostics\Excp;
     
     class Menu extends \Model\BaseModel {
         public static function createMenu(array $array, $translate) {
@@ -35,6 +36,8 @@
                       $sub_menu = '<ul id="sub-menu" class="clearfix">';
 
                       foreach($val AS $param => $val2) {
+                          if(!isset($translate[$param])) new Excp ('E_ISE', 'E_MISSING_MENU_TRANSLATE');
+                          
                           $sub_menu .= '<li><a href="javascript:changePage(\'' . Router::traceRoute($val2) . '\');"' . ($url == $val2 ? 'class="active"' : '')
                                     . '>' . $translate[$param] . '</a></li>';
                       }

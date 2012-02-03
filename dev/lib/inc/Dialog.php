@@ -31,6 +31,7 @@
                 exit;
             } else {
                 echo '<script>alert(\'' . $message . '\');</script>';
+                exit;
             }
         }
     }

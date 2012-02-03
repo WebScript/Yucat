@@ -59,7 +59,7 @@
                             call_user_func_array(array($presenter, self::$method[$key]), ($router->getParam('params') ? $router->getParam('params') : array()));
                         } else new Excp('E_ISE', 'E_METHOD_NO_EXISTS');
                     }
-                    self::$translate = array_merge(self::$translate, get_object_vars($presenter->getTemplate()));
+                    self::$translate = get_object_vars($presenter->getTemplate());
                 } else new Excp('E_ISE', 'E_PRESENTER_NO_EXISTS');
             }
             
