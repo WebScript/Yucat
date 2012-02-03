@@ -32,6 +32,13 @@
         'MENU_SAMP_SC'          => 'Script files',
         'MENU_SAMP_NPC'         => 'NPC models',
         'MENU_SAMP_PLUGINS'     => 'Plugins',
+        'MENU_SAMP_LOGS'        => 'Logy',
+        'MENU_SAMP_SLOG'        => 'Server log',
+        'MENU_SAMP_BANLIST'     => 'Banlist',
+        'MENU_SAMP_SSTATUS'     => 'Server status',
+        'MENU_SAMP_ISS'         => 'Obrazkovy server status',
+        'MENU_SAMP_TSS'         => 'Textovy server status',
+        //'' => '',
         
         'HI'                    => 'Vitaj',
         'VISIT'                 => 'Visit',

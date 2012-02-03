@@ -38,6 +38,10 @@
                         '_MENU_SAMP_CHECK' => 'Server:SAMP:Config:check:' . SID,
                         '_MENU_SAMP_REINSTALL' => 'Server:SAMP:Config:reinstall:' . SID,
                         ),
+                    '_MENU_SAMP_LOGS' => Array(
+                        '_MENU_SAMP_SLOG' => 'Server:SAMP:Logs:serverLog:' . SID,
+                        '_MENU_SAMP_BANLIST' => 'Server:SAMP:Logs:banlist:' . SID,
+                    ),
                     '_MENU_SAMP_FILES' => Array(
                         '_MENU_SAMP_GM' => 'Server:SAMP:Files:gamemodes:' . SID,
                         '_MENU_SAMP_FS' => 'Server:SAMP:Files:filterscripts:' . SID,
@@ -45,6 +49,12 @@
                         '_MENU_SAMP_NPC' => 'Server:SAMP:Files:npcmodes:' . SID,
                         '_MENU_SAMP_PLUGINS' => 'Server:SAMP:Files:plugins:' . SID,
                         ),
+                    '_MENU_SAMP_SSTATUS' => Array(
+                        '_MENU_SAMP_ISS' => 'Server:SAMP:Status:image:' . SID,
+                        '_MENU_SAMP_TSS' => 'Server:SAMP:Status:text:' . SID,
+                    ),
+                    
+                    
                     '_MENU_BACK' => 'User:Server:view'
                     
                     );

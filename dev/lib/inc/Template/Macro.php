@@ -94,7 +94,7 @@
             if($method) {
                 Core::$method[array_search($presenter, Core::$presenter)] = $method;
             }
-
+            
             if(file_exists($styleDir) && filesize($styleDir) > 0) {
                 $f = fopen($styleDir, 'r');
                 $template = fread($f, filesize($styleDir));
