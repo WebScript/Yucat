@@ -29,6 +29,7 @@
         
         
         public function profile($type = NULL, $act = NULL) {
+            GLOBAL $lang;
             $form = new Form();
             $form->setAction('User:Main:profile:data');
             $form->setMethod('POST');
@@ -54,7 +55,7 @@
                     ->setValue($this->template->user->street)
                     ->setErrorMessage('error');
 
-            $form->addElement('language', 'select', $GLOBALS['lang']->getAvaiableLang())
+            $form->addElement('language', 'select', $lang->getAvaiableLang())
                     //->setValue(array('bb' => 'BBBBf'))
                     ->setType('TEXT')
                     ->setErrorMessage('error');
