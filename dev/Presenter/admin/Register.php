@@ -83,6 +83,7 @@
             
             
             $this->template->form = $this->form->sendForm();
+            $this->template->registred = $this->db()->tables('users')->numRows();
         }
         
         

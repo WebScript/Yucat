@@ -51,7 +51,7 @@
 <datatype>VARCHAR(256)</datatype>
 </row>
 <row name="time" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATETIME</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -66,7 +66,7 @@
 <relation table="users" row="id" />
 </row>
 <row name="time" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATETIME</datatype>
 </row>
 <row name="size" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -107,10 +107,10 @@
 <datatype>VARCHAR(256)</datatype>
 </row>
 <row name="postcode" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>VARCHAR(64)</datatype>
 </row>
 <row name="telephone" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>VARCHAR(64)</datatype>
 </row>
 <row name="credit" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -140,10 +140,10 @@
 <datatype>VARCHAR(256)</datatype>
 </row>
 <row name="ll1" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATETIME</datatype>
 </row>
 <row name="ll2" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATETIME</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -191,7 +191,7 @@
 <datatype>INTEGER</datatype>
 <default>0</default></row>
 <row name="time" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATETIME</datatype>
 </row>
 <row name="title" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
@@ -269,7 +269,7 @@
 <datatype>INTEGER</datatype>
 <default>0</default></row>
 <row name="stopped" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATETIME</datatype>
 </row>
 <row name="autorun" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -346,7 +346,7 @@
 <datatype>VARCHAR(256)</datatype>
 </row>
 <row name="time" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
+<datatype>DATETIME</datatype>
 </row>
 <row name="reason" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
