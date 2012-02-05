@@ -95,6 +95,18 @@ $(function() {
                 case 'dialogBase' :
                     apprise(val, {'animate':true});
                     break;
+                case 'dialogError' :
+                    $('#AjaxDialogError').fadeTo('fast', 0, function() {
+                        $('#AjaxDialogError').html('<div class="msg-error"><h4>Error message</h4>' + val + '</div>');
+                        $('#AjaxDialogError').fadeTo('slow', 1);
+                    });
+                    break;
+                case 'dialogSuccess' :
+                    $('#AjaxDialogError').fadeTo('fast', 0, function() {
+                        $('#AjaxDialogError').html('<div class="msg-ok"><h4>Success message</h4>' + val + '</div>');
+                        $('#AjaxDialogError').fadeTo('slow', 1);
+                    });
+                    break;
                 default :  
                     out = 0;
                     break;

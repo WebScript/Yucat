@@ -8,95 +8,136 @@
     <div id="panel-outer" class="radius">
         <div id="panel" class="radius">
     
-<div id="content" class="clearfix">
-    <div id="side-content-left">
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="2">data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="backcolor tleft" width="100">ooo</td>
-                    <td>lol</td>
-                </tr>
+            <div id="content" class="clearfix">
+                <div id="side-content-left">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2">Statistiky</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="backcolor tleft" width="100">Registrovanych</td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td class="backcolor tleft" width="100">Hostovanych serverov</td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td class="backcolor tleft" width="100">Sponzorovanych serverov</td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td class="backcolor tleft" width="100">Nacierno predanych serverov</td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td class="backcolor tleft" width="100">Registrovanych</td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td class="backcolor tleft" width="100">Registrovanych</td>
+                                <td>1000</td>
+                            </tr>
+                            <tr>
+                                <td class="backcolor tleft" width="100">Registrovanych</td>
+                                <td>1000</td>
+                            </tr>
 
-            </tbody>
-        </table>
-        <h3>pro</h3>
-        <div class="body-con">ffdgf</div>
-    </div>
-    
-    
-    <div id="main-content-right">
-        <h2>gfh</h2>
-        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
-            <fieldset>
-                <legend>fghf</legend>
-                <ul class="align-list">
-                    <li>
-                        <label for="firstname">meno</label>
+                        </tbody>
+                    </table>
+                    <h3>Akcia</h3>
+                    <div class="body-con">Registrujte sa a ziskajte 200 kreditov zdarma!! Akcia plati do vycerpania zasob!</div>
+                </div>
 
-                        <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="lastname">Priezvisko</label>
 
-                        <input type="{$form['lastname']['type']}" id="lastname" name="{$form['lastname']['name']}" value="" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="email">E-mail</label>
-                        <input type="{$form['email']['type']}" id="email" name="{$form['email']['name']}" value="" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="email2">E-mail (znovu)</label>
-                        <input type="{$form['email2']['type']}" id="email2" name="{$form['email2']['name']}" value="" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="street">Ulica</label>
-                        <input type="{$form['street']['type']}" id="street" name="{$form['street']['name']}" value="" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="language">Jazyk/Stat</label>
-                        <select id="language" name="{$form['language']['name']}">{$form['language']['value']}</select>
-                    </li>
-                    <li>
-                        <label for="city">Mesto</label>
-                        <input type="{$form['city']['type']}" id="city" name="{$form['city']['name']}" value="" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="postcode">PSC</label>
-                        <input type="{$form['postcode']['type']}" id="postcode" name="{$form['postcode']['name']}" value=""/>
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label for="telephone">Telefonne cislo</label>
-                        <input type="{$form['telephone']['type']}" id="telephone" name="{$form['telephone']['name']}" value="" />
-                        <span class="msg-form-error"></span>
-                    </li>
-                    <li>
-                        <label for="website">Web</label>
-                        <input type="{$form['website']['type']}" id="website" name="{$form['website']['name']}" value="" />
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                    <li>
-                        <label></label>
-                        <input type="{$form['save']['type']}" name="{$form['save']['name']}" value="{$form['save']['value']}"/>
-                        <span class="msg-form-error" id="AJAXMessage"></span>
-                    </li>
-                </ul>
-            </fieldset>
-        </form>       
-        
-    </div>
-</div>
+                <div id="main-content-right">
+                    <h2>Registracia</h2>
+                    <div id="AjaxDialogError"></div>
+                    <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
+                        <fieldset>
+                            <legend>Registracny formular</legend>
+                            <ul class="align-list">
+                                <li>
+                                    <label for="login">login</label>
+
+                                    <input type="{$form['login']['type']}" id="login" name="{$form['login']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="firstname">meno</label>
+
+                                    <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="lastname">Priezvisko</label>
+
+                                    <input type="{$form['lastname']['type']}" id="lastname" name="{$form['lastname']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="email">E-mail</label>
+                                    <input type="{$form['email']['type']}" id="email" name="{$form['email']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="email2">E-mail (znovu)</label>
+                                    <input type="{$form['email2']['type']}" id="email2" name="{$form['email2']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="password">Heslo</label>
+                                    <input type="{$form['password']['type']}" id="password" name="{$form['password']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="password2">Heslo (znovu)</label>
+                                    <input type="{$form['password2']['type']}" id="password2" name="{$form['password2']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="street">Ulica</label>
+                                    <input type="{$form['street']['type']}" id="street" name="{$form['street']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="language">Jazyk/Stat</label>
+                                    <select id="language" name="{$form['language']['name']}">{$form['language']['value']}</select>
+                                </li>
+                                <li>
+                                    <label for="city">Mesto</label>
+                                    <input type="{$form['city']['type']}" id="city" name="{$form['city']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="postcode">PSC</label>
+                                    <input type="{$form['postcode']['type']}" id="postcode" name="{$form['postcode']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="telephone">Telefonne cislo</label>
+                                    <input type="{$form['telephone']['type']}" id="telephone" name="{$form['telephone']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label for="website">Web</label>
+                                    <input type="{$form['website']['type']}" id="website" name="{$form['website']['name']}" value="" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                                <li>
+                                    <label></label>
+                                    <input type="{$form['save']['type']}" name="{$form['save']['name']}" value="{$form['save']['value']}" />
+                                    <span class="msg-form-error" id="AJAXMessage"></span>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </form>       
+
+                </div>
+            </div>
 
             <div id="footer" class="radius-bottom">{$__COPYRIGHT}</div>
         </div>

@@ -15,6 +15,7 @@
     namespace Model\admin;
     
     use inc\Cookie;
+    use inc\Security;
     
     class Login extends \Model\BaseModel {
         public function login($username, $password, $remember = FALSE) {
@@ -22,7 +23,7 @@
                     ->tables('users')
                     ->select('id')
                     ->where('user', $username)
-                    ->where('passwd', $password)
+                    ->where('passwd', Security::password($password))
                     ->fetch();
 
             if($result) {
@@ -72,7 +73,7 @@
                 
                 $this->db()
                         ->tables('lost_passwords')
-                        ->insert(array('UID' => $data->id, 'hash' => $hash, 'passwd' => $pass));
+                        ->insert(array('UID' => $data->id, 'hash' => $hash, 'passwd' => Security::password($pass)));
                 //@todo este pridat funkciu na poslatie mailu....
                 //\inc\Mail::send('Support@gshost.eu', 'Bloodman@gshost.eu', 'Password recovery', 'Ak chcete zmenit vase heslo tak kliknite na <a href="' . DOMAIN . '/' . $hash . '">TENTO</a> link.');
                 return 1;

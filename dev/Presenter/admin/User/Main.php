@@ -51,30 +51,24 @@
 
             $form->addElement('street', 'text')
                     ->setLength(4, 30)
-                    ->setType('TEXT')
                     ->setValue($this->template->user->street)
                     ->setErrorMessage('error');
 
-            $form->addElement('language', 'select', $lang->getAvaiableLang())
-                    //->setValue(array('bb' => 'BBBBf'))
-                    ->setType('TEXT')
-                    ->setErrorMessage('error');
+            $form->addElement('language', 'select', $lang->getAvaiableLang());
+                    //->setValue(array('bb' => 'BBBBf'));
 
             $form->addElement('city', 'text')
                     ->setLength(4, 30)
-                    ->setType('TEXT')
                     ->setValue($this->template->user->city)
                     ->setErrorMessage('error');
 
             $form->addElement('postcode', 'text')
                     ->setLength(4, 15)
-                    ->setType('NUMBER')
                     ->setValue($this->template->user->postcode)
                     ->setErrorMessage('error');
 
             $form->addElement('telephone', 'text')
                     ->setLength(4, 30)
-                    ->setType('TELEPHONE')
                     ->setValue($this->template->user->telephone)
                     ->setErrorMessage('error');
 
@@ -119,7 +113,7 @@
                     Ajax::sendJSON($form->validateData('Chybne vyplnene udaje!'));
                 } else if($main->saveProfile()) {
                     \Model\admin\Access::add(0, 'save profil');
-                    new Dialog('Profil bol uspesne ulozeny!');
+                    new Dialog('Profil bol uspesne ulozeny!', Dialog::DIALOG_SUCCESS);
                 } else {
                     new Dialog('Nepodarilo sa ulozit profil!');
                 }

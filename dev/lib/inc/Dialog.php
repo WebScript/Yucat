@@ -17,6 +17,8 @@
     class Dialog {
         /** constant of dialog base */
         const DIALOG_BASE = 'dialogBase';
+        const DIALOG_ERROR = 'dialogError';
+        const DIALOG_SUCCESS = 'dialogSuccess';
         
         
         /**

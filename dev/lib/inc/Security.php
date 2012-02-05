@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.5
+     * @version    Release: 0.1.6
      * @link       http://www.yucat.net/documentation
      * 
      * @todo write documentation for protect
@@ -31,12 +31,14 @@
         public static function checkEmail($email) {
             $reg = '/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@'
                  . '([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/';
-            
-            list($username, $domain) = explode('@', $email);
-            if(!preg_match($reg, $email) || !checkdnsrr($domain, 'MX')){
-                return FALSE;
+
+            if(preg_match($reg, $email)) {
+                list($username, $domain) = explode('@', $email);
+                if(checkdnsrr($domain, 'MX')) {
+                    return TRUE;
+                }
             }
-            return TRUE;
+            return FALSE;
         }
 
         
@@ -99,7 +101,7 @@
          * @param string $password input password
          * @return string output hash
          */
-        public static function hashPassword($password) {
+        public static function password($password) {
             $passhHash = Config::_init()->getValue('password_hash');
             return md5($passhHash . md5($password . $passhHash) . md5($passhHash));
         }

@@ -15,6 +15,7 @@
     namespace Presenter\admin;
     
     use inc\Ajax;
+    use inc\Dialog;
     use inc\Router;
     
     class Login extends \Presenter\BasePresenter {
@@ -75,9 +76,9 @@
                 if($this->pass->isValidData()) { 
                     $model = new \Model\admin\Login();
                     if($model->resetPassword($_POST['mail'])) {
-                         new \inc\Dialog('Na E-mail Vam bolo zaslane nove heslo');
+                         new Dialog('Na E-mail Vam bolo zaslane nove heslo');
                     } else {
-                        new \inc\Dialog('Chybne zadany E-mail!!');
+                        new Dialog('Chybne zadany E-mail!!');
                     }
                 } else {
                     Ajax::sendJSON($this->pass->validateData('Chybne vyplnene udaje!'));
@@ -85,18 +86,16 @@
             } elseif($type == 'login' && $act == 'send') { 
                 if($this->form->isValidData()) { 
                     $model = new \Model\admin\Login();
-                    $login = $model->login($this->form->getValue('username'), 
-                            $this->form->getValue('password'), 
-                            $this->form->getValue('remember'));
+                    $login = $model->login($_POST['username'], $_POST['password'], isset($_POST['remember']) ? $_POST['remember'] : NULL);
 
                     if($login) {
                         \Model\admin\Access::add(0, 'Login', $login);
                         Ajax::sendJSON(array('redirectHead' => Router::traceRoute('User:Main')));
                     } else {
-                        new \inc\Dialog('Zadali ste zle meno alebo heslo...');
+                        new Dialog('Zadali ste zle meno alebo heslo...');
                     }
                 } else {
-                    new \inc\Dialog('Chybne vyplnene udaje!');
+                    new Dialog('Chybne vyplnene udaje!');
                 }
             }
         }  

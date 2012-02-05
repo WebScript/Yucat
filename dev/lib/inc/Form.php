@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.8
+     * @version    Release: 0.2.0
      * @link       http://www.yucat.net/documentation
      * 
      * @todo to validateData() add check for telephone number and website
@@ -69,12 +69,10 @@
                 foreach($array as $key => $val) {
                     $option .= '<option value="' . $key . '">' . $val . '</option>';
                 }
-                $out = array($name => array('name' => $name, 'value' => $option));
+                $this->form[$name] = array('name' => $name, 'value' => $option);
             } else {
-                $out = array($name => array('name' => $name, 'type' => $type));
+                $this->form[$name] = array('name' => $name, 'type' => $type);
             }
-            
-            $this->form = array_merge($this->form, $out);
             return $this;
         }
         
@@ -87,12 +85,9 @@
          * @return Form resource of this class 
          */
         public function setLength($minLength, $maxLength = 0) {
-            if(is_numeric($minLength) && is_numeric($maxLength)) {
-                $this->form[$this->last] = array_merge(
-                        $this->form[$this->last],
-                        array('minLength' => $minLength,
-                            'maxLength' => $maxLength)
-                        );
+            if(is_numeric($minLength) && is_numeric($maxLength)) {                
+                $this->form[$this->last]['minLength'] = $minLength;
+                $this->form[$this->last]['maxLength'] = $maxLength;
             } else new Diagnostics\Excp('E_ISE', 'E_NO_RETYPE');
             return $this;
         }
@@ -115,10 +110,7 @@
                             $this->form[$this->last]['value']);
                 } else new Diagnostics\Excp('E_ISE', 'E_DEFAULT_VALUE');
             } else {
-                $this->form[$this->last] = array_merge(
-                        $this->form[$this->last],
-                        array('value' => $set)
-                        );
+                $this->form[$this->last]['value'] = $set;
             }
             return $this;
         }
@@ -132,12 +124,9 @@
          */
         public function setType($type) {
             $type = strtolower($type);
-            if($type == 'text' && $type == 'telephone' && $type == 'number' &&
-                    $type == 'website' && $type == 'email') {
-                $this->form[$this->last] = array_merge(
-                        $this->form[$this->last],
-                        array('matchType' => $type)
-                        );
+            if($type == 'text' || $type == 'number' || $type == 'password' ||
+                    $type == 'website' || $type == 'email' || $type == 're') {
+                $this->form[$this->last]['matchType'] = $type;
             }
             return $this;
         }
@@ -150,10 +139,7 @@
          * @return Form resource of this class 
          */
         public function setErrorMessage($message) {
-            $this->form[$this->last] = array_merge(
-                    $this->form[$this->last],
-                    array('errorMessage' => $message)
-                    );
+            $this->form[$this->last]['errorMessage'] = $message;
             return $this;
         }
         
@@ -188,13 +174,17 @@
                             && strlen($_POST[$name]) > $val['maxLength']) {
                         $out = array($name => array('status' => 'error'));
                     } elseif(isset($val['matchType']) && $val['matchType'] == 'text'
-                            && !preg_match('/^[a-z][A-Z]$/', $_POST[$name])) {
+                            && !preg_match('/^[A-Z][a-z]+$/', $_POST[$name])) {
                         $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['matchType']) && $val['matchType'] == 'numeric'
-                            && !preg_match('/^[0-9]$/', $_POST[$name])) {
+                    } elseif(isset($val['matchType']) && $val['matchType'] == 'number'
+                            && !preg_match('/^[0-9 ]+$/', $_POST[$name])) {
                         $out = array($name => array('status' => 'error'));
                     } elseif(isset($val['matchType']) && $val['matchType'] == 'email'
                             && !Security::checkEmail($_POST[$name])) {
+                        $out = array($name => array('status' => 'error'));
+                    } elseif(isset($val['matchType']) && $val['matchType'] == 're'
+                            && isset($_POST[$val['value']]) 
+                            && $_POST[$name] !== $_POST[$val['value']]) {
                         $out = array($name => array('status' => 'error'));
                     } else {
                         $out = array($name => array('status' => 'ok'));
@@ -207,10 +197,10 @@
                 }
 
                 if($errorMessage && \inc\Arr::isInExtendedArray($return, 'error')) {
-                    $return = array_merge($return, array('dialogBase' => $errorMessage));
+                    $return = array_merge($return, array('dialogError' => $errorMessage));
                 }
             } else {
-                new Dialog($errorMessage ? : 'Error');
+                new Dialog($errorMessage ? : 'Error', Dialog::DIALOG_ERROR);
             }
             return $return;
         }
@@ -229,16 +219,5 @@
             } else {
                 return FALSE;
             }
-        }
-        
-        
-        /**
-         * Get value by $name
-         * 
-         * @param string $name Name of value
-         * @return string value
-         */
-        public function getValue($name) {
-            return isset($_POST[$this->form[$name]['name']]) ? $_POST[$this->form[$name]['name']] : NULL;
         }
     }

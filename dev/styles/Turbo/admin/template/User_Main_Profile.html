@@ -44,6 +44,7 @@
     
     <div id="main-content-right">
         <h2>{$_PROFILE}</h2>
+        <div id="AjaxDialogError"></div>
         <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
             <fieldset>
                 <legend>{$_USER_INFO}</legend>
@@ -87,7 +88,7 @@
                     <li>
                         <label for="telephone">Telefonne cislo</label>
                         <input type="{$form['telephone']['type']}" id="telephone" name="{$form['telephone']['name']}" value="{$form['telephone']['value']}" />
-                        <span class="msg-form-error"></span>
+                        <span class="msg-form-error" id="AJAXMessage"></span>
                     </li>
                     <li>
                         <label for="website">Web</label>

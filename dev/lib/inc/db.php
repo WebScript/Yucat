@@ -54,7 +54,7 @@
         public function __construct($host, $login, $password, $db) {
             /* Singleton */
             if(!self::$singleton) {
-                $this->connection = mysql_connect($host, $login, $password);
+                $this->connection = @mysql_connect($host, $login, $password);
                 if(!$this->connection) new Excp('E_CANNOST_CONNECT_TO_DB');
                 
                 $resp = mysql_select_db($db, $this->connection);
