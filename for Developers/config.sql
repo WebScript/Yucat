@@ -11,3 +11,4 @@ INSERT INTO `config` VALUES (10, 'cost_samp', '1.667');
 INSERT INTO `config` VALUES (11, 'banner_rate', '100');
 INSERT INTO `config` VALUES (12, 'url_userfriendly', '1');
 INSERT INTO `config` VALUES (13, 'password_hash', '45E85G1H8UJ');
+INSERT INTO `config` VALUES (14, 'gift_credit', '0');
