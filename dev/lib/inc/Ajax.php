@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.2.0
+     * @version    Release: 0.2.1
      * @link       http://www.yucat.net/documentation
      */
 
@@ -45,7 +45,7 @@
          * @param array $json Array of JSON
          */
         public static function sendJSON(array $json) {
-            self::$content = self::drawJSON($json);
+            self::$content = json_encode($json);
             self::$isHTML = FALSE;
         }
         
@@ -77,26 +77,5 @@
          */
         public static function isHTML() {
             return self::$isHTML;
-        }     
-        
-        
-        /**
-         * Create JSON from array
-         * 
-         * @param array $array Array of JSON's params and values
-         * @return string
-         */
-        public static function drawJSON(array $array) {
-            $out = array();
-            
-            foreach($array as $key => $val) {
-                if(is_array($val)) {
-                    $out[] = '"' . $key . '" : ' . self::drawJSON($val);
-                } else {
-                    $out[] = '"' . $key . '" : "' . htmlspecialchars($val) . '"';
-                }
-            }
-            
-            return '{' . implode(', ', $out) . '}';
         }
     }

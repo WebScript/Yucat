@@ -72,6 +72,7 @@
                     ->fetch();
             
             //@todo pridat kontrolu ci nema zamknuty server!
+            // lock 1 je sponzoring a lock 2 zamknuty srv
             if($val && $connect) {
                 $ssh = new \inc\Servers\SecureShell($val->ssh_ip, $val->ssh_port, $val->ssh_login, $val->ssh_password);
             } elseif($val) {

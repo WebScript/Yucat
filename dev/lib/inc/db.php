@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.8.9
+     * @version    Release: 0.9.0
      * @link       http://www.yucat.net/documentation
      * 
      * @todo fix paramsReplace in exec()
@@ -106,7 +106,7 @@
             } else {
                 $return = array();
                 foreach($input AS $param => $value) {
-                    $return[] = $setter ? $param . ' = ' . $value : $value;
+                    $return[] = $setter ? '`' . $param . '` = ' . $value : $value;
                 }
                 $return = implode($delimiter, $return);
             }
@@ -313,9 +313,8 @@
            $out = array();
            $result = $this->exec($this->make());
            
-           if(!$result) {
-               new Excp('E_CANNOT_FETCH_DB_ROWS', $this->query);
-           } else {
+           if(!$result) new Excp('E_CANNOT_FETCH_DB_ROWS', $this->query);
+           else {
                while($row = mysql_fetch_object($result)) {
                    $out[] = $row;
                }
@@ -332,14 +331,8 @@
          */
         public final function fetch() {
             $result = $this->exec($this->make());
-            
-            if(!$result) {
-                new Excp('E_CANNOT_FETCH_DB_ROWS' ,$this->query);
-            } else {
-                $result = mysql_fetch_object($result);
-            }
-            
-            return $result;
+            if(!$result) new Excp('E_CANNOT_FETCH_DB_ROWS' ,$this->query);
+            return mysql_fetch_object($result);
         }
        
        
@@ -350,6 +343,7 @@
          */
         public final function numRows() {
             $result = $this->exec($this->make());
+            if(!$result) new Excp('E_CANNOT_FETCH_DB_ROWS' ,$this->query);
             return mysql_num_rows($result);
         }
         

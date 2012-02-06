@@ -113,8 +113,8 @@
          */
         public static function protectInput() {
             /** Protect all input variables */
-            self::protect($_POST, TRUE);
-            self::protect($_GET, TRUE);
+            $_POST = self::protect($_POST, TRUE);
+            $_GET = self::protect($_GET, TRUE);
 
             /** Set variables for pager */
             if(!empty($_GET['select-view']) && is_numeric($_GET['select-view'])) {

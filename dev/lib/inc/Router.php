@@ -39,7 +39,7 @@
                 /* Get domain, e.g. admin, mobile, etc. */
                 list($subDomain) = explode('.', DOMAIN);
                 /* parse domain path to array */
-                $route = explode('/', ROUTE);
+                $route = array_filter(explode('/', ROUTE));
                 /* set subdomain to variable address */
                 $this->address['subdomain'] = is_dir(ROOT . PRESENTER . $subDomain) ? $subDomain : 'website';
                 /* Set dir to presenter */
@@ -58,13 +58,11 @@
                     }
                 }
 
-                $cDir = str_replace('/', '\\', $dir);
-
                 /** Set class */
-                if(count($route) > $i && class_exists($cDir . $route[$i])) {
+                if(count($route) > $i && file_exists(ROOT . $dir . $route[$i] . '.php')) {
                     $this->address['class'] = $route[$i];
                 } else {
-                    if(class_exists($cDir . 'Index')) {
+                    if(file_exists(ROOT . $dir . 'Index.php')) {
                         $this->address['class'] = 'Index';
                     } else {
                         new Excp('E_ISE', 'E_CLASS_NO_EXISTS');
@@ -73,7 +71,7 @@
                 $i++;
 
                 /** Set method */
-                if(count($route) > $i && method_exists($cDir . $this->address['class'], $route[$i])) {
+                if(count($route) > $i && method_exists(str_replace('/', '\\', $dir) . $this->address['class'], $route[$i])) {
                     $this->address['method'] = $route[$i];
                     $i++;
                 }

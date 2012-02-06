@@ -34,7 +34,7 @@
                 if($langs == '.' || $langs == '..') continue;
                 
                 include_once(LANG_DIR . $langs . '/info.php');
-                $this->avaiable_languages = array_merge($this->avaiable_languages, array($langs => $thisLang));
+                $this->avaiable_languages[$langs] = $thisLang;
             }
             
             /* Find and set default language */

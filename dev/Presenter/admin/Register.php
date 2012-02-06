@@ -9,6 +9,7 @@
     class Register extends \Presenter\BasePresenter {
         private $form;
         
+        
         public function __construct() {
             parent::__construct();
             GLOBAL $lang;
@@ -20,70 +21,70 @@
             
             $this->form->addElement('login', 'text')
                     ->setLength(4, 14)
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_LOGIN);
             
             $this->form->addElement('firstname', 'text')
                     ->setLength(3, 30)
                     ->setType('TEXT')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_FIRSTNAME);
             
             $this->form->addElement('lastname', 'text')
                     ->setLength(4, 30)
                     ->setType('TEXT')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_LASTNAME);
             
             $this->form->addElement('password', 'password')
                     ->setLength(4, 30)
                     ->setType('PASSWORD')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_PASSWORD);
             
             $this->form->addElement('password2', 'password')
                     ->setType('RE')
                     ->setValue('password')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_PASSWORD2);
             
             $this->form->addElement('email', 'text')
                     ->setLength(5, 30)
                     ->setType('EMAIL')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_EMAIL);
             
             $this->form->addElement('email2', 'text')
                     ->setType('RE')
                     ->setValue('email')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_EMAIL2);
             
             $this->form->addElement('street', 'text')
                     ->setLength(4, 30)
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_STREET);
             
-            $this->form->addElement('language', 'select', $lang->getAvaiableLang())
-                    ->setErrorMessage('error');
+            $this->form->addElement('language', 'select', $lang->getAvaiableLang());
             
             $this->form->addElement('city', 'text')
                     ->setLength(4, 30)
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_CITY);
          
              $this->form->addElement('postcode', 'text')
                     ->setLength(4, 15)
                     ->setType('NUMBER')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_POSTCODE);
 
             $this->form->addElement('telephone', 'text')
                     ->setLength(4, 30)
                     ->setType('NUMBER')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_TELEPHONE);
 
             $this->form->addElement('website', 'text')
-                    ->setLength(4, 30)
                     ->setType('WEBSITE')
-                    ->setErrorMessage('error');
+                    ->setErrorMessage($this->template->_F_WEBSITE);
 
             $this->form->addElement('save', 'submit')
-                    ->setValue('Registrovat');
+                    ->setValue($this->template->_F_REGISTRATION);
             
             
             $this->template->form = $this->form->sendForm();
             $this->template->registred = $this->db()->tables('users')->numRows();
+            $this->template->hosted = $this->db()->tables('servers')->numRows();
+            $this->template->sponsored = $this->db()->tables('servers')->where('lock', '1')->numRows();
         }
         
         
@@ -97,20 +98,20 @@
                 $register = new \Model\admin\Register;
                 switch($register->register()) {
                     case 1:
-                        new Dialog('Registracia prebehla uspesne', Dialog::DIALOG_SUCCESS);
+                        new Dialog($this->template->_REGISTER_SUCCESS, Dialog::DIALOG_SUCCESS);
                         break;
                     case 2:
-                        new Dialog('Taky uzivatel uz exituje!', Dialog::DIALOG_ERROR);
+                        new Dialog($this->template->_USER_EXISTS, Dialog::DIALOG_ERROR);
                         break;
                     case 3:
-                        new Dialog('Prekroceny pocet registrovanych uzivatelov z vasej IP adresy!', Dialog::DIALOG_ERROR);
+                        new Dialog($this->template->_IP_LIMIT, Dialog::DIALOG_ERROR);
                         break;
                     case 4:
-                        new Dialog('Vas email uz bol pouzity pre registracii!', Dialog::DIALOG_ERROR);
+                        new Dialog($this->template->_EMAIL_EXISTS, Dialog::DIALOG_ERROR);
                         break;
                 }
             } else {
-                Ajax::sendJSON($this->form->validateData('Chybne vyplnene udaje!'));
+                Ajax::sendJSON($this->form->validateData($this->template->_WRONG_DATA));
             }
         }
     }

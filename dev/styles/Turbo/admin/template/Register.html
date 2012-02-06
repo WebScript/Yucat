@@ -13,117 +13,100 @@
                     <table>
                         <thead>
                             <tr>
-                                <th colspan="2">Statistiky</th>
+                                <th colspan="2">{$_STATISTIC}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="backcolor tleft" width="100">Registrovanych</td>
+                                <td class="backcolor tleft" width="100">{$_REGISTRED}</td>
                                 <td>{$registred}</td>
                             </tr>
                             <tr>
-                                <td class="backcolor tleft" width="100">Hostovanych serverov</td>
-                                <td>1000</td>
+                                <td class="backcolor tleft" width="100">{$_HOST_SERVERS}</td>
+                                <td>{$hosted}</td>
                             </tr>
                             <tr>
-                                <td class="backcolor tleft" width="100">Sponzorovanych serverov</td>
-                                <td>1000</td>
+                                <td class="backcolor tleft" width="100">{$_SPONSORED_SERVERS}</td>
+                                <td>{$sponsored}</td>
                             </tr>
-                            <tr>
-                                <td class="backcolor tleft" width="100">Nacierno predanych serverov</td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td class="backcolor tleft" width="100">Registrovanych</td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td class="backcolor tleft" width="100">Registrovanych</td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td class="backcolor tleft" width="100">Registrovanych</td>
-                                <td>1000</td>
-                            </tr>
-
                         </tbody>
                     </table>
-                    <h3>Akcia</h3>
-                    <div class="body-con">Registrujte sa a ziskajte 200 kreditov zdarma!! Akcia plati do vycerpania zasob!</div>
+                    <h3>{$_MENU2}</h3>
+                    <div class="body-con">{$_MENU2_CONTENT}</div>
                 </div>
 
 
                 <div id="main-content-right">
-                    <h2>Registracia</h2>
+                    <h2>{$_REGISTRATION}</h2>
                     <div id="AjaxDialogError"></div>
                     <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
                         <fieldset>
-                            <legend>Registracny formular</legend>
+                            <legend>{$_REGISTRATION_FORM}</legend>
                             <ul class="align-list">
                                 <li>
-                                    <label for="login">login</label>
+                                    <label for="login">{$_LOGIN}</label>
 
                                     <input type="{$form['login']['type']}" id="login" name="{$form['login']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="firstname">meno</label>
+                                    <label for="firstname">{$_FIRSTNAME}</label>
 
                                     <input type="{$form['firstname']['type']}" id="firstname" name="{$form['firstname']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="lastname">Priezvisko</label>
+                                    <label for="lastname">{$_LASTNAME}</label>
 
                                     <input type="{$form['lastname']['type']}" id="lastname" name="{$form['lastname']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="email">E-mail</label>
+                                    <label for="email">{$_EMAIL}</label>
                                     <input type="{$form['email']['type']}" id="email" name="{$form['email']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="email2">E-mail (znovu)</label>
+                                    <label for="email2">{$_EMAIL2}</label>
                                     <input type="{$form['email2']['type']}" id="email2" name="{$form['email2']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="password">Heslo</label>
+                                    <label for="password">{$_PASSWORD}</label>
                                     <input type="{$form['password']['type']}" id="password" name="{$form['password']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="password2">Heslo (znovu)</label>
+                                    <label for="password2">{$_PASSWORD2}</label>
                                     <input type="{$form['password2']['type']}" id="password2" name="{$form['password2']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="street">Ulica</label>
+                                    <label for="street">{$_STREET}</label>
                                     <input type="{$form['street']['type']}" id="street" name="{$form['street']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="language">Jazyk/Stat</label>
+                                    <label for="language">{$_LANG_COUNTRY}</label>
                                     <select id="language" name="{$form['language']['name']}">{$form['language']['value']}</select>
                                 </li>
                                 <li>
-                                    <label for="city">Mesto</label>
+                                    <label for="city">{$_CITY}</label>
                                     <input type="{$form['city']['type']}" id="city" name="{$form['city']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="postcode">PSC</label>
+                                    <label for="postcode">{$_POSTCODE}</label>
                                     <input type="{$form['postcode']['type']}" id="postcode" name="{$form['postcode']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="telephone">Telefonne cislo</label>
+                                    <label for="telephone">{$_MOBILE}</label>
                                     <input type="{$form['telephone']['type']}" id="telephone" name="{$form['telephone']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>
                                 <li>
-                                    <label for="website">Web</label>
+                                    <label for="website">{$_WEBSITE}</label>
                                     <input type="{$form['website']['type']}" id="website" name="{$form['website']['name']}" value="" />
                                     <span class="msg-form-error" id="AJAXMessage"></span>
                                 </li>

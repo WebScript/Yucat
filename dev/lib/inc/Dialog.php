@@ -29,10 +29,10 @@
          */
         public function __construct($message, $type = self::DIALOG_BASE) {
             if(Ajax::isAjax()) {
-                echo '{"' . $type . '" : "' . $message . '"}';
+                echo json_encode(array($type => $message));
                 exit;
             } else {
-                echo '<script>alert(\'' . $message . '\');</script>';
+                echo '<script>alert(\'' . mysql_escape_string($message) . '\');</script>';
                 exit;
             }
         }

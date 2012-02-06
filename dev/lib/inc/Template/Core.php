@@ -16,6 +16,7 @@
     
     use inc\Ajax;
     use inc\Cache;
+    use inc\Router;
     use inc\Diagnostics\Excp;
     
     class Core {
@@ -31,7 +32,7 @@
          * This is primary method for load and manage Viewer in MVP scheme
          */
         public final function __construct() {
-            GLOBAL $router;
+            $router = Router::_init();
             
             /** load main page */
             $template = STYLE_DIR . STYLE . '/' . $router->getParam('subdomain') . '/layer.html';
