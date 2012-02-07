@@ -31,18 +31,11 @@
         'MOBILE'            => 'Telefonne cislo',
         'WEBSITE'           => 'Web',
         
-        'F_LOGIN'           => 'Zle vyplnene udaje!',
-        'F_FIRSTNAME'       => 'Chyba! Prve pismeno musi byt velke!',
-        'F_LASTNAME'        => 'Chyba! Prve pismeno musi byt velke!',
-        'F_PASSWORD'        => 'Zle vyplnene udaje!',
+        'F_TEXT_ERR'        => 'Chyba! Prve pismeno musi byt velke!',
         'F_PASSWORD2'       => 'Zadane hesla sa nerovnaju!',
-        'F_EMAIL'           => 'Zle vyplnene udaje!',
+        'F_EMAIL'           => 'Zadany E-mail neexistuje!',
         'F_EMAIL2'          => 'Zadane E-maily sa nerovnaju!',
-        'F_STREET'          => 'Zle vyplnene udaje!',
-        'F_CITY'            => 'Zle vyplnene udaje!',
-        'F_POSTCODE'        => 'Zle vyplnene udaje!',
-        'F_TELEPHONE'       => 'Zle vyplnene udaje!',
-        'F_WEBSITE'         => 'Zle vyplnene udaje!',
-        'F_REGISTRATION'    => 'Registrovat'
-        
+        'F_REGISTRATION'    => 'Registrovat',
+        'F_NOT_NUMERIC'     => 'Zadany vyraz musi byt cislo!',
+        'F_WRONG_LENGTH'    => 'Cyba, prilis dlhy alebo kratky vyraz!'
         );

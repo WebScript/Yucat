@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.2.0
+     * @version    Release: 0.2.5
      * @link       http://www.yucat.net/documentation
      * 
      * @todo to validateData() add check for telephone number and website
@@ -17,9 +17,16 @@
 
     namespace inc;
     
+    use inc\Diagnostics\Excp;
+    
     class Form {
         /** @var array All forms data */
-        private $form = array();
+        private $form = array(
+            'globalError' => array(
+                'lengthError' => '',
+                'typeError' => ''
+            )
+        );
         /** @var string Last created form */
         private $last;
         
@@ -46,7 +53,7 @@
             if(strtolower($method) == 'post' || strtolower($method) == 'get') {
                 $this->form['method'] = $method;
             } else {
-                new Diagnostics\Excp('E_ISE', 'E_ILEGAL_METHOD');
+                new Excp('E_ISE', 'E_ILEGAL_METHOD');
             }
             return $this;
         }
@@ -69,10 +76,19 @@
                 foreach($array as $key => $val) {
                     $option .= '<option value="' . $key . '">' . $val . '</option>';
                 }
-                $this->form[$name] = array('name' => $name, 'value' => $option);
+                $this->form[$name]['value'] = $option;
             } else {
-                $this->form[$name] = array('name' => $name, 'type' => $type);
+                $this->form[$name]['type'] = $type;
             }
+            
+            $this->form[$name] = array_merge($this->form[$name], array(
+                'name' => $name, 
+                'minLength' => 0, 
+                'maxLength' => 0, 
+                'lengthError' => '', 
+                'typeErrror' => '',
+                'matchType' => ''
+                ));
             return $this;
         }
         
@@ -84,11 +100,25 @@
          * @param integer $maxLength Maximal length
          * @return Form resource of this class 
          */
-        public function setLength($minLength, $maxLength = 0) {
-            if(is_numeric($minLength) && is_numeric($maxLength)) {                
+        public function setLength($minLength, $maxLength = 0, $error = '') {
+            if(is_numeric($minLength) && is_numeric($maxLength)) {              
                 $this->form[$this->last]['minLength'] = $minLength;
-                $this->form[$this->last]['maxLength'] = $maxLength;
-            } else new Diagnostics\Excp('E_ISE', 'E_NO_RETYPE');
+                /* Check correct length of max length */
+                if(strlen($maxLength) >= strlen($minLength)) {
+                    $this->form[$this->last]['maxLength'] = $maxLength;
+                } else {
+                    new Excp('E_ISE', 'E_WRONG_LENGTH');
+                }
+            } else new Excp('E_ISE', 'E_NO_RETYPE');
+            
+            if(!$this->form['globalError']['lengthError']) {
+                if($error) {
+                    $this->form[$this->last]['lengthError'] = $error;
+                } else {
+                    new Excp('E_ISE', 'E_NOT_SET_MSG ' . $this->last);
+                }
+            }
+            
             return $this;
         }
         
@@ -122,25 +152,34 @@
          * @param string $type Type of error
          * @return Form resource of this class 
          */
-        public function setType($type) {
+        public function setType($type, $error = '') {
             $type = strtolower($type);
             if($type == 'text' || $type == 'number' || $type == 'password' ||
                     $type == 'website' || $type == 'email' || $type == 're') {
                 $this->form[$this->last]['matchType'] = $type;
             }
+            
+            if(!$this->form['globalError']['typeError']) {
+                if($error) {
+                    $this->form[$this->last]['typeError'] = $error;
+                } else {
+                    new Excp('E_ISE', 'E_NOT_SET_MSG');
+                }
+            }
+            
             return $this;
         }
         
         
-        /**
-         * Set error message for failure conditions
-         * 
-         * @param string $message Error message
-         * @return Form resource of this class 
-         */
-        public function setErrorMessage($message) {
-            $this->form[$this->last]['errorMessage'] = $message;
-            return $this;
+        
+        public function setErrorMessage($type, $message) {
+            $type = strtolower($type);
+            switch($type) {
+                case 'length' :
+                    $this->form['globalError']['lengthError'] = $message;
+                    break;
+            }
+            
         }
         
         
@@ -150,6 +189,16 @@
          * @return array forms data
          */
         public function sendForm() {
+            if(isset($this->form['globalError'])) {
+                foreach($this->form['globalError'] as $key => $val) {
+                    if(!$val) continue;
+                    foreach($this->form as $key2 => $val2) {
+                        if($key2 == 'action' || $key2 == 'method' || $key2 == 'globalError') continue;
+                        $this->form[$key2][$key] = $val;
+                    }
+                }
+            }
+            
             return $this->form;
         }
         
@@ -161,48 +210,38 @@
          * @return array 
          */
         public function validateData($errorMessage = NULL) {
-            $return = array();
+            $out = array();
 
             if(Arr::isInArray($_POST, $this->form)) {
                 foreach($this->form as $key => $val) {
+                    if($key == 'action' || $key == 'method' || $key == 'globalError' || !isset($_POST[$val['name']])) continue;
                     $name = $val['name'];
-                    if($key == 'action' || $key == 'method' || !isset($_POST[$name])) continue;
                     
-                    if(isset($val['minLength']) && strlen($_POST[$name]) < $val['minLength']) {
-                        $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['maxLength']) && $val['maxLength'] >= $val['minLength']
-                            && strlen($_POST[$name]) > $val['maxLength']) {
-                        $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['matchType']) && $val['matchType'] == 'text'
-                            && !preg_match('/^[A-Z][a-z]+$/', $_POST[$name])) {
-                        $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['matchType']) && $val['matchType'] == 'number'
-                            && !preg_match('/^[0-9 ]+$/', $_POST[$name])) {
-                        $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['matchType']) && $val['matchType'] == 'email'
-                            && !Security::checkEmail($_POST[$name])) {
-                        $out = array($name => array('status' => 'error'));
-                    } elseif(isset($val['matchType']) && $val['matchType'] == 're'
-                            && isset($_POST[$val['value']]) 
+                    if(strlen($_POST[$name]) < $val['minLength']) {
+                        $out[$name] = array('status' => 'error', 'message' => $val['lengthError']);
+                    } elseif(strlen($_POST[$name]) > $val['maxLength']) {
+                        $out[$name] = array('status' => 'error', 'message' => $val['lengthError']);
+                    } elseif($val['matchType'] == 'text' && !preg_match('/^[A-Z][a-z]+$/', $_POST[$name])) {
+                        $out[$name] = array('status' => 'error', 'message' => $val['typeError']);
+                    } elseif($val['matchType'] == 'number' && !preg_match('/^[0-9 ]+$/', $_POST[$name])) {
+                        $out[$name] = array('status' => 'error', 'message' => $val['typeError']);
+                    } elseif($val['matchType'] == 'email' && !Security::checkEmail($_POST[$name])) {
+                        $out[$name] = array('status' => 'error', 'message' => $val['typeError']);
+                    } elseif($val['matchType'] == 're' && isset($_POST[$val['value']]) 
                             && $_POST[$name] !== $_POST[$val['value']]) {
-                        $out = array($name => array('status' => 'error'));
+                        $out[$name] = array('status' => 'error', 'message' => $val['typeError']);
                     } else {
-                        $out = array($name => array('status' => 'ok'));
+                        $out[$name] = array('status' => 'ok');
                     }
-
-                    if($out[$name]['status'] == 'error' && isset($val['errorMessage'])) {
-                        $out[$name] = array('status' => 'error', 'message' => $val['errorMessage']);
-                    }
-                    $return = array_merge($return, $out);
                 }
 
-                if($errorMessage && \inc\Arr::isInExtendedArray($return, 'error')) {
-                    $return = array_merge($return, array('dialogError' => $errorMessage));
+                if($errorMessage && \inc\Arr::isInExtendedArray($out, 'error')) {
+                    $out['dialogError'] = $errorMessage;
                 }
             } else {
                 new Dialog($errorMessage ? : 'Error', Dialog::DIALOG_ERROR);
             }
-            return $return;
+            return $out;
         }
         
         

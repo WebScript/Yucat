@@ -18,64 +18,54 @@
             $this->form = new Form();
             $this->form->setAction('Register');
             $this->form->setMethod('POST');
+            $this->form->setErrorMessage('length', $this->template->_F_WRONG_LENGTH);
             
             $this->form->addElement('login', 'text')
-                    ->setLength(4, 14)
-                    ->setErrorMessage($this->template->_F_LOGIN);
+                    ->setLength(4, 14);
             
             $this->form->addElement('firstname', 'text')
                     ->setLength(3, 30)
-                    ->setType('TEXT')
-                    ->setErrorMessage($this->template->_F_FIRSTNAME);
+                    ->setType('TEXT', $this->template->_F_TEXT_ERR);
             
             $this->form->addElement('lastname', 'text')
                     ->setLength(4, 30)
-                    ->setType('TEXT')
-                    ->setErrorMessage($this->template->_F_LASTNAME);
+                    ->setType('TEXT', $this->template->_F_TEXT_ERR);
             
             $this->form->addElement('password', 'password')
-                    ->setLength(4, 30)
-                    ->setType('PASSWORD')
-                    ->setErrorMessage($this->template->_F_PASSWORD);
+                    ->setLength(4, 30);
+                    //->setType('PASSWORD');
             
             $this->form->addElement('password2', 'password')
-                    ->setType('RE')
-                    ->setValue('password')
-                    ->setErrorMessage($this->template->_F_PASSWORD2);
+                    ->setType('RE', $this->template->_F_PASSWORD2)
+                    ->setValue('password');
             
             $this->form->addElement('email', 'text')
                     ->setLength(5, 30)
-                    ->setType('EMAIL')
-                    ->setErrorMessage($this->template->_F_EMAIL);
+                    ->setType('EMAIL', $this->template->_F_EMAIL);
             
             $this->form->addElement('email2', 'text')
-                    ->setType('RE')
-                    ->setValue('email')
-                    ->setErrorMessage($this->template->_F_EMAIL2);
+                    ->setType('RE', $this->template->_F_EMAIL2)
+                    ->setValue('email');
             
             $this->form->addElement('street', 'text')
-                    ->setLength(4, 30)
-                    ->setErrorMessage($this->template->_F_STREET);
+                    ->setLength(4, 30);
             
             $this->form->addElement('language', 'select', $lang->getAvaiableLang());
             
             $this->form->addElement('city', 'text')
-                    ->setLength(4, 30)
-                    ->setErrorMessage($this->template->_F_CITY);
+                    ->setLength(4, 30);
          
              $this->form->addElement('postcode', 'text')
                     ->setLength(4, 15)
-                    ->setType('NUMBER')
-                    ->setErrorMessage($this->template->_F_POSTCODE);
+                    ->setType('NUMBER', $this->template->_F_NOT_NUMERIC);
 
             $this->form->addElement('telephone', 'text')
                     ->setLength(4, 30)
-                    ->setType('NUMBER')
-                    ->setErrorMessage($this->template->_F_TELEPHONE);
+                    ->setType('NUMBER', $this->template->_F_NOT_NUMERIC);
 
             $this->form->addElement('website', 'text')
-                    ->setType('WEBSITE')
-                    ->setErrorMessage($this->template->_F_WEBSITE);
+                    ->setLength(4, 40);
+                    //->setType('WEBSITE');
 
             $this->form->addElement('save', 'submit')
                     ->setValue($this->template->_F_REGISTRATION);
