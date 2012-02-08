@@ -30,8 +30,11 @@
         'INFO_PROFILE'          => 'Informacie',
         'INFO_PROFILE_DESC'     => '<p><strong>Vas ucet</strong> nejake informacie o ucte</p><p>Tu si mozete nastavit vsetky potrebne informacie o ucte ako napriklat meno, adresu alebo zmenit heslo.</p>',
         
-        'PROFILE' => 'Profil',
-        'USER_INFO' => 'Zakaznicke udaje',
-        'FIRSTNAME' => 'Meno',
+        'PROFILE'               => 'Profil',
+        'USER_INFO'             => 'Zakaznicke udaje',
+        'FIRSTNAME'             => 'Meno',
+        
+        'F_WRONG_LENGTH'        => 'Cyba, prilis dlhy alebo kratky vyraz!',
+        'F_TEXT_ERR'            => 'Chyba! Prve pismeno musi byt velke!',
         
     );

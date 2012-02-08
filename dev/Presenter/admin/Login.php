@@ -35,6 +35,7 @@
                 $this->form = new \inc\Form();
                 $this->form->setAction('Login:login:login');
                 $this->form->setMethod('POST');
+                $this->form->setErrorMessage('length', $this->template->_F_WRONG_LENGTH);
 
                 $this->form->addElement('username', 'text')
                         ->setLength(4, 20);
@@ -52,7 +53,7 @@
                 $this->pass->setMethod('POST');
 
                 $this->pass->addElement('mail', 'text')
-                        ->setLength(4, 30);
+                        ->setLength(4, 30, $this->template->_F_WRONG_LENGTH);
 
                 $this->pass->addElement('send', 'submit')
                         ->setValue($this->template->_SEND_PASS);
@@ -76,12 +77,12 @@
                 if($this->pass->isValidData()) { 
                     $model = new \Model\admin\Login();
                     if($model->resetPassword($_POST['mail'])) {
-                         new Dialog('Na E-mail Vam bolo zaslane nove heslo');
+                         new Dialog($this->template->_SENT_PASSWORD);
                     } else {
-                        new Dialog('Chybne zadany E-mail!!');
+                        new Dialog($this->template->_WRONG_EMAIL);
                     }
                 } else {
-                    Ajax::sendJSON($this->pass->validateData('Chybne vyplnene udaje!'));
+                    Ajax::sendJSON($this->pass->validateData($this->template->_WRONG_DATA));
                 }
             } elseif($type == 'login' && $act == 'send') { 
                 if($this->form->isValidData()) { 
@@ -92,10 +93,10 @@
                         \Model\admin\Access::add(0, 'Login', $login);
                         Ajax::sendJSON(array('redirectHead' => Router::traceRoute('User:Main')));
                     } else {
-                        new Dialog('Zadali ste zle meno alebo heslo...');
+                        new Dialog($this->template->_BAD_LOGIN);
                     }
                 } else {
-                    new Dialog('Chybne vyplnene udaje!');
+                    new Dialog($this->template->_BAD_LOGIN);
                 }
             }
         }  

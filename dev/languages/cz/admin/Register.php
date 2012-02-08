@@ -1,6 +1,7 @@
 <?php
 
     $translate = array(
+        '_TITLE'            => 'Adminsitrace servera',
         'REGISTER_SUCCESS'  => 'Registracia prebehla uspesne! Mozete sa <a href="' . inc\Router::traceRoute('Login') . '">prihlasit</a>',
         'USER_EXISTS'       => 'Takyto uzivatel uz exituje!',
         'EMAIL_EXISTS'      => 'Vas email uz bol pouzity pri registracii!',

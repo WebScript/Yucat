@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.2.5
+     * @version    Release: 0.2.6
      * @link       http://www.yucat.net/documentation
      * 
      * @todo to validateData() add check for telephone number and website
@@ -115,7 +115,7 @@
                 if($error) {
                     $this->form[$this->last]['lengthError'] = $error;
                 } else {
-                    new Excp('E_ISE', 'E_NOT_SET_MSG ' . $this->last);
+                    new Excp('E_ISE', 'E_NOT_SET_MSG');
                 }
             }
             
@@ -189,16 +189,6 @@
          * @return array forms data
          */
         public function sendForm() {
-            if(isset($this->form['globalError'])) {
-                foreach($this->form['globalError'] as $key => $val) {
-                    if(!$val) continue;
-                    foreach($this->form as $key2 => $val2) {
-                        if($key2 == 'action' || $key2 == 'method' || $key2 == 'globalError') continue;
-                        $this->form[$key2][$key] = $val;
-                    }
-                }
-            }
-            
             return $this->form;
         }
         
@@ -211,7 +201,16 @@
          */
         public function validateData($errorMessage = NULL) {
             $out = array();
-
+            
+            foreach($this->form['globalError'] as $key => $val) {
+                if(!$val) continue;
+                foreach($this->form as $key2 => $val2) {
+                    if($key2 == 'action' || $key2 == 'method' || $key2 == 'globalError') continue;
+                    $this->form[$key2][$key] = $val;
+                }
+            }
+            $this->form['globalError'] = array();
+            
             if(Arr::isInArray($_POST, $this->form)) {
                 foreach($this->form as $key => $val) {
                     if($key == 'action' || $key == 'method' || $key == 'globalError' || !isset($_POST[$val['name']])) continue;
@@ -219,7 +218,7 @@
                     
                     if(strlen($_POST[$name]) < $val['minLength']) {
                         $out[$name] = array('status' => 'error', 'message' => $val['lengthError']);
-                    } elseif(strlen($_POST[$name]) > $val['maxLength']) {
+                    } elseif($val['maxLength'] && strlen($_POST[$name]) > $val['maxLength']) {
                         $out[$name] = array('status' => 'error', 'message' => $val['lengthError']);
                     } elseif($val['matchType'] == 'text' && !preg_match('/^[A-Z][a-z]+$/', $_POST[$name])) {
                         $out[$name] = array('status' => 'error', 'message' => $val['typeError']);

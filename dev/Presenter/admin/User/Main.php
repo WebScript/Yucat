@@ -33,50 +33,44 @@
             $form = new Form();
             $form->setAction('User:Main:profile:data');
             $form->setMethod('POST');
+            $form->setErrorMessage('length', $this->template->_F_WRONG_LENGTH);
 
             $form->addElement('firstname', 'text')
                     ->setLength(3, 30)
-                    ->setType('TEXT')
-                    ->setValue($this->template->user->firstname)
-                    ->setErrorMessage('error');
+                    ->setType('TEXT', $this->template->_F_TEXT_ERR)
+                    ->setValue($this->template->user->firstname);
 
             $form->addElement('lastname', 'text')
                     ->setLength(3, 30)
-                    ->setType('TEXT')
-                    ->setValue($this->template->user->lastname)
-                    ->setErrorMessage('error');
+                    ->setType('TEXT', $this->template->_F_TEXT_ERR)
+                    ->setValue($this->template->user->lastname);
 
             $form->addElement('email', 'text')
                     ->setValue($this->template->user->email);
 
             $form->addElement('street', 'text')
                     ->setLength(4, 30)
-                    ->setValue($this->template->user->street)
-                    ->setErrorMessage('error');
+                    ->setValue($this->template->user->street);
 
             $form->addElement('language', 'select', $lang->getAvaiableLang());
                     //->setValue(array('bb' => 'BBBBf'));
 
             $form->addElement('city', 'text')
                     ->setLength(4, 30)
-                    ->setValue($this->template->user->city)
-                    ->setErrorMessage('error');
+                    ->setValue($this->template->user->city);
 
             $form->addElement('postcode', 'text')
                     ->setLength(4, 15)
-                    ->setValue($this->template->user->postcode)
-                    ->setErrorMessage('error');
+                    ->setValue($this->template->user->postcode);
 
             $form->addElement('telephone', 'text')
                     ->setLength(4, 30)
-                    ->setValue($this->template->user->telephone)
-                    ->setErrorMessage('error');
+                    ->setValue($this->template->user->telephone);
 
             $form->addElement('website', 'text')
                     ->setLength(4, 30)
-                    ->setType('WEBSITE')
-                    ->setValue($this->template->user->website)
-                    ->setErrorMessage('error');
+                    //->setType('WEBSITE')
+                    ->setValue($this->template->user->website);
 
             $form->addElement('save', 'submit')
                     ->setValue('Odoslat');
@@ -85,21 +79,19 @@
             $pass = new Form();
             $pass->setAction('User:Main:profile:pass');
             $pass->setMethod('POST');
+            $pass->setErrorMessage('length', $this->template->_F_WRONG_LENGTH);
 
             $pass->addElement('oldpass', 'password')
-                    ->setLength(4, 30)
-                    ->setType('TEXT')
-                    ->setErrorMessage('error');
+                    ->setLength(4, 30);
+                   // ->setType('PASSWORD');
 
             $pass->addElement('newpass', 'password')
-                    ->setLength(4, 30)
-                    ->setType('TEXT')
-                    ->setErrorMessage('error');
+                    ->setLength(4, 30);
+                    //->setType('PASSWORD');
 
             $pass->addElement('retrypass', 'password')
-                    ->setLength(4, 30)
-                    ->setType('TEXT')
-                    ->setErrorMessage('error');
+                    ->setLength(4, 30);
+                    //->setType('PASSWORD');
 
             $pass->addElement('change', 'submit')
                     ->setValue('Zmenit');

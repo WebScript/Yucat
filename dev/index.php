@@ -131,4 +131,6 @@
      * translate v dialogu
      * 
      * Pouzivat singleton pre Db, router, config, Cookie
+     * 
+     * todo, pridat do Form type password a website
      */
