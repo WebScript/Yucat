@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.9.0
+     * @version    Release: 0.9.1
      * @link       http://www.yucat.net/documentation
      * 
      * @todo fix paramsReplace in exec()
@@ -16,6 +16,7 @@
 
     namespace inc;
     
+    use inc\Security;
     use inc\Diagnostics\Excp;
 
     class Db {
@@ -84,16 +85,13 @@
          * @param BOOL $setter Setters is using if you insertting data to tables
          * @return string parsed sql data
          */
-        private function parse(array $input, $delimiter, $setter = TRUE) {           
+        private function parse(array $input, $delimiter, $setter = TRUE) {       
             foreach($input AS $key => $val) {
                 if(is_array($val)) {
-                    if(!isset($val[0])) {
-                        new Excp('E_CANNOT_WRITE_ARRAY');
-                    } else {
-                        $input[$key] = \inc\Security::protect($val[0], TRUE);
-                    }
+                    if(isset($val[0])) $input[$key] = Security::protect($val[0], TRUE);
+                    else new Excp('E_CANNOT_WRITE_ARRAY');
                 } else {
-                    $val = \inc\Security::protect($val, TRUE);
+                    $val = Security::protect($val, TRUE);
                     $input[$key] = "'" . $val . "'";
                 }
             }
@@ -106,7 +104,7 @@
             } else {
                 $return = array();
                 foreach($input AS $param => $value) {
-                    $return[] = $setter ? '`' . $param . '` = ' . $value : $value;
+                    $return[] = $setter ? (substr_count($param, '.') ? $param : '`' . $param . '`') . ' = ' . $value : $value;
                 }
                 $return = implode($delimiter, $return);
             }
@@ -199,11 +197,7 @@
          * @return db resource of this class
          */
         public final function where($what, $by, $sql = FALSE) {
-            if($sql) {
-                $this->where = array_merge($this->where, array($what => array($by)));
-            } else {
-                $this->where = array_merge($this->where, array($what => $by));
-            }
+            $this->where[$what] = $sql ? array($by) : $by;
             return $this;
         }
         
@@ -216,7 +210,7 @@
          */
         public final function insert(array $input) {
             $this->action = 'INSERT';
-            $this->values = array_merge($this->values, $input);
+            $this->values = $input;
             return $this->exec($this->make());
         }
         

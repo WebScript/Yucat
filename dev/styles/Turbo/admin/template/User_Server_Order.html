@@ -7,6 +7,23 @@
     
     <div id="main-content-right">
         <h2>Objednat server</h2>
+        
+        
+        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>lol</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="{$i}">server</label>
+                        <select id="{$i++}" name="{$form['servers']['name']}">{$form['servers']['value']}</select>
+                    </li>
+                    <li>
+                        <label for="{$i}">sloty</label>
+                        <select id="{$i++}" name="{$form['slots']['name']}">{$form['slots']['value']}</select>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
                 
     </div>
 </div>

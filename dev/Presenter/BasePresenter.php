@@ -21,6 +21,7 @@
     use inc\Router;
     use inc\Template\Core;
     use inc\Diagnostics\Excp;
+    use inc\Servers\SecureShell;
     
     class BasePresenter {
         /** @var object Object of variables for translate */
@@ -65,21 +66,30 @@
         
         protected function callServer($sid, $connect = FALSE) {
             $val = $this->db()->tables('servers, machines')
-                    ->select('servers.id, machines.ssh_ip, machines.ssh_port, machines.ssh_login, machines.ssh_password')
+                    ->select('servers.id, servers.lock, machines.ssh_ip, machines.ssh_port, machines.ssh_login, machines.ssh_password')
                     ->where('servers.UID', UID)
                     ->where('servers.id', $sid)
                     ->where('servers.MID', 'machines.id', TRUE)
                     ->fetch();
             
-            //@todo pridat kontrolu ci nema zamknuty server!
-            // lock 1 je sponzoring a lock 2 zamknuty srv
+            if($val) {
+                switch($val->lock) {
+                    case 2:
+                        new Excp('E_EXPIRATION');
+                        break;
+                    case 3:
+                        new Excp('E_INSTALLING');
+                        break;
+                }
+            }
+            
             if($val && $connect) {
-                $ssh = new \inc\Servers\SecureShell($val->ssh_ip, $val->ssh_port, $val->ssh_login, $val->ssh_password);
+                $ssh = new SecureShell($val->ssh_ip, $val->ssh_port, $val->ssh_login, $val->ssh_password);
             } elseif($val) {
                 $ssh = TRUE;
             } else {
                 $ssh = FALSE;
-                new \inc\Diagnostics\Excp('E_SERVER_NO_EXISTS');
+                new Excp('E_SERVER_NO_EXISTS');
             }
             return $ssh;
         }

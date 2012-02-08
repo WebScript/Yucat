@@ -109,28 +109,10 @@
     $lang = new Template\Language();
     /** Call a template system */
     $core = new Template\Core();
-    
-
-   // if(!inc\Ajax::isAjax()) {
-    //    Debug::timer('true');
-   // }
-    
-    
+        
     
     /**
      * mail neni dokonceny
-     * 
-     * 
-     * Pridat do Dialog a do JS dialog ako ta zelena, oranzvoa alebo cervena sprava jak je nad formami vetsinou...
-     * 
-     * Cannot set ilegal method
-     * Cannot set char as int
-     * Cannot set default value for select in class Form
-     * 
-     * 
      * translate v dialogu
-     * 
-     * Pouzivat singleton pre Db, router, config, Cookie
-     * 
      * todo, pridat do Form type password a website
      */
