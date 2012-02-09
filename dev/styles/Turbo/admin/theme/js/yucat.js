@@ -6,7 +6,7 @@ $(function() {
     $('form').live('submit', function() {
         $('#loading').show();
         $.post(this.action + '/send', $(this.elements).serialize(), function(msg) {
-            if(!manageRespJSON($.parseJSON(msg))) {
+            if(!manageJSON($.parseJSON(msg))) {
                 $.each($.parseJSON(msg), function(id, val) {
                     changeStats($(':input[name=' + id + ']'), val);
                 });
@@ -26,7 +26,7 @@ $(function() {
             
             if(action) {
                 $.post(action + '/check', name + '=' + $(this).val(), function(msg) {
-                    if(!manageRespJSON($.parseJSON(msg))) {
+                    if(!manageJSON($.parseJSON(msg))) {
                         $.each($.parseJSON(msg), function(id, val) {
                             changeStats($(':input[name=' + id + ']'), val);
                         });
@@ -40,17 +40,11 @@ $(function() {
 
     function changePage(page) {
         $('#loading').show();
-        last = page;
-        var resp = $.getJSON(page, function(response) {
-            manageRespJSON(response);
+        $last = page;
+        $.getJSON(page, function(response) { console.log('yes sir');
+            manageJSON(response);
             $('#loading').hide();
-        });
-        
-        resp.error(function(msg) { 
-            $('div.ajaxContent').html(msg.responseText);
-            loadComponents();
-            $('#loading').hide();
-        });    
+        });   
     }
 
 
@@ -72,21 +66,9 @@ $(function() {
             input.html(object.changeValue);
         }
     }
+   
     
-    
-    
-    function sendGetParams(form) {
-        $('#loading').show();
-        $.get(form[0].action, $(form[0].elements).serialize(), function(msg){
-            $('div.ajaxContent').html(msg);
-            loadComponents();
-            $('#loading').hide();
-        });
-        return false;
-    }
-    
-    
-    function manageRespJSON(input) {
+    function manageJSON(input) {
         var out = 1;
         $.each(input, function(id, val) {
             switch(id) {
@@ -110,6 +92,10 @@ $(function() {
                         $('#AjaxDialogError').html('<div class="msg-ok"><h4>Success message</h4>' + val + '</div>');
                         $('#AjaxDialogError').fadeTo('slow', 1);
                     });
+                    break;
+                case 'setContent' :
+                    $('div.ajaxContent').html(val);
+                    loadComponents();
                     break;
                 default :  
                     out = 0;

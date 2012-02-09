@@ -101,7 +101,7 @@
             $out[] = '<li><span class="page-inactive radius">Page ' . $thisPage . ' of ' . $count . '</span></li>';
             
             $out[] = '</form>';
-            $out[] = '<script> function cp(value) {$("input:hidden[name=page]").val(value); var xy = $("form[name=pager]"); xy.submit(sendGetParams(xy));}</script>';
+            $out[] = '<script> function cp(value) {$("input:hidden[name=page]").val(value); var xy = $("form[name=pager]"); xy.submit(changePage(xy[0].action + \'?\' + $(xy[0].elements).serialize()));}</script>';
             
             return implode('', $out);
         }
@@ -121,6 +121,6 @@
                     <option value="5000" ' . ($p == 5000 ? 'selected' : '') . '>Show All</option>
                 </select>
             </form> 
-            <script>$("#select-view").click(function() {return false;}); $("#select-view option").click(function() {sendGetParams($("form[name=peerPageSelector]"))}); </script>';
+            <script>$("#select-view").click(function() {return false;}); $("#select-view option").click(function() {var f = $("form[name=peerPageSelector]"); changePage(f[0].action + \'?\' + $(f[0].elements).serialize())}); </script>';
         }
     }

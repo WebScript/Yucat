@@ -64,12 +64,6 @@
                 } else new Excp('E_ISE', 'E_PRESENTER_NO_EXISTS');
             }
             
-            
-            if(Ajax::isAjax()) { 
-                echo Ajax::getContent();
-            }
-           
-            
             if(Ajax::isAjax() && Ajax::isHTML() || !Ajax::isAjax()) {
                 foreach(self::$translate as $key => $val) {
                     $$key = $val;
@@ -79,8 +73,21 @@
                 $name = rand(11111, 99999) . '.phtml';
                 $cache = new Cache('cache');
                 $cache->createCache($name, $template); 
-                include TEMP . 'cache/' . $name;
+                if(Ajax::isAjax()) {
+                    ob_start();
+                    if(Ajax::isAjax()) echo Ajax::getContent();
+                    include TEMP . 'cache/' . $name;
+                    $ob = ob_get_contents();
+                    ob_end_clean();
+                    
+                    echo json_encode(array('setContent' => $ob . $name));
+                } else {
+                    include TEMP . 'cache/' . $name;
+                }
+                
                 $cache->deleteCache($name);
+            } else {
+                echo Ajax::getContent();
             }
-        }
+        } 
     }
