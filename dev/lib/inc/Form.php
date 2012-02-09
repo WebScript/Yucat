@@ -240,7 +240,7 @@
             } else {
                 new Dialog($errorMessage ? : 'Error', Dialog::DIALOG_ERROR);
             }
-            return $out;
+            return array('form' => $out);
         }
         
         

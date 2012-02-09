@@ -80,7 +80,7 @@
                     $ob = ob_get_contents();
                     ob_end_clean();
                     
-                    echo json_encode(array('setContent' => $ob . $name));
+                    echo json_encode(array('setContent' => $ob));
                 } else {
                     include TEMP . 'cache/' . $name;
                 }

@@ -6,11 +6,7 @@ $(function() {
     $('form').live('submit', function() {
         $('#loading').show();
         $.post(this.action + '/send', $(this.elements).serialize(), function(msg) {
-            if(!manageJSON($.parseJSON(msg))) {
-                $.each($.parseJSON(msg), function(id, val) {
-                    changeStats($(':input[name=' + id + ']'), val);
-                });
-            }
+            manageJSON($.parseJSON(msg));
             $('#loading').hide();
         });
         return false;
@@ -26,11 +22,7 @@ $(function() {
             
             if(action) {
                 $.post(action + '/check', name + '=' + $(this).val(), function(msg) {
-                    if(!manageJSON($.parseJSON(msg))) {
-                        $.each($.parseJSON(msg), function(id, val) {
-                            changeStats($(':input[name=' + id + ']'), val);
-                        });
-                    }
+                    manageJSON($.parseJSON(msg));
                 });
             }
         }
@@ -45,26 +37,6 @@ $(function() {
             manageJSON(response);
             $('#loading').hide();
         });   
-    }
-
-
-    function changeStats(input, object) {
-        if(object.status == 'error') {
-            input.removeClass('input-ok');
-            input.addClass('input-error');
-
-            if(object.message) {
-                input.closest("li").find('#AJAXMessage').html(object.message);
-            }
-        } else if(object.status == 'ok') {
-            input.removeClass('input-error');
-            input.addClass('input-ok');
-            input.closest("li").find('#AJAXMessage').html('');
-        } else if(object.reload) {
-            changePage(last);
-        } else if(object.changeValue) {
-            input.html(object.changeValue);
-        }
     }
    
     
@@ -96,6 +68,28 @@ $(function() {
                 case 'setContent' :
                     $('div.ajaxContent').html(val);
                     loadComponents();
+                    break;
+                case 'form' :
+                    $.each(val, function(id2, object) {
+                        var input = $(':input[name=' + id2 + ']');
+                        
+                        if(object.status == 'error') {
+                            input.removeClass('input-ok');
+                            input.addClass('input-error');
+
+                            if(object.message) {
+                                input.closest("li").find('#AJAXMessage').html(object.message);
+                            }
+                        } else if(object.status == 'ok') {
+                            input.removeClass('input-error');
+                            input.addClass('input-ok');
+                            input.closest("li").find('#AJAXMessage').html('');
+                        } else if(object.reload) {
+                            changePage(last);
+                        } else if(object.changeValue) {
+                            input.html(object.changeValue);
+                        }
+                    });
                     break;
                 default :  
                     out = 0;
