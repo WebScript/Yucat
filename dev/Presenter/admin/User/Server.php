@@ -37,9 +37,13 @@
         
         
         public function order($type = '') {
-            
             if($type === 'check') {
                 
+               // if(isset($_POST['servers'])) {
+                 //   Ajax::sendJSON(array('servers' => array('changeValue' => 'test')));
+                //} else {
+                    Ajax::sendJSON(array('slots' => array('changeValue' => '<option value="1" selected>lolec</option><option value="2">lolec</option><option>lolec</option><option>lolec</option><option>lolec</option>')));
+                //}
                 //Send set value of select slots
             
             } else {
@@ -82,7 +86,6 @@
                         ->setValue('Objednat');
 
                 $this->template->form   = $form->sendForm();
-                $this->template->i      = 0;
             }
         }
         

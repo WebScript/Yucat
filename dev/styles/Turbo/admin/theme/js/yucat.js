@@ -18,16 +18,18 @@ $(function() {
     
     
     $(':input').live('keyup click', function(trg) {
-        var name = trg.target.name;
+        var name = trg.currentTarget.name;
         var ths = $(this);
-        
+
         if(trg.target.type !== 'submit') {
             var action = $(this).closest("form").attr('action');
             
             if(action) {
                 $.post(action + '/check', name + '=' + $(this).val(), function(msg) {
                     if(!manageRespJSON($.parseJSON(msg))) {
-                        changeStats(ths, $($.parseJSON(msg)).attr(name));
+                        $.each($.parseJSON(msg), function(id, val) {
+                            changeStats($(':input[name=' + id + ']'), val);
+                        });
                     }
                 });
             }
@@ -66,6 +68,8 @@ $(function() {
             input.closest("li").find('#AJAXMessage').html('');
         } else if(object.reload) {
             changePage(last);
+        } else if(object.changeValue) {
+            input.html(object.changeValue);
         }
     }
     
