@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.3.6
+     * @version    Release: 0.4.0
      * @link       http://www.yucat.net/documentation
      */
 
@@ -70,7 +70,7 @@
                 }
                 $template = $parse->setVariable($template);
 
-                $name = rand(11111, 99999) . '.phtml';
+                $name = rand(10000, 99999) . '.phtml';
                 $cache = new Cache('cache');
                 $cache->createCache($name, $template); 
                 if(Ajax::isAjax()) {

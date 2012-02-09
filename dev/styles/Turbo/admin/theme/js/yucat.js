@@ -1,7 +1,5 @@
 $(function() { 
-    $('#loading').hide();
-    
-    var last;   
+    $('#loading').hide(); 
     
     $('form').live('submit', function() {
         $('#loading').show();
@@ -32,8 +30,7 @@ $(function() {
 
     function changePage(page) {
         $('#loading').show();
-        $last = page;
-        $.getJSON(page, function(response) { console.log('yes sir');
+        $.getJSON(page, function(response) {
             manageJSON(response);
             $('#loading').hide();
         });   
@@ -84,8 +81,6 @@ $(function() {
                             input.removeClass('input-error');
                             input.addClass('input-ok');
                             input.closest("li").find('#AJAXMessage').html('');
-                        } else if(object.reload) {
-                            changePage(last);
                         } else if(object.changeValue) {
                             input.html(object.changeValue);
                         }

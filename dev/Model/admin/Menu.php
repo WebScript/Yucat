@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.5
+     * @version    Release: 0.1.7
      * @link       http://www.yucat.net/documentation
      */
 
