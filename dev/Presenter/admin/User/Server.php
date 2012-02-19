@@ -37,54 +37,46 @@
         
         
         public function order($type = '') {
+            $serverTypes = $this->db()->tables('server_types')->select('id, name')->fetchAll();
+            $servers = array();
+            foreach($serverTypes as $key => $val) {
+                $val = get_object_vars($val);
+                $servers[$val['id']] = $val['name'];
+            }
+
+            $getSrv = isset($_POST['servers']) ? $_POST['servers'] : 1;
+            $srvData = $this->db()->tables('server_types')->select('min_slots, max_slots')->where('id', $getSrv)->fetch();
+            $slots = array();
+            if($srvData) {
+                for($i = $srvData->min_slots;$i <= $srvData->max_slots;$i++) {
+                    $slots[$i - $srvData->min_slots] = $i;
+                }
+            }
+
+            $form = new Form();
+            $form->setAction('User:Server:order');
+            $form->setMethod('POST');
+            $form->setErrorMessage('length', $this->template->_F_WRONG_LENGTH);
+            
+            $form->addElement('servers', 'select', $servers);
+            $form->addElement('slots', 'select', $slots);
+            $form->addElement('order', 'submit')
+                    ->setValue('Objednat');            
+            
             if($type === 'check') {
                 
-               // if(isset($_POST['servers'])) {
+                if(isset($_POST['servers'])) {
                  //   Ajax::sendJSON(array('servers' => array('changeValue' => 'test')));
                 //} else {
-                    Ajax::sendJSON(array('slots' => array('changeValue' => '<option value="1" selected>lolec</option><option value="2">lolec</option><option>lolec</option><option>lolec</option><option>lolec</option>')));
-                //}
+                    Ajax::sendJSON(array( 'form' => array('slots' => array('changeValue' => '<option value="1" selected>lolec</option><option value="2">lolec</option><option>lolec</option><option>lolec</option><option>lolec</option>'))));
+                }
                 //Send set value of select slots
             
+            } elseif($type === 'send') {
+                $slots = $_POST['slots'];
+                $servers = $_POST['servers'];
+                new \inc\Dialog($servers . ':' . $slots);
             } else {
-                $form = new Form();
-                $form->setAction('User:Server:order');
-                $form->setMethod('POST');
-                $form->setErrorMessage('length', $this->template->_F_WRONG_LENGTH);
-
-                $serverTypes = $this->db()
-                        ->tables('server_types')
-                        ->select('id, name')
-                        ->fetchAll();
-
-                $servers = array();
-                foreach($serverTypes as $key => $val) {
-                    $val = get_object_vars($val);
-                    $servers[$val['id']] = $val['name'];
-                }
-
-                $form->addElement('servers', 'select', $servers);
-
-                $getSrv = isset($_POST['servers']) ? $_POST['servers'] : 1;
-                $srvData = $this->db()
-                        ->tables('server_types')
-                        ->select('min_slots, max_slots')
-                        ->where('id', $getSrv)
-                        ->limit(1)
-                        ->fetch();
-
-                $slots = array();
-                if($srvData) {
-                    for($i = $srvData->min_slots;$i <= $srvData->max_slots;$i++) {
-                        $slots[$i - $srvData->min_slots] = $i;
-                    }
-                }
-
-                $form->addElement('slots', 'select', $slots);
-
-                $form->addElement('order', 'submit')
-                        ->setValue('Objednat');
-
                 $this->template->form   = $form->sendForm();
             }
         }

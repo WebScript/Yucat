@@ -13,7 +13,6 @@ $(function() {
     
     $(':input').live('keyup click', function(trg) {
         var name = trg.currentTarget.name;
-        var ths = $(this);
 
         if(trg.target.type !== 'submit') {
             var action = $(this).closest("form").attr('action');
