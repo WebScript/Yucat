@@ -90,7 +90,7 @@
                 $this->db()
                         ->tables('lost_passwords')
                         ->insert(array('UID' => $data->id, 'hash' => $hash, 'passwd' => Security::password($pass)));
-                //\inc\Mail::send('Support@gshost.eu', 'Bloodman@gshost.eu', 'Password recovery', 'Ak chcete zmenit vase heslo tak kliknite na <a href="' . DOMAIN . '/' . $hash . '">TENTO</a> link.');
+                \inc\Mail::send('Support@gshost.eu', $mail, 'Password recovery', 'Ak si zelate zmenit vase heslo tak kliknite na <a href="' . DOMAIN_URI . '/Password/recovery' . $hash . '">TENTO</a> odkaz.');
                 return 1;
             } else {
                 return 0;

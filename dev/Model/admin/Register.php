@@ -29,6 +29,7 @@
             } else if($this->db()->tables('users')->where('email', $_POST['email'])->fetch()) {
                 return 4;
             } else {
+                $hash = String::keyGen(255);
                 $this->db()->tables('users')->insert(array(
                     'user' => $_POST['login'],
                     'passwd' => Security::password($_POST['password']),
@@ -44,8 +45,10 @@
                     'website' => $_POST['website'],
                     'ip' => UIP,
                     'll1' => time(),
-                    'activate_id' => String::keyGen(255)
+                    'activate_id' => $hash
                 ));
+                
+                \inc\Mail::send('Support@gshost.eu', $_POST['email'], 'Potvrdenie registracie GSHost.eu', 'uspesne ste sa registrovali na GSHost.eu, ak si zelate aktivovat Vas ucet tak kliknite na <a href="' . DOMAIN_URI . '/Activate/activate' . $hash . '">TENTO</a> odkaz.');
                 return 1;
             }
         }

@@ -78,6 +78,8 @@
             $this->form->addElement('website', 'text')
                     ->setLength(4, 40);
                     //->setType('WEBSITE');
+            
+             $this->form->addElement('rules', 'checkbox');
 
             $this->form->addElement('save', 'submit')
                     ->setValue($this->template->_F_REGISTRATION);
@@ -97,6 +99,8 @@
         
         public function send() {
             if($this->form->isValidData()) {
+                if(!isset($_POST['rules']) || !$_POST['rules']) new Dialog($this->template->_F_RULES_DENIED);
+                
                 $register = new \Model\admin\Register;
                 switch($register->register()) {
                     case 1:

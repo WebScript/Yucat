@@ -31,6 +31,8 @@
         'POSTCODE'          => 'PSC',
         'MOBILE'            => 'Telefonne cislo',
         'WEBSITE'           => 'Web',
+        'RULES'             => 'Pravidla',
+        'RULES_TEXT'        => 'Suhlasite s <a href="' . DOMAIN_URI . 'rules">pravidlami</a>?',
         
         'F_TEXT_ERR'        => 'Chyba! Prve pismeno musi byt velke!',
         'F_PASSWORD2'       => 'Zadane hesla sa nerovnaju!',
@@ -38,5 +40,6 @@
         'F_EMAIL2'          => 'Zadane E-maily sa nerovnaju!',
         'F_REGISTRATION'    => 'Registrovat',
         'F_NOT_NUMERIC'     => 'Zadany vyraz musi byt cislo!',
-        'F_WRONG_LENGTH'    => 'Cyba, prilis dlhy alebo kratky vyraz!'
+        'F_WRONG_LENGTH'    => 'Cyba, prilis dlhy alebo kratky vyraz!',
+        'F_RULES_DENIED'    => 'Ak chcete vyuzivat nase sluzby musite suhlasit s pravidlami hostingu!'
         );

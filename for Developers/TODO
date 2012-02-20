@@ -1,19 +1,17 @@
 TASKS 1:
     Prepisat v php scriptoch servers.lock na servers.permissions
     Spravit FTP!!! - instalacia PureFTPd s podporov MySQL je hotova!!
-    raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
     Dorobit preklady
 
 TASKS 2:
-    Dorobit posielanie strateneho hesla!!
-    Dorobit posielanie aktivacneho id!!
+    Dorobit Mail class!
 
 TASKS 3:
 -    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
+     raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
 
 TASKS 4:
-    Spravit to tak ze kredity budu dostavat iba ked je clovek na tej istej stranke co maju v profile a kredity budu asi 1 ku 100
-    asi pridat moznost aj javascript reklamy na wweb a za klik na reklamu budu extra kredity
+    asi pridat moznost aj javascript reklamy na web a za klik na reklamu budu extra kredity
     Dorobit scripty na SMS branu, paypal, internet banking atd.
     Pridat niekam kontrolu ci je spravne nastaveny permissions
 
@@ -33,7 +31,6 @@ TASKS 6:
 TASKS 7:
     Do install do adminky dat kontrolu povolenych modulov, ssh2, file_Get_contants atd.
     pridat na hl web yucat nejake api na zistenie  noviniek ohladom administrace a potom aby sa to vypisovalo kazdemu kdo pouziva muju adminku
-    Emailer, niekdo da odoslat mail a ten sa zapise do db  potom cron kazdych 10 sec posle mail
     Pridat do registracie povinny vek
 
 TASKS 8:
