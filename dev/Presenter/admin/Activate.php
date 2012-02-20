@@ -1,14 +1,14 @@
 <?php
     /**
-     * Recovery lost password
+     * Activate user account
      *
      * @category   Yucat
      * @package    Admin
-     * @name       Password
+     * @name       Activate
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.0.1
      * @link       http://www.yucat.net/documentation
      */
 
@@ -16,8 +16,8 @@
     
     use inc\Router;
     
-    class Password extends \Presenter\BasePresenter {
-        
+    class Activate extends \Presenter\BasePresenter {
+                
         public function __construct() {
             parent::__construct();
             $this->forNotLogged();
@@ -26,14 +26,15 @@
             }
         }
         
-        public function recovery($hash = '') {
+        
+        public function activate($hash = '') {
             $this->forNotLogged();
-            $pass = new \Model\admin\Password();
+            $activate = new \Model\admin\Activate();
             
-            if($pass->recovery($hash)) {
-                $this->template->message = '<div class="msg-ok"><h4>Success message</h4>Vase nove heslo Vam bolo zaslane na E-mail!</div>';
+            if($activate->Activate($hash)) {
+                $this->template->message = '<div class="msg-ok"><h4>Success message</h4>Vas ucet bol aktivovany!</div>';
             } else {
-                $this->template->message = '<div class="msg-error"><h4>Error message</h4>Nepodarilo sa obnovit Vase heslo!!</div>';
+                $this->template->message = '<div class="msg-error"><h4>Error message</h4>Vas ucet sa nepodarilo aktivovat, kontaktujte technicku podporu!</div>';
             }
         }
         

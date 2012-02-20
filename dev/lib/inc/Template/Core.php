@@ -48,7 +48,7 @@
             $template = $parse->parseTemplate($template, $parse->getMacros());
             
             if(empty(self::$presenter)) {
-                self::$presenter = array('Presenter\\website\\Index');
+                self::$presenter = array('Presenter\\' .  $router->getParam('subdomain') . '\\Index');
             }
             
             foreach(self::$presenter as $key => $val) {

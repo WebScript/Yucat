@@ -1,12 +1,14 @@
 TASKS 1:
-    Spravit FTP!!!
+    Prepisat v php scriptoch servers.lock na servers.permissions
+    Spravit FTP!!! - instalacia PureFTPd s podporov MySQL je hotova!!
     raz za mesiac vycistit cookie na zaklade lastLogin alebo nieco take ako lastRefresh v cookie_param a ked to bude starsie ako 7 dni v ten den v mesiaci tak to zmaze vsetko z cookie a cookie_ params na zaklade CID
     Dorobit preklady
 
 TASKS 2:
+    Dorobit posielanie strateneho hesla!!
+    Dorobit posielanie aktivacneho id!!
 
 TASKS 3:
--    Potvrdzovanie mailom (activate_id do users a do last_login a ll2 vlozit datum registracie)
 -    Mazanie neaktivovanych uctov (Ak nema aktivovany ucet a je starsi ako 2 mesiace)
 
 TASKS 4:
@@ -68,3 +70,9 @@ Updater:
 
     <button class="green" onclick="apprise('What\'s your name?', {'input':true});">Message with input</button>
 </div>
+
+
+USER PERMISSIONS:
+    0 - neaktivovany
+    1 - aktivovany, v poriadku
+    2 - zablokovany

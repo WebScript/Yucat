@@ -19,7 +19,7 @@ CREATE TABLE `access` (
   `type` INTEGER NOT NULL,
   `action` VARCHAR(256) NOT NULL,
   `ip` VARCHAR(256) NOT NULL,
-  `time` DATETIME NOT NULL,
+  `time` INTEGER NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `banners`;
 CREATE TABLE `banners` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `UID` INTEGER NOT NULL,
-  `time` DATETIME NOT NULL,
+  `time` INTEGER NOT NULL,
   `size` INTEGER NOT NULL,
   `website` VARCHAR(256) NOT NULL,
   `ip` VARCHAR(256) NOT NULL,
@@ -67,8 +67,9 @@ CREATE TABLE `users` (
   `email` VARCHAR(256) NOT NULL,
   `website` VARCHAR(256) NOT NULL,
   `ip` VARCHAR(256) NOT NULL,
-  `ll1` DATETIME NOT NULL,
-  `ll2` DATETIME NOT NULL,
+  `ll1` INTEGER NOT NULL,
+  `ll2` INTEGER NOT NULL,
+  `activate_id` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -102,7 +103,7 @@ CREATE TABLE `news` (
   `UID` INTEGER NOT NULL,
   `position` INTEGER NOT NULL DEFAULT 0,
   `type` INTEGER NOT NULL DEFAULT 0,
-  `time` DATETIME NOT NULL,
+  `time` INTEGER NOT NULL,
   `title` VARCHAR(256) NOT NULL,
   `text` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`id`)
@@ -153,8 +154,8 @@ CREATE TABLE `servers` (
   `MID` INTEGER NOT NULL,
   `port` INTEGER NOT NULL,
   `slots` INTEGER NOT NULL DEFAULT 1,
-  `lock` INTEGER NOT NULL DEFAULT 0,
-  `stopped` DATETIME NOT NULL,
+  `permissions` INTEGER NOT NULL DEFAULT 0,
+  `stopped` INTEGER NOT NULL,
   `autorun` INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
@@ -216,7 +217,7 @@ DROP TABLE IF EXISTS `banned`;
 CREATE TABLE `banned` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `ip` VARCHAR(256) NOT NULL,
-  `time` DATETIME NOT NULL,
+  `time` INTEGER NOT NULL,
   `reason` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`id`)
 );
@@ -393,8 +394,8 @@ ALTER TABLE `lost_passwords` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
 -- ('','','','','','');
 -- INSERT INTO `banners` (`id`,`UID`,`time`,`size`,`website`,`ip`,`lock`) VALUES
 -- ('','','','','','','');
--- INSERT INTO `users` (`id`,`user`,`passwd`,`firstname`,`lastname`,`street`,`city`,`postcode`,`telephone`,`credit`,`language`,`style`,`avatar`,`permissions`,`rank`,`email`,`website`,`ip`,`ll1`,`ll2`) VALUES
--- ('','','','','','','','','','','','','','','','','','','','');
+-- INSERT INTO `users` (`id`,`user`,`passwd`,`firstname`,`lastname`,`street`,`city`,`postcode`,`telephone`,`credit`,`language`,`style`,`avatar`,`permissions`,`rank`,`email`,`website`,`ip`,`ll1`,`ll2`,`activate_id`) VALUES
+-- ('','','','','','','','','','','','','','','','','','','','','');
 -- INSERT INTO `premium_code` (`id`,`used_by`,`c1`,`c2`,`c3`,`lock`,`cost`) VALUES
 -- ('','','','','','','');
 -- INSERT INTO `news` (`id`,`UID`,`position`,`type`,`time`,`title`,`text`) VALUES
@@ -403,7 +404,7 @@ ALTER TABLE `lost_passwords` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
 -- ('','','','','');
 -- INSERT INTO `tickets_response` (`id`,`UID`,`TID`,`text`) VALUES
 -- ('','','','');
--- INSERT INTO `servers` (`id`,`UID`,`type`,`MID`,`port`,`slots`,`lock`,`stopped`,`autorun`) VALUES
+-- INSERT INTO `servers` (`id`,`UID`,`type`,`MID`,`port`,`slots`,`permissions`,`stopped`,`autorun`) VALUES
 -- ('','','','','','','','','');
 -- INSERT INTO `server_params` (`id`,`SID`,`param`,`value`) VALUES
 -- ('','','','');

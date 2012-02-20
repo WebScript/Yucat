@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.0.7
+     * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
      */
 
@@ -21,12 +21,14 @@
         public function login($username, $password, $remember = FALSE) {
             $result = $this->db()
                     ->tables('users')
-                    ->select('id')
+                    ->select('id, permissions')
                     ->where('user', $username)
                     ->where('passwd', Security::password($password))
                     ->fetch();
 
             if($result) {
+                if($result->permissions != 1) return 0;
+                
                 $time = $remember ? time() + 31104000 : 0;
                 
                 //Get cookie with exists UID exists
@@ -51,8 +53,22 @@
                     Cookie::_init()->addParam(Cookie::_init()->myCid, 'UID', $result->id);
                     Cookie::_init()->addParam(Cookie::_init()->myCid, 'loggedNumber', '1');                
                 }
+                
+                
+                $ll1 = $this->db()
+                        ->tables('users')
+                        ->select('ll1')
+                        ->where('user', $username)
+                        ->fetch();
+                
+                $this->db()
+                        ->tables('users')
+                        ->where('user', $username)
+                        ->update(array('ll1' => time(), 'll2' => $ll1->ll1));
+                
                 return $result->id;
             }
+            return 0;
         }
         
         
@@ -74,7 +90,6 @@
                 $this->db()
                         ->tables('lost_passwords')
                         ->insert(array('UID' => $data->id, 'hash' => $hash, 'passwd' => Security::password($pass)));
-                //@todo este pridat funkciu na poslatie mailu....
                 //\inc\Mail::send('Support@gshost.eu', 'Bloodman@gshost.eu', 'Password recovery', 'Ak chcete zmenit vase heslo tak kliknite na <a href="' . DOMAIN . '/' . $hash . '">TENTO</a> link.');
                 return 1;
             } else {

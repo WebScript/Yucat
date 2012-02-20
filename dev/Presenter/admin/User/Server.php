@@ -53,6 +53,8 @@
                 }
             }
 
+            $this->template->serversCount = count($servers);
+            
             $form = new Form();
             $form->setAction('User:Server:order');
             $form->setMethod('POST');

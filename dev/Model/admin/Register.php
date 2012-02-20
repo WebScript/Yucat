@@ -1,9 +1,22 @@
 <?php
+    /**
+     * 
+     *
+     * @category   Yucat
+     * @package    Admin
+     * @name       Register
+     * @author     Bloodman Arun
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.2.0
+     * @link       http://www.yucat.net/documentation
+     */
 
     namespace Model\admin;
 
     use inc\Date;
     use inc\Config;
+    use inc\String;
     use inc\Security;
     
     class Register extends \Model\BaseModel {
@@ -30,7 +43,8 @@
                     'email' => $_POST['email'],
                     'website' => $_POST['website'],
                     'ip' => UIP,
-                    'll1' => Date::toMysqlTime(time())
+                    'll1' => time(),
+                    'activate_id' => String::keyGen(255)
                 ));
                 return 1;
             }

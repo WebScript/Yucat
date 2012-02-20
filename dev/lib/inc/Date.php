@@ -64,9 +64,4 @@
             }
             return date($param, $date);
         }
-        
-        
-        public static function toMysqlTime($time) {
-            return date('Y-m-d H:i:s', $time);
-        }
     }

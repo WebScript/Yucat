@@ -17,6 +17,7 @@
     use inc\Ajax;
     use inc\Dialog;
     use inc\Router;
+    use inc\Security;
     
     class Login extends \Presenter\BasePresenter {
         /** @var Form Login form */
@@ -93,7 +94,24 @@
                         \Model\admin\Access::add(0, 'Login', $login);
                         Ajax::sendJSON(array('redirectHead' => Router::traceRoute('User:Main')));
                     } else {
-                        new Dialog($this->template->_BAD_LOGIN);
+                        $perm = $this->db()
+                                ->tables('users')
+                                ->select('permissions')
+                                ->where('user', $_POST['username'])
+                                ->where('passwd', Security::password($_POST['password']))
+                                ->fetch();
+
+                        if(!$perm) new Dialog($this->template->_BAD_LOGIN);
+                        
+                        switch($perm->permissions) {
+                            case 0:
+                                new Dialog('Nemate aktivovany ucet!!');
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                new Dialog('Vas ucet bol zablokovany!');
+                        }
                     }
                 } else {
                     new Dialog($this->template->_BAD_LOGIN);
