@@ -5,5 +5,9 @@
             <url>languages/cz/admin/Logged.php</url>
             <line>22</line>
         </file>
+        <file>
+            <url>Presenter/admin/Register.php</url>
+            <line>0</line>
+        </file>
     </editor-bookmarks>
 </project-private>

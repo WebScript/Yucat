@@ -16,6 +16,7 @@
     
     use inc\Ajax;
     use inc\Form;
+    use inc\Dialog;
     use inc\Router;
     use inc\Servers\Status;
     
@@ -66,18 +67,33 @@
                     ->setValue('Objednat');            
             
             if($type === 'check') {
-                
                 if(isset($_POST['servers'])) {
-                 //   Ajax::sendJSON(array('servers' => array('changeValue' => 'test')));
-                //} else {
-                    Ajax::sendJSON(array( 'form' => array('slots' => array('changeValue' => '<option value="1" selected>lolec</option><option value="2">lolec</option><option>lolec</option><option>lolec</option><option>lolec</option>'))));
-                }
-                //Send set value of select slots
-            
+                    $set = '';
+                    foreach($slots as $key => $val) {
+                        $set .= '<option value="' . $key . '" selected>' . $val . '</option>';
+                    }
+                    Ajax::sendJSON(array( 'form' => array('slots' => array('changeValue' => $set))));
+                } else exit('{}');
             } elseif($type === 'send') {
-                $slots = $_POST['slots'];
-                $servers = $_POST['servers'];
-                new \inc\Dialog($servers . ':' . $slots);
+                $order = new \Model\admin\User\Server();
+                
+                switch($order->order($_POST['servers'], $_POST['slots'])) {
+                    case 0:
+                        new Dialog('Neni volne miesto! Prosim pockajte kym sa miesto uvolni!', Dialog::DIALOG_ERROR);
+                        break;
+                    case 1:
+                        new Dialog('Uspesne ste si objednal server!', Dialog::DIALOG_SUCCESS);
+                        break;
+                    case 2;
+                        new Dialog('Vybrany typ servera neexistuje!', Dialog::DIALOG_ERROR);
+                        break;
+                    case 3:
+                        new Dialog('Vybrany pocet slotov nie je dostupny pre tuto variantu!', Dialog::DIALOG_ERROR);
+                        break;
+                    case 4:
+                        new Dialog('Nemate dostatocny kredit!', Dialog::DIALOG_ERROR);
+                        break;
+                }
             } else {
                 $this->template->form   = $form->sendForm();
             }
