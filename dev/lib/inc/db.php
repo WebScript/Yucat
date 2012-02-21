@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.9.1
+     * @version    Release: 0.9.3
      * @link       http://www.yucat.net/documentation
      * 
      * @todo fix paramsReplace in exec()
@@ -85,29 +85,26 @@
          * @param BOOL $setter Setters is using if you insertting data to tables
          * @return string parsed sql data
          */
-        private function parse(array $input, $delimiter, $setter = TRUE) {       
+        private function parse(array $input, $delimiter, $setter = TRUE) {
             foreach($input AS $key => $val) {
-                if(is_array($val)) {
-                    if(isset($val[0])) $input[$key] = Security::protect($val[0], TRUE);
-                    else new Excp('E_CANNOT_WRITE_ARRAY');
-                } else {
-                    $val = Security::protect($val, TRUE);
-                    $input[$key] = "'" . $val . "'";
-                }
+                $input[$key] = array(
+                    (is_array($val) && $val[1] == '' ? Security::protect($val[0], TRUE) : "'" . Security::protect((is_array($val) ? $val[0] : $val), TRUE) . "'"),
+                    is_array($val) && $val[1] != '' ? $val[1] : ''
+                    );
             }
 
             if($delimiter === 'INSERT') {
+                foreach($input as $key => $val) $input[$key] = $val[0];
                 $return = '(' . Arr::implodeArrayKeys($input, ',');
                 $return .= ') VALUES (';
                 $return .= implode(',', $input) . ')';
-                $delimiter = '';
             } else {
                 $return = array();
-                foreach($input AS $param => $value) {
-                    $return[] = $setter ? (substr_count($param, '.') ? $param : '`' . $param . '`') . ' = ' . $value : $value;
+                foreach($input AS $key => $val) {
+                    $return[] = $setter ? (substr_count($key, '.') ? $key : '`' . $key . '`') . ($val[1] ? ' ' . $val[1] . ' ': ' = ') . $val[0] : $val[0];
                 }
                 $return = implode($delimiter, $return);
-            }
+            } 
             return $return;
         }
         
@@ -197,7 +194,8 @@
          * @return db resource of this class
          */
         public final function where($what, $by, $sql = FALSE) {
-            $this->where[$what] = $sql ? array($by) : $by;
+            if(is_array($what) || is_array($by)) new Excp('E_CANNOT_WRITE_ARRAY');
+            $this->where[$what] = $sql ? array($by, ($sql === TRUE ? '' : $sql)) : $by;
             return $this;
         }
         

@@ -28,9 +28,11 @@
                     ->tables('servers, server_types, machines')
                     ->select('servers.port, server_types.name, servers.id, servers.type, machines.ssh_ip, machines.name as mname, servers.stopped, servers.autorun')
                     ->where('servers.UID', UID)
+                    ->where('servers.permissions', 5, '!=')
                     ->where('servers.type', 'server_types.id', TRUE)
                     ->where('servers.MID', 'machines.id', TRUE)
                     ->fetchAll();
+
             $this->template->checkStatus = new Status();
             $this->template->router = Router::_init();
             
@@ -100,11 +102,13 @@
         }
         
         
-        public function deleteSend() {
+        public function delete() {
             $delete = new \Model\admin\User\Server();
-            $delete->deleteServer($_POST['deleteId']);
-            \Model\admin\Access::add(0, 'delete server');
-            Ajax::sendJSON(array('redirect' => Router::traceRoute('User:Server:view')));
+            if($delete->deleteServer()) {
+                \Model\admin\Access::add(0, 'deleted server id:' . $_POST['deleteId']);
+                Ajax::sendJSON(array('redirect' => Router::traceRoute('User:Server:view')));
+            } else {
+                new Dialog('Nepodarilo sa zmazat server!');
+            }
         }
-        
     }

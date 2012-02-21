@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.0.1
+     * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
      */
 
@@ -16,10 +16,24 @@
     
     class Server extends \Model\BaseModel {
 
-        public function deleteServer($id) {
-            if(!isset($id)) return 0;
-            $this->db()->tables('servers')->where('id', $_POST['deleteId'])->where('UID', UID)->delete();
-            return 1;            
+        public function deleteServer() {
+            if(isset($_POST['deleteId']) && is_numeric($_POST['deleteId'])) {
+                $check = $this->db()
+                        ->tables('servers')
+                        ->where('id', $_POST['deleteId'])
+                        ->where('UID', UID)
+                        ->fetch();
+                
+                if($check) {
+                    $this->db()
+                            ->tables('servers')
+                            ->where('id', $_POST['deleteId'])
+                            ->where('UID', UID)
+                            ->update(array('permissions' => 5));
+                    return 1;
+                }
+            }
+            return 0;
         }
         
         
@@ -41,6 +55,7 @@
                     foreach($machines as $val) {
                         $count = $this->db()
                                 ->tables('servers')
+                                ->where('permissions', 5, '!=')
                                 ->where('MID', $val->MID)
                                 ->numRows();
                         if($count < $val->count) {

@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.3.4
+     * @version    Release: 0.3.5
      * @link       http://www.yucat.net/documentation
      */
 
@@ -61,14 +61,15 @@
                                     self::$called[$val] = $content;
                                 } else {
                                     $content = self::$called[$val];
-                                }
-                            $haystack = preg_replace('@\{' . $key2 . '\}@', $content, $haystack);
+                                }// d($content);
+                            $haystack = preg_replace('@\{' . $key2 . '\}@', $content, $haystack, 1);
                         } else { 
-                            $haystack = preg_replace('@\{' . $key2 . '\}@', '<?php ' . $val2 . ' ?>', $haystack);
+                            $haystack = preg_replace('@\{' . $key2 . '\}@', '<?php ' . $val2 . ' ?>', $haystack, 1);
                         }
                     }
                 }
             }
+            //exit;
             return $haystack;
         }
         

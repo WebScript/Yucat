@@ -1,10 +1,12 @@
 <?php
 
-$to      = 'Bloodman@gshost.eu';
-$subject = 'the subject';
-$message = 'hello';
-$headers = 'From: webmaster@example.com' . "\r\n" .
-    'Reply-To: webmaster@example.com' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
-
-mail($to, $subject, $message, $headers);
+   $ar = array(
+       0 => array(
+           'neco'
+           ),
+       1 => array(
+           'dvaneco'
+           )
+       );
+   
+   echo implode(' ', $ar);

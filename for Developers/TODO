@@ -73,3 +73,11 @@ USER PERMISSIONS:
     0 - neaktivovany
     1 - aktivovany, v poriadku
     2 - zablokovany
+
+SERVER PERMISSIONS:
+    0 - neaktivovany
+    1 - aktivovany, v poriadku
+    2 - po expiracii
+    3 - instaluje sa
+    4 - zablokovany
+    5 - zmazany (realne sa zmaze az po 30 dnoch)
