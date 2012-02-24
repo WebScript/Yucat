@@ -66,14 +66,16 @@
         
         protected function callServer($sid, $connect = FALSE) {
             $val = $this->db()->tables('servers, machines')
-                    ->select('servers.id, servers.lock, machines.ssh_ip, machines.ssh_port, machines.ssh_login, machines.ssh_password')
+                    ->select('servers.id, servers.permissions, machines.ssh_ip, machines.ssh_port, machines.ssh_login, machines.ssh_password')
                     ->where('servers.UID', UID)
                     ->where('servers.id', $sid)
                     ->where('servers.MID', 'machines.id', TRUE)
                     ->fetch();
             
+            //Pridat kontrolu ze ak server neni jeho tak ho to vrati pekne spet
+            
             if($val) {
-                switch($val->lock) {
+                switch($val->permissions) {
                     case 2:
                         new Excp('E_EXPIRATION');
                         break;

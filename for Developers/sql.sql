@@ -58,7 +58,7 @@ CREATE TABLE `users` (
   `city` VARCHAR(256) NOT NULL,
   `postcode` VARCHAR(64) NOT NULL,
   `telephone` VARCHAR(64) NOT NULL,
-  `credit` INTEGER NOT NULL DEFAULT 0,
+  `credit` DECIMAL NOT NULL DEFAULT 0,
   `language` VARCHAR(256) NOT NULL DEFAULT 'cz',
   `style` VARCHAR(256) NOT NULL DEFAULT 'Turbo',
   `avatar` INTEGER NOT NULL,
@@ -190,6 +190,7 @@ CREATE TABLE `machines` (
   `ssh_port` INTEGER NOT NULL DEFAULT 22,
   `ssh_login` VARCHAR(256) NOT NULL DEFAULT 'root',
   `ssh_password` VARCHAR(256) NOT NULL,
+  `ftp_port` INTEGER NOT NULL DEFAULT 21,
   PRIMARY KEY (`id`)
 );
 
@@ -204,6 +205,7 @@ CREATE TABLE `machine_servers` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `MID` INTEGER NOT NULL,
   `type` INTEGER NOT NULL,
+  `count` INTEGER NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -316,9 +318,11 @@ DROP TABLE IF EXISTS `server_types`;
 CREATE TABLE `server_types` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(256) NOT NULL,
-  `cost` INTEGER NOT NULL,
+  `cost` DECIMAL NOT NULL,
   `min_slots` INTEGER NOT NULL,
   `max_slots` INTEGER NOT NULL,
+  `min_port` INTEGER NOT NULL,
+  `max_port` INTEGER NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -334,6 +338,26 @@ CREATE TABLE `lost_passwords` (
   `UID` INTEGER NOT NULL,
   `hash` VARCHAR(256) NOT NULL,
   `passwd` VARCHAR(256) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'ftp'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `ftp`;
+		
+CREATE TABLE `ftp` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `user` VARCHAR(256) NOT NULL,
+  `passwd` VARCHAR(256) NOT NULL,
+  `SID` INTEGER NOT NULL,
+  `MID` INTEGER NOT NULL,
+  `ftp_uid` INTEGER NOT NULL DEFAULT 6000,
+  `ftp_gid` INTEGER NOT NULL DEFAULT 6000,
+  `dir` VARCHAR(256) NOT NULL DEFAULT '/dev/null',
+  `lock` INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 
@@ -360,6 +384,8 @@ ALTER TABLE `forum_reply` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
 ALTER TABLE `forum_reply` ADD FOREIGN KEY (FTID) REFERENCES `forum_thread` (`id`);
 ALTER TABLE `forum_thread` ADD FOREIGN KEY (FCID) REFERENCES `forum_category` (`id`);
 ALTER TABLE `lost_passwords` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
+ALTER TABLE `ftp` ADD FOREIGN KEY (SID) REFERENCES `servers` (`id`);
+ALTER TABLE `ftp` ADD FOREIGN KEY (MID) REFERENCES `machines` (`id`);
 
 -- ---
 -- Table Properties
@@ -385,6 +411,7 @@ ALTER TABLE `lost_passwords` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
 -- ALTER TABLE `forum_category` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `server_types` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `lost_passwords` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `ftp` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
@@ -408,10 +435,10 @@ ALTER TABLE `lost_passwords` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
 -- ('','','','','','','','','');
 -- INSERT INTO `server_params` (`id`,`SID`,`param`,`value`) VALUES
 -- ('','','','');
--- INSERT INTO `machines` (`id`,`name`,`hostname`,`ssh_ip`,`ssh_port`,`ssh_login`,`ssh_password`) VALUES
--- ('','','','','','','');
--- INSERT INTO `machine_servers` (`id`,`MID`,`type`) VALUES
--- ('','','');
+-- INSERT INTO `machines` (`id`,`name`,`hostname`,`ssh_ip`,`ssh_port`,`ssh_login`,`ssh_password`,`ftp_port`) VALUES
+-- ('','','','','','','','');
+-- INSERT INTO `machine_servers` (`id`,`MID`,`type`,`count`) VALUES
+-- ('','','','');
 -- INSERT INTO `banned` (`id`,`ip`,`time`,`reason`) VALUES
 -- ('','','','');
 -- INSERT INTO `config` (`id`,`param`,`value`) VALUES
@@ -426,7 +453,9 @@ ALTER TABLE `lost_passwords` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
 -- ('','','');
 -- INSERT INTO `forum_category` (`id`,`name`) VALUES
 -- ('','');
--- INSERT INTO `server_types` (`id`,`name`,`cost`,`min_slots`,`max_slots`) VALUES
--- ('','','','','');
+-- INSERT INTO `server_types` (`id`,`name`,`cost`,`min_slots`,`max_slots`,`min_port`,`max_port`) VALUES
+-- ('','','','','','','');
 -- INSERT INTO `lost_passwords` (`id`,`UID`,`hash`,`passwd`) VALUES
 -- ('','','','');
+-- INSERT INTO `ftp` (`id`,`user`,`passwd`,`SID`,`MID`,`ftp_uid`,`ftp_gid`,`dir`,`lock`) VALUES
+-- ('','','','','','','','','');

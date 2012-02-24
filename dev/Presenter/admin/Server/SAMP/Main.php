@@ -30,45 +30,44 @@
             $ssh = $this->callServer($id);
 
             $data = $this->db()
-                    ->tables('servers, server_params, server_types, machines')
-                    ->select('servers.id, servers.port, servers.slots, servers.stopped, servers.autorun, server_types.name, server_types.cost, machines.name AS mname')
+                    ->tables('servers, server_types, machines, ftp')
+                    ->select('servers.id, servers.port, servers.slots, servers.stopped, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ftp_port, ftp.id AS ftpid, ftp.user, ftp.passwd')
                     ->where('servers.UID', UID)
-                    ->where('servers.id', 'server_params.SID', TRUE)
+                    ->where('ftp.SID', 'servers.id', TRUE)
                     ->where('machines.id', 'servers.MID', TRUE)
-                    ->fetchAll();
+                    ->fetch();
             
             $form = new Form();
             $form->setAction('Server:SAMP:Main:profile:' . SID . ':data');
+            $form->setErrorMessage('length', 'error');
             $form->setMethod('POST');
            
             $form->addElement('id', 'text')
-                    ->setValue($data[0]->id);
+                    ->setValue($data->id);
             
             $form->addElement('name', 'text')
-                    ->setValue($data[0]->name);
+                    ->setValue($data->name);
             
             $form->addElement('port', 'text')
-                    ->setValue($data[0]->port);
+                    ->setValue($data->port);
             
             $form->addElement('slots', 'text')
-                    ->setValue($data[0]->slots);
+                    ->setValue($data->slots);
             
             $form->addElement('stopped', 'text')
-                    ->setValue($data[0]->stopped ? : 'No');
+                    ->setValue($data->stopped ? : 'No');
             
             $form->addElement('autorun', 'text')
-                    ->setValue($data[0]->autorun ? 'Yes' : 'No');
+                    ->setValue($data->autorun ? 'Yes' : 'No');
             
             $form->addElement('cost', 'text')
-                    ->setValue($data[0]->cost * $data[0]->slots);
+                    ->setValue($data->cost * $data->slots * 30);
             
             $form->addElement('mname', 'text')
-                    ->setValue($data[0]->mname);
+                    ->setValue($data->mname);
             
             $form->addElement('stop', 'checkbox')
-                    ->setValue($data[0]->stopped ? 'checked' : '')
-                    ->setType('CHECKBOX')
-                    ->setErrorMessage('error');
+                    ->setValue($data->stopped ? 'yes' : 'no');
 
             $form->addElement('save', 'submit')
                     ->setValue('Odoslat');
@@ -76,22 +75,23 @@
             
             $ftp = new Form();
             $ftp->setAction('Server:SAMP:Main:profile:' . SID . ':ftp');
+            $ftp->setErrorMessage('length', 'error');
             $ftp->setMethod('POST');
            
             $ftp->addElement('id', 'text')
-                    ->setValue($data[0]->id);
+                    ->setValue($data->ftpid);
             
             $ftp->addElement('host', 'text')
-                    ->setValue($data[0]->name);
+                    ->setValue($data->hostname);
             
             $ftp->addElement('port', 'text')
-                    ->setValue($data[0]->port);
+                    ->setValue($data->ftp_port);
             
             $ftp->addElement('login', 'text')
-                    ->setValue($data[0]->slots);
+                    ->setValue($data->user);
             
-            $ftp->addElement('password', 'text')
-                    ->setValue($data[0]->stopped ? : 'No');
+            $ftp->addElement('password', 'password')
+                    ->setValue($data->passwd);
 
             $ftp->addElement('save', 'submit')
                     ->setValue('Odoslat');
@@ -99,6 +99,7 @@
             
             $control = new Form();
             $control->setAction('Server:SAMP:Main:profile:' . SID . ':control');
+            $control->setErrorMessage('length', 'error');
             $control->setMethod('POST');
             
             $control->addElement('start', 'submit')
