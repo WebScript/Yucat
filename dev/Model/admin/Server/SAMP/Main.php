@@ -16,7 +16,10 @@
     
     class Main extends \Model\BaseModel {
         public function control() {
-            
+            if(isset($_POST['control'])) {
+                
+            }
+            return 0;
         }
         
         

@@ -3,8 +3,7 @@
         <h3>Nejaky nadpis</h3>
         <div class="body-con">Nejaky text</div>
     </div>
-    
-    
+
     <div id="main-content-right">
         <h2>Server info</h2>
         <form action="{$control['action']}" method="{$control['method']}" enctype="multipart/form-data">                                
@@ -13,9 +12,10 @@
                 <ul class="align-list">
                     <li>
                         <label></label>
-                        <input type="{$control['start']['type']}" name="{$control['start']['name']}" value="{$control['start']['value']}" class="green" />
-                        <input type="{$control['restart']['type']}" name="{$control['restart']['name']}" value="{$control['restart']['value']}" class="" />
-                        <input type="{$control['stop']['type']}" name="{$control['stop']['name']}" value="{$control['stop']['value']}" class="red" />
+                        <input type="hidden" name="control" value="" />
+                        <input type="{$control['start']['type']}" name="{$control['start']['name']}" value="{$control['start']['value']}" class="green" onclick="$('input:hidden[name=control]').val('start');" />
+                        <input type="{$control['restart']['type']}" name="{$control['restart']['name']}" value="{$control['restart']['value']}" class="" onclick="$('input:hidden[name=control]').val('restart');" />
+                        <input type="{$control['stop']['type']}" name="{$control['stop']['name']}" value="{$control['stop']['value']}" class="red"  onclick="$('input:hidden[name=control]').val('stop');" />
                         <span class="msg-form-error" id="AJAXMessage"></span>
                     </li>
                 </ul>

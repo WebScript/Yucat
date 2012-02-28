@@ -58,7 +58,7 @@ CREATE TABLE `users` (
   `city` VARCHAR(256) NOT NULL,
   `postcode` VARCHAR(64) NOT NULL,
   `telephone` VARCHAR(64) NOT NULL,
-  `credit` DECIMAL NOT NULL DEFAULT 0,
+  `credit` DECIMAL(10,7) NOT NULL DEFAULT 0,
   `language` VARCHAR(256) NOT NULL DEFAULT 'cz',
   `style` VARCHAR(256) NOT NULL DEFAULT 'Turbo',
   `avatar` INTEGER NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE `premium_code` (
   `c2` VARCHAR(256) NOT NULL,
   `c3` VARCHAR(256) NOT NULL,
   `lock` INTEGER NOT NULL DEFAULT 0,
-  `cost` DECIMAL NOT NULL,
+  `cost` DECIMAL(10,7) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -318,7 +318,7 @@ DROP TABLE IF EXISTS `server_types`;
 CREATE TABLE `server_types` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(256) NOT NULL,
-  `cost` DECIMAL NOT NULL,
+  `cost` DECIMAL(10,4) NOT NULL,
   `min_slots` INTEGER NOT NULL,
   `max_slots` INTEGER NOT NULL,
   `min_port` INTEGER NOT NULL,
@@ -342,13 +342,13 @@ CREATE TABLE `lost_passwords` (
 );
 
 -- ---
--- Table 'ftp'
+-- Table 'server_ftp'
 -- 
 -- ---
 
-DROP TABLE IF EXISTS `ftp`;
+DROP TABLE IF EXISTS `server_ftp`;
 		
-CREATE TABLE `ftp` (
+CREATE TABLE `server_ftp` (
   `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
   `user` VARCHAR(256) NOT NULL,
   `passwd` VARCHAR(256) NOT NULL,
@@ -357,7 +357,6 @@ CREATE TABLE `ftp` (
   `ftp_uid` INTEGER NOT NULL DEFAULT 6000,
   `ftp_gid` INTEGER NOT NULL DEFAULT 6000,
   `dir` VARCHAR(256) NOT NULL DEFAULT '/dev/null',
-  `lock` INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 
@@ -384,8 +383,8 @@ ALTER TABLE `forum_reply` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
 ALTER TABLE `forum_reply` ADD FOREIGN KEY (FTID) REFERENCES `forum_thread` (`id`);
 ALTER TABLE `forum_thread` ADD FOREIGN KEY (FCID) REFERENCES `forum_category` (`id`);
 ALTER TABLE `lost_passwords` ADD FOREIGN KEY (UID) REFERENCES `users` (`id`);
-ALTER TABLE `ftp` ADD FOREIGN KEY (SID) REFERENCES `servers` (`id`);
-ALTER TABLE `ftp` ADD FOREIGN KEY (MID) REFERENCES `machines` (`id`);
+ALTER TABLE `server_ftp` ADD FOREIGN KEY (SID) REFERENCES `servers` (`id`);
+ALTER TABLE `server_ftp` ADD FOREIGN KEY (MID) REFERENCES `machines` (`id`);
 
 -- ---
 -- Table Properties
@@ -411,7 +410,7 @@ ALTER TABLE `ftp` ADD FOREIGN KEY (MID) REFERENCES `machines` (`id`);
 -- ALTER TABLE `forum_category` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `server_types` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `lost_passwords` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `ftp` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `server_ftp` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
@@ -457,5 +456,5 @@ ALTER TABLE `ftp` ADD FOREIGN KEY (MID) REFERENCES `machines` (`id`);
 -- ('','','','','','','');
 -- INSERT INTO `lost_passwords` (`id`,`UID`,`hash`,`passwd`) VALUES
 -- ('','','','');
--- INSERT INTO `ftp` (`id`,`user`,`passwd`,`SID`,`MID`,`ftp_uid`,`ftp_gid`,`dir`,`lock`) VALUES
--- ('','','','','','','','','');
+-- INSERT INTO `server_ftp` (`id`,`user`,`passwd`,`SID`,`MID`,`ftp_uid`,`ftp_gid`,`dir`) VALUES
+-- ('','','','','','','','');

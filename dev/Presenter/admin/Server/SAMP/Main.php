@@ -128,7 +128,7 @@
             } elseif($type == 'control' && $act == 'check') {
                 Ajax::sendJSON($control->validateData());
             } elseif($type == 'control' && $act == 'send') {
-                if($control->isValidData()) {            
+                
                     //$ssh = $this->callServer($id, TRUE);
                     //$samp = new \Model\admin\Server\Samp();
                     
@@ -142,11 +142,7 @@
                         Ajax::sendJSON(array('dialogValue' => 'Server uz bezi'));
                     } else {
                         Ajax::sendJSON(array('dialogValue' => 'Server sa nepodarilo zapnut'));
-                    }*/
-                } else {
-                    Ajax::sendJSON($control->validateData('Chybne vyplnene udaje!'));
-                }
-                
+                    }*/                
             } elseif($type == 'ftp' && $act == 'check') {
                 Ajax::sendJSON($ftp->validateData());
             } elseif($type == 'ftp' && $act == 'send') {

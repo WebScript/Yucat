@@ -84,7 +84,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="366" y="330" name="users">
+<table x="367" y="216" name="users">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -113,7 +113,7 @@
 <datatype>VARCHAR(64)</datatype>
 </row>
 <row name="credit" null="0" autoincrement="0">
-<datatype>DECIMAL</datatype>
+<datatype>DECIMAL(10,7)</datatype>
 <default>0</default></row>
 <row name="language" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
@@ -173,7 +173,7 @@
 <datatype>INTEGER</datatype>
 <default>0</default></row>
 <row name="cost" null="0" autoincrement="0">
-<datatype>DECIMAL</datatype>
+<datatype>DECIMAL(10,7)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -206,7 +206,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="608" y="382" name="tickets">
+<table x="363" y="897" name="tickets">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -227,7 +227,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="755" y="288" name="tickets_response">
+<table x="334" y="1075" name="tickets_response">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -246,7 +246,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="714" y="31" name="servers">
+<table x="858" y="107" name="servers">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -281,7 +281,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="931" y="17" name="server_params">
+<table x="625" y="31" name="server_params">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -299,7 +299,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="949" y="161" name="machines">
+<table x="1194" y="109" name="machines">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -328,7 +328,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1136" y="198" name="machine_servers">
+<table x="1158" y="376" name="machine_servers">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -378,7 +378,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="803" y="501" name="cookie">
+<table x="1361" y="197" name="cookie">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -389,7 +389,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1012" y="512" name="cookie_params">
+<table x="1500" y="158" name="cookie_params">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -407,7 +407,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="584" y="598" name="forum_reply">
+<table x="54" y="928" name="forum_reply">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -426,7 +426,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="588" y="779" name="forum_thread">
+<table x="51" y="1067" name="forum_thread">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -441,7 +441,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="783" y="704" name="forum_category">
+<table x="48" y="1181" name="forum_category">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -452,7 +452,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="346" y="45" name="server_types">
+<table x="625" y="176" name="server_types">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -460,7 +460,7 @@
 <datatype>VARCHAR(256)</datatype>
 </row>
 <row name="cost" null="0" autoincrement="0">
-<datatype>DECIMAL</datatype>
+<datatype>DECIMAL(10,4)</datatype>
 </row>
 <row name="min_slots" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -478,7 +478,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1151" y="30" name="lost_passwords">
+<table x="337" y="18" name="lost_passwords">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -496,7 +496,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1403" y="167" name="ftp">
+<table x="1011" y="114" name="server_ftp">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -523,9 +523,6 @@
 <row name="dir" null="0" autoincrement="0">
 <datatype>VARCHAR(256)</datatype>
 <default>'/dev/null'</default></row>
-<row name="lock" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>0</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
