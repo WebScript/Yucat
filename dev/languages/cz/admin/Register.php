@@ -32,7 +32,7 @@
         'MOBILE'            => 'Telefonne cislo',
         'WEBSITE'           => 'Web',
         'RULES'             => 'Pravidla',
-        'RULES_TEXT'        => 'Suhlasite s <a href="' . DOMAIN_URI . 'rules">pravidlami</a>?',
+        'RULES_TEXT'        => 'Suhlasite s <a href="' . DOMAIN_URI . 'rules" target="_blank">pravidlami</a>?',
         
         'F_TEXT_ERR'        => 'Chyba! Prve pismeno musi byt velke!',
         'F_PASSWORD2'       => 'Zadane hesla sa nerovnaju!',

@@ -30,10 +30,10 @@
             $ssh = $this->callServer($id);
 
             $data = $this->db()
-                    ->tables('servers, server_types, machines, ftp')
-                    ->select('servers.id, servers.port, servers.slots, servers.stopped, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ftp_port, ftp.id AS ftpid, ftp.user, ftp.passwd')
+                    ->tables('servers, server_types, machines, server_ftp')
+                    ->select('servers.id, servers.port, servers.slots, servers.stopped, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ftp_port, server_ftp.id AS ftpid, server_ftp.user, server_ftp.passwd')
                     ->where('servers.UID', UID)
-                    ->where('ftp.SID', 'servers.id', TRUE)
+                    ->where('server_ftp.SID', $id)
                     ->where('machines.id', 'servers.MID', TRUE)
                     ->fetch();
             
@@ -115,7 +115,16 @@
             if($type == 'data' && $act == 'check') {
                 Ajax::sendJSON($form->validateData());
             } elseif($type == 'data' && $act == 'send') {
-                Ajax::sendJSON($form->validateData());
+                if($form->isValidData()) {
+                    $data = new \Model\admin\Server\SAMP\Main();
+                    if($data->data()) {
+                        new \inc\Dialog('Server pozastaveny!');
+                    } else {
+                        new \inc\Dialog('Server spusteny!');
+                    }
+                } else {
+                    Ajax::sendJSON($form->validateData('Chybne vyplnene udaje!'));
+                }
             } elseif($type == 'control' && $act == 'check') {
                 Ajax::sendJSON($control->validateData());
             } elseif($type == 'control' && $act == 'send') {
@@ -141,7 +150,13 @@
             } elseif($type == 'ftp' && $act == 'check') {
                 Ajax::sendJSON($ftp->validateData());
             } elseif($type == 'ftp' && $act == 'send') {
-                Ajax::sendJSON($ftp->validateData());
+                if($ftp->isValidData()) {
+                    $pass = new \Model\admin\Server\SAMP\Main();
+                    $pass->ftp();
+                    new \inc\Dialog('Heslo bolo zmenene!');
+                } else {
+                    Ajax::sendJSON($ftp->validateData('Chybne vyplnene udaje!'));
+                }
             } else {
                 $this->template->form       = $form->sendForm();
                 $this->template->control    = $control->sendForm();

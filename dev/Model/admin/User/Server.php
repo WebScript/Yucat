@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.8.0
      * @link       http://www.yucat.net/documentation
      */
 
@@ -30,6 +30,11 @@
                             ->where('id', $_POST['deleteId'])
                             ->where('UID', UID)
                             ->update(array('permissions' => 5));
+                    
+                    $this->db()
+                            ->tables('server_ftp')
+                            ->where('SID', $_POST['deleteId'])
+                            ->update(array('passwd' => \inc\String::keyGen(8)));
                     return 1;
                 }
             }
@@ -73,7 +78,7 @@
                             }
                         }
                     }
-                    if(!$machine) return 0; //neni volne miesto!
+                    if(!$machine) return 0;
                     $credit = $this->db()->tables('users')->where('id', UID)->fetch()->credit;
                     if($credit >= $slots * $serverType->cost) {
                         $this->db()
@@ -92,11 +97,29 @@
                                 'permissions' => 1,
                                 'autorun' => 1
                             ));
+                        
+                        $sid = $this->db()
+                                ->tables('servers')
+                                ->where('MID', $machine)
+                                ->where('port', $port)
+                                ->fetch();
+                        
+                        $this->db()
+                                ->tables('server_ftp')
+                                ->insert(array(
+                                    'user' => 'ftpuser' . $port,
+                                    'passwd' => \inc\String::keyGen(8),
+                                    'SID' => $sid->id,
+                                    'MID' => $machine,
+                                    'ftp_uid' => 6000,
+                                    'ftp_gid' => 6000,
+                                    'dir' => SRV_DIR . $serverType->name . '/' . $port
+                                ));
                     } else return 4;
                     
                     
-                } else return 3; //zly pocet slotov
-            } else return 2; //typ servera neexistuje
+                } else return 3;
+            } else return 2;
             return 1;
         }
     }        

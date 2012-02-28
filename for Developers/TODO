@@ -1,9 +1,11 @@
 TASKS 1:
-    Prepisat v php scriptoch servers.lock na servers.permissions
-    Spravit FTP!!! - instalacia PureFTPd s podporov MySQL je hotova!!
-    Dorobit preklady
+    Dorobit autoinstaller pre hry
+    dorobit start, restart, stop pre SAMP
+    dorobit config pre samp
+    V configu orezavat medzeri alebo v sec treat pred a za value
 
 TASKS 2:
+    Dorobit preklady
     Dorobit Mail class!
 
 TASKS 3:
@@ -20,7 +22,6 @@ TASKS 5:
     Spravit templatu Turbo
 
 TASKS 6:
-    (SAMP) V configu orezavat medzeri alebo v sec treat pred a za value
     (SAMP ale aj ine) Uploader cez jQuery a graficky vykreslit 
     (SAMP FTP) replace \ za / potom explode a if in_array .. so delete a potom otvorit.. (overenie ci je v array ..)
     (SAMP) kontrola chmodu samp03sv a announce
@@ -81,3 +82,4 @@ SERVER PERMISSIONS:
     3 - instaluje sa
     4 - zablokovany
     5 - zmazany (realne sa zmaze az po 30 dnoch)
+    6 - Pozastaveny uzivatelom (plati sa iba prenajom priestoru, 10% z ceny)

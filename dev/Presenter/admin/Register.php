@@ -88,7 +88,7 @@
             $this->template->form = $this->form->sendForm();
             $this->template->registred = $this->db()->tables('users')->numRows();
             $this->template->hosted = $this->db()->tables('servers')->numRows();
-            $this->template->sponsored = $this->db()->tables('servers')->where('lock', '1')->numRows();
+            $this->template->sponsored = $this->db()->tables('servers')->where('permissions', '1')->numRows();
         }
         
         

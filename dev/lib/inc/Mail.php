@@ -19,7 +19,9 @@
     class Mail {
         
         /** This is static class */
-        private function __costruct();
+        public function __costruct($to, $from, $subject, $message) {
+            
+        }
         
         /**
          * Send email

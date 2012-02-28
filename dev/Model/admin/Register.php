@@ -48,7 +48,7 @@
                     'activate_id' => $hash
                 ));
                 
-                \inc\Mail::send('Support@gshost.eu', $_POST['email'], 'Potvrdenie registracie GSHost.eu', 'uspesne ste sa registrovali na GSHost.eu, ak si zelate aktivovat Vas ucet tak kliknite na <a href="' . DOMAIN_URI . '/Activate/activate' . $hash . '">TENTO</a> odkaz.');
+                new \inc\Mail('Support@gshost.eu', $_POST['email'], 'Potvrdenie registracie GSHost.eu', 'Uspesne ste sa registrovali na GSHost.eu, ak si zelate aktivovat Vas ucet tak kliknite na <a href="' . DOMAIN_URI . '/Activate/activate' . $hash . '">TENTO</a> odkaz.');
                 return 1;
             }
         }
