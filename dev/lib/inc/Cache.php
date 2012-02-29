@@ -64,7 +64,7 @@
              $file = TEMP . $this->folder . '/' . $logname;
 
              $file = fopen($file, 'a');
-             fwrite($file, $what);
+             fwrite($file, $what . "\n");
              fclose($file);
          }
          

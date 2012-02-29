@@ -31,8 +31,9 @@
 
             $data = $this->db()
                     ->tables('servers, server_types, machines, server_ftp')
-                    ->select('servers.id, servers.port, servers.slots, servers.stopped, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ftp_port, server_ftp.id AS ftpid, server_ftp.user, server_ftp.passwd')
+                    ->select('servers.id, servers.port, servers.slots, servers.permissions, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ftp_port, server_ftp.id AS ftpid, server_ftp.user, server_ftp.passwd')
                     ->where('servers.UID', UID)
+                    ->where('servers.id', $id)
                     ->where('server_ftp.SID', $id)
                     ->where('machines.id', 'servers.MID', TRUE)
                     ->fetch();
@@ -54,9 +55,6 @@
             $form->addElement('slots', 'text')
                     ->setValue($data->slots);
             
-            $form->addElement('stopped', 'text')
-                    ->setValue($data->stopped ? : 'No');
-            
             $form->addElement('autorun', 'text')
                     ->setValue($data->autorun ? 'Yes' : 'No');
             
@@ -67,7 +65,7 @@
                     ->setValue($data->mname);
             
             $form->addElement('stop', 'checkbox')
-                    ->setValue($data->stopped ? 'yes' : 'no');
+                    ->setValue($data->permissions == 6 ? 'checked' : '');
 
             $form->addElement('save', 'submit')
                     ->setValue('Odoslat');
@@ -128,21 +126,26 @@
             } elseif($type == 'control' && $act == 'check') {
                 Ajax::sendJSON($control->validateData());
             } elseif($type == 'control' && $act == 'send') {
+                $ssh = $this->callServer($id, TRUE);
+                $samp = new \Model\admin\Server\SAMP\Main();
                 
-                    //$ssh = $this->callServer($id, TRUE);
-                    //$samp = new \Model\admin\Server\Samp();
-                    
-                    d($_POST);
-                    exit;
-                    
-                    //$re = $samp->control($ssh, $this->db()->tables('servers')->select('port')->where('id', SID)->fetch()->port, );
-                    /*if($re) {
-                        Ajax::sendJSON(array('dialogValue' => 'Server bol zapnuty'));
-                    } elseif($re === 2) {
-                        Ajax::sendJSON(array('dialogValue' => 'Server uz bezi'));
-                    } else {
-                        Ajax::sendJSON(array('dialogValue' => 'Server sa nepodarilo zapnut'));
-                    }*/                
+                switch($samp->control($ssh)) {
+                    case 0:
+                        new \inc\Dialog('Server uz bezi!');
+                        break;
+                    case 1:
+                        new \inc\Dialog('Server bol zapnuty');
+                        break;
+                    case 2:
+                        new \inc\Dialog('Server bol vypnuty');
+                        break;
+                    case 3:
+                        new \inc\Dialog('Server sa nepodarilo vypnut!');
+                        break;
+                    case 4:
+                        new \inc\Dialog('Server bol restartovany!');
+                        break;
+                }               
             } elseif($type == 'ftp' && $act == 'check') {
                 Ajax::sendJSON($ftp->validateData());
             } elseif($type == 'ftp' && $act == 'send') {

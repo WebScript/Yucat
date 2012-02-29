@@ -8,16 +8,46 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.0.5
+     * @version    Release: 0.1.0
      * @link       http://www.yucat.net/documentation
      */
 
     namespace Model\admin\Server\SAMP;
     
     class Main extends \Model\BaseModel {
-        public function control() {
+        
+        public function control(\inc\Servers\SecureShell $ssh) {
             if(isset($_POST['control'])) {
+                $port = $this->db()
+                        ->tables('servers')
+                        ->where('id', SID)
+                        ->fetch();
+                $name = 'samp' . $port->port;
                 
+                switch($_POST['control']) {
+                    case 'start' :
+                        if(!$ssh->exec('pidof ' . $name)) {
+                            $ssh->exec('cd ' . SRV_DIR . 'SAMP/' . $port->port . '/; ./' . $name . ' &', FALSE);
+                            return 1;
+                        }
+                        return 0;
+                        break;
+                    case 'stop' :
+                        if($ssh->exec('pidof ' . $name)) {
+                            $ssh->exec('pkill ' . $name);
+                            return 2;
+                        }
+                        return 3;
+                        break;
+                    case 'restart' :
+                        if($ssh->exec('pidof ' . $name)) {
+                            $ssh->exec('pkill ' . $name);
+                        }
+
+                        $ssh->exec('cd ' . SRV_DIR . 'SAMP/' . $port->port . '/; ./' . $name . ' &', FALSE);
+                        return 4;
+                        break;
+                }
             }
             return 0;
         }

@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
      * 
      * @todo add authentificate by cert.
@@ -52,26 +52,32 @@
          * Exectute command on remote server
          * 
          * @param string $command Command
+         * @param BOOL $get 
          * @param string $error Returned error from remote server
          * @return string Returned message from remove server (Error is not returned here!) 
          */
-        public final function exec($command, &$error = NULL) {
+        public final function exec($command, $get = TRUE, &$error = NULL) {
             $result = ssh2_exec($this->connection, $command);
-            $error = ssh2_fetch_stream($result, SSH2_STREAM_STDERR);
             
-            if($result === FALSE) new Excp('E_ISE', 'E_CANNOT_CONNECT_TO_SERVER');
-            stream_set_blocking($result, TRUE);
-            stream_set_blocking($error, TRUE);
-            $error = stream_get_contents($error);
+            if($get) {
+                $error = ssh2_fetch_stream($result, SSH2_STREAM_STDERR);
+                if($result === FALSE) new Excp('E_ISE', 'E_CANNOT_CONNECT_TO_SERVER');
+                
+                stream_set_blocking($result, TRUE);
+                stream_set_blocking($error, TRUE);
+                $error = stream_get_contents($error);
             
-            /* Log returned error */
-            $log = implode('@#$', array(time(), $ip, $error));
-            $cache = new \inc\Cache('logs');
-            if($cache->findInLog('ExecErrors.log', $log) === FALSE) {
-                $cache->addToLog('ExecErrors.log', $log);
+                /* Log returned error */
+                if($error) {
+                    $log = implode('@#$', array(time(), $this->ip, $command, $error));
+                    $cache = new \inc\Cache('logs');
+                    if($cache->findInLog('ExecErrors.log', htmlspecialchars($log)) == FALSE) {
+                        $cache->addToLog('ExecErrors.log', htmlspecialchars($log));
+                    }
+                }
+                return stream_get_contents($result);
             }
-            
-            return stream_get_contents($result);
+            return 1;
         }
         
         
