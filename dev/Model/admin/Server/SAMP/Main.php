@@ -22,7 +22,9 @@
                         ->tables('servers')
                         ->where('id', SID)
                         ->fetch();
+                
                 $name = 'samp' . $port->port;
+                if($port->permissions != 1) return 5;
                 
                 switch($_POST['control']) {
                     case 'start' :

@@ -145,6 +145,9 @@
                     case 4:
                         new \inc\Dialog('Server bol restartovany!');
                         break;
+                    case 5:
+                        new \inc\Dialog('Nemozete spravovat pozastaveny server!');
+                        break;
                 }               
             } elseif($type == 'ftp' && $act == 'check') {
                 Ajax::sendJSON($ftp->validateData());

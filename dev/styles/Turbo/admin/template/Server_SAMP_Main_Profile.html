@@ -5,7 +5,7 @@
     </div>
 
     <div id="main-content-right">
-        <h2>Server info</h2>
+        <h2>Server info</h2>       
         <form action="{$control['action']}" method="{$control['method']}" enctype="multipart/form-data">                                
             <fieldset>
                 <legend>Ovladanie servera</legend>
@@ -21,6 +21,21 @@
                 </ul>
             </fieldset>
         </form>
+        
+        <form>                                
+            <fieldset>
+                <legend>Server status</legend>
+                <img id="status" src="http://www.yucat.net/Generator.php?type=1&ip=178.143.68.23&port=7779" alt="server status" />
+            </fieldset>
+        </form>
+        <script>
+            function afterLoad() {
+                $("#status").attr("src", "http://www.yucat.net/Generator.php?type=1&ip=178.143.68.23&port=7779&rand=" + Math.random());
+            }
+    
+            
+        </script>
+            
         
         <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
             <fieldset>

@@ -1,8 +1,9 @@
 TASKS 1:
     Dorobit autoinstaller pre hry
-    dorobit start, restart, stop pre SAMP
     dorobit config pre samp
     V configu orezavat medzeri alebo v sec treat pred a za value
+
+    Access log, pridat zachytavanie sprav do access logu
 
 TASKS 2:
     Dorobit preklady

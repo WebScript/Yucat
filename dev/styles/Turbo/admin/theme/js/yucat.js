@@ -90,6 +90,10 @@ $(function() {
                     break;
             }
         });
+        
+        if(window.afterLoad) {
+            afterLoad();
+        }
         return out;
     }
 
