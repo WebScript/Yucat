@@ -25,12 +25,12 @@
         <form>                                
             <fieldset>
                 <legend>Server status</legend>
-                <img id="status" src="http://www.yucat.net/Generator.php?type=1&ip=178.143.68.23&port=7779" alt="server status" />
+                <img id="status" src="http://www.yucat.net/Generator.php?type=1&ip={$ip}&port={$port}" alt="server status" />
             </fieldset>
         </form>
         <script>
             function afterLoad() {
-                $("#status").attr("src", "http://www.yucat.net/Generator.php?type=1&ip=178.143.68.23&port=7779&rand=" + Math.random());
+                $("#status").attr("src", "http://www.yucat.net/Generator.php?type=1&ip={$ip}&port={$port}&rand=" + Math.random());
             }
     
             

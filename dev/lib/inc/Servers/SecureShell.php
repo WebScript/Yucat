@@ -87,7 +87,7 @@
          * @return resource Resource of SFTP
          */
         public final function getSftpLink() {
-            return 'ssh2.sftp://' . $this->sftp;
+            return 'ssh2.sftp://' . $this->sftp . '/';
         }
         
     }

@@ -131,14 +131,10 @@
          */
         public function setValue($set) {
             if(isset($this->form[$this->last]['value'])) {
-                if(is_array($set)) {
-                    $key = key($set);
-                    $val = reset($set);
-                    $this->form[$this->last]['value'] = str_replace(
-                            '<option value="' . $key . '">' . $val . '</option>', 
-                            '<option value="' . $key . '" selected>' . $val . '</option>', 
-                            $this->form[$this->last]['value']);
-                } else new Diagnostics\Excp('E_ISE', 'E_DEFAULT_VALUE');
+                $this->form[$this->last]['value'] = str_replace(
+                        '<option value="' . $set . '">', 
+                        '<option value="' . $set . '" selected>', 
+                        $this->form[$this->last]['value']);
             } else {
                 $this->form[$this->last]['value'] = $set;
             }

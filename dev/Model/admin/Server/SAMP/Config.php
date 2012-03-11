@@ -1,0 +1,68 @@
+<?php
+    /**
+     * 
+     *
+     * @category   Yucat
+     * @package    Admin\Server\SAMP
+     * @name       Config
+     * @author     Bloodman Arun
+     * @copyright  Copyright (c) 2011 - 2012 by Yucat
+     * @license    http://www.yucat.net/license GNU GPLv3 License
+     * @version    Release: 0.1.0
+     * @link       http://www.yucat.net/documentation
+     */
+
+    namespace Model\admin\Server\SAMP;
+    
+    class Config extends \Model\BaseModel {
+        
+        public function getConfig(\inc\Servers\SecureShell $ssh, $id) {
+            $types = $this->db()
+                    ->tables('servers, server_types')
+                    ->select('servers.port, server_types.name')
+                    ->where('servers.id', $id)
+                    ->where('server_types.id', 'servers.type', TRUE)
+                    ->fetch();
+            
+            $vals = array();
+            $file = file($ssh->getSftpLink() . 'srv/' . $types->name . '/' . $types->port . '/server.cfg');
+            
+            foreach($file as $val) {
+                $prs = explode(' ', $val);
+                $vals[trim($prs[0])] = isset($prs[1]) ? $prs[1] : ' ';
+            }
+            return $vals;
+        }
+        
+        
+        public function saveConfig(\inc\Servers\SecureShell $ssh, $id) {
+            $types = $this->db()
+                    ->tables('servers, server_types')
+                    ->select('servers.port, server_types.name')
+                    ->where('servers.id', $id)
+                    ->where('server_types.id', 'servers.type', TRUE)
+                    ->fetch();
+            
+            $f = fopen($ssh->getSftpLink() . 'srv/' . $types->name . '/' . $types->port . '/server.cfg', 'w');
+            
+            fwrite($f, 'echo ' . \inc\Config::_init()->getValue('name') . "... \n");
+            fwrite($f, "lanmode 0 \n");
+            fwrite($f, "rcon_password " . $_POST['rcon_password'] . " \n");
+            fwrite($f, "maxplayers " . $_POST['maxplayers'] . " \n");
+            fwrite($f, "port " . $types->port . " \n");
+            fwrite($f, "hostname " . $_POST['hostname'] . " \n");
+            fwrite($f, "gamemode " . $_POST['gamemode'] . " \n");
+            fwrite($f, "filterscripts " . $_POST['filterscripts'] . " \n");
+            fwrite($f, "announce " . $_POST['announce'] . " \n");
+            fwrite($f, "query " . $_POST['query'] . " \n");
+            fwrite($f, "weburl " . $_POST['weburl'] . " \n");
+            fwrite($f, "maxnpc " . $_POST['maxnpc'] . " \n");
+            fwrite($f, "onfoot_rate 40 \n");
+            fwrite($f, "incar_rate 40 \n");
+            fwrite($f, "weapon_rate 40 \n");
+            fwrite($f, "stream_distance 300.0 \n");
+            fwrite($f, "stream_rate 1000 \n");
+            fclose($f);
+        }
+        
+    }

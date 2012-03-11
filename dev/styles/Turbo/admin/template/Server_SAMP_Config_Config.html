@@ -1,14 +1,74 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div id="content" class="clearfix">
+    <div id="side-content-left">
+        <h3>Nejaky nadpis</h3>
+        <div class="body-con">Nejaky text</div>
+    </div>
+    
+    
+    <div id="main-content-right">
+        <h2>lol</h2>
+        <div id="AjaxDialogError"></div>
+        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                                
+            <fieldset>
+                <legend>info</legend>
+                <ul class="align-list">
+                    <li>
+                        <label for="hostname">Hostname</label>
+                        <input type="{$form['hostname']['type']}" id="hostname" name="{$form['hostname']['name']}" value="{$form['hostname']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="port">Port</label>
+                        <input type="{$form['port']['type']}" id="hostname" name="{$form['port']['name']}" value="{$form['port']['value']}" disabled />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="rcon_password">RCON Password</label>
+                        <input type="{$form['rcon_password']['type']}" id="rcon_password" name="{$form['rcon_password']['name']}" value="{$form['rcon_password']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="maxplayers">Max. Players</label>
+                        <select id="maxplayers" name="{$form['maxplayers']['name']}">{$form['maxplayers']['value']}</select>
+                    </li>
+                    <li>
+                        <label for="maxnpc">Max. NPC</label>
+                        <select id="maxnpc" name="{$form['maxnpc']['name']}">{$form['maxnpc']['value']}</select>
+                    </li>
+                    <li>
+                        <label for="gamemode">Gamemode</label>
+                        <select id="gamemode" name="{$form['gamemode']['name']}">{$form['gamemode']['value']}</select>
+                    </li>
+                    <li>
+                        <label for="filterscripts">Filterscripts</label>
+                        <input type="{$form['filterscripts']['type']}" id="filterscripts" name="{$form['filterscripts']['name']}" value="{$form['filterscripts']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="plugins">Plugins</label>
+                        <input type="{$form['plugins']['type']}" id="plugins" name="{$form['plugins']['name']}" value="{$form['plugins']['value']}" />
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label for="announce">Announce</label>
+                        <select id="announce" name="{$form['announce']['name']}">{$form['announce']['value']}</select>
+                    </li>
+                    <li>
+                        <label for="query">Query</label>
+                        <select id="query" name="{$form['query']['name']}">{$form['query']['value']}</select>
+                    </li>
+                    <li>
+                        <label for="weburl">Web URL</label>
+                        <input type="{$form['weburl']['type']}" id="weburl" name="{$form['weburl']['name']}" value="{$form['weburl']['value']}"/>
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                    <li>
+                        <label></label>
+                        <input type="{$form['save']['type']}" name="{$form['save']['name']}" value="{$form['save']['value']}"/>
+                        <span class="msg-form-error" id="AJAXMessage"></span>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </div>
+</div>

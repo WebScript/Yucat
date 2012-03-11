@@ -11,7 +11,7 @@
         $st = new \inc\Servers\Status();
         $status = $st->checkStatus(1, $_GET['ip'], $_GET['port']);
         
-        if($status) {
+        if($status && $status['maxPlayers'] > 0) {
             Imagettftext($image, 10, 0, 10, 18, $green, $font, 'Hostname:');
             Imagettftext($image, 10, 0, 85, 18, $white, $font, $status['name']);
 

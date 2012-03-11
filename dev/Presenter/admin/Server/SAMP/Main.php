@@ -27,11 +27,11 @@
         
         
         public function profile($id, $type = NULL, $act = NULL) {
-            $ssh = $this->callServer($id);
+            $ssh = $this->callServer($id, TRUE);
 
             $data = $this->db()
                     ->tables('servers, server_types, machines, server_ftp')
-                    ->select('servers.id, servers.port, servers.slots, servers.permissions, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ftp_port, server_ftp.id AS ftpid, server_ftp.user, server_ftp.passwd')
+                    ->select('servers.id, servers.port, servers.slots, servers.permissions, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ssh_ip, machines.ftp_port, server_ftp.id AS ftpid, server_ftp.user, server_ftp.passwd')
                     ->where('servers.UID', UID)
                     ->where('servers.id', $id)
                     ->where('server_ftp.SID', $id)
@@ -163,6 +163,8 @@
                 $this->template->form       = $form->sendForm();
                 $this->template->control    = $control->sendForm();
                 $this->template->ftp        = $ftp->sendForm();
+                $this->template->ip         = $data->ssh_ip;
+                $this->template->port       = $data->port;
             }
         }
     }

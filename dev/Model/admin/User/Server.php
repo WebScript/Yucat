@@ -58,6 +58,7 @@
                     
                     $machine = 0;
                     foreach($machines as $val) {
+                        $port = 0;
                         $count = $this->db()
                                 ->tables('servers')
                                 ->where('permissions', 5, '!=')
@@ -73,10 +74,11 @@
                                         ->fetch();
                                 if(!$check) {
                                     $port = $i;
-                                    break 2;
+                                    break;
                                 }
                             }
                         }
+                        if($port) break;
                     }
                     if(!$machine) return 0;
                     $credit = $this->db()->tables('users')->where('id', UID)->fetch()->credit;
