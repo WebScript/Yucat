@@ -118,8 +118,6 @@
                                     'dir' => SRV_DIR . $serverType->name . '/' . $port
                                 ));
                     } else return 4;
-                    
-                    
                 } else return 3;
             } else return 2;
             return 1;

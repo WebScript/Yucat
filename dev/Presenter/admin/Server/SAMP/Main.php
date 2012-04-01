@@ -29,6 +29,11 @@
         public function profile($id, $type = NULL, $act = NULL) {
             $ssh = $this->callServer(SID, TRUE);
             
+            $main = new \Model\admin\Server\SAMP\Main();
+            if(!$main->fileExists($ssh)) {
+                $main->install($ssh);
+            }
+            
             $data = $this->db()
                     ->tables('servers, server_types, machines, server_ftp')
                     ->select('servers.id, servers.port, servers.slots, servers.permissions, servers.autorun, server_types.name, server_types.cost, machines.name AS mname, machines.hostname, machines.ssh_ip, machines.ftp_port, server_ftp.id AS ftpid, server_ftp.user, server_ftp.passwd')

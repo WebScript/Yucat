@@ -120,4 +120,16 @@
                     ->update(array('permissions' => '1'));
             ignore_user_abort(false);
         }
+        
+        
+        public function fileExists(\inc\Servers\SecureShell $ssh) {
+            $port = $this->db()
+                    ->tables('servers')
+                    ->select('port')
+                    ->where('UID', UID)
+                    ->where('id', SID)
+                    ->fetch();
+            
+            return file_exists($ssh->getSftpLink() . SRV_DIR . '/SAMP/' . $port->port . '/samp03svr' . $port->port);
+        }
     }
