@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.1
      * @link       http://www.yucat.net/documentation
      */
 
@@ -16,16 +16,17 @@
     
     class Config extends \Model\BaseModel {
         
-        public function getConfig(\inc\Servers\SecureShell $ssh, $id) {
+        public function getConfig(\inc\Servers\SecureShell $ssh) {
             $types = $this->db()
-                    ->tables('servers, server_types')
-                    ->select('servers.port, server_types.name')
-                    ->where('servers.id', $id)
+                    ->tables('servers')
+                    ->select('servers.port')
+                    ->where('servers.id', SID)
+                    ->where('server.UID', UID)
                     ->where('server_types.id', 'servers.type', TRUE)
                     ->fetch();
             
             $vals = array();
-            $file = file($ssh->getSftpLink() . 'srv/' . $types->name . '/' . $types->port . '/server.cfg');
+            $file = file($ssh->getSftpLink() . 'srv/SAMP/' . $types->port . '/server.cfg');
             
             foreach($file as $val) {
                 $prs = explode(' ', $val);
@@ -35,15 +36,16 @@
         }
         
         
-        public function saveConfig(\inc\Servers\SecureShell $ssh, $id) {
+        public function saveConfig(\inc\Servers\SecureShell $ssh) {
             $types = $this->db()
-                    ->tables('servers, server_types')
-                    ->select('servers.port, server_types.name')
-                    ->where('servers.id', $id)
+                    ->tables('servers')
+                    ->select('servers.port')
+                    ->where('servers.id', SID)
+                    ->where('server.UID', UID)
                     ->where('server_types.id', 'servers.type', TRUE)
                     ->fetch();
             
-            $f = fopen($ssh->getSftpLink() . 'srv/' . $types->name . '/' . $types->port . '/server.cfg', 'w');
+            $f = fopen($ssh->getSftpLink() . 'srv/SAMP/' . $types->port . '/server.cfg', 'w');
             
             fwrite($f, 'echo ' . \inc\Config::_init()->getValue('name') . "... \n");
             fwrite($f, "lanmode 0 \n");
@@ -64,5 +66,4 @@
             fwrite($f, "stream_rate 1000 \n");
             fclose($f);
         }
-        
     }

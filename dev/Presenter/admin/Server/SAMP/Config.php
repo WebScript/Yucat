@@ -18,11 +18,11 @@
     
     class Config extends \Presenter\BasePresenter {
         
-        public function config($id) {
-            $ssh = $this->callServer($id, TRUE);
+        public function config() {
+            $ssh = $this->callServer(SID, TRUE);
             $config = new \Model\admin\Server\SAMP\Config();
             
-            $data = $config->getConfig($ssh, $id);
+            $data = $config->getConfig($ssh);
             $announce = array(0, 1);
             $query = array(0, 1);
             

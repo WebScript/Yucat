@@ -109,5 +109,4 @@
                 Router::redirect($url);
             }
         }
-        
     }
