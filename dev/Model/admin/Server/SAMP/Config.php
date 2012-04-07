@@ -19,10 +19,8 @@
         public function getConfig(\inc\Servers\SecureShell $ssh) {
             $types = $this->db()
                     ->tables('servers')
-                    ->select('servers.port')
-                    ->where('servers.id', SID)
-                    ->where('server.UID', UID)
-                    ->where('server_types.id', 'servers.type', TRUE)
+                    ->select('port')
+                    ->where('id', SID)
                     ->fetch();
             
             $vals = array();
@@ -39,10 +37,8 @@
         public function saveConfig(\inc\Servers\SecureShell $ssh) {
             $types = $this->db()
                     ->tables('servers')
-                    ->select('servers.port')
-                    ->where('servers.id', SID)
-                    ->where('server.UID', UID)
-                    ->where('server_types.id', 'servers.type', TRUE)
+                    ->select('port')
+                    ->where('id', SID)
                     ->fetch();
             
             $f = fopen($ssh->getSftpLink() . 'srv/SAMP/' . $types->port . '/server.cfg', 'w');
@@ -65,5 +61,26 @@
             fwrite($f, "stream_distance 300.0 \n");
             fwrite($f, "stream_rate 1000 \n");
             fclose($f);
+        }
+        
+        
+        public function getValues() {
+            $val = $this->db()
+                    ->tables('servers, server_params')
+                    ->select('servers.slots, server_params.value')
+                    ->where('servers.id', SID)
+                    ->where('server_params.SID', SID)
+                    ->where('server_params.param', 'NPC')
+                    ->fetch();
+            
+            $out = array();
+            for($i=1;$i<=$val->slots;$i++) {
+                $out['players'][] = $i;
+            }
+            for($i=1;$i<=$val->value;$i++) {
+                $out['npc'][] = $i;
+            }
+            
+            return $out;
         }
     }

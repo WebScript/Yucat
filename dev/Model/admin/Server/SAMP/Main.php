@@ -23,7 +23,7 @@
                         ->where('id', SID)
                         ->fetch();
                 
-                $name = 'samp' . $port->port;
+                $name = 'samp03svr' . $port->port;
                 if($port->permissions != 1) return 5;
                 
                 switch($_POST['control']) {

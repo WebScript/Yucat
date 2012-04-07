@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.2.6
+     * @version    Release: 0.2.7
      * @link       http://www.yucat.net/documentation
      * 
      * @todo to validateData() add check for telephone number and website
@@ -133,10 +133,10 @@
             if(isset($this->form[$this->last]['value'])) {
                 $this->form[$this->last]['value'] = str_replace(
                         '<option value="' . $set . '">', 
-                        '<option value="' . $set . '" selected>', 
+                        '<option value="' . htmlspecialchars($set) . '" selected>', 
                         $this->form[$this->last]['value']);
             } else {
-                $this->form[$this->last]['value'] = $set;
+                $this->form[$this->last]['value'] = htmlspecialchars($set);
             }
             return $this;
         }
@@ -229,14 +229,16 @@
                         $out[$name] = array('status' => 'ok');
                     }
                 }
-
+                $out = ['form' => $out];
+                
                 if($errorMessage && \inc\Arr::isInExtendedArray($out, 'error')) {
                     $out['dialogError'] = $errorMessage;
                 }
+                
             } else {
                 new Dialog($errorMessage ? : 'Error', Dialog::DIALOG_ERROR);
             }
-            return array('form' => $out);
+            return $out;
         }
         
         

@@ -1,14 +1,29 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div id="content" class="clearfix">
+    <div id="side-content-left">
+        <h3>Nejaky nadpis</h3>
+        <div class="body-con">Nejaky text</div>
+    </div>
+    
+    
+    <div id="main-content-right">
+        <h2>Server log</h2>
+        <div id="AjaxDialogError"></div>
+        {if $log :}
+        <form action="{$form['action']}" method="{$form['method']}" enctype="multipart/form-data">                          
+            <fieldset>
+                <legend>info</legend>
+                <ul class="align-list">
+                    <li>
+                        <textarea style="width: 703px; height: 400px;">{$log}</textarea>
+                        <input type="{$form['download']['type']}" value="{$form['download']['value']}" />
+                        <input type="{$form['edit']['type']}" value="{$form['edit']['value']}" />
+                        <input type="{$form['delete']['type']}" value="{$form['delete']['value']}" />
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+        {else}
+            <div class="msg-alert"><h4>Warning</h4>Server log zatial nebol vytvoreny!</div>
+        {/if}
+    </div>
+</div>

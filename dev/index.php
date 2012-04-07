@@ -80,7 +80,8 @@
     /** Call init */
     init();
     /** Set developer mode */
-    Debug::setMode(Debug::MODE_DEV);
+    //Debug::setMode(Debug::MODE_DEV);
+    Debug::setMode(Debug::MODE_PROD);
     /** Create a connection with database */
     $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     /** Create instance of Cookie class */

@@ -67,7 +67,6 @@
         protected function callServer($sid, $connect = FALSE) {
             $val = $this->db()->tables('servers, machines')
                     ->select('servers.id, servers.permissions, machines.ssh_ip, machines.ssh_port, machines.ssh_login, machines.ssh_password')
-                    ->where('servers.UID', UID)
                     ->where('servers.id', $sid)
                     ->where('servers.MID', 'machines.id', TRUE)
                     ->fetch();
@@ -107,6 +106,21 @@
         protected function forLogged($url = 'Login') {
             if(!UID) {
                 Router::redirect($url);
+            }
+        }
+        
+        
+        protected function isCorrect($type) {
+            $i = $this->db()
+                    ->tables('servers, server_types')
+                    ->select('servers.id')
+                    ->where('servers.id', SID)
+                    ->where('servers.type', 'server_types.id', TRUE)
+                    ->where('server_types.name', $type)
+                    ->fetch();
+            
+            if(!$i) {
+                new \inc\Dialog('E_WRONG_PAGE');
             }
         }
     }

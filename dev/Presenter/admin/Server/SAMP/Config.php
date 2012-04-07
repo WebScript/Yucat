@@ -14,17 +14,27 @@
 
     namespace Presenter\admin\Server\SAMP;
     
+    use inc\Ajax;
     use inc\Form;
+    use inc\Router;
     
     class Config extends \Presenter\BasePresenter {
+        public function __construct() {
+            parent::__construct();
+            $this->forLogged();
+            $this->isCorrect('SAMP');
+            Router::redirect('Server:SAMP:Config:config', TRUE);
+        }
         
-        public function config() {
+        public function config($null, $act = NULL) {
             $ssh = $this->callServer(SID, TRUE);
-            $config = new \Model\admin\Server\SAMP\Config();
             
-            $data = $config->getConfig($ssh);
-            $announce = array(0, 1);
-            $query = array(0, 1);
+            $cfg = new \Model\admin\Server\SAMP\Config();
+            $data = $cfg->getConfig($ssh);
+            $other = $cfg->getValues();
+            
+            $announce = [0, 1];
+            $query = [0, 1];
             
             $gamemodes = array('a', 'b');
             $maxplayers = array(1,2,3);
@@ -32,7 +42,7 @@
             
             $form = new Form();
            
-            $form->setAction('Server:SAMP:Config:config:' . SID . ':data');
+            $form->setAction('Server:SAMP:Config:config:' . SID);
             $form->setErrorMessage('length', 'error');
             $form->setMethod('POST');
             
@@ -43,10 +53,10 @@
             $form->addElement('port', 'text')
                     ->setValue($data['port']);
             
-            $form->addElement('maxplayers', 'select', $maxplayers)
+            $form->addElement('maxplayers', 'select', $other['players'])
                     ->setValue($data['maxplayers']);
             
-            $form->addElement('maxnpc', 'select', $maxnpc)
+            $form->addElement('maxnpc', 'select', $other['npc'])
                     ->setValue($data['maxnpc']);
             
             $form->addElement('hostname', 'text')
@@ -54,7 +64,7 @@
                     ->setValue($data['hostname']);
             
             $form->addElement('plugins', 'text')
-                    ->setValue($data['plugins']);
+                    ->setValue(isset($data['plugins']) ? $data['plugins'] : "");
             
             $form->addElement('gamemode', 'select', $gamemodes)
                     ->setValue($data['gamemode']);
@@ -75,7 +85,22 @@
             $form->addElement('save', 'submit')
                     ->setValue('Odoslat');
             
-            $this->template->form = $form->sendForm();
+            switch($act) {
+                case 'check':
+                    Ajax::sendJSON($form->validateData());
+                    break;
+                case 'send':
+                    if($form->isValidData()) {
+                        (new \Model\admin\Server\SAMP\Config())->saveConfig($ssh);
+                        new \inc\Dialog('konfiguracny subor uspesne ulozeny!', \inc\Dialog::DIALOG_SUCCESS);
+                    } else {
+                        Ajax::sendJSON($form->validateData('Chybne vyplnene udaje!'));
+                    }
+                    break;
+                default:
+                    $this->template->form = $form->sendForm();
+                    break;
+            }
         }
         
         public function reinstall() {

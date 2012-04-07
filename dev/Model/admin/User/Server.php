@@ -86,7 +86,7 @@
                         $this->db()
                                 ->tables('users')
                                 ->where('id', UID)
-                                ->update(array('credit' => $credit - $slots * $serverType->cost));
+                                ->update(['credit' => $credit - $slots * $serverType->cost]);
                         
                         $this->db()
                             ->tables('servers')
@@ -117,6 +117,14 @@
                                     'ftp_gid' => 6000,
                                     'dir' => SRV_DIR . $serverType->name . '/' . $port
                                 ));
+                        
+                        $this->db()
+                                ->tables('server_params')
+                                ->insert([
+                                        'SID' => $sid->id, 
+                                        'param' => 'NPC', 
+                                        'value' => 3
+                                        ]);
                     } else return 4;
                 } else return 3;
             } else return 2;
