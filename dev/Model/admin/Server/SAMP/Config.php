@@ -41,6 +41,8 @@
                     ->where('id', SID)
                     ->fetch();
             
+            foreach($_POST as $key => $val) $_POST[$key] = trim ($val);
+            
             $f = fopen($ssh->getSftpLink() . 'srv/SAMP/' . $types->port . '/server.cfg', 'w');
             
             fwrite($f, 'echo ' . \inc\Config::_init()->getValue('name') . "... \n");

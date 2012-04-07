@@ -1,9 +1,7 @@
 TASKS 1:
-    Dorobit autoinstaller pre hry
-    dorobit config pre samp
-    V configu orezavat medzeri alebo v sec treat pred a za value
     Skontrolovat ci pro dosiahnuti max. portu na danom MID sa zacne kontrolovat nasledujuce MID
     Access log, pridat zachytavanie sprav do access logu
+	mail....
 
 TASKS 2:
     Dorobit preklady

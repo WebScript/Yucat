@@ -45,7 +45,8 @@
                     'website' => $_POST['website'],
                     'ip' => UIP,
                     'll1' => time(),
-                    'activate_id' => $hash
+                    'activate_id' => $hash,
+                    'permissions' => '1' //@todo delete!!
                 ));
                 
                 new \inc\Mail('Support@gshost.eu', $_POST['email'], 'Potvrdenie registracie GSHost.eu', 'Uspesne ste sa registrovali na GSHost.eu, ak si zelate aktivovat Vas ucet tak kliknite na <a href="' . DOMAIN_URI . '/Activate/activate' . $hash . '">TENTO</a> odkaz.');
