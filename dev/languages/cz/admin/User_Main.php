@@ -1,5 +1,4 @@
 <?php
-
     $translate = array(
         '_TITLE'                => 'Adminsitrace servera',
         'WELCOME'               => 'Vitaj',
@@ -36,5 +35,4 @@
         
         'F_WRONG_LENGTH'        => 'Cyba, prilis dlhy alebo kratky vyraz!',
         'F_TEXT_ERR'            => 'Chyba! Prve pismeno musi byt velke!',
-        
     );
