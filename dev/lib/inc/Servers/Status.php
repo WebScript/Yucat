@@ -14,7 +14,7 @@
 
     namespace inc\Servers;
     
-    class Status {
+    final class Status {
         
         /**
          * Check status of server
@@ -24,7 +24,7 @@
          * @param BOOL $playersInfo has return player information?
          * @return array 
          */
-        public final function checkStatus($type, $ip, $port, $playersInfo = FALSE) {
+        public function checkStatus($type, $ip, $port, $playersInfo = FALSE) {
             switch($type) {
                 case 1 : // SA:MP
                     $i = $r = 0;
@@ -116,7 +116,7 @@
          * @param integer $len Length
          * @return integer Returned integer
          */
-        private final function Bin2Int($f, $len) {
+        private function Bin2Int($f, $len) {
             $int = 0;
             $bin = fread($f, $len);
             $int += isset($bin[0]) ? ord($bin[0]) : 0;
@@ -133,7 +133,7 @@
          * @param integer $len Length 
          * @return string Returned string
          */
-        private final function Bin2String($f, $len) {
+        private function Bin2String($f, $len) {
             $rLen = ord(fread($f, $len));
             if($rLen > 0) {
                 return fread($f, $rLen);

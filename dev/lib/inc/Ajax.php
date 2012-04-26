@@ -14,7 +14,7 @@
 
     namespace inc;
     
-    class Ajax {
+    final class Ajax {
         /** @var string Content of AJAX response */
         private static $content;
         /** @var BOOL Sending template content or JSON? */

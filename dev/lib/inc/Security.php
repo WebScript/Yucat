@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.6
+     * @version    Release: 0.1.7
      * @link       http://www.yucat.net/documentation
      * 
      * @todo write documentation for protect
@@ -16,7 +16,7 @@
 
     namespace inc;
 
-    class Security {
+    final class Security {
 
         /** This is static class */
         private function __construct() {}

@@ -8,7 +8,7 @@
                     <img src="{$__THEME_DIR}img/avatar.jpg" alt="avatar" width="36" height="36" />
                 </a>
                 <div class="tcenter">
-                    {$_HI} <strong>{$user->user}</strong>!<br/><a href="{$user->website}" target="_blank" class="alight">{$_VISIT}</a> | <a href="javascript:changePage('{macroLink Login:logout}')" class="alightred">{$_LOGOUT}</a>
+                    {$_HI} <strong>{$user->user}</strong>!<br/><a href="{$user->website}" target="_blank" class="alight">{$_VISIT}</a> | <a href="javascript:changePage('{mLink Login:logout}')" class="alightred">{$_LOGOUT}</a>
                 </div>
             </div>
             
@@ -310,7 +310,7 @@
         <div id="panel" class="radius">
             <div class="ajaxContent">
                 {$__MENU}
-                {macroContent}
+                {mContent}
             </div>
             <div id="footer" class="radius-bottom">{$__COPYRIGHT}</div>
         </div>

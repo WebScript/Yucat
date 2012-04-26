@@ -18,7 +18,7 @@
     
     use inc\Diagnostics\Excp;
     
-    class SecureShell {
+    final class SecureShell {
         /** @var resource Resource of connection */
         private $connection;
         /** @var resource Resource of sftp connection */
@@ -34,7 +34,7 @@
          * @param string $login Login of remote server
          * @param string $password Password of remote server
          */
-        public final function __construct($ip, $port, $login, $password) {
+        public function __construct($ip, $port, $login, $password) {
             $this->ip = $ip;
             $this->connection = ssh2_connect($ip, $port);
             if(!$this->connection) new Excp('E_ISE', 'E_CANNOT_CONNECT_TO_SERVER');
@@ -56,7 +56,7 @@
          * @param string $error Returned error from remote server
          * @return string Returned message from remove server (Error is not returned here!) 
          */
-        public final function exec($command, $get = TRUE, &$error = NULL) {
+        public function exec($command, $get = TRUE, &$error = NULL) {
             $result = ssh2_exec($this->connection, $command);
             
             if($get) {
@@ -86,7 +86,7 @@
          * 
          * @return resource Resource of SFTP
          */
-        public final function getSftpLink() {
+        public function getSftpLink() {
             return 'ssh2.sftp://' . $this->sftp . '/';
         }
         

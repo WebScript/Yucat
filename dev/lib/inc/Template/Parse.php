@@ -14,7 +14,7 @@
 
     namespace inc\Template;
     
-    class Parse extends Macro {
+    final class Parse extends Macro {
         /** @var string Regular exxpresions */
         private $regular;
         /** @var array Last called viewer */
@@ -34,7 +34,7 @@
          * Parse template
          * 
          * @param string $haystack HTML template
-         * @param array $search Marcos
+         * @param array $search Macros
          * @param string $delimiter Delimiter
          * @return string Parsed templates
          */
@@ -45,10 +45,10 @@
             $search = \inc\Arr::arrayKeyReplace($delimiter, $this->regular, $search);
             $macro = new Macro();
             
-            foreach($finded[1] as $key => $val) {
+            foreach($finded[1] as $val) {
                 foreach($search as $key2 => $val2) {
                     if(preg_match('@' . $key2 . '@', $val)) {
-                        if(strpos($val, 'macro') !== FALSE) {
+                        if(strpos($val, 'm') === 0) {
                             $str = explode(' ', $val, 2);
                                 if(!key_exists($val, self::$called)) {
                                     if(isset($str[1])) {
@@ -61,7 +61,7 @@
                                     self::$called[$val] = $content;
                                 } else {
                                     $content = self::$called[$val];
-                                }// d($content);
+                                }
                             $haystack = preg_replace('@\{' . $key2 . '\}@', $content, $haystack, 1);
                         } else { 
                             $haystack = preg_replace('@\{' . $key2 . '\}@', '<?php ' . $val2 . ' ?>', $haystack, 1);
@@ -69,7 +69,6 @@
                     }
                 }
             }
-            //exit;
             return $haystack;
         }
         

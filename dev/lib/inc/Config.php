@@ -16,7 +16,7 @@
     
     use inc\Diagnostics\Excp;
 
-    class Config {
+    final class Config {
         /** @var Config instance of this class */
         private static $singleton;
         /** var array config */

@@ -14,7 +14,7 @@
 
      namespace inc;
 
-     class Cache {
+     final class Cache {
          /** @var string cache folder */
          private $folder;
          
@@ -31,7 +31,7 @@
           * @return mixed 
           */
          public function existsLog($logname) {
-             $file = TEMP . $this->folder . '/' . $logname;
+             $file = ROOT . 'temp/' . $this->folder . '/' . $logname;
              
              if(file_exists($file)) {
                  return file($file);
@@ -61,7 +61,7 @@
           * @param string $what 
           */
          public function addToLog($logname, $what) {
-             $file = TEMP . $this->folder . '/' . $logname;
+             $file = ROOT . 'temp/' . $this->folder . '/' . $logname;
 
              $file = fopen($file, 'a');
              fwrite($file, $what . "\n");
@@ -76,7 +76,7 @@
           * @param string $content 
           */
          public function createCache($name, $content) {
-             $file = fopen(TEMP . $this->folder . '/' . $name, 'w');
+             $file = fopen(ROOT . 'temp/' . $this->folder . '/' . $name, 'w');
              fwrite($file, $content);
              fclose($file);
          }
@@ -88,7 +88,7 @@
           * @param string $name 
           */
          public function deleteCache($name) {
-             $name = TEMP . $this->folder . '/' . $name;
+             $name = ROOT . 'temp/' . $this->folder . '/' . $name;
              unlink($name);
          }
      }

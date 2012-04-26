@@ -19,7 +19,7 @@
     use inc\Router;
     use inc\Diagnostics\Excp;
     
-    class Core {
+    final class Core {
         /** @var array All translate packs */
         public static $translate = array();
         /** @var array All called presenters */
@@ -31,11 +31,11 @@
         /**
          * This is primary method for load and manage Viewer in MVP scheme
          */
-        public final function __construct() {
+        public function __construct() {
             $router = Router::_init();
             
             /** load main page */
-            $template = STYLE_DIR . STYLE . '/' . $router->getParam('subdomain') . '/layer.html';
+            $template = ROOT . 'styles/' . STYLE . '/' . $router->getParam('subdomain') . '/layer.html';
             if(file_exists($template)) {
                 $f = fopen($template, 'r');
                 $template = fread($f, filesize($template));
@@ -76,13 +76,13 @@
                 if(Ajax::isAjax()) {
                     ob_start();
                     if(Ajax::isAjax()) echo Ajax::getContent();
-                    include TEMP . 'cache/' . $name;
+                    include ROOT . 'temp/cache/' . $name;
                     $ob = ob_get_contents();
                     ob_end_clean();
                     
                     echo json_encode(array('setContent' => $ob));
                 } else {
-                    include TEMP . 'cache/' . $name;
+                    include ROOT . 'temp/cache/' . $name;
                 }
                 
                 $cache->deleteCache($name);

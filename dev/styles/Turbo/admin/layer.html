@@ -33,9 +33,9 @@
         <script src="{$__THEME_DIR}js/jquery.apprise.js"></script>
     
     {ifset $isLogged :}
-         {macroInclude admin/Logged}
+         {mInclude admin/Logged}
     {else}
-        {macroContent}
+        {mContent}
     {/if}
 
     <script>
@@ -52,7 +52,7 @@
     </body>
     </html>
 {elseif $isAjax :}
-    {macroContent}
+    {mContent}
 {/if}
 
 

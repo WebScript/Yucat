@@ -19,7 +19,7 @@
     
     use inc\Diagnostics\Excp;
     
-    class Form {
+    final class Form {
         /** @var array All forms data */
         private $form = array(
             'globalError' => array(

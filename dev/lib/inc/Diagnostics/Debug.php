@@ -21,7 +21,7 @@
 
     namespace inc\Diagnostics;
 
-    class Debug {
+    final class Debug {
         /** @var float Start time for timer() */
         private static $startTime;
         /** @var integer Mode of debug Production/Development */

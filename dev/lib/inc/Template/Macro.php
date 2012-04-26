@@ -27,9 +27,9 @@
          * Call default macrss
          */
         public function __construct() {
-            $this->addMacro('macroInclude %key', '');
-            $this->addMacro('macroContent', '');
-            $this->addMacro('macroLink %key', '');
+            $this->addMacro('mInclude %key', '');
+            $this->addMacro('mContent', '');
+            $this->addMacro('mLink %key', '');
             $this->addMacro('if %key :', 'if(\\1):');
             $this->addMacro('ifset %key :', 'if(isset(\\1)):');
             $this->addMacro('/if', 'endif;');
@@ -72,7 +72,7 @@
          * @param string $method
          * @return string
          */
-        public final function macroInclude($name, $method = NULL) {
+        public final function mInclude($name, $method = NULL) {
             list($subdomain, $other) = explode('/', $name);
 
             if(substr_count($name, '/') >= 2) {
@@ -80,13 +80,13 @@
                 $other = str_replace('/', '_', $other);
             }
 
-            $styleDir = STYLE_DIR . STYLE . '/' . $subdomain
+            $styleDir = ROOT . 'styles/' . STYLE . '/' . $subdomain
                    . '/template/' . $other 
                    . ($method ? '_' . ucfirst($method) : '') 
                    . '.html';
 
             $parse = new Parse();
-            $presenter = str_replace('/', '\\', PRESENTER . $name);
+            $presenter = str_replace('/', '\\', 'Presenter/' . $name);
             
             Core::$translate = array_merge(Core::$translate, $GLOBALS['lang']->getTranslate($subdomain . '/' . $other));
             Core::$presenter = array_merge(Core::$presenter, array($presenter));
@@ -111,10 +111,10 @@
          * 
          * @return string 
          */
-        public final function macroContent() {
+        public final function mContent() {
             $router = Router::_init();
             $link = $router->getParam('subdomain') . ($router->getParam('dir') ? '/' . implode('/', $router->getParam('dir')) : '') . '/' . $router->getParam('class');
-            return $this->macroInclude($link, $router->getParam('method'));
+            return $this->mInclude($link, $router->getParam('method'));
         }
         
         
@@ -124,7 +124,7 @@
          * @param string $val
          * @return string 
          */
-        public final function macroLink($val) {
+        public final function mLink($val) {
             return Router::traceRoute($val);
         }
     }

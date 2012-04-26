@@ -13,30 +13,6 @@
      */
     define('ROOT', __DIR__ . '/');
     
-    /** 
-     * Define PRESENTER dir
-     * e.g. Presenter/
-     */
-    define('PRESENTER', 'Presenter/');
-    
-    /** 
-     * Define MODEL dir
-     * e.g. Model/
-     */
-    define('MODEL', 'Model/');
-    
-    /**
-     * Define full temporary path 
-     * e.g. /var/www/yucat/developer/temp
-     */
-    define('TEMP', ROOT . 'temp/');
-    
-    /** 
-     * Define full style path 
-     * e.g. /var/www/yucat/developer/styles/
-     */
-    define('STYLE_DIR', ROOT . 'styles/');
-    
     /**
      * Define server's directory at remote server
      * e.g. /srv/
@@ -81,7 +57,7 @@
     init();
     /** Set developer mode */
     //Debug::setMode(Debug::MODE_DEV);
-    Debug::setMode(Debug::MODE_PROD);
+    Debug::setMode(Debug::MODE_DEV);
     /** Create a connection with database */
     $db = new Db(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_DB);
     /** Create instance of Cookie class */
@@ -101,7 +77,7 @@
     /** Define style */
     define('STYLE', $cookie->getParam('style'));
     /* Check style */
-    if(!is_dir(STYLE_DIR . STYLE)) {
+    if(!is_dir(ROOT . 'styles/' . STYLE)) {
         new \inc\Diagnostics\Excp('E_MISSING_STYLE');
     }
     /** Call router */
@@ -111,6 +87,10 @@
     /** Call a template system */
     $core = new Template\Core();
         
+    
+    $a = new \obj\User(1);
+    
+    $a->setCredit(42);
     
     /**
      * mail neni dokonceny

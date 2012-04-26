@@ -18,7 +18,7 @@
     use inc\Config;
     use \inc\Diagnostics\Excp;
     
-    class Language {
+    final class Language {
         /** @var array all avaiable languages */
         private $avaiable_languages = array();
 
@@ -26,7 +26,7 @@
         /** 
          * Load all languages from files
          */
-        public final function __construct() {
+        public function __construct() {
             $cookie = Cookie::_init();
             $dir = opendir(LANG_DIR);
             
@@ -67,7 +67,7 @@
          * Return all avaiable languages
          * @return array Avaiable Languages
          */
-        public final function getAvaiableLang() {
+        public function getAvaiableLang() {
             return $this->avaiable_languages;
         }
         
@@ -78,7 +78,7 @@
          * @param string $name Name of file
          * @return array all translate
          */
-        public final function getTranslate($name) {
+        public function getTranslate($name) {
             $filename = LANG_DIR . LANG . '/' . $name . '.php';
             
             if(file_exists($filename)) {
@@ -105,7 +105,7 @@
          * 
          * @return array
          */
-        public final function errorTranslate() {
+        public function errorTranslate() {
             $filename = LANG_DIR . LANG . '/Errors.php';
             
             if(file_exists($filename)) {

@@ -14,12 +14,14 @@
 
     namespace inc;
 
-    class Date {
+    final class Date {
         /** @var string Default format of date */
         public static $date_format = 'd. M. Y';
         /** @var string Default format of time */
         public static $time_format = 'H:i';
         
+        /** Static class */
+        /* @todo prerobit na private!! */
         public function __construct() {}
         
         

@@ -17,7 +17,7 @@
     
     use inc\Diagnostics\Excp;
     
-    class Router {
+    final class Router {
         /** @var Router instance of this class */
         private static $singleton;
         /** @var array Addrees */
@@ -33,7 +33,7 @@
         /**
          * Parse URL and create varialble with all important data
          */
-        public final function __construct() {
+        public function __construct() {
             /* Use singleton */
             if(!self::$singleton) {
                 /* Get domain, e.g. admin, mobile, etc. */
@@ -41,9 +41,9 @@
                 /* parse domain path to array */
                 $route = array_filter(explode('/', ROUTE));
                 /* set subdomain to variable address */
-                $this->address['subdomain'] = is_dir(ROOT . PRESENTER . $subDomain) ? $subDomain : 'website';
+                $this->address['subdomain'] = is_dir(ROOT . 'Presenter/' . $subDomain) ? $subDomain : 'website';
                 /* Set dir to presenter */
-                $dir = PRESENTER . $this->address['subdomain'] . '/';
+                $dir = 'Presenter/' . $this->address['subdomain'] . '/';
                 /* counter */
                 $i = 0;
 
@@ -101,7 +101,7 @@
          * 
          * @return array All data
          */
-        public final function getAddress() {
+        public function getAddress() {
             return $this->address;
         }
         
@@ -112,7 +112,7 @@
          * @param string $param parameter
          * @return string
          */
-        public final function getParam($param) {
+        public function getParam($param) {
             if(array_key_exists($param, $this->address)) {
                 return $this->address[$param];
             } else {
@@ -136,7 +136,7 @@
                 $input = explode(self::DELIMITER, $input);
             }
             
-            if($input[0] && $input[0] == 'www' || $input[0] && is_dir(ROOT . PRESENTER . $input[0])) {
+            if($input[0] && $input[0] == 'www' || $input[0] && is_dir(ROOT . 'Presenter/' . $input[0])) {
                 $subDomain = $input[0];
                 unset($input[0]);
                 
@@ -170,7 +170,7 @@
             /* Parse link path to array */
             $link = explode(self::DELIMITER, $link);
             /* set subdomain to variable address */
-            if(is_dir(ROOT . PRESENTER . $link[0])) {
+            if(is_dir(ROOT . 'Presenter/' . $link[0])) {
                 $out['subdomain'] = $link[0];
                 $i = 1;
             } else {
@@ -178,7 +178,7 @@
                 $i = 0;
             }
             /* Set presenter's dir */
-            $dir = PRESENTER . $out['subdomain'] . '/';
+            $dir = 'Presenter/' . $out['subdomain'] . '/';
 
             /** Set dir names */
             while(1) {
@@ -228,7 +228,6 @@
             $parse = self::parseRoute($input);
             $parse = $parse['subdomain'] . ':' . implode(':', $parse['dir']) . ':' . $parse['class'];
             $parse = self::traceRoute($parse);
-            $search = self::traceRoute($input);
 
             if($inURL && preg_match('@' . $parse . '$@i', $_SERVER['SCRIPT_URI']) || !$inURL) {
                 if(Ajax::isAjax()) {
@@ -257,7 +256,7 @@
          *  
          * @return string
          */
-        public final function getLink() {
+        public function getLink() {
             return $this->address['subdomain'] . ':' . implode(':', $this->address['dir']) . ':' . $this->address['class'] . (isset($this->address['method']) ? ':' . $this->address['method'] : '');
         }
     }

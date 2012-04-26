@@ -8,13 +8,13 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.2
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
      */
 
     namespace inc;
 
-    class String {
+    final class String {
         
         /** This is static class */
         private function __construct() {}
@@ -26,7 +26,7 @@
          * @param array $args input array
          * @return string replaced string
          */
-        public static final function paramsReplace(array $args) {
+        public static function paramsReplace(array $args) {
             $string = $args[0];
             unset($args[0]);
             
@@ -47,7 +47,7 @@
          * @param integer $len Length of out key
          * @return string key
          */
-        public static final function keyGen($len) {
+        public static function keyGen($len) {
             $hash = '';
             $chars = '1234567890QWERTZUIOPLKJHGFDSAYXCVBNM';
             for($i=0;$i<$len;$i++) {

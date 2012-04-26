@@ -33,7 +33,7 @@
 
         /** Check if class is in inc  so add lib to path */
         list($check) = explode('/', $class, 2);
-        if($check == 'inc') {
+        if($check == 'inc' || $check == 'obj') {
             $class = 'lib/' . $class;
         }
         /** Create path to class file */

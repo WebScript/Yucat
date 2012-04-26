@@ -14,7 +14,7 @@
 
     namespace inc;
 
-    class Arr {
+    final class Arr {
          
         /** This is static class */
         private function __construct() {}
@@ -75,7 +75,7 @@
          * @return type 
          */
         public static function isInExtendedArray(array $array, $search) {
-            foreach($array as $key => $val) {
+            foreach($array as $val) {
                 if(is_array($val)) {
                    if(self::isInExtendedArray($val, $search)) {
                        return TRUE;

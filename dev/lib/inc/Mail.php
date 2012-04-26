@@ -16,7 +16,7 @@
 
     namespace inc;
     
-    class Mail {
+    final class Mail {
         
         /** This is static class */
         public function __costruct($to, $from, $subject, $message) {

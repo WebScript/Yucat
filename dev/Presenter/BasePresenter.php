@@ -31,7 +31,7 @@
         public function __construct() {
             $this->template = Arr::array2Object(Core::$translate);
 
-            $this->template->isLogged       = UID ? TRUE : NULL;
+            $this->template->isLogged       = UID ? TRUE : FALSE;
             $this->template->isAjax         = Ajax::isAjax();
             $this->template->__THEME_DIR    = PROTOCOL . Router::getDomain() . '/styles/' . STYLE . '/' . Router::_init()->getParam('subdomain') . '/theme/';
             $this->template->__KEYWORDS     = Config::_init()->getValue('template_keywords');

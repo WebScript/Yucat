@@ -14,7 +14,7 @@
 
     namespace inc;
 
-    class Dialog {
+    final class Dialog {
         /** constant of dialog base */
         const DIALOG_BASE = 'dialogBase';
         const DIALOG_ERROR = 'dialogError';
@@ -32,7 +32,7 @@
                 echo json_encode(array($type => $message));
                 exit;
             } else {
-                echo '<script>alert(\'' . mysql_escape_string($message) . '\');</script>';
+                echo '<script>alert(\'' . mysql_real_escape_string($message) . '\');</script>';
                 exit;
             }
         }

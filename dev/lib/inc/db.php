@@ -19,7 +19,7 @@
     use inc\Security;
     use inc\Diagnostics\Excp;
 
-    class Db {
+    final class Db {
         /** @var DB instance of thos class */
         private static $singleton;
         /** @var resource ressource of connection to DB */
@@ -114,7 +114,7 @@
          * 
          * @return string SQL query
          */
-        public final function make() {           
+        public function make() {           
             if($this->action === 'SELECT') {
                 $query = 'SELECT ';
                 $query .= $this->select;
@@ -178,7 +178,7 @@
          * @param string $table users, servers, machines, etc.
          * @return db resource of this class
          */
-        public final function tables($table) {
+        public function tables($table) {
             $this->clean();
             $this->tables = \inc\Security::protect($table, TRUE);
             return $this;
@@ -193,7 +193,7 @@
          * @param BOOL determine is second parameter is column or any data
          * @return db resource of this class
          */
-        public final function where($what, $by, $sql = FALSE) {
+        public function where($what, $by, $sql = FALSE) {
             if(is_array($what) || is_array($by)) new Excp('E_CANNOT_WRITE_ARRAY');
             $this->where[$what] = $sql ? array($by, ($sql === TRUE ? '' : $sql)) : $by;
             return $this;
@@ -206,7 +206,7 @@
          * @param array $input all insert values name => value
          * @return result
          */
-        public final function insert(array $input) {
+        public function insert(array $input) {
             $this->action = 'INSERT';
             $this->values = $input;
             return $this->exec($this->make());
@@ -218,7 +218,7 @@
          * 
          * @return db result
          */
-        public final function delete() {
+        public function delete() {
             $this->action = 'DELETE';
             return $this->exec($this->make());
         }
@@ -230,7 +230,7 @@
          * @param array $what update by name => value
          * @return result
          */
-        public final function update(array $what) {
+        public function update(array $what) {
             $this->action = 'UPDATE';
             $this->values = $what;
             return $this->exec($this->make());
@@ -243,7 +243,7 @@
          * @param string $input select
          * @return db resource of this class
          */
-        public final function select($input) {
+        public function select($input) {
             $this->select = \inc\Security::protect($input);
             return $this;
         }
@@ -255,7 +255,7 @@
          * @param string $by order e.g. id DESC
          * @return db reource of this class
          */
-        public final function order($by) {
+        public function order($by) {
             $this->order = \inc\Security::protect($by);
             return $this;
         }
@@ -268,7 +268,7 @@
          * @param integer $offset Offset
          * @return db resource of this class
          */
-        public final function limit($limit, $offset = NULL) {
+        public function limit($limit, $offset = NULL) {
             $this->limit = $limit;
             $this->offset = $offset;
             return $this;
@@ -283,7 +283,7 @@
          * @param string $input SQL command
          * @return mysql result
          */
-        public final function exec($input) {
+        public function exec($input) {
             //$input = String::paramsReplace(func_get_args());
             return mysql_query($input);
         }
@@ -301,7 +301,7 @@
          * 
          * @return array all mysql result
          */
-        public final function fetchAll() {
+        public function fetchAll() {
            $out = array();
            $result = $this->exec($this->make());
            
@@ -321,7 +321,7 @@
         * 
          * @return object mysql result
          */
-        public final function fetch() {
+        public function fetch() {
             $result = $this->exec($this->make());
             if(!$result) new Excp('E_CANNOT_FETCH_DB_ROWS' ,$this->query);
             return mysql_fetch_object($result);
@@ -333,7 +333,7 @@
          * 
          * @return integer count of rows
          */
-        public final function numRows() {
+        public function numRows() {
             $result = $this->exec($this->make());
             if(!$result) new Excp('E_CANNOT_FETCH_DB_ROWS' ,$this->query);
             return mysql_num_rows($result);
