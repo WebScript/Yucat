@@ -39,8 +39,6 @@
             $this->template->__COPYRIGHT    = 'Copyleft &copy; 2011 - 2012, <strong>Yucat ' . Config::_init()->getValue('version') . ' Beta</strong> OpenSource GPLv3 by <strong>Bloodman Arun</strong>';
             
             if(UID) {
-                $this->template->user       = Db::_init()->tables('users')->where('id', UID)->fetch();
-                
                 /* Set SID const */
                 $params = Router::_init()->getParam('params');
                 if(isset($params[0]) && is_numeric($params[0])) {
@@ -56,6 +54,11 @@
         
         protected function db() {
             return Db::_init();
+        }
+        
+        
+        protected function user() {
+            return UID ? new \obj\User(UID) : NULL;
         }
         
         

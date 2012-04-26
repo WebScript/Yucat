@@ -85,12 +85,18 @@
     /** Call a language system */
     $lang = new Template\Language();
     /** Call a template system */
-    $core = new Template\Core();
+    //$core = new Template\Core();
         
     
     $a = new \obj\User(1);
+    $b = new \obj\User(1);
     
-    $a->setCredit(42);
+    $a->setCredit(4);
+    $b->setCredit(7);
+    
+    unset($a);
+ 
+    
     
     /**
      * mail neni dokonceny
