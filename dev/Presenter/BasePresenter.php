@@ -26,7 +26,9 @@
     class BasePresenter {
         /** @var object Object of variables for translate */
         protected $template;
-        
+        protected $server;
+        protected $user;
+
         
         public function __construct() {
             $this->template = Arr::array2Object(Core::$translate);
@@ -39,13 +41,14 @@
             $this->template->__COPYRIGHT    = 'Copyleft &copy; 2011 - 2012, <strong>Yucat ' . Config::_init()->getValue('version') . ' Beta</strong> OpenSource GPLv3 by <strong>Bloodman Arun</strong>';
             
             if(UID) {
+                $this->user = new \obj\User(UID);
                 /* Set SID const */
                 $params = Router::_init()->getParam('params');
                 if(isset($params[0]) && is_numeric($params[0])) {
-                    $sid = $this->db()->tables('servers')->select('id')->where('UID', UID)->where('id', $params[0])->fetch();
-                    if(!defined('SID')) {
-                        if($sid && $sid->id) define('SID', $sid->id);
-                        else new Excp('E_ISE', 'E_WRONG_SID');
+                    if(\obj\Server::isUsersServer(UID, $params[0])) {
+                        $this->server = new \obj\Server($params[0]);
+                    } else {
+                        new Excp('E_WRING_SID');
                     }
                 }
             }
@@ -55,12 +58,7 @@
         protected function db() {
             return Db::_init();
         }
-        
-        
-        protected function user() {
-            return UID ? new \obj\User(UID) : NULL;
-        }
-        
+     
         
         public function getTemplate() {
             return $this->template;

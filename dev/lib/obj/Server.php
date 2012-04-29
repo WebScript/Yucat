@@ -7,15 +7,26 @@
         private $values;
         
         
-        
         public function __construct($id) {
             $this->id = $id;
+            $this->reload();
             
         }
         
         
         public function __destruct() {
-            
+            $this->save();
+        }
+        
+        
+        public static function isUsersServer($id, $uid) {
+            $result = \inc\Db::_init()
+                    ->tables('servers')
+                    ->select('id')
+                    ->where('UID', $uid)
+                    ->where('id', $id)
+                    ->fetch();
+            return $result ? TRUE : FALSE;
         }
         
         
@@ -29,7 +40,7 @@
         
         public function reload() {
             $result = \inc\Db::_init()
-                    ->tables('users')
+                    ->tables('servers')
                     ->where('id', $this->id)
                     ->fetch();
             
@@ -37,5 +48,9 @@
                 $this->values = get_object_vars($result);
             } else throw new \Exception('User doesn\' exist!', 1);
         }
+        
+        /** Getters */
+        
+        
         
     }

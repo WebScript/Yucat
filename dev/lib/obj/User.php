@@ -8,7 +8,7 @@
      * @author     Bloodman Arun
      * @copyright  Copyright (c) 2011 - 2012 by Yucat
      * @license    http://www.yucat.net/license GNU GPLv3 License
-     * @version    Release: 0.1.0
+     * @version    Release: 0.1.3
      * @link       http://www.yucat.net/documentation
      */
 
@@ -40,14 +40,22 @@
         
         
         public function reload() {
-            $result = \inc\Db::_init()
+            $user = \inc\Db::_init()
                     ->tables('users')
                     ->where('id', $this->id)
                     ->fetch();
-            
-            if($result) {
-                $this->values = get_object_vars($result);
+
+            if($user) {
+                $this->values = get_object_vars($user);
             } else throw new \Exception('User doesn\' exist!', 1);
+        }
+        
+        
+        public function deleteUser() {
+            \inc\Db::_init()
+                    ->tables('users')
+                    ->where('id', $this->id)
+                    ->delete();
         }
 
 
@@ -210,5 +218,53 @@
         
         public function setActivateId($value) {
             $this->values['activate_id'] = $value;
+        }
+        
+        
+        
+        
+        public function addCredit($credit) {
+            $this->setCredit($this->getCredit() + $credit);
+            
+        }
+
+        
+        public function lostPassword(&$hash, &$password) {
+            $hash = \inc\String::keyGen(256);
+            $password = \inc\String::keyGen(8);
+            
+            \inc\Db::_init()
+                    ->tables('lost_passwords')
+                    ->insert(['UID' => $this->id, 'hash' => $hash, 'password' => $password]);
+        }
+        
+        
+        public function recoveryPassword($hash) {
+            $result = \inc\Db::_init()
+                    ->tables('lost_passwords')
+                    ->select('password')
+                    ->where('hash', $hash)
+                    ->fetch();
+            if($result) {
+                \inc\Db::_init()
+                        ->tables('lost_passwords')
+                        ->where('hash', $hash)
+                        ->delete();
+                
+                \inc\Db::_init()
+                    ->tables('users')
+                    ->where('id', $this->id)
+                    ->update(['passwd' => $result->password]);
+                return TRUE;
+            }
+            return FALSE;
+        }
+        
+        
+        public function getBanners() {
+            return \inc\Db::_init()
+                    ->tables('banners')
+                    ->where('id', $this->id)
+                    ->fetchAll();
         }
     }
